@@ -36,6 +36,7 @@ const Application = () => {
 		isShowTableData && getApplicationData();
 	}, [isShowTableData]);
 
+	console.log('applicationData', applicationData);
 	return (
 		<div className='rounded-lg'>
 			{/* <ApplicationForm /> */}
