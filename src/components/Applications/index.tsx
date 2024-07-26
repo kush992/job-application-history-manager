@@ -41,7 +41,7 @@ const Application = () => {
 			{/* <ApplicationForm /> */}
 
 			<h1 className='mb-4'>Application Data</h1>
-			{isShowTableData && <ApplicationsTable applicationData={applicationData} />}
+			{isShowTableData && <ApplicationsTable applicationData={applicationData} isLoading={isLoading} />}
 			{!isShowTableData && 'No data to show. Please re-authenticate with special code for the data'}
 		</div>
 	);
