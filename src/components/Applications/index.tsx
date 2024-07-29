@@ -1,10 +1,9 @@
 'use client';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { JobApplicationData, Response } from '@/types/apiResponseTypes';
-import { Models, Query } from 'appwrite';
+import { Query } from 'appwrite';
 import React, { useEffect, useState } from 'react';
 import ApplicationsTable from './ApplicationsTable';
-import ApplicationForm from '../ApplicationForm';
 import { useSearchParams } from 'next/navigation';
 
 const Application = () => {

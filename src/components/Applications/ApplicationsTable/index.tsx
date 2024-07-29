@@ -1,5 +1,4 @@
 import { JobApplicationData, Response } from '@/types/apiResponseTypes';
-import { Models } from 'appwrite';
 import React from 'react';
 import TableDataCell from './ApplicationsTableDataCell';
 import { formatDate } from '@/utils/date';
@@ -38,7 +37,10 @@ const ApplicationsTable = ({ applicationData, isLoading, onClick }: Props) => {
 							<div className='flex items-center'>Interview Date</div>
 						</th>
 						<th scope='col' className='px-6 py-3'>
-							<span className='sr-only'>Actions</span>
+							<span className='sr-only'>Edit Action</span>
+						</th>
+						<th scope='col' className='px-6 py-3'>
+							<span className='sr-only'>Delete Action</span>
 						</th>
 					</tr>
 				</thead>
