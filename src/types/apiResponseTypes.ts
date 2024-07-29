@@ -22,11 +22,12 @@ export type JobApplicationData = {
 	salaryType: string;
 	applicationStatus: null | string;
 	salaryCurrency: string;
-	rejectionReason: null | string;
+	feedbackFromCompany: null | string;
 	companyName: string;
 	companyDomain: string;
 	interviewDate: null | string;
 	isSoftDeleted: null | boolean;
+	links: null | string;
 	$id: string;
 	$tenant: string;
 	$createdAt: string;

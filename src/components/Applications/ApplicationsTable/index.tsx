@@ -1,6 +1,7 @@
 import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Models } from 'appwrite';
 import React from 'react';
+import TableDataCell from './ApplicationsTableDataCell';
 
 type Props = {
 	applicationData: Response<JobApplicationData>;
@@ -19,9 +20,6 @@ const ApplicationsTable = ({ applicationData, isLoading }: Props) => {
 						<th scope='col' className='px-6 py-3'>
 							Job Title
 						</th>
-						{/* <th scope='col' className='px-6 py-3'>
-							<div className='flex items-center'>Job Description</div>
-						</th> */}
 						<th scope='col' className='px-6 py-3'>
 							<div className='flex items-center'>Status</div>
 						</th>
@@ -30,9 +28,6 @@ const ApplicationsTable = ({ applicationData, isLoading }: Props) => {
 						</th>
 						<th scope='col' className='px-6 py-3'>
 							<div className='flex items-center'>Company Name</div>
-						</th>
-						<th scope='col' className='px-6 py-3'>
-							<div className='flex items-center'>Company Domain</div>
 						</th>
 						<th scope='col' className='px-6 py-3'>
 							<div className='flex items-center'>Salary</div>
@@ -56,21 +51,15 @@ const ApplicationsTable = ({ applicationData, isLoading }: Props) => {
 								<th scope='row' className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
 									{data.jobTitle}
 								</th>
-								{/* <td className='px-6 py-4'>{data.jobDescription}</td> */}
-								<td className='px-6 py-4'>{data.applicationStatus ?? '-'}</td>
-								<td className='px-6 py-4'>{data.$createdAt}</td>
-								<td className='px-6 py-4'>{data.companyName}</td>
-								<td className='px-6 py-4'>{data.companyDomain}</td>
+								<TableDataCell text={data.applicationStatus ?? '-'} isSpecialTextColor />
+								<TableDataCell text={data.$createdAt} />
+								<TableDataCell text={data.companyName} />
 								<td className='px-6 py-4'>
 									{data.salary} <br /> <span className='text-[10px]'>{data.salaryCurrency}</span> <br />{' '}
 									<span className='text-[10px]'>{data.salaryType}</span>
 								</td>
-								<td className='px-6 py-4'>{data.interviewDate ?? '-'}</td>
-								<td className='px-6 py-4 text-right'>
-									<a href='#' className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-										Edit
-									</a>
-								</td>
+								<TableDataCell text={data.interviewDate ?? '-'} />
+								<TableDataCell link={`/update/${data.$id}`} text='Edit' highlightLink />
 							</tr>
 						))}
 				</tbody>

@@ -4,7 +4,7 @@ import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Models } from 'appwrite';
 import React, { useEffect, useState } from 'react';
 import ApplicationsTable from './ApplicationsTable';
-import ApplicationForm from './ApplicationForm';
+import ApplicationForm from '../ApplicationForm';
 import { useSearchParams } from 'next/navigation';
 
 const Application = () => {
@@ -39,7 +39,9 @@ const Application = () => {
 	console.log('applicationData', applicationData);
 	return (
 		<div className='rounded-lg'>
-			{/* <ApplicationForm /> */}
+			<a href='/add' className='underline'>
+				Add new application data
+			</a>
 
 			<h1 className='mb-4'>Application Data</h1>
 			{isShowTableData && <ApplicationsTable applicationData={applicationData} isLoading={isLoading} />}
