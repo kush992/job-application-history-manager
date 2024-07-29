@@ -2,13 +2,15 @@ import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Models } from 'appwrite';
 import React from 'react';
 import TableDataCell from './ApplicationsTableDataCell';
+import { formatDate } from '@/utils/date';
 
 type Props = {
 	applicationData: Response<JobApplicationData>;
 	isLoading: boolean;
+	onClick?: (documentId: string) => void;
 };
 
-const ApplicationsTable = ({ applicationData, isLoading }: Props) => {
+const ApplicationsTable = ({ applicationData, isLoading, onClick }: Props) => {
 	return (
 		<div className='relative overflow-x-auto shadow-md sm:rounded-lg w-full'>
 			<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
@@ -52,14 +54,15 @@ const ApplicationsTable = ({ applicationData, isLoading }: Props) => {
 									{data.jobTitle}
 								</th>
 								<TableDataCell text={data.applicationStatus ?? '-'} isSpecialTextColor />
-								<TableDataCell text={data.$createdAt} />
+								<TableDataCell text={formatDate(data.$createdAt)} />
 								<TableDataCell text={data.companyName} />
 								<td className='px-6 py-4'>
 									{data.salary} <br /> <span className='text-[10px]'>{data.salaryCurrency}</span> <br />{' '}
 									<span className='text-[10px]'>{data.salaryType}</span>
 								</td>
-								<TableDataCell text={data.interviewDate ?? '-'} />
+								<TableDataCell text={formatDate(String(data.interviewDate)) ?? '-'} />
 								<TableDataCell link={`/update/${data.$id}`} text='Edit' highlightLink />
+								<TableDataCell onClick={() => onClick && onClick(data.$id)} text='Delete' highlightLink />
 							</tr>
 						))}
 				</tbody>

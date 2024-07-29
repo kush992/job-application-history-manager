@@ -1,7 +1,7 @@
 'use client';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { JobApplicationData, Response } from '@/types/apiResponseTypes';
-import { Models } from 'appwrite';
+import { Models, Query } from 'appwrite';
 import React, { useEffect, useState } from 'react';
 import ApplicationsTable from './ApplicationsTable';
 import ApplicationForm from '../ApplicationForm';
@@ -20,6 +20,7 @@ const Application = () => {
 			const response = (await database.listDocuments(
 				appwriteDatabaseConfig.applicationDatabase,
 				appwriteDatabaseConfig.applicationDatabaseCollectionId,
+				[Query.equal('isSoftDelete', false)],
 			)) as Response<JobApplicationData>;
 
 			if (response.documents.length) {
@@ -31,6 +32,21 @@ const Application = () => {
 			setIsLoading(false);
 		}
 	};
+
+	function softDeleteData(documentId: string) {
+		database
+			.updateDocument(appwriteDatabaseConfig.applicationDatabase, appwriteDatabaseConfig.applicationDatabaseCollectionId, String(documentId), {
+				isSoftDelete: true,
+				softDeleteDateAndTime: new Date(),
+			})
+			.then((response) => {
+				console.log('response', response);
+				getApplicationData();
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}
 
 	useEffect(() => {
 		isShowTableData && getApplicationData();
@@ -44,7 +60,7 @@ const Application = () => {
 			</a>
 
 			<h1 className='mb-4'>Application Data</h1>
-			{isShowTableData && <ApplicationsTable applicationData={applicationData} isLoading={isLoading} />}
+			{isShowTableData && <ApplicationsTable applicationData={applicationData} isLoading={isLoading} onClick={softDeleteData} />}
 			{!isShowTableData && 'No data to show. Please re-authenticate with special code for the data'}
 		</div>
 	);

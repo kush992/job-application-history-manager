@@ -5,10 +5,11 @@ type Props = {
 	highlightLink?: boolean;
 	text: string;
 	isSpecialTextColor?: boolean;
+	onClick?: () => void;
 };
-const TableDataCell = ({ link, text, highlightLink, isSpecialTextColor }: Props) => {
+const TableDataCell = ({ link, text, highlightLink, isSpecialTextColor, onClick }: Props) => {
 	return (
-		<td className='px-6 py-4'>
+		<td className='px-6 py-4' onClick={onClick}>
 			{link ? (
 				<a href={link} className={highlightLink ? 'font-medium text-blue-600 dark:text-blue-500 hover:underline' : ''}>
 					{text}
