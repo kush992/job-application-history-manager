@@ -1,166 +1,130 @@
 import React from 'react';
-import { UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
-import { SalaryCurrency } from '../utility';
+import { FieldErrors, UseFormHandleSubmit, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { formSchema, SalaryCurrency, FormData, SalaryType, ApplicationStatus } from '../utility';
+import TinyEditor from '@/components/TinyEditor';
+import { z } from 'zod';
+import { Input } from 'antd';
+import InputWithLabel from '@/components/InputWithLabel';
+import DatePickerCustom from '@/components/DatePicker';
+import SelectWithLabel from '@/components/SelectCustom';
 
 type Props = {
 	handleSubmit: any;
-	register: any;
-	initialFormData: any;
-	errors: any;
+	register: UseFormRegister<FormData>;
+	initialFormData: FormData;
+	errors: FieldErrors<FormData>;
 	isSubmitting: boolean;
+	setValue: UseFormSetValue<FormData>;
 };
 
-const Form = ({ handleSubmit, register, errors, isSubmitting, initialFormData }: Props) => {
+const Form = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }: Props) => {
 	return (
-		<form className='max-w-2xl w-full mx-auto flex flex-col gap-4 dark:bg-gray-950 p-4 md:p-8 rounded-lg' onSubmit={handleSubmit}>
-			<div className='relative z-0 w-full mb-5 group'>
-				<input
-					type='text'
-					className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-					{...register('jobTitle', { required: true })}
-				/>
-				<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-					Job Title
-				</label>
-				{errors.jobTitle && <p className='text-[10px] py-2 text-red-400'>{errors.jobTitle.message}</p>}
-			</div>
+		<form className='max-w-7xl w-full mx-auto flex flex-col gap-4 dark:bg-gray-950 p-4 md:p-8 rounded-lg' onSubmit={handleSubmit}>
+			{/* job title */}
+			<InputWithLabel
+				labelName='Job Title'
+				placeholder='Job Title'
+				name='Job Title'
+				onChange={(e) => setValue('jobTitle', e.currentTarget.value)}
+				value={initialFormData.jobTitle}
+				errorText={errors.jobTitle?.message ?? ''}
+				isError={!!errors.jobTitle}
+			/>
 
-			<div className='relative z-0 w-full mb-5 group'>
-				<input
-					type='textarea'
-					className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-					{...register('jobDescription', { required: false })}
+			<div>
+				<TinyEditor
+					initialData={initialFormData?.jobDescription ?? ''}
+					onChange={(data: any) => {
+						console.log(data);
+						initialFormData.jobDescription = data?.toString();
+						setValue('jobDescription', data);
+					}}
+					textareaName='jobDescription'
 				/>
-				<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-					Job Description
-				</label>
 				{errors.jobDescription && <p className='text-[10px] py-2 text-red-400'>{errors.jobDescription.message}</p>}
 			</div>
 
-			<div className='relative z-0 w-full mb-5 group'>
-				<input
-					type='text'
-					className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-					{...register('companyName', { required: true })}
+			<div className='md:grid grid-cols-2 gap-4'>
+				<InputWithLabel
+					labelName='Company Name'
+					placeholder='Company Name'
+					name='Company Name'
+					onChange={(e) => setValue('companyName', e.currentTarget.value)}
+					value={initialFormData.companyName}
+					errorText={errors.companyName?.message ?? ''}
+					isError={!!errors.companyName}
 				/>
-				<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-					Company Name
-				</label>
-				{errors.companyName && <p className='text-[10px] py-2 text-red-400'>{errors.companyName.message}</p>}
-			</div>
 
-			<div className='relative z-0 w-full mb-5 group'>
-				<input
-					type='text'
-					className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-					{...register('companyDomain', { required: false })}
+				<InputWithLabel
+					labelName='Company Domain'
+					placeholder='Company Domain'
+					name='Company Domain'
+					onChange={(e) => setValue('companyDomain', e.currentTarget.value)}
+					value={initialFormData.companyDomain}
+					errorText={errors.companyDomain?.message ?? ''}
+					isError={!!errors.companyDomain}
 				/>
-				<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-					Company Domain
-				</label>
-				{errors.companyDomain && <p className='text-[10px] py-2 text-red-400'>{errors.companyDomain.message}</p>}
 			</div>
 
 			<div className='grid grid-cols-2 gap-4'>
-				<div className='relative z-0 w-full mb-5 group'>
-					<input
-						type='string'
-						className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-						{...register('salary', { required: false })}
-					/>
-					<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-						Salary
-					</label>
-					{errors.salary && <p className='text-[10px] py-2 text-red-400'>{errors.salary.message}</p>}
-				</div>
+				<InputWithLabel
+					labelName='Salary'
+					placeholder='Salary'
+					name='Salary'
+					onChange={(e) => setValue('salary', e.currentTarget.value)}
+					value={initialFormData.salary}
+					errorText={errors.salary?.message ?? ''}
+					isError={!!errors.salary}
+				/>
 
-				<div className='relative z-0 w-full mb-5 group'>
-					<select
-						{...register('salaryType', { required: false })}
-						className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-					>
-						<option value={'NULL'}>Select value</option>
-						<option value={'MONTHLY'}>Monthly</option>
-						<option value={'PER_ANUM'}>Per-anum</option>
-					</select>
-					<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-						Salary Type
-					</label>
-					{errors.salaryType && <p className='text-[10px] py-2 text-red-400'>{errors.salaryType.message}</p>}
-				</div>
+				<SelectWithLabel
+					options={[
+						{ value: 'NULL', label: 'Select' },
+						{ value: SalaryType.MONTHLY, label: 'Monthly' },
+						{ value: SalaryType.PER_ANUM, label: 'Per-anum' },
+					]}
+					isError={!!errors.salaryType}
+					errorText={errors?.salaryType?.message ?? ''}
+					labelName={'Salary type'}
+					onChange={(data) => typeof data === 'string' && setValue('salaryType', data)}
+				/>
 
-				<div className='relative z-0 w-full mb-5 group'>
-					<select
-						{...register('salaryCurrency', { required: false })}
-						className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-					>
-						<option value={'NULL'}>Select value</option>
-						<option value={SalaryCurrency.PLN}>PLN</option>
-						<option value={SalaryCurrency.EUR}>EUR</option>
-						<option value={SalaryCurrency.INR}>INR</option>
-						<option value={SalaryCurrency.GBP}>GBP</option>
-						<option value={SalaryCurrency.USD}>USD</option>
-					</select>
-					<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-						Salary Currency
-					</label>
-					{errors.salaryCurrency && <p className='text-[10px] py-2 text-red-400'>{errors.salaryCurrency.message}</p>}
-				</div>
+				<SelectWithLabel
+					options={[
+						{ value: 'NULL', label: 'Select' },
+						{ value: SalaryCurrency.EUR, label: 'EUR' },
+						{ value: SalaryCurrency.GBP, label: 'GBP' },
+						{ value: SalaryCurrency.PLN, label: 'PLN' },
+						{ value: SalaryCurrency.INR, label: 'INR' },
+						{ value: SalaryCurrency.USD, label: 'USD' },
+					]}
+					isError={!!errors.salaryCurrency}
+					errorText={errors?.salaryCurrency?.message ?? ''}
+					labelName={'Salary currency'}
+					onChange={(data) => typeof data === 'string' && setValue('salaryCurrency', data)}
+				/>
 
-				<div className='relative z-0 w-full mb-5 group'>
-					<select
-						{...register('applicationStatus', { required: false })}
-						className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-					>
-						<option value={'NULL'}>Select value</option>
-						<option value='APPLIED'>Applied</option>
-						<option value='IN_PROGRESS'>In Progress</option>
-						<option value='NO_REPLY'>No Reply</option>
-						<option value='REJECTED_NO_FEEDBACK'>Rejected without feedback</option>
-						<option value='REJECTED_WITH_FEEDBACK'>Rejected with feedback</option>
-						<option value='SUCCESS'>Success</option>
-					</select>
-					<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-						Application Status
-					</label>
-					{errors.applicationStatus && <p className='text-[10px] py-2 text-red-400'>{errors.applicationStatus.message}</p>}
-				</div>
+				<SelectWithLabel
+					options={[
+						{ value: 'NULL', label: 'Select' },
+						{ value: ApplicationStatus.APPLIED, label: 'Applied' },
+						{ value: ApplicationStatus.IN_PROGRESS, label: 'In progress' },
+						{ value: ApplicationStatus.SUCCESS, label: 'Success' },
+						{ value: ApplicationStatus.NO_REPLY, label: 'No reply' },
+						{ value: ApplicationStatus.REJECTED_NO_FEEDBACK, label: 'Rejected no feedback' },
+						{ value: ApplicationStatus.REJECTED_WITH_FEEDBACK, label: 'Rejected with feedback' },
+					]}
+					isError={!!errors.applicationStatus}
+					errorText={errors?.applicationStatus?.message ?? ''}
+					labelName={'Application Status'}
+					onChange={(data) => typeof data === 'string' && setValue('applicationStatus', data)}
+				/>
 			</div>
 
-			<div className='relative z-0 w-full mb-5 group'>
-				<input
-					type='string'
-					className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-					{...register('feedbackFromCompany', { required: false })}
-				/>
-				<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-					Rejection Reason
-				</label>
-				{errors.feedbackFromCompany && <p className='text-[10px] py-2 text-red-400'>{errors.feedbackFromCompany.message}</p>}
-			</div>
-
-			<div className='relative z-0 w-full mb-5 group'>
-				<input
-					type='string'
-					className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-					{...register('interviewDate', { required: false })}
-				/>
-				<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-					Interview Date
-				</label>
+			<div className='flex flex-col w-fit'>
+				<label className='text-xs my-0 py-0'>Interview Date</label>
+				<DatePickerCustom onChange={(data) => setValue('interviewDate', data?.toString())} initialValue={initialFormData.interviewDate} />
 				{errors.interviewDate && <p className='text-[10px] py-2 text-red-400'>{errors.interviewDate.message}</p>}
-			</div>
-
-			<div className='relative z-0 w-full mb-5 group'>
-				<input
-					type='string'
-					className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-					{...register('links', { required: false })}
-				/>
-				<label className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>
-					Links
-				</label>
-				{errors.links && <p className='text-[10px] py-2 text-red-400'>{errors.links.message}</p>}
 			</div>
 
 			<button

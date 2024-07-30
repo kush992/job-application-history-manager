@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 export default function Home() {
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
-			<main className='flex min-h-screen flex-col gap-8 max-w-8xl mx-auto p-4 md:p-16'>
+			<main className='flex min-h-screen flex-col gap-8 max-w-7xl mx-auto p-4 md:p-16'>
 				<div className=''>
 					<h1 className='text-lg'>Hello, {"I'm"} Kush</h1>
 					<br />

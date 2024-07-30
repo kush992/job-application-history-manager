@@ -3,7 +3,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { formSchema, SalaryCurrency, SalaryType } from './utility';
+import { formSchema, SalaryCurrency, SalaryType, FormData } from './utility';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
@@ -40,13 +40,12 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		setValue,
 	} = useForm<FormData>({
 		resolver: zodResolver(formSchema),
 		defaultValues: { ...initialFormData },
 		values: { ...initialFormData },
 	});
-
-	type FormData = z.infer<typeof formSchema>;
 
 	async function onSubmit(data: FormData) {
 		setIsSubmitting(true);
@@ -72,15 +71,9 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 
 	function updateDocument(data: FormData) {
 		database
-			.updateDocument(
-				appwriteDatabaseConfig.applicationDatabase,
-				appwriteDatabaseConfig.applicationDatabaseCollectionId,
-				String(documentId),
-				{
-					...data,
-				},
-				['read', 'write', 'update', 'delete'],
-			)
+			.updateDocument(appwriteDatabaseConfig.applicationDatabase, appwriteDatabaseConfig.applicationDatabaseCollectionId, String(documentId), {
+				...data,
+			})
 			.then((response) => {
 				console.log('response', response);
 				router.push('/');
@@ -142,6 +135,7 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 				isSubmitting={isSubmitting}
 				errors={errors}
 				initialFormData={initialFormData}
+				setValue={setValue}
 			/>
 		</div>
 	);

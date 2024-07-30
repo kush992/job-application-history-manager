@@ -42,3 +42,5 @@ export const formSchema = z.object({
 	interviewDate: z.string().optional(),
 	links: z.string().optional(),
 });
+
+export type FormData = z.infer<typeof formSchema>;
