@@ -1,11 +1,15 @@
 import { Input } from 'antd';
 import React from 'react';
 
-interface Props extends HTMLInputElement {
+interface Props {
 	labelName: string;
+	placeholder?: string;
+	name?: string;
+	className?: string;
 	onChange: (data: React.FormEvent<HTMLInputElement>) => void;
 	isError: boolean;
 	errorText: string;
+	readOnly?: boolean;
 	value: string;
 }
 

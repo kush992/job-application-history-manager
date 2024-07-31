@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FieldErrors, UseFormHandleSubmit, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { formSchema, SalaryCurrency, FormData, SalaryType, ApplicationStatus } from '../utility';
 import TinyEditor from '@/components/TinyEditor';
@@ -18,6 +18,15 @@ type Props = {
 };
 
 const Form = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }: Props) => {
+	const [formValues, setFormValues] = useState<FormData>(initialFormData);
+
+	const setValues = (field: string, value: string) => {
+		setFormValues((prevValues) => ({
+			...prevValues,
+			[field]: value,
+		}));
+	};
+
 	return (
 		<form className='max-w-7xl w-full mx-auto flex flex-col gap-4 dark:bg-gray-950 p-4 md:p-8 rounded-lg' onSubmit={handleSubmit}>
 			{/* job title */}
@@ -34,11 +43,7 @@ const Form = ({ handleSubmit, register, errors, isSubmitting, initialFormData, s
 			<div>
 				<TinyEditor
 					initialData={initialFormData?.jobDescription ?? ''}
-					onChange={(data: any) => {
-						console.log(data);
-						initialFormData.jobDescription = data?.toString();
-						setValue('jobDescription', data);
-					}}
+					onChange={(data: any) => setValue('jobDescription', data)}
 					textareaName='jobDescription'
 				/>
 				{errors.jobDescription && <p className='text-[10px] py-2 text-red-400'>{errors.jobDescription.message}</p>}
@@ -60,7 +65,7 @@ const Form = ({ handleSubmit, register, errors, isSubmitting, initialFormData, s
 					placeholder='Company Domain'
 					name='Company Domain'
 					onChange={(e) => setValue('companyDomain', e.currentTarget.value)}
-					value={initialFormData.companyDomain}
+					value={initialFormData.companyDomain ?? ''}
 					errorText={errors.companyDomain?.message ?? ''}
 					isError={!!errors.companyDomain}
 				/>
@@ -72,7 +77,7 @@ const Form = ({ handleSubmit, register, errors, isSubmitting, initialFormData, s
 					placeholder='Salary'
 					name='Salary'
 					onChange={(e) => setValue('salary', e.currentTarget.value)}
-					value={initialFormData.salary}
+					value={initialFormData.salary ?? ''}
 					errorText={errors.salary?.message ?? ''}
 					isError={!!errors.salary}
 				/>

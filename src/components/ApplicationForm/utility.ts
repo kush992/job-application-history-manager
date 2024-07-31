@@ -39,7 +39,7 @@ export const formSchema = z.object({
 	feedbackFromCompany: z.string().optional(),
 	companyName: z.string().nonempty('Company name is a required field'),
 	companyDomain: z.string().optional(),
-	interviewDate: z.string().optional(),
+	interviewDate: z.string().optional().default(''),
 	links: z.string().optional(),
 });
 
