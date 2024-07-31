@@ -14,7 +14,7 @@ const SelectWithLabel = ({ options, labelName, isError, errorText, onChange, cla
 	return (
 		<div className='flex flex-col gap-1'>
 			<label className='text-xs my-0 py-0'>{labelName}</label>
-			<Select options={options} onChange={onChange} className={className} defaultValue={options[0].value} size='large' />
+			<Select options={options} onChange={onChange} className={className} size='large' />
 			{isError && <p className='text-[10px] py-2 text-red-400'>{errorText}</p>}
 		</div>
 	);
