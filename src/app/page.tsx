@@ -25,7 +25,7 @@ export default function Home() {
 				</div>
 
 				<Analytics />
-				<Application />
+				{/* <Application /> */}
 			</main>
 		</Suspense>
 	);
