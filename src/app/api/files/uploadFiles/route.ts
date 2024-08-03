@@ -59,11 +59,13 @@ import { Storage } from '@google-cloud/storage';
 import { NextRequest, NextResponse } from 'next/server';
 import { nanoid } from 'nanoid';
 
-export const config = {
-	api: {
-		bodyParser: false, // Disallow body parsing, since we will handle it manually
-	},
-};
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+// export const config = {
+// 	api: {
+// 		bodyParser: false, // Disallow body parsing, since we will handle it manually
+// 	},
+// };
 
 export async function POST(req: NextRequest) {
 	try {
