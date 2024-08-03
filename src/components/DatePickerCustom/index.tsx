@@ -8,9 +8,9 @@ type Props = {
 
 const DatePickerCustom = ({ onChange, initialValue }: Props) => {
 	return (
-		<>
-			<DatePicker onChange={onChange} showTime />
-		</>
+		<div className='overflow-scroll md:w-full'>
+			<DatePicker onChange={onChange} showTime popupClassName='md:w-full !w-[300px] overflow-scroll' />
+		</div>
 	);
 };
 

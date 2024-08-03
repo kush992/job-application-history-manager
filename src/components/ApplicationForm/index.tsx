@@ -8,6 +8,8 @@ import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
 import Form from './Form';
+import SubHeader from '../SubHeader';
+import { nanoid } from 'nanoid';
 
 type Props = {
 	documentId?: string;
@@ -127,8 +129,11 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 	}, [isUpdateForm, documentId]);
 
 	return (
-		<div className='flex flex-col gap-8'>
-			<h1 className='text-lg max-w-2xl mx-auto'>Add latest applied</h1>
+		<div className='flex flex-col gap-6'>
+			<div>
+				<SubHeader previousPageTitle='Home' href='/' />
+				<h1 className='text-xl font-semibold'>Add latest applied</h1>
+			</div>
 			<Form
 				handleSubmit={handleSubmit(onSubmit)}
 				register={register}

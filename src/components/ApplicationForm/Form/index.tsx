@@ -5,8 +5,9 @@ import TinyEditor from '@/components/TinyEditor';
 import { z } from 'zod';
 import { Input } from 'antd';
 import InputWithLabel from '@/components/InputWithLabel';
-import DatePickerCustom from '@/components/DatePicker';
+import DatePickerCustom from '@/components/DatePickerCustom';
 import SelectWithLabel from '@/components/SelectCustom';
+import UploaderCustom from '@/components/UploaderCustom';
 
 type Props = {
 	handleSubmit: any;
@@ -17,18 +18,9 @@ type Props = {
 	setValue: UseFormSetValue<FormData>;
 };
 
-const Form = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }: Props) => {
-	const [formValues, setFormValues] = useState<FormData>(initialFormData);
-
-	const setValues = (field: string, value: string) => {
-		setFormValues((prevValues) => ({
-			...prevValues,
-			[field]: value,
-		}));
-	};
-
+const Form: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }) => {
 	return (
-		<form className='max-w-7xl w-full mx-auto flex flex-col gap-4 dark:bg-gray-950 p-4 md:p-8 rounded-lg' onSubmit={handleSubmit}>
+		<form className='max-w-7xl w-full mx-auto flex flex-col gap-4 md:p-8 rounded-lg' onSubmit={handleSubmit}>
 			{/* job title */}
 			<InputWithLabel
 				labelName='Job Title'
@@ -41,6 +33,7 @@ const Form = ({ handleSubmit, register, errors, isSubmitting, initialFormData, s
 			/>
 
 			<div>
+				<label className='text-xs my-0 py-0'>Job Description</label>
 				<TinyEditor
 					initialData={initialFormData?.jobDescription ?? ''}
 					onChange={(data: any) => setValue('jobDescription', data)}
@@ -132,10 +125,25 @@ const Form = ({ handleSubmit, register, errors, isSubmitting, initialFormData, s
 				{errors.interviewDate && <p className='text-[10px] py-2 text-red-400'>{errors.interviewDate.message}</p>}
 			</div>
 
+			<div>
+				<label className='text-xs my-0 py-0'>Company Feedback</label>
+				<TinyEditor
+					initialData={initialFormData?.feedbackFromCompany ?? ''}
+					onChange={(data: any) => setValue('feedbackFromCompany', data)}
+					textareaName='feedbackFromCompany'
+				/>
+				{errors.feedbackFromCompany && <p className='text-[10px] py-2 text-red-400'>{errors.feedbackFromCompany.message}</p>}
+			</div>
+
+			<div>
+				<label className='text-xs my-0 py-0'>Upload Documents</label>
+				<UploaderCustom setValue={setValue} />
+			</div>
+
 			<button
 				type='submit'
 				disabled={isSubmitting}
-				className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+				className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
 			>
 				Submit
 			</button>

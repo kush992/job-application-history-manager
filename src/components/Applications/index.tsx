@@ -5,6 +5,7 @@ import { Query } from 'appwrite';
 import React, { useEffect, useState } from 'react';
 import ApplicationsTable from './ApplicationsTable';
 import { useSearchParams } from 'next/navigation';
+import { Button } from 'antd';
 
 const Application = () => {
 	const [applicationData, setApplicationData] = useState<Response<JobApplicationData>>({} as Response<JobApplicationData>);
@@ -54,11 +55,10 @@ const Application = () => {
 	console.log('applicationData', applicationData);
 	return (
 		<div className='rounded-lg'>
-			<a href='/add' className='underline'>
-				Add new application data
-			</a>
-
-			<h1 className='mb-4'>Application Data</h1>
+			<div className='flex justify-between items-center mb-6'>
+				<h1 className='text-xl font-semibold text-black'>Application Data</h1>
+				<Button href='/add'>Add new</Button>
+			</div>
 			{isShowTableData && <ApplicationsTable applicationData={applicationData} isLoading={isLoading} onClick={softDeleteData} />}
 			{!isShowTableData && 'No data to show. Please re-authenticate with special code for the data'}
 		</div>

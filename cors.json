@@ -1,0 +1,17 @@
+[
+	{
+		"origin": [
+			"http://localhost:3000",
+			"https://kushbhalodi.com/"
+		],
+		"method": [
+			"POST",
+			"GET",
+			"PUT"
+		],
+		"responseHeader": [
+			"Content-Type"
+		],
+		"maxAgeSeconds": 3600
+	}
+]

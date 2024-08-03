@@ -12,11 +12,11 @@ const TableDataCell = ({ link, text, highlightLink, isSpecialTextColor, onClick,
 	return (
 		<td className='px-6 py-4' onClick={onClick}>
 			{link ? (
-				<a href={link} className={highlightLink ? 'font-medium text-blue-600 dark:text-blue-500 hover:underline' : ''}>
+				<a href={link} className={highlightLink ? `font-medium text-blue-600 hover:underline ${textColor}` : ''}>
 					{text}
 				</a>
 			) : (
-				<span className={isSpecialTextColor ? `${textColor} dark:bg-gray-900 bg-gray-200 p-1 rounded-lg text-xs` : ''}>{text}</span>
+				<span className={isSpecialTextColor ? `${textColor} bg-gray-200 p-1 rounded-lg text-xs` : ''}>{text}</span>
 			)}
 		</td>
 	);

@@ -4,6 +4,7 @@ import TableDataCell from './ApplicationsTableDataCell';
 import { formatDate } from '@/utils/date';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
+import { Table } from 'antd';
 
 type Props = {
 	applicationData: Response<JobApplicationData>;
@@ -11,7 +12,7 @@ type Props = {
 	onClick?: (documentId: string) => void;
 };
 
-const ApplicationsTable = ({ applicationData, isLoading, onClick }: Props) => {
+const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClick }) => {
 	function getApplicationStatusColor(applicationStatus: ApplicationStatus) {
 		switch (applicationStatus) {
 			case ApplicationStatus.APPLIED:
@@ -30,73 +31,95 @@ const ApplicationsTable = ({ applicationData, isLoading, onClick }: Props) => {
 	}
 
 	return (
-		<div className='relative overflow-x-auto shadow-md sm:rounded-lg w-full'>
-			<table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
-				<thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
-					<tr>
-						<th scope='col' className='px-6 py-3'>
-							No.
-						</th>
-						<th scope='col' className='px-6 py-3'>
-							Job Title
-						</th>
-						<th scope='col' className='px-6 py-3'>
-							<div className='flex items-center'>Status</div>
-						</th>
-						<th scope='col' className='px-6 py-3'>
-							<div className='flex items-center'>Applied on</div>
-						</th>
-						<th scope='col' className='px-6 py-3'>
-							<div className='flex items-center'>Company Name</div>
-						</th>
-						<th scope='col' className='px-6 py-3 w-max'>
-							<div className='flex items-center'>Salary</div>
-						</th>
-						{/* <th scope='col' className='px-6 py-3'>
-							<div className='flex items-center'>Interview Date</div>
-						</th> */}
-						<th scope='col' className='px-6 py-3'>
-							<span className='sr-only'>Action</span>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{isLoading && 'Loading...'}
-					{!isLoading &&
-						applicationData?.documents?.map((data, index) => (
-							<tr key={data.$id} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
-								<th scope='row' className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-									{index + 1}
-								</th>
-								<th scope='row' className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-									<a href={`/view/${data.$id}`}>{data.jobTitle}</a>
-								</th>
-								<TableDataCell
-									text={data.applicationStatus ?? '-'}
-									isSpecialTextColor
-									link={`/view/${data.$id}`}
-									textColor={getApplicationStatusColor(data.applicationStatus as ApplicationStatus)}
-								/>
-								<TableDataCell text={formatDate(data.$createdAt)} link={`/view/${data.$id}`} />
-								<TableDataCell text={data.companyName} link={`/view/${data.$id}`} />
-								<td className='px-6 py-4 w-max'>
-									<a href={`/view/${data.$id}`}>
-										{data.salary} <br /> <span className='text-[10px]'>{data.salaryCurrency}</span> <br />{' '}
-										<span className='text-[10px]'>{data.salaryType}</span>
-									</a>
-								</td>
-								{/* <TableDataCell text={formatDate(String(data.interviewDate)) ?? '-'} /> */}
-								<td className='px-6 py-4 flex gap-2'>
-									<a href={`/update/${data.$id}`}>
-										<EditFilled height={20} width={20} />
-									</a>
-									<DeleteFilled className='text-red-400' height={20} width={20} onClick={() => onClick && onClick(data.$id)} />
-								</td>
-							</tr>
-						))}
-				</tbody>
-			</table>
-		</div>
+		<Table
+			loading={isLoading}
+			scroll={{ x: true }}
+			sticky={true}
+			bordered
+			pagination={{ position: ['bottomCenter'] }}
+			columns={[
+				{
+					dataIndex: 'index',
+					key: 'index',
+					className: 'min-w-fit w-fit',
+					render: (text: string, record: any, index: number) => index + 1,
+					showSorterTooltip: { target: 'full-header' },
+				},
+				{
+					title: 'Job Title',
+					dataIndex: 'jobTitle',
+					key: 'jobTitle',
+					render: (text: string, record: any) => <a href={`/view/${record.$id}`}>{text}</a>,
+					sorter: (a, b) => a.jobTitle.localeCompare(b.jobTitle),
+					sortDirections: ['ascend', 'descend'],
+				},
+				{
+					title: 'Status',
+					dataIndex: 'applicationStatus',
+					key: 'applicationStatus',
+					render: (text: string, record: any) => (
+						<TableDataCell
+							text={text ?? '-'}
+							isSpecialTextColor
+							link={`/view/${record.$id}`}
+							textColor={getApplicationStatusColor(record.applicationStatus as ApplicationStatus)}
+						/>
+					),
+					sorter: (a, b) => a.applicationStatus?.localeCompare(b.applicationStatus),
+					sortDirections: ['ascend', 'descend'],
+					filters: [
+						{ text: ApplicationStatus.APPLIED, value: ApplicationStatus.APPLIED },
+						{ text: ApplicationStatus.IN_PROGRESS, value: ApplicationStatus.IN_PROGRESS },
+						{ text: ApplicationStatus.SUCCESS, value: ApplicationStatus.SUCCESS },
+						{ text: ApplicationStatus.NO_REPLY, value: ApplicationStatus.NO_REPLY },
+						{ text: ApplicationStatus.REJECTED_NO_FEEDBACK, value: ApplicationStatus.REJECTED_NO_FEEDBACK },
+						{ text: ApplicationStatus.REJECTED_WITH_FEEDBACK, value: ApplicationStatus.REJECTED_WITH_FEEDBACK },
+					],
+					onFilter: (value, record) => record?.applicationStatus?.includes(value),
+				},
+				{
+					title: 'Applied on',
+					dataIndex: '$createdAt',
+					key: '$createdAt',
+					sorter: (a, b) => new Date(a.$createdAt).getTime() - new Date(b.$createdAt).getTime(),
+					sortDirections: ['ascend', 'descend'],
+					render: (text: string, record: any) => <TableDataCell text={formatDate(text)} link={`/view/${record.$id}`} />,
+				},
+				{
+					title: 'Company Name',
+					dataIndex: 'companyName',
+					key: 'companyName',
+					render: (text: string, record: any) => <TableDataCell text={text} link={`/view/${record.$id}`} />,
+				},
+				{
+					title: 'Salary',
+					dataIndex: 'salary',
+					key: 'salary',
+					render: (text: string, record: any) => (
+						<td className='px-6 py-4 w-max'>
+							<a href={`/view/${record.$id}`}>
+								{text} <br /> <span className='text-[10px]'>{record.salaryCurrency}</span> <br />{' '}
+								<span className='text-[10px]'>{record.salaryType}</span>
+							</a>
+						</td>
+					),
+				},
+				{
+					title: 'Action',
+					dataIndex: 'action',
+					key: 'action',
+					render: (text: string, record: any) => (
+						<td className='px-6 py-4 flex gap-2'>
+							<a href={`/update/${record.$id}`}>
+								<EditFilled height={'20px'} width={'20px'} />
+							</a>
+							<DeleteFilled className='text-red-400' height={'20px'} width={'20px'} onClick={() => onClick && onClick(record.$id)} />
+						</td>
+					),
+				},
+			]}
+			dataSource={applicationData?.documents}
+		/>
 	);
 };
 
