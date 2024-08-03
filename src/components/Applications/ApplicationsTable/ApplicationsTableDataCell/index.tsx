@@ -10,7 +10,7 @@ type Props = {
 };
 const TableDataCell = ({ link, text, highlightLink, isSpecialTextColor, onClick, textColor }: Props) => {
 	return (
-		<td className='px-6 py-4' onClick={onClick}>
+		<td onClick={onClick}>
 			{link ? (
 				<a href={link} className={highlightLink ? `font-medium text-blue-600 hover:underline ${textColor}` : ''}>
 					{text}

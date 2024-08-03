@@ -20,8 +20,7 @@ type Props = {
 
 const Form: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }) => {
 	return (
-		<form className='max-w-7xl w-full mx-auto flex flex-col gap-4 md:p-8 rounded-lg' onSubmit={handleSubmit}>
-			{/* job title */}
+		<form className='max-w-7xl w-full mx-auto flex flex-col gap-4 rounded-lg' onSubmit={handleSubmit}>
 			<InputWithLabel
 				labelName='Job Title'
 				placeholder='Job Title'

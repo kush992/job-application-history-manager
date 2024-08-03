@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import ApplicationsTable from './ApplicationsTable';
 import { useSearchParams } from 'next/navigation';
 import { Button } from 'antd';
+import { appRoutes } from '@/utils/constants';
 
 const Application = () => {
 	const [applicationData, setApplicationData] = useState<Response<JobApplicationData>>({} as Response<JobApplicationData>);
@@ -57,7 +58,7 @@ const Application = () => {
 		<div className='rounded-lg'>
 			<div className='flex justify-between items-center mb-6'>
 				<h1 className='text-xl font-semibold text-black'>Application Data</h1>
-				<Button href='/add'>Add new</Button>
+				<Button href={appRoutes.addApplicationPage}>Add new</Button>
 			</div>
 			{isShowTableData && <ApplicationsTable applicationData={applicationData} isLoading={isLoading} onClick={softDeleteData} />}
 			{!isShowTableData && 'No data to show. Please re-authenticate with special code for the data'}

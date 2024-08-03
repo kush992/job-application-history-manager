@@ -5,6 +5,7 @@ import { formatDate } from '@/utils/date';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { Table } from 'antd';
+import { appRoutes } from '@/utils/constants';
 
 type Props = {
 	applicationData: Response<JobApplicationData>;
@@ -37,11 +38,12 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 			sticky={true}
 			bordered
 			pagination={{ position: ['bottomCenter'] }}
+			tableLayout='fixed'
+			className='w-full'
 			columns={[
 				{
 					dataIndex: 'index',
 					key: 'index',
-					className: 'min-w-fit w-fit',
 					render: (text: string, record: any, index: number) => index + 1,
 					showSorterTooltip: { target: 'full-header' },
 				},
@@ -49,7 +51,7 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 					title: 'Job Title',
 					dataIndex: 'jobTitle',
 					key: 'jobTitle',
-					render: (text: string, record: any) => <a href={`/view/${record.$id}`}>{text}</a>,
+					render: (text: string, record: any) => <a href={`${appRoutes.viewApplicationPage}/${record.$id}`}>{text}</a>,
 					sorter: (a, b) => a.jobTitle.localeCompare(b.jobTitle),
 					sortDirections: ['ascend', 'descend'],
 				},
@@ -61,7 +63,7 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 						<TableDataCell
 							text={text ?? '-'}
 							isSpecialTextColor
-							link={`/view/${record.$id}`}
+							link={`${appRoutes.viewApplicationPage}/${record.$id}`}
 							textColor={getApplicationStatusColor(record.applicationStatus as ApplicationStatus)}
 						/>
 					),
@@ -83,22 +85,25 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 					key: '$createdAt',
 					sorter: (a, b) => new Date(a.$createdAt).getTime() - new Date(b.$createdAt).getTime(),
 					sortDirections: ['ascend', 'descend'],
-					render: (text: string, record: any) => <TableDataCell text={formatDate(text)} link={`/view/${record.$id}`} />,
+					render: (text: string, record: any) => (
+						<TableDataCell text={formatDate(text)} link={`${appRoutes.viewApplicationPage}/${record.$id}`} />
+					),
 				},
 				{
 					title: 'Company Name',
 					dataIndex: 'companyName',
 					key: 'companyName',
-					render: (text: string, record: any) => <TableDataCell text={text} link={`/view/${record.$id}`} />,
+					render: (text: string, record: any) => <TableDataCell text={text} link={`${appRoutes.viewApplicationPage}/${record.$id}`} />,
 				},
 				{
 					title: 'Salary',
 					dataIndex: 'salary',
 					key: 'salary',
 					render: (text: string, record: any) => (
-						<td className='px-6 py-4 w-max'>
-							<a href={`/view/${record.$id}`}>
-								{text} <br /> <span className='text-[10px]'>{record.salaryCurrency}</span> <br />{' '}
+						<td className='w-max'>
+							<a href={`${appRoutes.viewApplicationPage}/${record.$id}`}>
+								{text} <br /> <span className='text-[10px]'>{record.salaryCurrency}</span>
+								&nbsp;
 								<span className='text-[10px]'>{record.salaryType}</span>
 							</a>
 						</td>
@@ -109,8 +114,8 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 					dataIndex: 'action',
 					key: 'action',
 					render: (text: string, record: any) => (
-						<td className='px-6 py-4 flex gap-2'>
-							<a href={`/update/${record.$id}`}>
+						<td className='flex gap-2'>
+							<a href={`${appRoutes.updateApplicationPage}/${record.$id}`}>
 								<EditFilled height={'20px'} width={'20px'} />
 							</a>
 							<DeleteFilled className='text-red-400' height={'20px'} width={'20px'} onClick={() => onClick && onClick(record.$id)} />

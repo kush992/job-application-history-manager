@@ -21,6 +21,7 @@ const UploaderCustom: React.FC<Props> = ({ setValue }) => {
 	const props: UploadProps = {
 		name: 'file',
 		multiple: true,
+		supportServerRender: true,
 		async onChange(info) {
 			const uploadOk = await uploadFile(info.file.originFileObj as File);
 			if (uploadOk) {
