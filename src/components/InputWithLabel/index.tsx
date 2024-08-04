@@ -10,7 +10,7 @@ interface Props {
 	isError: boolean;
 	errorText: string;
 	readOnly?: boolean;
-	value: string;
+	value?: string;
 }
 
 const InputWithLabel = (props: Props) => {
@@ -28,6 +28,7 @@ const InputWithLabel = (props: Props) => {
 				width={'50%'}
 				readOnly={readOnly}
 				defaultValue={value}
+				value={value}
 			/>
 			{isError && <p className='text-[10px] py-2 text-red-400'>{errorText}</p>}
 		</div>

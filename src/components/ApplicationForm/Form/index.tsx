@@ -18,13 +18,13 @@ type Props = {
 	setValue: UseFormSetValue<FormData>;
 };
 
-const Form: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }) => {
+const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }) => {
 	return (
 		<form className='max-w-7xl w-full mx-auto flex flex-col gap-4 rounded-lg' onSubmit={handleSubmit}>
 			<InputWithLabel
 				labelName='Job Title'
 				placeholder='Job Title'
-				name='Job Title'
+				name='jobTitle'
 				onChange={(e) => setValue('jobTitle', e.currentTarget.value)}
 				value={initialFormData.jobTitle}
 				errorText={errors.jobTitle?.message ?? ''}
@@ -83,6 +83,7 @@ const Form: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, i
 					isError={!!errors.salaryType}
 					errorText={errors?.salaryType?.message ?? ''}
 					labelName={'Salary type'}
+					initialValue={{ value: initialFormData?.salaryType ?? '', label: initialFormData?.salaryType ?? '' }}
 					onChange={(data) => typeof data === 'string' && setValue('salaryType', data)}
 				/>
 
@@ -98,6 +99,7 @@ const Form: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, i
 					isError={!!errors.salaryCurrency}
 					errorText={errors?.salaryCurrency?.message ?? ''}
 					labelName={'Salary currency'}
+					initialValue={{ value: initialFormData?.salaryCurrency ?? '', label: initialFormData?.salaryCurrency ?? '' }}
 					onChange={(data) => typeof data === 'string' && setValue('salaryCurrency', data)}
 				/>
 
@@ -113,6 +115,7 @@ const Form: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, i
 					]}
 					isError={!!errors.applicationStatus}
 					errorText={errors?.applicationStatus?.message ?? ''}
+					initialValue={{ value: initialFormData?.applicationStatus ?? '', label: initialFormData?.applicationStatus ?? '' }}
 					labelName={'Application Status'}
 					onChange={(data) => typeof data === 'string' && setValue('applicationStatus', data)}
 				/>
@@ -150,4 +153,4 @@ const Form: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, i
 	);
 };
 
-export default Form;
+export default CustomForm;

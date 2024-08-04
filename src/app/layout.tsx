@@ -1,12 +1,31 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
 	title: 'Job Application Manager',
 	description: 'Created by kushbhalodi.com',
+	openGraph: {
+		title: 'Job Application Manager',
+		description: 'Created by kushbhalodi.com',
+		type: 'website',
+		locale: 'en_US',
+		url: 'https://job-application-manager.vercel.app',
+		siteName: 'Job Application Manager',
+	},
+	twitter: {
+		site: '@kushbhalodi',
+		card: 'summary_large_image',
+		title: 'Job Application Manager',
+		description: 'Created by kushbhalodi.com',
+		images: 'https://img.kushbhalodi.com/images/kush-bhalodi-logo.png',
+	},
+	robots: {
+		googleBot: 'index, follow',
+	},
 };
 
 export default function RootLayout({
@@ -16,7 +35,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={inter.className}>{children}</body>
+			<body className={inter.className}>
+				<AntdRegistry>{children}</AntdRegistry>
+			</body>
 		</html>
 	);
 }

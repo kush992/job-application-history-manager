@@ -7,9 +7,10 @@ import { formSchema, SalaryCurrency, SalaryType, FormData } from './utility';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
-import Form from './Form';
+import CustomForm from './Form';
 import SubHeader from '../SubHeader';
 import { nanoid } from 'nanoid';
+import Loader from '../Loader';
 
 type Props = {
 	documentId?: string;
@@ -41,7 +42,7 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, defaultValues },
 		setValue,
 	} = useForm<FormData>({
 		resolver: zodResolver(formSchema),
@@ -134,14 +135,19 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 				<SubHeader previousPageTitle='Home' href='/' />
 				<h1 className='text-xl font-semibold'>Add latest applied</h1>
 			</div>
-			<Form
-				handleSubmit={handleSubmit(onSubmit)}
-				register={register}
-				isSubmitting={isSubmitting}
-				errors={errors}
-				initialFormData={initialFormData}
-				setValue={setValue}
-			/>
+
+			{isLoading ? (
+				<Loader />
+			) : (
+				<CustomForm
+					handleSubmit={handleSubmit(onSubmit)}
+					register={register}
+					isSubmitting={isSubmitting}
+					errors={errors}
+					initialFormData={initialFormData}
+					setValue={setValue}
+				/>
+			)}
 		</div>
 	);
 };
