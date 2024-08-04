@@ -32,7 +32,7 @@ const UploaderCustom: React.FC<Props> = ({ setValue }) => {
 					appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
 					ID.unique(),
 					{
-						links: uploadOk,
+						link: uploadOk,
 						userId: nanoid(12),
 					},
 				);
