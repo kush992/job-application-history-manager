@@ -33,7 +33,7 @@ const TinyEditor = ({ initialData, onChange, textareaName }: Props) => {
 				textareaName={textareaName}
 				init={{
 					height: 500,
-					menubar: false,
+					menubar: 'file edit view insert format tools table help',
 					plugins: [
 						'advlist',
 						'autolink',
