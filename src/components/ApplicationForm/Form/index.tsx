@@ -3,7 +3,7 @@ import { FieldErrors, UseFormHandleSubmit, UseFormRegister, UseFormSetValue } fr
 import { formSchema, SalaryCurrency, FormData, SalaryType, ApplicationStatus } from '../utility';
 import TinyEditor from '@/components/TinyEditor';
 import { z } from 'zod';
-import { Input } from 'antd';
+import { Button, Input } from 'antd';
 import InputWithLabel from '@/components/InputWithLabel';
 import DatePickerCustom from '@/components/DatePickerCustom';
 import SelectWithLabel from '@/components/SelectCustom';
@@ -142,13 +142,9 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 				<UploaderCustom setValue={setValue} />
 			</div>
 
-			<button
-				type='submit'
-				disabled={isSubmitting}
-				className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
-			>
+			<Button disabled={isSubmitting} loading={isSubmitting} type='primary' size='large'>
 				Submit
-			</button>
+			</Button>
 		</form>
 	);
 };
