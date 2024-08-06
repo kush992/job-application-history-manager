@@ -46,12 +46,17 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 					key: 'index',
 					render: (text: string, record: any, index: number) => index + 1,
 					showSorterTooltip: { target: 'full-header' },
+					className: '!text-black',
 				},
 				{
 					title: 'Job Title',
 					dataIndex: 'jobTitle',
 					key: 'jobTitle',
-					render: (text: string, record: any) => <a href={`${appRoutes.viewApplicationPage}/${record.$id}`}>{text}</a>,
+					render: (text: string, record: any) => (
+						<a className='!text-black' href={`${appRoutes.viewApplicationPage}/${record.$id}`}>
+							{text}
+						</a>
+					),
 					sorter: (a, b) => a.jobTitle.localeCompare(b.jobTitle),
 					sortDirections: ['ascend', 'descend'],
 				},
@@ -101,7 +106,7 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 					key: 'salary',
 					render: (text: string, record: any) => (
 						<td className='w-max'>
-							<a href={`${appRoutes.viewApplicationPage}/${record.$id}`}>
+							<a className='text-black' href={`${appRoutes.viewApplicationPage}/${record.$id}`}>
 								{text} <br /> <span className='text-[10px]'>{record.salaryCurrency}</span>
 								&nbsp;
 								<span className='text-[10px]'>{record.salaryType}</span>
@@ -115,12 +120,13 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 					key: 'action',
 					render: (text: string, record: any) => (
 						<td className='flex gap-2'>
-							<a href={`${appRoutes.updateApplicationPage}/${record.$id}`}>
+							<a className='text-black' href={`${appRoutes.updateApplicationPage}/${record.$id}`}>
 								<EditFilled height={'20px'} width={'20px'} />
 							</a>
-							<DeleteFilled className='text-red-400' height={'20px'} width={'20px'} onClick={() => onClick && onClick(record.$id)} />
+							<DeleteFilled className='!text-red-400' height={'20px'} width={'20px'} onClick={() => onClick && onClick(record.$id)} />
 						</td>
 					),
+					className: 'w-20',
 				},
 			]}
 			dataSource={applicationData?.documents}

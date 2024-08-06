@@ -8,6 +8,7 @@ import InputWithLabel from '@/components/InputWithLabel';
 import DatePickerCustom from '@/components/DatePickerCustom';
 import SelectWithLabel from '@/components/SelectCustom';
 import UploaderCustom from '@/components/UploaderCustom';
+import { config } from '@/config/config';
 
 type Props = {
 	handleSubmit: any;
@@ -127,7 +128,7 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 				{errors.interviewDate && <p className='text-[10px] py-2 text-red-400'>{errors.interviewDate.message}</p>}
 			</div>
 
-			<div>
+			{/* <div>
 				<label className='text-xs my-0 py-0'>Company Feedback</label>
 				<TinyEditor
 					initialData={initialFormData?.feedbackFromCompany ?? ''}
@@ -135,12 +136,14 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 					textareaName='feedbackFromCompany'
 				/>
 				{errors.feedbackFromCompany && <p className='text-[10px] py-2 text-red-400'>{errors.feedbackFromCompany.message}</p>}
-			</div>
+			</div> */}
 
-			<div>
-				<label className='text-xs my-0 py-0'>Upload Documents</label>
-				<UploaderCustom setValue={setValue} />
-			</div>
+			{config.uiShowUploader === '1' && (
+				<div>
+					<label className='text-xs my-0 py-0'>Upload Documents</label>
+					<UploaderCustom setValue={setValue} />
+				</div>
+			)}
 
 			<Button disabled={isSubmitting} loading={isSubmitting} type='primary' size='large'>
 				Submit

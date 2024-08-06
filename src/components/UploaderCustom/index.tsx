@@ -8,6 +8,7 @@ import { FormData } from '@/components/ApplicationForm/utility';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { nanoid } from 'nanoid';
+import { config } from '@/config/config';
 
 type Props = {
 	setValue: UseFormSetValue<FormData>;
@@ -17,6 +18,10 @@ const { Dragger } = Upload;
 
 const UploaderCustom: React.FC<Props> = ({ setValue }) => {
 	const uploadFile = useFileUpload();
+
+	if (config.uiShowUploader === '0') {
+		return <></>;
+	}
 
 	const props: UploadProps = {
 		name: 'file',

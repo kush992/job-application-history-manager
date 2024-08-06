@@ -8,13 +8,14 @@ import { useSearchParams } from 'next/navigation';
 import { Button } from 'antd';
 import { appRoutes } from '@/utils/constants';
 import SubHeader from '../SubHeader';
+import { config } from '@/config/config';
 
 const Application = () => {
 	const [applicationData, setApplicationData] = useState<Response<JobApplicationData>>({} as Response<JobApplicationData>);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const searchParams = useSearchParams();
 
-	const isShowTableData = searchParams.get('hashKeyForData') === 'hvL_MVht8PdrjLFiU0AJU';
+	const isShowTableData = config.uiShowData === '1' || searchParams.get('hashKeyForData') === 'hvL_MVht8PdrjLFiU0AJU';
 
 	const getApplicationData = async () => {
 		setIsLoading(true);
@@ -22,7 +23,7 @@ const Application = () => {
 			const response = (await database.listDocuments(
 				appwriteDatabaseConfig.applicationDatabase,
 				appwriteDatabaseConfig.applicationDatabaseCollectionId,
-				[Query.equal('isSoftDelete', false)],
+				[Query.equal('isSoftDelete', false), Query.equal('jobTitle', 'asdf')],
 			)) as Response<JobApplicationData>;
 
 			if (response.documents.length) {
