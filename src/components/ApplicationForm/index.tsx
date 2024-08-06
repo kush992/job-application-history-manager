@@ -11,6 +11,7 @@ import CustomForm from './Form';
 import SubHeader from '../SubHeader';
 import { nanoid } from 'nanoid';
 import Loader from '../Loader';
+import { appRoutes } from '@/utils/constants';
 
 type Props = {
 	documentId?: string;
@@ -25,18 +26,18 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 	const [applicationData, setApplicationData] = useState<any>({} as any);
 
 	const initialFormData: FormData = {
-		userId: applicationData?.userId ?? '',
-		jobTitle: applicationData.jobTitle ?? '',
-		jobDescription: applicationData.jobDescription ?? '',
-		companyName: applicationData?.companyName ?? '',
-		companyDomain: applicationData?.companyDomain ?? '',
-		links: applicationData?.links ?? '',
-		feedbackFromCompany: applicationData?.feedbackFromCompany ?? '',
-		applicationStatus: applicationData?.applicationStatus ?? '',
-		salary: applicationData?.salary ?? '',
-		salaryCurrency: applicationData?.salaryCurrency ?? '',
-		salaryType: applicationData?.salaryType ?? '',
-		interviewDate: applicationData?.interviewDate ?? '',
+		userId: applicationData?.userId,
+		jobTitle: applicationData.jobTitle,
+		jobDescription: applicationData.jobDescription,
+		companyName: applicationData?.companyName,
+		companyDomain: applicationData?.companyDomain,
+		links: applicationData?.links,
+		feedbackFromCompany: applicationData?.feedbackFromCompany,
+		applicationStatus: applicationData?.applicationStatus,
+		salary: applicationData?.salary,
+		salaryCurrency: applicationData?.salaryCurrency,
+		salaryType: applicationData?.salaryType,
+		interviewDate: applicationData?.interviewDate,
 	};
 
 	const {
@@ -79,7 +80,7 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 			})
 			.then((response) => {
 				console.log('response', response);
-				router.push('/');
+				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -96,7 +97,7 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 			})
 			.then((response) => {
 				console.log('response', response);
-				router.push('/');
+				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -132,7 +133,7 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 	return (
 		<div className='flex flex-col gap-6'>
 			<div>
-				<SubHeader previousPageTitle='Home' href='/' />
+				<SubHeader previousPageTitle='Applications' href={appRoutes.applicationPage} />
 				<h1 className='text-xl font-semibold'>Add latest applied</h1>
 			</div>
 
