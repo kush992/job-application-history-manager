@@ -23,7 +23,7 @@ const Application = () => {
 			const response = (await database.listDocuments(
 				appwriteDatabaseConfig.applicationDatabase,
 				appwriteDatabaseConfig.applicationDatabaseCollectionId,
-				[Query.equal('isSoftDelete', false)],
+				[Query.equal('isSoftDelete', false), Query.orderDesc('$createdAt')],
 			)) as Response<JobApplicationData>;
 
 			if (response.documents.length) {
