@@ -31,7 +31,6 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 		jobDescription: applicationData.jobDescription,
 		companyName: applicationData?.companyName,
 		companyDomain: applicationData?.companyDomain || '',
-		links: applicationData?.links,
 		feedbackFromCompany: applicationData?.feedbackFromCompany,
 		applicationStatus: applicationData?.applicationStatus,
 		salary: applicationData?.salary || '',

@@ -36,11 +36,10 @@ export const formSchema = z.object({
 	salaryType: z.string().default(SalaryType.MONTHLY).optional().nullable(),
 	salaryCurrency: z.string().default(SalaryCurrency.PLN).optional().nullable(),
 	applicationStatus: z.string().default(ApplicationStatus.APPLIED).optional().nullable(),
-	feedbackFromCompany: z.string().optional(),
+	feedbackFromCompany: z.string().optional().nullable().default(''),
 	companyName: z.string().nonempty('Company name is a required field'),
 	companyDomain: z.string().optional(),
 	interviewDate: z.string().optional().default(''),
-	links: z.string().optional(),
 });
 
 export type FormData = z.infer<typeof formSchema>;

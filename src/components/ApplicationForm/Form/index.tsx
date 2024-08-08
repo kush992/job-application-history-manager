@@ -58,7 +58,7 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 					placeholder='Company Domain'
 					name='Company Domain'
 					onChange={(e) => setValue('companyDomain', e.currentTarget.value)}
-					value={initialFormData?.companyDomain ?? ''}
+					value={initialFormData?.companyDomain}
 					errorText={errors.companyDomain?.message ?? ''}
 					isError={!!errors.companyDomain}
 				/>
@@ -70,7 +70,7 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 					placeholder='Salary'
 					name='Salary'
 					onChange={(e) => setValue('salary', e.currentTarget.value)}
-					value={initialFormData?.salary ?? ''}
+					value={initialFormData?.salary}
 					errorText={errors.salary?.message ?? ''}
 					isError={!!errors.salary}
 				/>
