@@ -15,7 +15,7 @@ const Application = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const searchParams = useSearchParams();
 
-	const isShowTableData = config.uiShowData === '1' || searchParams.get('hashKeyForData') === 'hvL_MVht8PdrjLFiU0AJU';
+	const isShowTableData = searchParams.get('hashKeyForData') === config.hashKeyForData;
 
 	const getApplicationData = async () => {
 		setIsLoading(true);
@@ -23,7 +23,7 @@ const Application = () => {
 			const response = (await database.listDocuments(
 				appwriteDatabaseConfig.applicationDatabase,
 				appwriteDatabaseConfig.applicationDatabaseCollectionId,
-				[Query.equal('isSoftDelete', false), Query.equal('jobTitle', 'asdf')],
+				[Query.equal('isSoftDelete', false)],
 			)) as Response<JobApplicationData>;
 
 			if (response.documents.length) {

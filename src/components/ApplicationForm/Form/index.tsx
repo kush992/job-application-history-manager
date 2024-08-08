@@ -13,7 +13,7 @@ import { config } from '@/config/config';
 type Props = {
 	handleSubmit: any;
 	register: UseFormRegister<FormData>;
-	initialFormData: FormData;
+	initialFormData?: FormData;
 	errors: FieldErrors<FormData>;
 	isSubmitting: boolean;
 	setValue: UseFormSetValue<FormData>;
@@ -27,7 +27,7 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 				placeholder='Job Title'
 				name='jobTitle'
 				onChange={(e) => setValue('jobTitle', e.currentTarget.value)}
-				value={initialFormData.jobTitle}
+				value={initialFormData?.jobTitle}
 				errorText={errors.jobTitle?.message ?? ''}
 				isError={!!errors.jobTitle}
 			/>
@@ -48,7 +48,7 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 					placeholder='Company Name'
 					name='Company Name'
 					onChange={(e) => setValue('companyName', e.currentTarget.value)}
-					value={initialFormData.companyName}
+					value={initialFormData?.companyName}
 					errorText={errors.companyName?.message ?? ''}
 					isError={!!errors.companyName}
 				/>
@@ -58,7 +58,7 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 					placeholder='Company Domain'
 					name='Company Domain'
 					onChange={(e) => setValue('companyDomain', e.currentTarget.value)}
-					value={initialFormData.companyDomain ?? ''}
+					value={initialFormData?.companyDomain ?? ''}
 					errorText={errors.companyDomain?.message ?? ''}
 					isError={!!errors.companyDomain}
 				/>
@@ -70,7 +70,7 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 					placeholder='Salary'
 					name='Salary'
 					onChange={(e) => setValue('salary', e.currentTarget.value)}
-					value={initialFormData.salary ?? ''}
+					value={initialFormData?.salary ?? ''}
 					errorText={errors.salary?.message ?? ''}
 					isError={!!errors.salary}
 				/>
@@ -124,7 +124,7 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 
 			<div className='flex flex-col w-fit'>
 				<label className='text-xs my-0 py-0'>Interview Date</label>
-				<DatePickerCustom onChange={(data) => setValue('interviewDate', data?.toString())} initialValue={initialFormData.interviewDate} />
+				<DatePickerCustom onChange={(data) => setValue('interviewDate', data?.toString())} initialValue={initialFormData?.interviewDate} />
 				{errors.interviewDate && <p className='text-[10px] py-2 text-red-400'>{errors.interviewDate.message}</p>}
 			</div>
 

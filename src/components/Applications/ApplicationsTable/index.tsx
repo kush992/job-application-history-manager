@@ -126,7 +126,6 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 							<DeleteFilled className='!text-red-400' height={'20px'} width={'20px'} onClick={() => onClick && onClick(record.$id)} />
 						</td>
 					),
-					className: 'w-20',
 				},
 			]}
 			dataSource={applicationData?.documents}

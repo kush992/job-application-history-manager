@@ -5,4 +5,5 @@ export const config = {
 	tinymceApiKey: String(process.env.NEXT_PUBLIC_TINYMCE_API_KEY),
 	uiShowData: String(process.env.NEXT_PUBLIC_UI_SHOW_DATA),
 	uiShowUploader: String(process.env.NEXT_PUBLIC_UI_SHOW_UPLOADER),
+	hashKeyForData: String(process.env.NEXT_PUBLIC_HASH_KEY_FOR_DATA),
 };
