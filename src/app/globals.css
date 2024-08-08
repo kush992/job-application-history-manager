@@ -32,3 +32,39 @@ body {
     text-wrap: balance;
   }
 }
+
+.reset-styles > div {
+	margin: 0 auto;
+	max-width: 800px;
+	padding: 20px;
+	overflow: hidden;
+}
+
+.reset-styles > div > table  {
+	border-width: 1px;
+	border-color: gray;
+	margin: 10px 0;
+	font-size: 14px;
+	overflow: scroll;
+}
+
+.reset-styles > div > blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
+	margin: 5px 0 !important;
+}
+
+.reset-styles > div > ol, ul, p {
+	margin: 0 0 1.5em 1.5em;
+	padding: 0;
+	font-size: 14px;
+}
+
+.reset-styles > div > ol, ul > li {
+	list-style: initial;
+}
+
+.reset-styles > div > h1, h2, h3, h4, h5, h6 {
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 24px;
+	padding-bottom: 10px;
+}

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import SubHeader from '../SubHeader';
 import Link from 'next/link';
 import { appRoutes } from '@/utils/constants';
+import { formatDate } from '@/utils/date';
 
 type Props = {
 	documentId: string;
@@ -48,15 +49,19 @@ const ApplicationView = ({ documentId }: Props) => {
 				<p className='text-sm text-gray-500'>
 					Applied on: <strong>{new Date(applicationData.$createdAt).toLocaleDateString()}</strong>
 				</p>
-				<p className='text-sm text-gray-500'>Status: {applicationData.applicationStatus}</p>
-				<p>
-					Salary: {applicationData.salary} {applicationData?.salaryCurrency?.toLowerCase()} /
+				<p className='text-sm text-gray-500'>Status: {applicationData.applicationStatus ?? '-'}</p>
+				<p className='text-sm text-gray-500'>
+					Salary: {applicationData.salary} {applicationData?.salaryCurrency?.toLowerCase()}
 					{applicationData?.salaryType?.toLocaleLowerCase()}
 				</p>
-				<p>Interview Date: {new Date(applicationData?.interviewDate ?? '').toLocaleDateString()}</p>
+				{applicationData?.interviewDate && (
+					<p className='text-sm text-gray-500'>
+						Interview Date: <b>{formatDate(applicationData.interviewDate)}</b>
+					</p>
+				)}
 			</div>
 
-			<div className='p-4 md:p-6 bg-white rounded-lg' dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }} />
+			<div className='p-4 md:p-6 bg-white rounded-lg reset-styles' dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }} />
 		</div>
 	);
 };
