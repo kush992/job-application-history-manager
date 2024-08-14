@@ -37,7 +37,7 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 			scroll={{ x: true }}
 			sticky={true}
 			bordered
-			pagination={{ position: ['bottomCenter'] }}
+			pagination={{ position: ['bottomCenter'], pageSize: 20 }}
 			tableLayout='fixed'
 			className='w-full'
 			columns={[
@@ -83,6 +83,7 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 						{ text: ApplicationStatus.REJECTED_WITH_FEEDBACK, value: ApplicationStatus.REJECTED_WITH_FEEDBACK },
 					],
 					onFilter: (value, record) => record?.applicationStatus?.includes(value),
+					className: 'w-max !break-normal',
 				},
 				{
 					title: 'Applied on',
@@ -113,6 +114,7 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 							</a>
 						</td>
 					),
+					className: 'w-max !break-normal',
 				},
 				{
 					title: 'Action',
@@ -126,6 +128,7 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 							<DeleteFilled className='!text-red-400' height={'20px'} width={'20px'} onClick={() => onClick && onClick(record.$id)} />
 						</td>
 					),
+					className: 'w-max !break-normal',
 				},
 			]}
 			dataSource={applicationData?.documents}
