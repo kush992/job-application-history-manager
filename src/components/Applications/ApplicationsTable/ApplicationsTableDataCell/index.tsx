@@ -12,7 +12,7 @@ const TableDataCell = ({ link, text, highlightLink, isSpecialTextColor, onClick,
 	return (
 		<td onClick={onClick}>
 			{link ? (
-				<a href={link} className={highlightLink ? `font-medium text-blue-600 hover:underline ${textColor}` : 'text-black'}>
+				<a href={link} className={highlightLink ? `font-medium text-blue-600 hover:underline ${textColor}` : ''}>
 					{text}
 				</a>
 			) : (

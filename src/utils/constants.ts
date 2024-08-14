@@ -4,4 +4,6 @@ export const appRoutes = {
 	addApplicationPage: '/applicacja/add',
 	updateApplicationPage: '/applicacja/update',
 	viewApplicationPage: '/applicacja/view',
+	interviewQuestionsPage: '/interview-questions',
+	aboutPage: '/about',
 };
