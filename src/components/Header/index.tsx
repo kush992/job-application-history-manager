@@ -1,14 +1,16 @@
+'use client';
+
 import { appRoutes } from '@/utils/constants';
 import { Button } from 'antd';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 const Header: React.FC = () => {
-	const router = useRouter();
+	const pathname = usePathname();
 
 	const isActive = (route: string) => {
-		return router.pathname.includes(route) ? 'primary' : 'text';
+		return pathname.includes(route) ? 'primary' : 'text';
 	};
 
 	return (
