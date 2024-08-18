@@ -23,7 +23,11 @@ const Application = () => {
 			const response = (await database.listDocuments(
 				appwriteDatabaseConfig.applicationDatabase,
 				appwriteDatabaseConfig.applicationDatabaseCollectionId,
-				[Query.equal('isSoftDelete', false), Query.orderDesc('$createdAt')],
+				[
+					Query.equal('isSoftDelete', false),
+					Query.orderDesc('$createdAt'),
+					Query.contains('$permissions.read', ['read("user:66afc41e00364b66aa98")']),
+				],
 			)) as Response<JobApplicationData>;
 
 			if (response.documents.length) {

@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { formSchema, SalaryCurrency, SalaryType, FormData } from './utility';
-import { appwriteDatabaseConfig, database } from '@/appwrite/config';
-import { ID } from 'appwrite';
+import { appwriteDatabaseConfig, auth, database } from '@/appwrite/config';
+import { ID, Permission, Role } from 'appwrite';
 import { useRouter } from 'next/navigation';
 import CustomForm from './Form';
 import SubHeader from '../SubHeader';
@@ -24,6 +24,10 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [applicationData, setApplicationData] = useState<any>({} as any);
+
+	const getUserId = async () => {
+		return (await auth.getSession('current')).userId;
+	};
 
 	const initialFormData: FormData = {
 		userId: applicationData?.userId,
@@ -72,11 +76,18 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 		}
 	}
 
-	function updateDocument(data: FormData) {
+	async function updateDocument(data: FormData) {
+		const userId = await getUserId();
 		database
-			.updateDocument(appwriteDatabaseConfig.applicationDatabase, appwriteDatabaseConfig.applicationDatabaseCollectionId, String(documentId), {
-				...data,
-			})
+			.updateDocument(
+				appwriteDatabaseConfig.applicationDatabase,
+				appwriteDatabaseConfig.applicationDatabaseCollectionId,
+				String(documentId),
+				{
+					...data,
+				},
+				[Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
+			)
 			.then((response) => {
 				console.log('response', response);
 				router.push(appRoutes.applicationPage);
@@ -89,11 +100,18 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 			});
 	}
 
-	function addDocument(data: FormData) {
+	async function addDocument(data: FormData) {
+		const userId = await getUserId();
 		database
-			.createDocument(appwriteDatabaseConfig.applicationDatabase, appwriteDatabaseConfig.applicationDatabaseCollectionId, ID.unique(), {
-				...data,
-			})
+			.createDocument(
+				appwriteDatabaseConfig.applicationDatabase,
+				appwriteDatabaseConfig.applicationDatabaseCollectionId,
+				ID.unique(),
+				{
+					...data,
+				},
+				[Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
+			)
 			.then((response) => {
 				console.log('response', response);
 				router.push(appRoutes.applicationPage);

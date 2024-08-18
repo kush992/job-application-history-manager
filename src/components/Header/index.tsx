@@ -5,6 +5,7 @@ import { Button } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
+import LoginForm from '../Authentication';
 
 const Header: React.FC = () => {
 	const pathname = usePathname();
@@ -41,6 +42,7 @@ const Header: React.FC = () => {
 						</Button>
 					</li> */}
 				</ul>
+				<LoginForm />
 				<div className='md:hidden'>
 					<Button href={appRoutes.addApplicationPage} type={isActive(appRoutes.addApplicationPage)}>
 						Add Application
