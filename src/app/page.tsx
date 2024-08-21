@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 export default function Home() {
 	return (
 		<Suspense fallback={<Loader />}>
-			<main className='flex min-h-screen flex-col justify-center items-center h-full gap-8 max-w-5xl mx-auto p-4 '>
+			<main className='flex min-h-screen flex-col justify-center items-center h-full gap-8 max-w-7xl mx-auto p-4 '>
 				<div className='text-center'>
 					<h1 className='text-lg'>Hello, {"I'm"} Kush</h1>
 					<br />

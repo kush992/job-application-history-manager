@@ -1,9 +1,9 @@
 export const appRoutes = {
 	home: '/',
-	applicationPage: '/applicacja',
-	addApplicationPage: '/applicacja/add',
-	updateApplicationPage: '/applicacja/update',
-	viewApplicationPage: '/applicacja/view',
+	applicationPage: '/applications',
+	addApplicationPage: '/applications/add',
+	updateApplicationPage: '/applications/update',
+	viewApplicationPage: '/applications/view',
 	interviewQuestionsPage: '/interview-questions',
 	aboutPage: '/about',
 };

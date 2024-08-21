@@ -1,12 +1,18 @@
-import { database } from '@/appwrite/config';
-import { FormData } from '@/components/ApplicationForm/utility';
+import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { NextRequest, NextResponse } from 'next/server';
+import { FormData } from '@/components/ApplicationForm/utility';
 import { IncomingMessage } from 'http';
 import formidable from 'formidable';
 import { getFieldValue } from '@/utils/utility';
 
-export async function POST(req: NextRequest) {
+export async function PUT(req: NextRequest) {
 	return new Promise(async (resolve, reject) => {
+		const documentId = req.nextUrl.searchParams.get('documentId');
+
+		if (!documentId) {
+			return NextResponse.json({ error: 'Document ID is required' }, { status: 400 });
+		}
+
 		// Convert NextRequest to IncomingMessage
 		const incomingReq = new IncomingMessage(req.body as any);
 		incomingReq.headers = Object.fromEntries(req.headers.entries());
@@ -59,10 +65,10 @@ export async function POST(req: NextRequest) {
 			console.log('Form data:', formData);
 
 			try {
-				const response = await database.createDocument(
-					String(process.env.NEXT_PUBLIC_APPLICATION_DB),
-					String(process.env.NEXT_PUBLIC_APPLICATION_DB_COLLECTION_ID),
-					String(process.env.NEXT_PUBLIC_APPLICATION_DB_DOCUMENTS_COLLECTION_ID),
+				const response = await database.updateDocument(
+					appwriteDatabaseConfig.applicationDatabase,
+					appwriteDatabaseConfig.applicationDatabaseCollectionId,
+					String(documentId),
 					formData,
 				);
 

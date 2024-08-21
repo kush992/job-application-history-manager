@@ -11,3 +11,10 @@ export const baseUrl = () => {
 
 	return baseUrl;
 };
+
+export const getFieldValue = (field: string | string[] | undefined): string => {
+	if (Array.isArray(field)) {
+		return field[0] || '';
+	}
+	return field || '';
+};
