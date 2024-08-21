@@ -35,8 +35,8 @@ body {
 
 .reset-styles > div {
 	margin: 0 auto;
-	max-width: 800px;
-	padding: 20px;
+	max-width: 1280px;
+	/* padding: 20px; */
 	overflow: hidden;
 }
 

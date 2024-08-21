@@ -6,20 +6,20 @@ import Wrapper from '@/components/Wrapper';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'Job Application Manager',
+	title: 'JobJourney',
 	description: 'Created by kushbhalodi.com',
 	openGraph: {
-		title: 'Job Application Manager',
+		title: 'JobJourney',
 		description: 'Created by kushbhalodi.com',
 		type: 'website',
 		locale: 'en_US',
 		url: 'https://job-application-manager.vercel.app',
-		siteName: 'Job Application Manager',
+		siteName: 'JobJourney',
 	},
 	twitter: {
 		site: '@kushbhalodi',
 		card: 'summary_large_image',
-		title: 'Job Application Manager',
+		title: 'JobJourney',
 		description: 'Created by kushbhalodi.com',
 		images: 'https://img.kushbhalodi.com/images/kush-bhalodi-logo.png',
 	},

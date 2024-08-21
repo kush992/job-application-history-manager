@@ -22,7 +22,7 @@ type Props = {
 		| 'MinusCircleOutlined';
 };
 
-const App: React.FC<Props> = ({ type, text, iconType }) => {
+const Tags: React.FC<Props> = ({ type, text, iconType }) => {
 	function getIcon() {
 		switch (iconType) {
 			case 'CheckCircleOutlined':
@@ -49,4 +49,4 @@ const App: React.FC<Props> = ({ type, text, iconType }) => {
 	);
 };
 
-export default App;
+export default Tags;

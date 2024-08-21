@@ -21,7 +21,7 @@ type Props = {
 
 const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }) => {
 	return (
-		<form className='max-w-5xl w-full mx-auto flex flex-col gap-4 rounded-lg' onSubmit={handleSubmit}>
+		<form className='max-w-6xl w-full mx-auto flex flex-col gap-4 rounded-lg' onSubmit={handleSubmit}>
 			<InputWithLabel
 				labelName='Job Title'
 				placeholder='Job Title'

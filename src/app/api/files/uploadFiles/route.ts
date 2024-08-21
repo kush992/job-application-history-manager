@@ -10,6 +10,7 @@ export async function POST(req: NextRequest) {
 		const contentType = req.headers.get('content-type') || '';
 		const boundary = contentType.split('boundary=')[1];
 		if (!boundary) {
+			console.error('Missing boundary in content-type');
 			return NextResponse.json({ error: 'Bad Request: Missing boundary in content-type' }, { status: 400 });
 		}
 
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
 		const parts = new TextDecoder().decode(buffer).split(`--${boundary}`);
 		const filePart = parts.find((part) => part.includes('Content-Disposition: form-data; name="file"'));
 		if (!filePart) {
+			console.error('Missing file data');
 			return NextResponse.json({ error: 'Bad Request: Missing file data' }, { status: 400 });
 		}
 
@@ -43,6 +45,7 @@ export async function POST(req: NextRequest) {
 
 		const [response] = await fileObject.generateSignedPostPolicyV4(options);
 
+		console.log('File uploaded successfully:', fileName);
 		return NextResponse.json(response);
 	} catch (error) {
 		console.error('Error in uploadFiles API route:', error);
