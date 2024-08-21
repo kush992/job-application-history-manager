@@ -128,7 +128,7 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 				{errors.interviewDate && <p className='text-[10px] py-2 text-red-400'>{errors.interviewDate.message}</p>}
 			</div>
 
-			{/* <div>
+			<div>
 				<label className='text-xs my-0 py-0'>Company Feedback</label>
 				<TinyEditor
 					initialData={initialFormData?.feedbackFromCompany ?? ''}
@@ -136,7 +136,7 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 					textareaName='feedbackFromCompany'
 				/>
 				{errors.feedbackFromCompany && <p className='text-[10px] py-2 text-red-400'>{errors.feedbackFromCompany.message}</p>}
-			</div> */}
+			</div>
 
 			{config.uiShowUploader === '1' && (
 				<div>

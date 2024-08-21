@@ -40,7 +40,7 @@ const ApplicationForm: React.FC<Props> = ({ documentId, isUpdateForm }) => {
 		salary: applicationData?.salary || undefined,
 		salaryCurrency: applicationData?.salaryCurrency,
 		salaryType: applicationData?.salaryType,
-		interviewDate: applicationData?.interviewDate,
+		interviewDate: applicationData?.interviewDate || undefined,
 	};
 
 	const {

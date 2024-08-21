@@ -8,7 +8,7 @@ type Props = {
 	textColor?: string;
 	onClick?: () => void;
 };
-const TableDataCell = ({ link, text, highlightLink, isSpecialTextColor, onClick, textColor }: Props) => {
+const TableDataCell = ({ link, text, highlightLink = false, isSpecialTextColor, onClick, textColor }: Props) => {
 	return (
 		<td onClick={onClick}>
 			{link ? (

@@ -33,7 +33,7 @@ export default function Home() {
 						</div>
 						<div>
 							<p>
-								<strong>🧪 Testing</strong>
+								<strong>🧪 Currently Testing</strong>
 							</p>
 							<ul className='my-1'>
 								<li>Authentication for public users</li>
