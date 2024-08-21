@@ -1,12 +1,13 @@
 'use client';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { JobApplicationData } from '@/types/apiResponseTypes';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import SubHeader from '../SubHeader';
 import Link from 'next/link';
 import { appRoutes } from '@/utils/constants';
 import { formatDate } from '@/utils/date';
 import Loader from '../Loader';
+import { notification } from 'antd';
 
 type Props = {
 	documentId: string;
@@ -15,9 +16,17 @@ type Props = {
 const ApplicationView = ({ documentId }: Props) => {
 	const [isFetching, setIsFetching] = useState<boolean>(false);
 	const [applicationData, setApplicationData] = useState<JobApplicationData>({} as JobApplicationData);
+	const [api, contextHolder] = notification.useNotification();
+
+	const openNotification = useCallback(() => {
+		api.error({
+			message: 'Application data not found',
+		});
+	}, [api]);
 
 	useEffect(() => {
 		async function fetchApplicationData() {
+			setIsFetching(true);
 			try {
 				const response: JobApplicationData = await database.getDocument(
 					appwriteDatabaseConfig.applicationDatabase,
@@ -27,16 +36,19 @@ const ApplicationView = ({ documentId }: Props) => {
 				setApplicationData(response);
 			} catch (error) {
 				console.error(error);
+				openNotification();
+			} finally {
+				setIsFetching(false);
 			}
 		}
 		fetchApplicationData();
-	}, [documentId]);
+	}, [documentId, openNotification]);
 
 	return (
 		<div className='flex flex-col gap-6'>
 			{isFetching && <Loader />}
-			{/* {!isFetching && !applicationData.$id && <p>Application data not found</p>} */}
-			{!isFetching && (
+			{!isFetching && !applicationData.$id && contextHolder}
+			{!isFetching && applicationData.$id && (
 				<>
 					<div className='flex items-center justify-between'>
 						<div>

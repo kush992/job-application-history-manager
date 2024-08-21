@@ -1,7 +1,7 @@
 export const formatDate = (input: string | Date): string => {
 	const date = typeof input === 'string' ? new Date(input) : input;
 
-	if (isNaN(date.getTime())) {
+	if (isNaN(date?.getTime())) {
 		return '-';
 	}
 
