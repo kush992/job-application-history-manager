@@ -38,7 +38,7 @@ const ApplicationView = ({ documentId }: Props) => {
 	return (
 		<div className='flex flex-col gap-6'>
 			{isFetching && <Loader />}
-			{!isFetching && !applicationData.$id && <p>Application data not found</p>}
+			{/* {!isFetching && !applicationData.$id && <p>Application data not found</p>} */}
 			{!isFetching && (
 				<>
 					<div className='flex items-center justify-between'>
