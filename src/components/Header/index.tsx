@@ -5,31 +5,23 @@ import { appRoutes } from '@/utils/constants';
 import { Button } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { MenuFoldOutlined, PlusCircleFilled } from '@ant-design/icons';
 import LoginForm from '../Authentication';
 import DrawerMenu from '../DrawerMenu';
 import { backgroundImageUrl } from '@/utils/utility';
-import ApplicationAuth from '@/appwrite/auth';
 
-const Header: React.FC = () => {
+type Props = {
+	isLoggedIn: boolean;
+};
+
+const Header: React.FC<Props> = ({ isLoggedIn }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 	const pathname = usePathname();
 
 	const isActive = (route: string) => {
 		return pathname === route ? 'primary' : 'default';
 	};
-
-	useEffect(() => {
-		const checkLoginStatus = async () => {
-			const auth = new ApplicationAuth();
-			const status = await auth.isLoggedIn();
-			setIsLoggedIn(status);
-		};
-
-		checkLoginStatus();
-	}, []);
 
 	return (
 		<header
@@ -48,18 +40,20 @@ const Header: React.FC = () => {
 					</p>
 				</div>
 				<div className='hidden md:flex justify-center items-center gap-4'>
-					<ul className='flex justify-between items-center m-0 gap-2'>
-						<li className='list-none'>
-							<Button href={appRoutes.addApplicationPage} type='primary' style={{ backgroundImage: backgroundImageUrl }}>
-								<PlusCircleFilled color='blue' height='40px' width='40px' />
-							</Button>
-						</li>
-						<li className='list-none'>
-							<Button href={appRoutes.applicationPage} type={isActive(appRoutes.interviewQuestionsPage)}>
-								Your Applications
-							</Button>
-						</li>
-					</ul>
+					{isLoggedIn && (
+						<ul className='flex justify-between items-center m-0 gap-2'>
+							<li className='list-none'>
+								<Button href={appRoutes.addApplicationPage} type='primary' style={{ backgroundImage: backgroundImageUrl }}>
+									<PlusCircleFilled color='blue' height='40px' width='40px' />
+								</Button>
+							</li>
+							<li className='list-none'>
+								<Button href={appRoutes.applicationPage} type={isActive(appRoutes.interviewQuestionsPage)}>
+									Your Applications
+								</Button>
+							</li>
+						</ul>
+					)}
 					<LoginForm />
 				</div>
 				<div className='md:hidden flex items-center gap-2'>
