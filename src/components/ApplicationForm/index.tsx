@@ -19,7 +19,7 @@ type Props = {
 	isViewOnlyForm?: boolean;
 };
 
-const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
+const ApplicationForm: React.FC = ({ documentId, isUpdateForm }: Props) => {
 	const router = useRouter();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -113,7 +113,6 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 				[Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
 			)
 			.then((response) => {
-				console.log('response', response);
 				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {

@@ -1,41 +1,56 @@
 import ApplicationAuth from '@/appwrite/auth';
 import { auth } from '@/appwrite/config';
 import { Button } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import DrawerMenu from '../DrawerMenu';
 
 const LoginForm = () => {
-	const applicationAuth = new ApplicationAuth();
-	const [session, setSession] = React.useState<any>({});
-	const [isLoggedInUser, setIsLoggedInUser] = React.useState<boolean>(false);
+	const [session, setSession] = useState<any>({});
+	const isUserLoggedIn = !!session?.userId;
 
-	const isLoggedIn = async () => {
-		return await applicationAuth
-			.isLoggedIn()
-			.then((res) => setIsLoggedInUser(res))
-			.catch((error) => console.error(error));
+	const handleLogout = async () => {
+		const auth = new ApplicationAuth();
+		await auth.logout();
+	};
+
+	const handleLogin = async () => {
+		const auth = new ApplicationAuth();
+		await auth.login();
 	};
 
 	useEffect(() => {
-		applicationAuth
-			.getSession()
-			.then((res) => {
-				setSession(res);
-			})
-			.catch((error) => console.error(error));
+		const fetchSession = async () => {
+			const auth = new ApplicationAuth();
+			const sessionData = await auth.getSession();
+			setSession(sessionData);
+		};
 
-		isLoggedIn();
+		fetchSession();
 	}, []);
 
+	console.log('isLoggedInUser', isUserLoggedIn);
+
 	return (
-		<div>
-			{isLoggedInUser ? (
-				<Button onClick={applicationAuth.logout}>LogOut</Button>
+		<>
+			{isUserLoggedIn ? (
+				<Image
+					src='https://img.kushbhalodi.com/images/IMG_5624.jpg'
+					alt='Kush Bhalodi'
+					width={30}
+					height={30}
+					className='rounded-full h-[30px] w-[30px] object-cover'
+					onClick={() => {
+						handleLogout();
+						window.location.reload();
+					}}
+				/>
 			) : (
-				<Button onClick={applicationAuth.login} type='primary'>
+				<Button onClick={handleLogin} type='primary'>
 					LogIn
 				</Button>
 			)}
-		</div>
+		</>
 	);
 };
 

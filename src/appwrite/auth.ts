@@ -1,16 +1,11 @@
 import { Models, OAuthProvider } from 'appwrite';
 import { auth } from './config';
+import { baseUrl } from '@/utils/utility';
 
 class ApplicationAuth {
-	// private authProvider: typeof auth = auth;
-
-	// constructor(authProvider: typeof auth) {
-	// 	this.authProvider = auth;
-	// }
-
 	async login(): Promise<void> {
 		try {
-			auth.createOAuth2Session(OAuthProvider.Google, 'http://localhost:3000/', 'http://localhost:3000/');
+			await auth.createOAuth2Session(OAuthProvider.Google, baseUrl(), baseUrl());
 		} catch (error) {
 			console.error('Login failed:', error);
 		}
@@ -18,7 +13,7 @@ class ApplicationAuth {
 
 	async getUserId(): Promise<string | null> {
 		try {
-			const session = await this.authProvider.getSession('current');
+			const session = await auth.getSession('current');
 			return session.userId;
 		} catch (error) {
 			console.error('Failed to get user ID:', error);
@@ -28,7 +23,7 @@ class ApplicationAuth {
 
 	async getSession(): Promise<Models.Session> {
 		try {
-			const session = await this.authProvider.getSession('current');
+			const session = await auth.getSession('current');
 			return session;
 		} catch (error) {
 			console.error('Failed to get session:', error);
@@ -38,7 +33,7 @@ class ApplicationAuth {
 
 	async isLoggedIn(): Promise<boolean> {
 		try {
-			const session = await this.authProvider.getSession('current');
+			const session = await auth.getSession('current');
 			return !!session.userId;
 		} catch (error) {
 			console.error('Failed to check login status:', error);
@@ -48,7 +43,8 @@ class ApplicationAuth {
 
 	async logout(): Promise<void> {
 		try {
-			await this.authProvider.deleteSession('current');
+			await auth.deleteSession('current');
+			localStorage.clear();
 		} catch (error) {
 			console.error('Logout failed:', error);
 		}
@@ -56,7 +52,7 @@ class ApplicationAuth {
 
 	async updateSession(): Promise<void> {
 		try {
-			await this.authProvider.updateSession('current');
+			await auth.updateSession('current');
 		} catch (error) {
 			console.error('Failed to update session:', error);
 		}
