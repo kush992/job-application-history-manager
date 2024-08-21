@@ -45,23 +45,25 @@ const ApplicationView = ({ documentId }: Props) => {
 				</Link>
 			</div>
 
-			<div>
-				<p className='text-sm text-gray-500'>
-					Applied on: <strong>{new Date(applicationData.$createdAt).toLocaleDateString()}</strong>
-				</p>
-				<p className='text-sm text-gray-500'>Status: {applicationData.applicationStatus ?? '-'}</p>
-				<p className='text-sm text-gray-500'>
-					Salary: {applicationData.salary} {applicationData?.salaryCurrency?.toLowerCase()}
-					{applicationData?.salaryType?.toLocaleLowerCase()}
-				</p>
-				{applicationData?.interviewDate && (
+			<div className='bg-slate-100 p-4 rounded-lg'>
+				<div>
 					<p className='text-sm text-gray-500'>
-						Interview Date: <b>{formatDate(applicationData.interviewDate)}</b>
+						Applied on: <strong>{new Date(applicationData.$createdAt).toLocaleDateString()}</strong>
 					</p>
-				)}
-			</div>
+					<p className='text-sm text-gray-500'>Status: {applicationData.applicationStatus ?? '-'}</p>
+					<p className='text-sm text-gray-500'>
+						Salary: {applicationData.salary} {applicationData?.salaryCurrency?.toLowerCase()}
+						{applicationData?.salaryType?.toLocaleLowerCase()}
+					</p>
+					{applicationData?.interviewDate && (
+						<p className='text-sm text-gray-500'>
+							Interview Date: <b>{formatDate(applicationData.interviewDate)}</b>
+						</p>
+					)}
+				</div>
 
-			<div className='p-4 md:p-6 bg-white rounded-lg reset-styles' dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }} />
+				<div className='bg-grey rounded-lg reset-styles !py-3' dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }} />
+			</div>
 		</div>
 	);
 };

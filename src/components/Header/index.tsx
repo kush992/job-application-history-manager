@@ -26,7 +26,7 @@ const Header: React.FC = () => {
 				}
 			}
 		>
-			<nav className='max-w-6xl mx-auto flex justify-between items-center h-[50px]'>
+			<nav className='max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4'>
 				<div>
 					<p className=''>
 						<Link href={appRoutes.home} className='flex flex-col'>
