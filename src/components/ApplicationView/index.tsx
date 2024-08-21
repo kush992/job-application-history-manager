@@ -18,7 +18,6 @@ const ApplicationView = ({ documentId }: Props) => {
 
 	useEffect(() => {
 		async function fetchApplicationData() {
-			setIsFetching(true);
 			try {
 				const response: JobApplicationData = await database.getDocument(
 					appwriteDatabaseConfig.applicationDatabase,
@@ -28,8 +27,6 @@ const ApplicationView = ({ documentId }: Props) => {
 				setApplicationData(response);
 			} catch (error) {
 				console.error(error);
-			} finally {
-				setIsFetching(false);
 			}
 		}
 		fetchApplicationData();
