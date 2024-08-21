@@ -6,6 +6,7 @@ import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { Button, Table } from 'antd';
 import { appRoutes } from '@/utils/constants';
+import Tags from '@/components/Tags';
 
 type Props = {
 	applicationData: Response<JobApplicationData>;
@@ -92,7 +93,7 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 					sorter: (a, b) => new Date(a.$createdAt).getTime() - new Date(b.$createdAt).getTime(),
 					sortDirections: ['ascend', 'descend'],
 					render: (text: string, record: any) => (
-						<TableDataCell textColor='black' text={formatDate(text)} link={`${appRoutes.viewApplicationPage}/${record.$id}`} />
+						<TableDataCell highlightLink={false} text={formatDate(text)} link={`${appRoutes.viewApplicationPage}/${record.$id}`} />
 					),
 				},
 				{
@@ -107,10 +108,10 @@ const ApplicationsTable: React.FC<Props> = ({ applicationData, isLoading, onClic
 					key: 'salary',
 					render: (text: string, record: any) => (
 						<td className='w-max'>
-							<a className='' href={`${appRoutes.viewApplicationPage}/${record.$id}`}>
+							<a className='text-black' href={`${appRoutes.viewApplicationPage}/${record.$id}`}>
 								{text} <br /> <span className='text-[10px]'>{record.salaryCurrency}</span>
 								&nbsp;
-								<span className='text-[10px]'>{record.salaryType}</span>
+								<span className='text-[10px] text-black'>{record.salaryType}</span>
 							</a>
 						</td>
 					),
