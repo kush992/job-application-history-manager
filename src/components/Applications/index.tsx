@@ -61,7 +61,7 @@ const Application = () => {
 			<div className='flex justify-between items-center mb-6'>
 				<div>
 					<SubHeader previousPageTitle='Home' href='/' />
-					<h1 className='text-xl font-semibold '>Application Data</h1>
+					<h1 className='text-xl font-semibold !m-0'>Application Data</h1>
 				</div>
 				<Button href={appRoutes.addApplicationPage}>Add new</Button>
 			</div>

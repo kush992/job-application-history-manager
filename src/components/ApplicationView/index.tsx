@@ -36,7 +36,7 @@ const ApplicationView = ({ documentId }: Props) => {
 			<div className='flex items-center justify-between'>
 				<div>
 					<SubHeader previousPageTitle='Applications' href={appRoutes.applicationPage} />
-					<h1 className='text-xl font-semibold'>
+					<h1 className='text-xl font-semibold !m-0'>
 						{applicationData.jobTitle} at {applicationData.companyName}
 					</h1>
 				</div>
