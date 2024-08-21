@@ -26,11 +26,11 @@ const Header: React.FC = () => {
 				}
 			}
 		>
-			<nav className='max-w-7xl mx-auto flex justify-between items-center h-[50px]'>
+			<nav className='max-w-6xl mx-auto flex justify-between items-center h-[50px]'>
 				<div>
 					<p className=''>
 						<Link href={appRoutes.home} className='flex flex-col'>
-							<span className='text-sm md:text-md font-bold'>Job Application Manager</span>
+							<span className='text-lg font-bold'>JobJourney</span>
 						</Link>
 					</p>
 				</div>
