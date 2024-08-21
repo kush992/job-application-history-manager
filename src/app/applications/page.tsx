@@ -1,7 +1,10 @@
+'use client';
+
 import React, { Suspense } from 'react';
 import Application from '@/components/Applications';
 import Loader from '@/components/Loader';
 import { Analytics } from '@vercel/analytics/next';
+import withAuth from '@/components/hoc/withAuth';
 
 const ApplicationPage = () => {
 	return (
@@ -14,4 +17,4 @@ const ApplicationPage = () => {
 	);
 };
 
-export default ApplicationPage;
+export default withAuth(ApplicationPage);

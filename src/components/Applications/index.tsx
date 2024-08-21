@@ -55,7 +55,6 @@ const Application = () => {
 		isShowTableData && getApplicationData();
 	}, [isShowTableData]);
 
-	console.log('applicationData', applicationData);
 	return (
 		<div className='rounded-lg'>
 			<div className='flex justify-between items-center mb-6'>
