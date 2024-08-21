@@ -1,5 +1,6 @@
 import ApplicationAuth from '@/appwrite/auth';
 import { auth } from '@/appwrite/config';
+import { Button } from 'antd';
 import React, { useEffect } from 'react';
 
 const LoginForm = () => {
@@ -27,9 +28,13 @@ const LoginForm = () => {
 
 	return (
 		<div>
-			{isLoggedInUser ? <p>Logged in as {session.userId}</p> : <p>Not logged in</p>}
-			<button onClick={applicationAuth.login}>login</button>
-			<button onClick={applicationAuth.logout}>logout</button>
+			{isLoggedInUser ? (
+				<Button onClick={applicationAuth.logout}>LogOut</Button>
+			) : (
+				<Button onClick={applicationAuth.login} type='primary'>
+					LogIn
+				</Button>
+			)}
 		</div>
 	);
 };
