@@ -19,7 +19,7 @@ type Props = {
 	isViewOnlyForm?: boolean;
 };
 
-const ApplicationForm: React.FC = ({ documentId, isUpdateForm }: Props) => {
+const ApplicationForm: React.FC<Props> = ({ documentId, isUpdateForm }) => {
 	const router = useRouter();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);

@@ -1,7 +1,6 @@
 import ApplicationForm from '@/components/ApplicationForm';
 import Loader from '@/components/Loader';
 import { Analytics } from '@vercel/analytics/next';
-import { GetServerSidePropsContext } from 'next';
 import { Suspense } from 'react';
 
 type Params = {
