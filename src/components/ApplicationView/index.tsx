@@ -1,13 +1,13 @@
 'use client';
+import React, { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Divider, notification } from 'antd';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { JobApplicationData } from '@/types/apiResponseTypes';
-import React, { useCallback, useEffect, useState } from 'react';
 import SubHeader from '../SubHeader';
-import Link from 'next/link';
 import { appRoutes } from '@/utils/constants';
 import { formatDate } from '@/utils/date';
 import Loader from '../Loader';
-import { notification } from 'antd';
 
 type Props = {
 	documentId: string;
@@ -79,10 +79,18 @@ const ApplicationView = ({ documentId }: Props) => {
 							)}
 						</div>
 
-						<div
-							className='bg-grey rounded-lg reset-styles !py-3'
-							dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }}
-						/>
+						{applicationData?.feedbackFromCompany && (
+							<div>
+								<Divider />
+								<h2 className='text-lg font-semibold !mt-3'>Additional details after applying</h2>
+								<div className='rounded-lg reset-styles' dangerouslySetInnerHTML={{ __html: applicationData?.feedbackFromCompany }} />
+								<Divider />
+							</div>
+						)}
+						<div>
+							<h2 className='text-lg font-semibold !m-0'>Application Data</h2>
+							<div className='rounded-lg reset-styles' dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }} />
+						</div>
 					</div>
 				</>
 			)}

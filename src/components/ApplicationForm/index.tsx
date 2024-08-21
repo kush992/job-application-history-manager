@@ -36,7 +36,7 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 		salary: applicationData?.salary || undefined,
 		salaryCurrency: applicationData?.salaryCurrency,
 		salaryType: applicationData?.salaryType,
-		interviewDate: applicationData?.interviewDate,
+		interviewDate: applicationData?.interviewDate || undefined,
 	};
 
 	const {
