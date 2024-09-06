@@ -83,13 +83,13 @@ const ApplicationView = ({ documentId }: Props) => {
 							<div>
 								<Divider />
 								<h2 className='text-lg font-semibold !mt-3'>Additional details after applying</h2>
-								<div className='rounded-lg reset-styles' dangerouslySetInnerHTML={{ __html: applicationData?.feedbackFromCompany }} />
+								<div className='rounded-lg prose' dangerouslySetInnerHTML={{ __html: applicationData?.feedbackFromCompany }} />
 								<Divider />
 							</div>
 						)}
 						<div>
 							<h2 className='text-lg font-semibold !m-0'>Application Data</h2>
-							<div className='rounded-lg reset-styles' dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }} />
+							<div className='rounded-lg prose' dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }} />
 						</div>
 					</div>
 				</>
