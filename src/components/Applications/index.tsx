@@ -10,12 +10,17 @@ import { appRoutes } from '@/utils/constants';
 import SubHeader from '../SubHeader';
 import { config } from '@/config/config';
 
-const Application = () => {
+type Props = {
+	userId: string;
+};
+
+const Application: React.FC<Props> = ({ userId }) => {
 	const [applicationData, setApplicationData] = useState<Response<JobApplicationData>>({} as Response<JobApplicationData>);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const searchParams = useSearchParams();
 
-	const isShowTableData = searchParams.get('hashKeyForData') === config.hashKeyForData;
+	// const isShowTableData = searchParams.get('hashKeyForData') === config.hashKeyForData;
+	const isShowTableData = true;
 
 	const getApplicationData = async () => {
 		setIsLoading(true);
@@ -23,7 +28,12 @@ const Application = () => {
 			const response = (await database.listDocuments(
 				appwriteDatabaseConfig.applicationDatabase,
 				appwriteDatabaseConfig.applicationDatabaseCollectionId,
-				[Query.limit(config.dataFetchingLimitForAppwrite), Query.equal('isSoftDelete', false), Query.orderDesc('$createdAt')],
+				[
+					Query.limit(config.dataFetchingLimitForAppwrite),
+					Query.equal('isSoftDelete', false),
+					Query.equal('userId', userId),
+					Query.orderDesc('$createdAt'),
+				],
 			)) as Response<JobApplicationData>;
 
 			if (response.documents.length) {

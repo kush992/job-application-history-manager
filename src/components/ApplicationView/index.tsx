@@ -8,6 +8,8 @@ import SubHeader from '../SubHeader';
 import { appRoutes } from '@/utils/constants';
 import { formatDate } from '@/utils/date';
 import Loader from '../Loader';
+import { DollarCircleOutlined, EditOutlined } from '@ant-design/icons';
+import Tags from '../Tags';
 
 type Props = {
 	documentId: string;
@@ -17,6 +19,10 @@ const ApplicationView = ({ documentId }: Props) => {
 	const [isFetching, setIsFetching] = useState<boolean>(false);
 	const [applicationData, setApplicationData] = useState<JobApplicationData>({} as JobApplicationData);
 	const [api, contextHolder] = notification.useNotification();
+
+	const salaryDetail =
+		applicationData.salary &&
+		`${applicationData?.salary} ${applicationData?.salaryCurrency?.toLowerCase()} / ${applicationData?.salaryType?.toLowerCase()}`;
 
 	const openNotification = useCallback(() => {
 		api.error({
@@ -50,46 +56,56 @@ const ApplicationView = ({ documentId }: Props) => {
 			{!isFetching && !applicationData.$id && contextHolder}
 			{!isFetching && applicationData.$id && (
 				<>
-					<div className='flex items-center justify-between'>
-						<div>
+					<div className='bg-white rounded-lg border border-gray-200 p-2 md:p-4'>
+						<div className='flex justify-between items-center'>
 							<SubHeader previousPageTitle='Applications' href={appRoutes.applicationPage} />
-							<h1 className='text-xl font-semibold !m-0'>
-								{applicationData.jobTitle} at {applicationData.companyName}
-							</h1>
+							<Link href={`${appRoutes.updateApplicationPage}/${documentId}`} className='underline'>
+								<EditOutlined />
+							</Link>
 						</div>
-						<Link href={`${appRoutes.updateApplicationPage}/${documentId}`} className='underline'>
-							Edit
-						</Link>
-					</div>
-
-					<div className='bg-slate-100 p-4 rounded-lg'>
 						<div>
+							<p className='text-sm'>{applicationData.companyName}</p>
+							<h1 className='text-2xl font-semibold !mt-0 !mb-2'>{applicationData.jobTitle}</h1>
+							<Tags type={'default'} text={applicationData.applicationStatus ?? ''} iconType={''} />
+						</div>
+
+						<Divider className='mt-2' />
+						<div>
+							<h2 className='text-md'>Job Activity</h2>
 							<p className='text-sm text-gray-500'>
 								Applied on: <strong>{formatDate(applicationData.$createdAt)}</strong>
-							</p>
-							<p className='text-sm text-gray-500'>Status: {applicationData.applicationStatus ?? '-'}</p>
-							<p className='text-sm text-gray-500'>
-								Salary: {applicationData.salary} {applicationData?.salaryCurrency?.toLowerCase()}
-								{applicationData?.salaryType?.toLocaleLowerCase()}
 							</p>
 							{applicationData?.interviewDate && (
 								<p className='text-sm text-gray-500'>
 									Interview Date: <b>{formatDate(applicationData.interviewDate)}</b>
 								</p>
 							)}
+							{salaryDetail && (
+								<p className='text-sm text-gray-500'>
+									<DollarCircleOutlined /> {salaryDetail}
+								</p>
+							)}
 						</div>
+					</div>
 
+					<div className='bg-white border border-gray-200 p-2 md:p-4 rounded-lg'>
 						{applicationData?.feedbackFromCompany && (
 							<div>
 								<Divider />
 								<h2 className='text-lg font-semibold !mt-3'>Additional details after applying</h2>
-								<div className='rounded-lg prose' dangerouslySetInnerHTML={{ __html: applicationData?.feedbackFromCompany }} />
+								<div
+									className='rounded-lg prose prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
+									dangerouslySetInnerHTML={{ __html: applicationData?.feedbackFromCompany }}
+								/>
 								<Divider />
 							</div>
 						)}
 						<div>
 							<h2 className='text-lg font-semibold !m-0'>Application Data</h2>
-							<div className='rounded-lg prose' dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }} />
+							<div
+								className='rounded-lg prose prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
+								dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }}
+							/>
 						</div>
 					</div>
 				</>

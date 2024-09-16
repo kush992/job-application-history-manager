@@ -2,23 +2,26 @@
 const nextConfig = {
 	images: {
 		remotePatterns: [
-		  {
-			protocol: 'https',
-			hostname: 'img.kushbhalodi.com',
-			port: '',
-			pathname: '/**',
-		  },
+			{
+				protocol: 'https',
+				hostname: 'img.kushbhalodi.com',
+				port: '',
+				pathname: '/**',
+			},
 		],
-	  },
+	},
 	webpack: (config, { isServer }) => {
 		if (!isServer) {
-		  config.resolve.fallback = {
-			https: false,
-			net: false,
-		  };
+			config.resolve.fallback = {
+				https: false,
+				net: false,
+			};
 		}
 		return config;
-	  },
+	},
+	experimental: {
+		serverComponentsExternalPackages: ['node-appwrite'],
+	},
 };
 
 export default nextConfig;
