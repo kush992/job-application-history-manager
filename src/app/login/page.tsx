@@ -1,10 +1,10 @@
 import React, { Suspense } from 'react';
 import { Input } from 'antd';
-import { getLoggedInUser, signUpWithEmail } from '@/lib/server/appwrite';
+import { getLoggedInUser, loginWithEmail, signUpWithEmail } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 import { EyeOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 
-const SignupPage: React.FC = async () => {
+const LoginPage: React.FC = async () => {
 	const user = await getLoggedInUser();
 	if (user) redirect('/applications');
 
@@ -25,25 +25,12 @@ const SignupPage: React.FC = async () => {
 						</div>
 					</div>
 
-					<form action={signUpWithEmail} className='md:col-span-2 w-full py-6 px-6 sm:px-16'>
+					<form action={loginWithEmail} className='md:col-span-2 w-full py-6 px-6 sm:px-16'>
 						<div className='mb-6'>
 							<h3 className='text-gray-800 text-2xl font-bold'>Create an account</h3>
 						</div>
 
 						<div className='space-y-6'>
-							<div>
-								<label className='text-gray-800 text-sm mb-2 block'>Name</label>
-								<div className='relative flex items-center'>
-									<input
-										name='name'
-										type='text'
-										required
-										className='text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500'
-										placeholder='Enter name'
-									/>
-								</div>
-							</div>
-
 							<div>
 								<label className='text-gray-800 text-sm mb-2 block'>Email Id</label>
 								<div className='relative flex items-center'>
@@ -76,13 +63,13 @@ const SignupPage: React.FC = async () => {
 								type='submit'
 								className='w-full py-3 px-4 tracking-wider text-sm rounded-md text-white bg-gray-700 hover:bg-gray-800 focus:outline-none'
 							>
-								Create an account
+								Login
 							</button>
 						</div>
 						<p className='text-gray-800 text-sm mt-6 text-center'>
-							Already have an account?{' '}
-							<a href='/login' className='text-blue-600 font-semibold hover:underline ml-1'>
-								Login here
+							{"Don't"} have an account?{' '}
+							<a href='/signup' className='text-blue-600 font-semibold hover:underline ml-1'>
+								Signup here
 							</a>
 						</p>
 					</form>
@@ -92,4 +79,4 @@ const SignupPage: React.FC = async () => {
 	);
 };
 
-export default SignupPage;
+export default LoginPage;

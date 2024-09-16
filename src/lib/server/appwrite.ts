@@ -66,6 +66,29 @@ export async function signUpWithEmail(formData: any) {
 	}
 }
 
+export async function loginWithEmail(formData: any) {
+	'use server';
+
+	const email = formData.get('email');
+	const password = formData.get('password');
+
+	const { account } = await createAdminClient();
+
+	try {
+		const session = await account.createEmailPasswordSession(email, password);
+		cookies().set('my-custom-session', session.secret, {
+			path: '/',
+			httpOnly: true,
+			sameSite: 'strict',
+			secure: true,
+		});
+
+		redirect('/applications');
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 export async function signOut() {
 	'use server';
 
