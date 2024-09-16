@@ -10,11 +10,11 @@ const LoginPage: React.FC = async () => {
 
 	return (
 		<Suspense fallback='loading....'>
-			<div className='font-[sans-serif] bg-white max-w-4xl flex items-center mx-auto md:h-screen p-4'>
+			<div className='font-[sans-serif] bg-white max-w-5xl flex items-center mx-auto md:h-screen p-4'>
 				<div className='grid md:grid-cols-3 items-center shadow-[0_2px_10px_-3px_rgba(62,107,209,0.3)] rounded-xl overflow-hidden'>
-					<div className='max-md:order-1 flex flex-col justify-center space-y-16 max-md:mt-16 min-h-full bg-gradient-radial from-gray-900 to-gray-700 lg:px-8 px-4 py-4'>
+					<div className='max-md:order-1 flex flex-col justify-center space-y-16 max-md:mt-16 min-h-full bg-gradient-to-r from-blue-500 to-blue-600 lg:px-8 px-4 py-4'>
 						<div>
-							<h4 className='text-white text-lg font-semibold'>Create Your Account</h4>
+							<h4 className='text-white text-lg font-semibold'>Login</h4>
 							<p className='text-xs text-gray-300 mt-3'>Welcome to our registration page! Get started by creating your account.</p>
 						</div>
 						<div>
@@ -61,7 +61,7 @@ const LoginPage: React.FC = async () => {
 						<div className='!mt-12'>
 							<button
 								type='submit'
-								className='w-full py-3 px-4 tracking-wider text-sm rounded-md text-white bg-gray-700 hover:bg-gray-800 focus:outline-none'
+								className='w-full py-3 px-4 tracking-wider text-sm rounded-md text-white bg-blue-500 hover:bg-blue-800 focus:outline-none transition-all'
 							>
 								Login
 							</button>

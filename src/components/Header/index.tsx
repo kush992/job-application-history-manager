@@ -23,13 +23,14 @@ const Header: React.FC<Props> = ({ user }) => {
 	};
 
 	return (
-		<header
-			className='border-b border-gray-200 h-[50px] z-50 sticky top-0 backdrop-blur-[100px]'
-			style={{
-				backgroundImage: backgroundImageUrl,
-				backgroundColor: '#ffffffcd',
-			}}
-		>
+		<header className='border-b border-gray-200 z-50 sticky bg-white/20 top-0 inset-x-0 backdrop-blur duration-200'>
+			<div className='bg-blue-500 text-white text-xs py-1 text-center'>
+				Currently on testing stage. <br />
+				Please report any bugs here{' '}
+				<a target='_blank' href='mailto:kush.bhal1999@gmail.com' className='underline italic'>
+					kush.bhal1999@gmail.com
+				</a>
+			</div>
 			<nav className='max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4'>
 				<div>
 					<p className=''>
@@ -56,7 +57,7 @@ const Header: React.FC<Props> = ({ user }) => {
 							</form>
 						</ul>
 					)}
-					{!user?.$id && <Button href='/signup'>Signup</Button>}
+					{!user?.$id && <Button href='/login'>Login</Button>}
 				</div>
 				<div className='md:hidden flex items-center gap-2'>
 					{user?.$id && (
@@ -64,7 +65,7 @@ const Header: React.FC<Props> = ({ user }) => {
 							<MenuFoldOutlined />
 						</Button>
 					)}
-					{!user?.$id && <Button href='/signup'>Signup</Button>}
+					{!user?.$id && <Button href='/login'>Login</Button>}
 				</div>
 			</nav>
 		</header>
