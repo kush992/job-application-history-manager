@@ -43,7 +43,7 @@ const Tags: React.FC<Props> = ({ type, text, iconType }) => {
 	}
 
 	return (
-		<Tag icon={getIcon()} color={type}>
+		<Tag icon={getIcon()} color={type} className='text-xs'>
 			{text}
 		</Tag>
 	);

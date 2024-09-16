@@ -23,7 +23,7 @@ const Header: React.FC<Props> = ({ user }) => {
 	};
 
 	return (
-		<header className='border-b border-gray-200 z-50 sticky bg-white/20 top-0 inset-x-0 backdrop-blur duration-200'>
+		<header className='border-b border-gray-200 z-50 sticky top-0 inset-x-0 backdrop-blur duration-200 bg-white'>
 			<div className='bg-blue-500 text-white text-xs py-1 text-center'>
 				Currently on testing stage. <br />
 				Please report any bugs here{' '}
