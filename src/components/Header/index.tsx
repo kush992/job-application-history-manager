@@ -14,7 +14,7 @@ type Props = {
 	user: Models.User<Models.Preferences> | null;
 };
 
-const Header: React.FC<Props> = async ({ user }) => {
+const Header: React.FC<Props> = ({ user }) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 	const pathname = usePathname();
 

@@ -14,7 +14,7 @@ const ApplicationPage = async () => {
 		<Suspense fallback={<Loader />}>
 			<main className='flex min-h-screen flex-col gap-8 max-w-6xl mx-auto p-4 '>
 				<Analytics />
-				<Application />
+				<Application userId={user.$id} />
 			</main>
 		</Suspense>
 	);

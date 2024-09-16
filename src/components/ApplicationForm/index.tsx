@@ -2,14 +2,13 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+// import * as z from 'zod';
 import { formSchema, SalaryCurrency, SalaryType, FormData } from './utility';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
-import { ID } from 'appwrite';
+import { ID, Permission, Role } from 'appwrite';
 import { useRouter } from 'next/navigation';
 import CustomForm from './Form';
 import SubHeader from '../SubHeader';
-import { nanoid } from 'nanoid';
 import Loader from '../Loader';
 import { appRoutes } from '@/utils/constants';
 
@@ -17,16 +16,17 @@ type Props = {
 	documentId?: string;
 	isUpdateForm?: boolean;
 	isViewOnlyForm?: boolean;
+	userId: string;
 };
 
-const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
+const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	const router = useRouter();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [applicationData, setApplicationData] = useState<any>({} as any);
 
 	const initialFormData: FormData = {
-		userId: applicationData?.userId,
+		userId: applicationData?.userId || userId,
 		jobTitle: applicationData.jobTitle,
 		jobDescription: applicationData.jobDescription,
 		companyName: applicationData?.companyName,
@@ -74,9 +74,15 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 
 	function updateDocument(data: FormData) {
 		database
-			.updateDocument(appwriteDatabaseConfig.applicationDatabase, appwriteDatabaseConfig.applicationDatabaseCollectionId, String(documentId), {
-				...data,
-			})
+			.updateDocument(
+				appwriteDatabaseConfig.applicationDatabase,
+				appwriteDatabaseConfig.applicationDatabaseCollectionId,
+				String(documentId),
+				{
+					...data,
+				},
+				// [Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
+			)
 			.then((response) => {
 				console.log('response', response);
 				router.push(appRoutes.applicationPage);
@@ -91,9 +97,15 @@ const ApplicationForm = ({ documentId, isUpdateForm }: Props) => {
 
 	function addDocument(data: FormData) {
 		database
-			.createDocument(appwriteDatabaseConfig.applicationDatabase, appwriteDatabaseConfig.applicationDatabaseCollectionId, ID.unique(), {
-				...data,
-			})
+			.createDocument(
+				appwriteDatabaseConfig.applicationDatabase,
+				appwriteDatabaseConfig.applicationDatabaseCollectionId,
+				ID.unique(),
+				{
+					...data,
+				},
+				// [Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
+			)
 			.then((response) => {
 				console.log('response', response);
 				router.push(appRoutes.applicationPage);
