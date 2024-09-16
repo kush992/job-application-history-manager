@@ -19,12 +19,9 @@ export default function Wrapper({
 				theme={{
 					token: {
 						borderRadius: 8,
-						// colorLink: '#faad14',
-						// colorPrimary: '#faad14',
-						// colorInfo: '#faad14',
-						colorLink: '#2463eb',
-						colorPrimary: '#2463eb',
-						colorInfo: '#2463eb',
+						colorLink: '#13c2c2b5',
+						colorPrimary: '#475568',
+						colorInfo: '#475568',
 					},
 					// algorithm: [theme.darkAlgorithm],
 				}}

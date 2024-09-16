@@ -1,32 +1,8 @@
 import React, { Suspense } from 'react';
-import { ExclamationCircleFilled } from '@ant-design/icons';
-import { Button, Input, Modal, Space } from 'antd';
-import { ID, Models } from 'node-appwrite';
-import { createAdminClient, getLoggedInUser, signUpWithEmail } from '@/lib/server/appwrite';
-import { cookies } from 'next/headers';
+import { Input } from 'antd';
+import { getLoggedInUser, signUpWithEmail } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
-
-// async function signUpWithEmail(formData: any) {
-// 	'use server';
-
-// 	const email = formData.get('email');
-// 	const password = formData.get('password');
-// 	const name = formData.get('name');
-
-// 	const { account } = await createAdminClient();
-
-// 	await account.create(ID.unique(), email, password, name);
-// 	const session: Models.Session = await account.createEmailPasswordSession(email, password);
-
-// 	cookies().set('my-custom-session', session.secret, {
-// 		path: '/',
-// 		httpOnly: true,
-// 		sameSite: 'strict',
-// 		secure: true,
-// 	});
-
-// 	redirect('/account');
-// }
+import { EyeOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 
 const SignupPage: React.FC = async () => {
 	const user = await getLoggedInUser();
@@ -34,14 +10,84 @@ const SignupPage: React.FC = async () => {
 
 	return (
 		<Suspense fallback='loading....'>
-			{/* <Modal title='Authentication' open={false}> */}
-			<form action={signUpWithEmail} className='flex flex-col justify-center'>
-				<Input id='email' name='email' placeholder='Email' type='email' />
-				<Input id='password' name='password' placeholder='Password' minLength={8} type='password' />
-				<Input id='name' name='name' placeholder='Name' type='text' />
-				<button type='submit'>Sign up</button>
-			</form>
-			{/* </Modal> */}
+			<div className='font-[sans-serif] bg-white max-w-4xl flex items-center mx-auto md:h-screen p-4'>
+				<div className='grid md:grid-cols-3 items-center shadow-[0_2px_10px_-3px_rgba(62,107,209,0.3)] rounded-xl overflow-hidden'>
+					<div className='max-md:order-1 flex flex-col justify-center space-y-16 max-md:mt-16 min-h-full bg-gradient-radial from-gray-900 to-gray-700 lg:px-8 px-4 py-4'>
+						<div>
+							<h4 className='text-white text-lg font-semibold'>Create Your Account</h4>
+							<p className='text-xs text-gray-300 mt-3'>Welcome to our registration page! Get started by creating your account.</p>
+						</div>
+						<div>
+							<h4 className='text-white text-lg font-semibold'>Simple & Secure Registration</h4>
+							<p className='text-xs text-gray-300 mt-3'>
+								This registration process is developed using the appwrite authentication system.
+							</p>
+						</div>
+					</div>
+
+					<form action={signUpWithEmail} className='md:col-span-2 w-full py-6 px-6 sm:px-16'>
+						<div className='mb-6'>
+							<h3 className='text-gray-800 text-2xl font-bold'>Create an account</h3>
+						</div>
+
+						<div className='space-y-6'>
+							<div>
+								<label className='text-gray-800 text-sm mb-2 block'>Name</label>
+								<div className='relative flex items-center'>
+									<input
+										name='name'
+										type='text'
+										required
+										className='text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500'
+										placeholder='Enter name'
+									/>
+								</div>
+							</div>
+
+							<div>
+								<label className='text-gray-800 text-sm mb-2 block'>Email Id</label>
+								<div className='relative flex items-center'>
+									<input
+										name='email'
+										type='email'
+										required
+										className='text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500'
+										placeholder='Enter email'
+									/>
+								</div>
+							</div>
+
+							<div>
+								<label className='text-gray-800 text-sm mb-2 block'>Password</label>
+								<div className='relative flex items-center'>
+									<input
+										name='password'
+										type='password'
+										required
+										className='text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500'
+										placeholder='Enter password'
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div className='!mt-12'>
+							<button
+								type='submit'
+								className='w-full py-3 px-4 tracking-wider text-sm rounded-md text-white bg-gray-700 hover:bg-gray-800 focus:outline-none'
+							>
+								Create an account
+							</button>
+						</div>
+						{/* <p className='text-gray-800 text-sm mt-6 text-center'>
+							Already have an account?{' '}
+							<a href='javascript:void(0);' className='text-blue-600 font-semibold hover:underline ml-1'>
+								Login here
+							</a>
+						</p> */}
+					</form>
+				</div>
+			</div>
 		</Suspense>
 	);
 };
