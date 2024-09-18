@@ -69,7 +69,7 @@ export async function signUpWithEmail(formData: FormData) {
 		redirect('/applications');
 	} catch (error) {
 		console.error(JSON.stringify(error));
-		throw new Error('An error occured while signup', {
+		throw new Error('An error occured', {
 			cause: JSON.stringify(error),
 		});
 	}
@@ -99,7 +99,7 @@ export async function loginWithEmail(formData: FormData) {
 		redirect('/applications');
 	} catch (error) {
 		console.error(JSON.stringify(error));
-		throw new Error('An error occured while login', {
+		throw new Error('An error occured', {
 			cause: JSON.stringify(error),
 		});
 	}
@@ -110,14 +110,8 @@ export async function signOut() {
 
 	const { account } = await createSessionClient();
 
-	try {
-		cookies().delete('my-custom-session');
-		await account.deleteSession('current');
-		redirect('/');
-	} catch (error) {
-		console.error(error);
-		throw new Error('An error occured while logging out', {
-			cause: JSON.stringify(error),
-		});
-	}
+	cookies().delete('my-custom-session');
+	await account.deleteSession('current');
+
+	redirect('/');
 }
