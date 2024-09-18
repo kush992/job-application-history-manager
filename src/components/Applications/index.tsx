@@ -31,7 +31,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 				[
 					Query.limit(config.dataFetchingLimitForAppwrite),
 					Query.equal('isSoftDelete', false),
-					// Query.equal('userId', userId),
+					Query.equal('userId', userId),
 					Query.orderDesc('$createdAt'),
 				],
 			)) as Response<JobApplicationData>;
