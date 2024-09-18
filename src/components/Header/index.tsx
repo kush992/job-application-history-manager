@@ -9,6 +9,7 @@ import { MenuFoldOutlined, PlusCircleFilled } from '@ant-design/icons';
 import { backgroundImageUrl } from '@/utils/utility';
 import { Models } from 'appwrite';
 import { signOut } from '@/lib/server/appwrite';
+import MobileHeader from './MobileHeader';
 
 type Props = {
 	user: Models.User<Models.Preferences> | null;
@@ -66,6 +67,7 @@ const Header: React.FC<Props> = ({ user }) => {
 						</Button>
 					)}
 					{!user?.$id && <Button href='/login'>Login</Button>}
+					{isDrawerOpen && <MobileHeader showDrawer={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />}
 				</div>
 			</nav>
 		</header>
