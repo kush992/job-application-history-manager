@@ -46,10 +46,10 @@ const UploaderCustom: React.FC<Props> = ({ setValue }) => {
 			}
 		},
 		onDrop(e) {
-			console.log('Dropped files', e.dataTransfer.files);
+			// console.log('Dropped files', e.dataTransfer.files);
 		},
 		async onRemove(file) {
-			console.log(file);
+			// console.log(file);
 		},
 	};
 	return (

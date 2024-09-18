@@ -53,7 +53,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 				softDeleteDateAndTime: new Date(),
 			})
 			.then((response) => {
-				console.log('response', response);
+				// console.log('response', response);
 				getApplicationData();
 			})
 			.catch((error) => {
@@ -65,7 +65,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 		isShowTableData && getApplicationData();
 	}, [isShowTableData]);
 
-	console.log('applicationData', applicationData);
+	// console.log('applicationData', applicationData);
 	return (
 		<div className='rounded-lg'>
 			<div className='flex justify-between items-center mb-6'>

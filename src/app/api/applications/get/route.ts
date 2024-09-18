@@ -11,7 +11,7 @@ export async function GET() {
 			[Query.equal('isSoftDelete', false), Query.orderDesc('$createdAt')],
 		)) as Response<JobApplicationData>;
 
-		console.log('response', response);
+		// console.log('response', response);
 
 		if (response.documents.length) {
 			return NextResponse.json(response);

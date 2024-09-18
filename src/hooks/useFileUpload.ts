@@ -52,7 +52,7 @@ async function uploadImagesToGcpBucket(formData: FormData, url: string, fileName
 			throw new Error('Failed to upload file');
 		}
 
-		console.log('UPLOAD_SUCCESS', upload);
+		// console.log('UPLOAD_SUCCESS', upload);
 		return `https://storage.googleapis.com/job-application-manager/${fileName}`;
 	} catch (error) {
 		console.error('Error in file upload:', error);

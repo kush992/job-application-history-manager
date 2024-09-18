@@ -36,10 +36,7 @@ export async function getLoggedInUser() {
 		const { account } = await createSessionClient();
 		return await account.get();
 	} catch (error) {
-		console.error(JSON.stringify(error));
-		throw new Error('An error occured while getting logged in user info', {
-			cause: JSON.stringify(error),
-		});
+		return null;
 	}
 }
 

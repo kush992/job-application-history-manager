@@ -84,7 +84,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 				// [Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
 			)
 			.then((response) => {
-				console.log('response', response);
+				// console.log('response', response);
 				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {
@@ -107,7 +107,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 				// [Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
 			)
 			.then((response) => {
-				console.log('response', response);
+				// console.log('response', response);
 				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {

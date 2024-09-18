@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
 		const [response] = await fileObject.generateSignedPostPolicyV4(options);
 
-		console.log('File uploaded successfully:', fileName);
+		// console.log('File uploaded successfully:', fileName);
 		return NextResponse.json(response);
 	} catch (error) {
 		console.error('Error in upload files API route:', error);

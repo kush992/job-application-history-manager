@@ -12,13 +12,13 @@ const TinyEditor = ({ initialData, onChange, textareaName }: Props) => {
 	const editorRef = useRef<any>(null);
 	const log = () => {
 		if (editorRef.current) {
-			console.log(editorRef.current.getContent());
+			// console.log(editorRef.current.getContent());
 		}
 	};
 
 	const handleEditorChange = (value: any) => {
 		if (editorRef.current) {
-			console.log(editorRef.current.getContent());
+			// console.log(editorRef.current.getContent());
 			onChange(editorRef.current.getContent());
 		}
 	};
