@@ -13,7 +13,7 @@ type Params = {
 export default async function UpdateApplication({ params }: { params: Params }) {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect('/signup');
+	if (!user) redirect('/login');
 
 	return (
 		<Suspense fallback={<Loader />}>

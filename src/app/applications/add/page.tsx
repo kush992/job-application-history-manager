@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation';
 export default async function AddApplication() {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect('/signup');
+	if (!user) redirect('/login');
 
 	return (
 		<Suspense fallback={<Loader />}>

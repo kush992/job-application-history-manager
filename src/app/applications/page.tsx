@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation';
 const ApplicationPage = async () => {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect('/signup');
+	if (!user) redirect('/login');
 
 	return (
 		<Suspense fallback={<Loader />}>
