@@ -28,8 +28,8 @@ const Header: React.FC<Props> = ({ user }) => {
 			<div className='bg-blue-500 text-white text-xs py-1 text-center'>
 				Currently on testing stage. <br />
 				Please report any bugs here{' '}
-				<a target='_blank' href='mailto:kush.bhal1999@gmail.com' className='underline italic'>
-					kush.bhal1999@gmail.com
+				<a target='_blank' href='mailto:kushbhalodi.project@gmail.com' className='underline italic'>
+					kushbhalodi.project@gmail.com
 				</a>
 			</div>
 			<nav className='max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4'>

@@ -1,4 +1,3 @@
-// src/lib/server/appwrite.js
 'use server';
 import { Client, Account, ID } from 'node-appwrite';
 import { cookies } from 'next/headers';
@@ -37,16 +36,23 @@ export async function getLoggedInUser() {
 		const { account } = await createSessionClient();
 		return await account.get();
 	} catch (error) {
-		return null;
+		console.error(JSON.stringify(error));
+		throw new Error('An error occured while getting logged in user info', {
+			cause: JSON.stringify(error),
+		});
 	}
 }
 
-export async function signUpWithEmail(formData: any) {
+export async function signUpWithEmail(formData: FormData) {
 	'use server';
 
-	const email = formData.get('email');
-	const password = formData.get('password');
-	const name = formData.get('name');
+	const email = formData.get('email')?.toString();
+	const password = formData.get('password')?.toString();
+	const name = formData.get('name')?.toString();
+
+	if (!email || !password || !name) {
+		throw new Error('Email, password and name are required fields.');
+	}
 
 	const { account } = await createAdminClient();
 
@@ -62,15 +68,22 @@ export async function signUpWithEmail(formData: any) {
 
 		redirect('/applications');
 	} catch (error) {
-		console.error(error);
+		console.error(JSON.stringify(error));
+		throw new Error('An error occured while signup', {
+			cause: JSON.stringify(error),
+		});
 	}
 }
 
-export async function loginWithEmail(formData: any) {
+export async function loginWithEmail(formData: FormData) {
 	'use server';
 
-	const email = formData.get('email');
-	const password = formData.get('password');
+	const email = formData?.get('email')?.toString();
+	const password = formData?.get('password')?.toString();
+
+	if (!email || !password) {
+		throw new Error('Email and password are required fields');
+	}
 
 	const { account } = await createAdminClient();
 
@@ -85,7 +98,10 @@ export async function loginWithEmail(formData: any) {
 
 		redirect('/applications');
 	} catch (error) {
-		console.error(error);
+		console.error(JSON.stringify(error));
+		throw new Error('An error occured while login', {
+			cause: JSON.stringify(error),
+		});
 	}
 }
 
@@ -94,8 +110,14 @@ export async function signOut() {
 
 	const { account } = await createSessionClient();
 
-	cookies().delete('my-custom-session');
-	await account.deleteSession('current');
-
-	redirect('/');
+	try {
+		cookies().delete('my-custom-session');
+		await account.deleteSession('current');
+		redirect('/');
+	} catch (error) {
+		console.error(error);
+		throw new Error('An error occured while logging out', {
+			cause: JSON.stringify(error),
+		});
+	}
 }
