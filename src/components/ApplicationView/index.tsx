@@ -56,7 +56,7 @@ const ApplicationView = ({ documentId }: Props) => {
 			{!isFetching && !applicationData.$id && contextHolder}
 			{!isFetching && applicationData.$id && (
 				<>
-					<div className='bg-white rounded-lg border border-gray-200 p-2 md:p-4'>
+					<div className='bg-white md:rounded-lg border border-gray-200 p-4'>
 						<div className='flex justify-between items-center'>
 							<SubHeader previousPageTitle='Applications' href={appRoutes.applicationPage} />
 							<Link href={`${appRoutes.updateApplicationPage}/${documentId}`} className='underline'>
@@ -88,7 +88,7 @@ const ApplicationView = ({ documentId }: Props) => {
 						</div>
 					</div>
 
-					<div className='bg-white border border-gray-200 p-2 md:p-4 rounded-lg'>
+					<div className='bg-white border border-gray-200 p-4 md:rounded-lg'>
 						{applicationData?.feedbackFromCompany && (
 							<div>
 								<Divider />
