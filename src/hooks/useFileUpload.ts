@@ -6,7 +6,7 @@ export function useFileUpload() {
 			formDataToSend.append('file', file); // Add the file to the FormData
 			formDataToSend.append('filename', filename); // Optionally add the filename as a separate field
 
-			const result = await fetch(`/api/files/uploadFiles?file=${filename}`, {
+			const result = await fetch(`/api/files/upload?file=${filename}`, {
 				method: 'POST',
 				body: formDataToSend,
 			});

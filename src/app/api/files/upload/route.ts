@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
 		console.log('File uploaded successfully:', fileName);
 		return NextResponse.json(response);
 	} catch (error) {
-		console.error('Error in uploadFiles API route:', error);
+		console.error('Error in upload files API route:', error);
 		return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
 	}
 }
