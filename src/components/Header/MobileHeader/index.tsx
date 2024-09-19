@@ -15,10 +15,14 @@ const MobileHeader: React.FC<Props> = ({ showDrawer, onClose }) => {
 		<Drawer className='!bg-[#f4f2ee] !rounded-l-lg md:hidden' title='Menu' onClose={onClose} open={showDrawer}>
 			<div className='flex flex-col justify-between h-full'>
 				<div className='flex flex-col gap-3'>
-					<Link href={appRoutes.addApplicationPage} className='p-3 bg-white rounded-lg text-black flex gap-4 items-center'>
+					<Link
+						onClick={onClose}
+						href={appRoutes.addApplicationPage}
+						className='p-3 bg-white rounded-lg text-black flex gap-4 items-center'
+					>
 						<PlusOutlined /> Add application
 					</Link>
-					<Link href={appRoutes.addApplicationPage} className='p-3 bg-white rounded-lg text-black flex gap-4 items-center'>
+					<Link onClick={onClose} href={appRoutes.applicationPage} className='p-3 bg-white rounded-lg text-black flex gap-4 items-center'>
 						<EyeOutlined /> Your applications
 					</Link>
 				</div>

@@ -5,10 +5,11 @@ import { Query } from 'appwrite';
 import React, { useEffect, useState } from 'react';
 import ApplicationsTable from './ApplicationsTable';
 import { useSearchParams } from 'next/navigation';
-import { Button } from 'antd';
+import { Button, Divider } from 'antd';
 import { appRoutes } from '@/utils/constants';
 import SubHeader from '../SubHeader';
 import { config } from '@/config/config';
+import ApplicationList from './ApplicationList';
 
 type Props = {
 	userId: string;
@@ -75,7 +76,16 @@ const Application: React.FC<Props> = ({ userId }) => {
 				</div>
 				<Button href={appRoutes.addApplicationPage}>Add new</Button>
 			</div>
-			{isShowTableData && <ApplicationsTable applicationData={applicationData} isLoading={isLoading} onClick={softDeleteData} />}
+			<p className='text-xs'>Showing: {applicationData.total}</p>
+			<div className='flex flex-col border border-gray-200 rounded-lg overflow-hidden'>
+				{applicationData?.documents?.map((data) => (
+					<>
+						<ApplicationList key={data.$id} data={data} onClickDelete={softDeleteData} />
+						<Divider className='!my-0 py-10' />
+					</>
+				))}
+			</div>
+			{/* {isShowTableData && <ApplicationsTable applicationData={applicationData} isLoading={isLoading} onClick={softDeleteData} />} */}
 			{!isShowTableData && 'No data to show. Please re-authenticate with special code for the data'}
 		</div>
 	);
