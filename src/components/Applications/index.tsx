@@ -74,6 +74,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 		fetchApplicationData();
 	}, []);
 
+	useEffect(() => {
 		if (notification.content) {
 			const timer = setTimeout(() => {
 				setNotification({ content: '', type: '' });
