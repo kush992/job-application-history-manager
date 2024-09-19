@@ -38,6 +38,7 @@ const LoginPage: React.FC = async () => {
 									<input
 										name='email'
 										type='email'
+										id='email'
 										required
 										className='text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500'
 										placeholder='Enter email'
@@ -51,6 +52,7 @@ const LoginPage: React.FC = async () => {
 									<input
 										name='password'
 										type='password'
+										id='password'
 										required
 										className='text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500'
 										placeholder='Enter password'

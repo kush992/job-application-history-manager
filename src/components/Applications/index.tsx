@@ -8,6 +8,7 @@ import { appRoutes } from '@/utils/constants';
 import SubHeader from '../SubHeader';
 import ApplicationList from './ApplicationList';
 import { LoadingOutlined } from '@ant-design/icons';
+import Notifications from '../Notifications';
 
 type Props = {
 	userId: string;
@@ -18,8 +19,10 @@ const Application: React.FC<Props> = ({ userId }) => {
 	const [totalDocuments, setTotalDocuments] = useState<number>(0);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [hasMore, setHasMore] = useState<boolean>(true);
-
-	const isShowTableData = true;
+	const [notification, setNotification] = useState<{ content: string; type: '' | 'success' | 'error' }>({
+		content: '',
+		type: '',
+	});
 
 	const fetchApplicationData = async (lastId?: string) => {
 		setIsLoading(true);
@@ -58,19 +61,31 @@ const Application: React.FC<Props> = ({ userId }) => {
 				softDeleteDateAndTime: new Date(),
 			})
 			.then((response) => {
-				fetchApplicationData(); // Reload the data after soft delete
+				setNotification({ content: 'Application deleted', type: 'success' });
+				fetchApplicationData();
 			})
 			.catch((error) => {
+				setNotification({ content: 'An error occured', type: 'error' });
 				console.error(error);
 			});
 	}
 
 	useEffect(() => {
-		isShowTableData && fetchApplicationData();
-	}, [isShowTableData]);
+		fetchApplicationData();
+	}, []);
+
+		if (notification.content) {
+			const timer = setTimeout(() => {
+				setNotification({ content: '', type: '' });
+			}, 1000);
+
+			return () => clearTimeout(timer);
+		}
+	}, [notification]);
 
 	return (
 		<div className='rounded-lg'>
+			{notification.content && <Notifications {...notification} />}
 			<div className='flex justify-between items-center mb-6'>
 				<div>
 					<SubHeader previousPageTitle='Home' href='/' />
@@ -78,6 +93,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 				</div>
 				<Button href={appRoutes.addApplicationPage}>Add new</Button>
 			</div>
+
 			<div className='flex flex-col items-center gap-4'>
 				<div>
 					<p className='text-xs text-center'>Total: {totalDocuments}</p>
@@ -96,8 +112,6 @@ const Application: React.FC<Props> = ({ userId }) => {
 					<span>{isLoading ? 'Loading...' : 'Load more'}</span>
 				</Button>
 			</div>
-
-			{!isShowTableData && 'No data to show. Please re-authenticate with special code for the data'}
 		</div>
 	);
 };
