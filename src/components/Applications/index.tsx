@@ -102,10 +102,10 @@ const Application: React.FC<Props> = ({ userId }) => {
 				</div>
 				<div className='flex flex-col border border-gray-200 rounded-lg overflow-hidden'>
 					{documents?.map((data) => (
-						<>
-							<ApplicationList key={data.$id} data={data} onClickDelete={softDeleteData} />
-							<Divider className='!my-0 py-10' />
-						</>
+						<div key={data.$id}>
+							<ApplicationList data={data} onClickDelete={softDeleteData} />
+							<Divider className='!my-0 py-12' />
+						</div>
 					))}
 				</div>
 				<Button type='primary' onClick={() => fetchApplicationData(documents[documents.length - 1].$id)} disabled={!hasMore || isLoading}>

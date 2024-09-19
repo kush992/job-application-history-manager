@@ -145,7 +145,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 		<div className='flex flex-col gap-6'>
 			<div>
 				<SubHeader previousPageTitle='Applications' href={appRoutes.applicationPage} />
-				<h1 className='text-xl font-semibold !m-0'>Add latest applied</h1>
+				<h1 className='text-xl font-semibold !m-0'>{isUpdateForm ? 'Edit' : 'Add latest applied'}</h1>
 			</div>
 
 			{isLoading ? (
