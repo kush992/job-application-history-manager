@@ -3,42 +3,46 @@ import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Query } from 'appwrite';
 import React, { useEffect, useState } from 'react';
-import ApplicationsTable from './ApplicationsTable';
-import { useSearchParams } from 'next/navigation';
 import { Button, Divider } from 'antd';
 import { appRoutes } from '@/utils/constants';
 import SubHeader from '../SubHeader';
-import { config } from '@/config/config';
 import ApplicationList from './ApplicationList';
+import { LoadingOutlined } from '@ant-design/icons';
 
 type Props = {
 	userId: string;
 };
 
 const Application: React.FC<Props> = ({ userId }) => {
-	const [applicationData, setApplicationData] = useState<Response<JobApplicationData>>({} as Response<JobApplicationData>);
+	const [documents, setDocuments] = useState<JobApplicationData[]>([]);
+	const [totalDocuments, setTotalDocuments] = useState<number>(0);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const searchParams = useSearchParams();
+	const [hasMore, setHasMore] = useState<boolean>(true);
 
-	// const isShowTableData = searchParams.get('hashKeyForData') === config.hashKeyForData;
 	const isShowTableData = true;
 
-	const getApplicationData = async () => {
+	const fetchApplicationData = async (lastId?: string) => {
 		setIsLoading(true);
 		try {
+			const queries = [Query.limit(20), Query.equal('isSoftDelete', false), Query.equal('userId', userId), Query.orderDesc('$createdAt')];
+
+			if (lastId) {
+				queries.push(Query.cursorAfter(lastId));
+			}
+
 			const response = (await database.listDocuments(
 				appwriteDatabaseConfig.applicationDatabase,
 				appwriteDatabaseConfig.applicationDatabaseCollectionId,
-				[
-					Query.limit(config.dataFetchingLimitForAppwrite),
-					Query.equal('isSoftDelete', false),
-					Query.equal('userId', userId),
-					Query.orderDesc('$createdAt'),
-				],
+				queries,
 			)) as Response<JobApplicationData>;
 
+			setTotalDocuments(response.total);
+
 			if (response.documents.length) {
-				setApplicationData(response);
+				setDocuments((prevDocuments) => (lastId ? [...prevDocuments, ...response.documents] : response.documents));
+				setHasMore(response.documents.length === 20);
+			} else {
+				setHasMore(false);
 			}
 		} catch (error) {
 			console.error(error);
@@ -54,8 +58,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 				softDeleteDateAndTime: new Date(),
 			})
 			.then((response) => {
-				// console.log('response', response);
-				getApplicationData();
+				fetchApplicationData(); // Reload the data after soft delete
 			})
 			.catch((error) => {
 				console.error(error);
@@ -63,10 +66,9 @@ const Application: React.FC<Props> = ({ userId }) => {
 	}
 
 	useEffect(() => {
-		isShowTableData && getApplicationData();
+		isShowTableData && fetchApplicationData();
 	}, [isShowTableData]);
 
-	// console.log('applicationData', applicationData);
 	return (
 		<div className='rounded-lg'>
 			<div className='flex justify-between items-center mb-6'>
@@ -76,16 +78,25 @@ const Application: React.FC<Props> = ({ userId }) => {
 				</div>
 				<Button href={appRoutes.addApplicationPage}>Add new</Button>
 			</div>
-			<p className='text-xs'>Showing: {applicationData.total}</p>
-			<div className='flex flex-col border border-gray-200 rounded-lg overflow-hidden'>
-				{applicationData?.documents?.map((data) => (
-					<>
-						<ApplicationList key={data.$id} data={data} onClickDelete={softDeleteData} />
-						<Divider className='!my-0 py-10' />
-					</>
-				))}
+			<div className='flex flex-col items-center gap-4'>
+				<div>
+					<p className='text-xs text-center'>Total: {totalDocuments}</p>
+					<p className='text-xs text-center'>Showing: {documents.length}</p>
+				</div>
+				<div className='flex flex-col border border-gray-200 rounded-lg overflow-hidden'>
+					{documents?.map((data) => (
+						<>
+							<ApplicationList key={data.$id} data={data} onClickDelete={softDeleteData} />
+							<Divider className='!my-0 py-10' />
+						</>
+					))}
+				</div>
+				<Button type='primary' onClick={() => fetchApplicationData(documents[documents.length - 1].$id)} disabled={!hasMore || isLoading}>
+					{isLoading && <LoadingOutlined />}
+					<span>{isLoading ? 'Loading...' : 'Load more'}</span>
+				</Button>
 			</div>
-			{/* {isShowTableData && <ApplicationsTable applicationData={applicationData} isLoading={isLoading} onClick={softDeleteData} />} */}
+
 			{!isShowTableData && 'No data to show. Please re-authenticate with special code for the data'}
 		</div>
 	);
