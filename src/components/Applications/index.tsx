@@ -2,13 +2,16 @@
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Query } from 'appwrite';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import debounce from 'lodash/debounce';
 import { Button, Divider } from 'antd';
 import { appRoutes } from '@/utils/constants';
 import SubHeader from '../SubHeader';
 import ApplicationList from './ApplicationList';
-import { LoadingOutlined } from '@ant-design/icons';
+import { InfoCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import Notifications from '../Notifications';
+import ApplicationFilter from './ApplicationFilter';
+import { ApplicationStatus } from '../ApplicationForm/utility';
 
 type Props = {
 	userId: string;
@@ -23,14 +26,24 @@ const Application: React.FC<Props> = ({ userId }) => {
 		content: '',
 		type: '',
 	});
+	const [companyNameFilter, setCompanyNameFilter] = useState<string | undefined>(undefined);
+	const [statusFilter, setStatusFilter] = useState<ApplicationStatus | undefined>(undefined);
 
-	const fetchApplicationData = async (lastId?: string) => {
+	const fetchApplicationData = async (lastId?: string, query?: string, statusFilter?: ApplicationStatus) => {
 		setIsLoading(true);
 		try {
 			const queries = [Query.limit(20), Query.equal('isSoftDelete', false), Query.equal('userId', userId), Query.orderDesc('$createdAt')];
 
 			if (lastId) {
 				queries.push(Query.cursorAfter(lastId));
+			}
+
+			if (query) {
+				queries.push(Query.contains('companyName', query));
+			}
+
+			if (statusFilter) {
+				queries.push(Query.contains('applicationStatus', statusFilter));
 			}
 
 			const response = (await database.listDocuments(
@@ -41,8 +54,8 @@ const Application: React.FC<Props> = ({ userId }) => {
 
 			setTotalDocuments(response.total);
 
+			setDocuments((prevDocuments) => (lastId ? [...prevDocuments, ...response.documents] : response.documents));
 			if (response.documents.length) {
-				setDocuments((prevDocuments) => (lastId ? [...prevDocuments, ...response.documents] : response.documents));
 				setHasMore(response.documents.length === 20);
 			} else {
 				setHasMore(false);
@@ -60,7 +73,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 				isSoftDelete: true,
 				softDeleteDateAndTime: new Date(),
 			})
-			.then((response) => {
+			.then(() => {
 				setNotification({ content: 'Application deleted', type: 'success' });
 				fetchApplicationData();
 			})
@@ -69,6 +82,24 @@ const Application: React.FC<Props> = ({ userId }) => {
 				console.error(error);
 			});
 	}
+
+	const debouncedFetching = useCallback(debounce(fetchApplicationData, 400), []);
+
+	const onInputChange = async (value: string) => {
+		setCompanyNameFilter(value);
+		await debouncedFetching('', value);
+	};
+
+	const filterByStatus = async (value: ApplicationStatus) => {
+		setStatusFilter(value);
+		await debouncedFetching('', '', value);
+	};
+
+	const clearAllFilters = async () => {
+		setCompanyNameFilter('');
+		setStatusFilter(undefined);
+		await debouncedFetching(undefined, undefined, undefined);
+	};
 
 	useEffect(() => {
 		fetchApplicationData();
@@ -95,20 +126,33 @@ const Application: React.FC<Props> = ({ userId }) => {
 				<Button href={appRoutes.addApplicationPage}>Add new</Button>
 			</div>
 
-			<div className='flex flex-col items-center gap-4'>
-				<div>
-					<p className='text-xs text-center'>Total: {totalDocuments}</p>
-					<p className='text-xs text-center'>Showing: {documents.length}</p>
-				</div>
-				<div className='flex flex-col border border-gray-200 rounded-lg overflow-hidden'>
-					{documents?.map((data) => (
-						<div key={data.$id}>
-							<ApplicationList data={data} onClickDelete={softDeleteData} />
-							<Divider className='!my-0 py-12' />
-						</div>
-					))}
-				</div>
-				<Button type='primary' onClick={() => fetchApplicationData(documents[documents.length - 1].$id)} disabled={!hasMore || isLoading}>
+			<div className='flex flex-col items-center gap-2 w-full'>
+				<p className='text-xs text-center flex items-center gap-1 text-gray-600'>
+					<InfoCircleFilled />
+					<span>
+						Total: {totalDocuments} Showing: {documents.length}
+					</span>
+				</p>
+				<ApplicationFilter onInputChange={onInputChange} filterByStatus={filterByStatus} clearAllFilters={clearAllFilters} />
+
+				{documents.length > 0 && (
+					<div className='flex flex-col border border-gray-200 rounded-lg overflow-hidden w-full'>
+						{documents?.map((data) => (
+							<div key={data.$id}>
+								<ApplicationList data={data} onClickDelete={softDeleteData} />
+								<Divider className='!my-0 py-12' />
+							</div>
+						))}
+					</div>
+				)}
+
+				{!documents.length && <p className='text-base my-10'>No data to show.</p>}
+
+				<Button
+					type='primary'
+					onClick={() => fetchApplicationData(documents[documents.length - 1].$id, companyNameFilter, statusFilter)}
+					disabled={!hasMore || isLoading}
+				>
 					{isLoading && <LoadingOutlined />}
 					<span>{isLoading ? 'Loading...' : 'Load more'}</span>
 				</Button>

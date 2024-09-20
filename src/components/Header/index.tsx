@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { MenuFoldOutlined, PlusCircleFilled } from '@ant-design/icons';
-import { backgroundImageUrl } from '@/utils/utility';
 import { Models } from 'appwrite';
 import { signOut } from '@/lib/server/appwrite';
 import MobileHeader from './MobileHeader';
@@ -20,8 +19,10 @@ const Header: React.FC<Props> = ({ user }) => {
 	const pathname = usePathname();
 
 	const isActive = (route: string) => {
-		return pathname === route ? 'primary' : 'default';
+		return pathname === route;
 	};
+
+	console.log(pathname);
 
 	return (
 		<header className='border-b border-gray-200 z-50 sticky top-0 inset-x-0 backdrop-blur duration-200 bg-white'>
@@ -44,14 +45,17 @@ const Header: React.FC<Props> = ({ user }) => {
 					{user?.$id && (
 						<ul className='flex justify-between items-center m-0 gap-2'>
 							<li className='list-none'>
-								<Button href={appRoutes.addApplicationPage} type='primary' style={{ backgroundImage: backgroundImageUrl }}>
+								<Link href={appRoutes.addApplicationPage}>
 									<PlusCircleFilled color='blue' height='40px' width='40px' />
-								</Button>
+								</Link>
 							</li>
 							<li className='list-none'>
-								<Button href={appRoutes.applicationPage} type={isActive(appRoutes.interviewQuestionsPage)}>
+								<Link
+									href={appRoutes.applicationPage}
+									className={`text-black ${isActive(appRoutes.applicationPage) ? 'bg-blue-50 p-1 rounded-lg' : ''}`}
+								>
 									Your Applications
-								</Button>
+								</Link>
 							</li>
 							<form action={signOut}>
 								<button type='submit'>Signout</button>
