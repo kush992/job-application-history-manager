@@ -1,16 +1,17 @@
 'use client';
 import React, { FormEvent, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Path, PathValue, RegisterOptions, useForm, UseFormRegisterReturn } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 // import * as z from 'zod';
 import { formSchema, SalaryCurrency, SalaryType, FormData } from './utility';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { ID, Permission, Role } from 'appwrite';
 import { useRouter } from 'next/navigation';
-import CustomForm from './Form';
+import CustomForm from './OldForm';
 import SubHeader from '../SubHeader';
 import Loader from '../Loader';
 import { appRoutes } from '@/utils/constants';
+import ApplicationDataForm from './Form';
 
 type Props = {
 	documentId?: string;
@@ -39,12 +40,18 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 		interviewDate: applicationData?.interviewDate || undefined,
 	};
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors, defaultValues },
-		setValue,
-	} = useForm<FormData>({
+	// const {
+	// 	register,
+	// 	handleSubmit,
+	// 	formState: { errors, defaultValues },
+	// 	setValue,
+	// } = useForm<FormData>({
+	// 	resolver: zodResolver(formSchema),
+	// 	defaultValues: { ...initialFormData },
+	// 	values: { ...initialFormData },
+	// });
+
+	const form = useForm<FormData>({
 		resolver: zodResolver(formSchema),
 		defaultValues: { ...initialFormData },
 		values: { ...initialFormData },
@@ -64,6 +71,10 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 		if (!data.salaryType) {
 			delete data.salaryType;
 		}
+
+		// if (data.interviewDate) {
+		// 	data.interviewDate = data.interviewDate.toString();
+		// }
 
 		if (!isUpdateForm) {
 			addDocument(data);
@@ -151,14 +162,17 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			{isLoading ? (
 				<Loader />
 			) : (
-				<CustomForm
-					handleSubmit={handleSubmit(onSubmit)}
-					register={register}
-					isSubmitting={isSubmitting}
-					errors={errors}
-					initialFormData={initialFormData}
-					setValue={setValue}
-				/>
+				<>
+					<ApplicationDataForm form={form} onSubmit={onSubmit} />
+					{/* <CustomForm
+						handleSubmit={handleSubmit(onSubmit)}
+						register={register}
+						isSubmitting={isSubmitting}
+						errors={errors}
+						initialFormData={initialFormData}
+						setValue={setValue}
+					/> */}
+				</>
 			)}
 		</div>
 	);
