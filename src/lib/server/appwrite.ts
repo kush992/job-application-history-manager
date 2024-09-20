@@ -63,7 +63,9 @@ export async function signUpWithEmail(formData: FormData) {
 			secure: true,
 		});
 
-		redirect('/applications');
+		if (session?.$id) {
+			redirect('/applications');
+		}
 	} catch (error) {
 		console.error(JSON.stringify(error));
 		throw new Error('An error occured', {
@@ -93,7 +95,9 @@ export async function loginWithEmail(formData: FormData) {
 			secure: true,
 		});
 
-		redirect('/applications');
+		if (session?.$id) {
+			redirect('/applications');
+		}
 	} catch (error) {
 		console.error(JSON.stringify(error));
 		throw new Error('An error occured', {
