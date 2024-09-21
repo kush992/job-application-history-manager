@@ -12,6 +12,7 @@ import { InfoCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import Notifications from '../Notifications';
 import ApplicationFilter from './ApplicationFilter';
 import { ApplicationStatus } from '../ApplicationForm/utility';
+import { Separator } from '../ui/separator';
 
 type Props = {
 	userId: string;
@@ -127,7 +128,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 			</div>
 
 			<div className='flex flex-col items-center gap-2 w-full'>
-				<p className='text-xs text-center flex items-center gap-1 text-gray-600'>
+				<p className='text-xs text-center flex items-center gap-1 text-muted-foreground'>
 					<InfoCircleFilled />
 					<span>
 						Total: {totalDocuments} Showing: {documents.length}
@@ -136,11 +137,11 @@ const Application: React.FC<Props> = ({ userId }) => {
 				<ApplicationFilter onInputChange={onInputChange} filterByStatus={filterByStatus} clearAllFilters={clearAllFilters} />
 
 				{documents.length > 0 && (
-					<div className='flex flex-col border border-gray-200 rounded-lg overflow-hidden w-full'>
+					<div className='flex flex-col border rounded-lg overflow-hidden w-full'>
 						{documents?.map((data) => (
 							<div key={data.$id}>
 								<ApplicationList data={data} onClickDelete={softDeleteData} />
-								<Divider className='!my-0 py-12' />
+								<Separator />
 							</div>
 						))}
 					</div>
@@ -149,7 +150,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 				{!documents.length && <p className='text-base my-10'>No data to show.</p>}
 
 				<Button
-					type='primary'
+					// type='primary'
 					onClick={() => fetchApplicationData(documents[documents.length - 1].$id, companyNameFilter, statusFilter)}
 					disabled={!hasMore || isLoading}
 				>

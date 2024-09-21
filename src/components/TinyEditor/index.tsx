@@ -32,6 +32,8 @@ const TinyEditor = ({ initialData, onChange, textareaName }: Props) => {
 				onEditorChange={(newValue) => handleEditorChange(newValue)}
 				textareaName={textareaName}
 				init={{
+					skin: 'oxide-dark',
+					content_css: 'dark',
 					height: 500,
 					menubar: 'file edit view insert format tools table help',
 					plugins: [
@@ -59,7 +61,10 @@ const TinyEditor = ({ initialData, onChange, textareaName }: Props) => {
 						'bold italic backcolor | alignleft aligncenter ' +
 						'alignright alignjustify | bullist numlist outdent indent | ' +
 						'removeformat | help',
-					content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+					content_style:
+						'body { font-family:Helvetica,Arial,sans-serif; font-size:14px, background-color: red }' +
+						'div { margin: 10px; border: 5px solid red; padding: 3px; } ' +
+						'.blue { color: #ff8400; } .red { color: red; }',
 				}}
 			/>
 		</>

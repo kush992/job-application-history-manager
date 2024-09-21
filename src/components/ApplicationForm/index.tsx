@@ -72,10 +72,6 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			delete data.salaryType;
 		}
 
-		// if (data.interviewDate) {
-		// 	data.interviewDate = data.interviewDate.toString();
-		// }
-
 		if (!isUpdateForm) {
 			addDocument(data);
 		} else {

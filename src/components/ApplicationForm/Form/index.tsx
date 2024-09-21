@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
+import { DateTimePicker } from '@/components/ui/date-time-picker';
 
 type Props = {
 	form: UseFormReturn<FormData>;
@@ -161,14 +162,14 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					/>
 				</div>
 
-				{/* <FormField
+				<FormField
 					control={form.control}
 					name='interviewDate'
 					render={({ field }) => (
 						<FormItem className='flex flex-col'>
 							<FormLabel>Interview Date</FormLabel>
 							<Popover>
-								<PopoverTrigger asChild>
+								{/* <PopoverTrigger asChild>
 									<FormControl>
 										<Button
 											variant={'outline'}
@@ -178,15 +179,18 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 											<CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
 										</Button>
 									</FormControl>
-								</PopoverTrigger>
-								<PopoverContent className='w-auto p-0' align='start'>
+								</PopoverTrigger> */}
+								{/* <PopoverContent className='w-auto p-0' align='start'>
 									<Calendar mode='single' selected={new Date(field.value)} onSelect={field.onChange} initialFocus />
-								</PopoverContent>
+								</PopoverContent> */}
 							</Popover>
+							<FormControl>
+								<DateTimePicker value={field.value} onChange={field.onChange} />
+							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
-				/> */}
+				/>
 
 				<Button type='submit'>Submit</Button>
 			</form>
