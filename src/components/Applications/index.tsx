@@ -4,7 +4,6 @@ import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Query } from 'appwrite';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
-import { Button, Divider } from 'antd';
 import { appRoutes } from '@/utils/constants';
 import SubHeader from '../SubHeader';
 import ApplicationList from './ApplicationList';
@@ -12,6 +11,9 @@ import { InfoCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import Notifications from '../Notifications';
 import ApplicationFilter from './ApplicationFilter';
 import { ApplicationStatus } from '../ApplicationForm/utility';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 type Props = {
 	userId: string;
@@ -123,11 +125,13 @@ const Application: React.FC<Props> = ({ userId }) => {
 					<SubHeader previousPageTitle='Home' href='/' />
 					<h1 className='text-xl font-semibold !m-0'>Application Data</h1>
 				</div>
-				<Button href={appRoutes.addApplicationPage}>Add new</Button>
+				<Button variant='outline'>
+					<Link href={appRoutes.addApplicationPage}>Add new</Link>
+				</Button>
 			</div>
 
 			<div className='flex flex-col items-center gap-2 w-full'>
-				<p className='text-xs text-center flex items-center gap-1 text-gray-600'>
+				<p className='text-xs text-center flex items-center gap-1 text-muted-foreground'>
 					<InfoCircleFilled />
 					<span>
 						Total: {totalDocuments} Showing: {documents.length}
@@ -136,11 +140,11 @@ const Application: React.FC<Props> = ({ userId }) => {
 				<ApplicationFilter onInputChange={onInputChange} filterByStatus={filterByStatus} clearAllFilters={clearAllFilters} />
 
 				{documents.length > 0 && (
-					<div className='flex flex-col border border-gray-200 rounded-lg overflow-hidden w-full'>
+					<div className='flex flex-col border rounded-lg overflow-hidden w-full'>
 						{documents?.map((data) => (
 							<div key={data.$id}>
 								<ApplicationList data={data} onClickDelete={softDeleteData} />
-								<Divider className='!my-0 py-12' />
+								<Separator />
 							</div>
 						))}
 					</div>
@@ -149,7 +153,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 				{!documents.length && <p className='text-base my-10'>No data to show.</p>}
 
 				<Button
-					type='primary'
+					variant='outline'
 					onClick={() => fetchApplicationData(documents[documents.length - 1].$id, companyNameFilter, statusFilter)}
 					disabled={!hasMore || isLoading}
 				>

@@ -1,159 +1,201 @@
-import React, { useState } from 'react';
-import { FieldErrors, UseFormHandleSubmit, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { formSchema, SalaryCurrency, FormData, SalaryType, ApplicationStatus } from '../utility';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import cn from 'classnames';
+import React from 'react';
+import { UseFormRegister, FieldErrors, UseFormSetValue, UseFormReturn } from 'react-hook-form';
+import { ApplicationStatus, FormData, SalaryCurrency, SalaryType } from '../utility';
+import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
-import { z } from 'zod';
-import { Button, Input } from 'antd';
-import InputWithLabel from '@/components/InputWithLabel';
-import DatePickerCustom from '@/components/DatePickerCustom';
-import SelectWithLabel from '@/components/SelectCustom';
-import UploaderCustom from '@/components/UploaderCustom';
-import { config } from '@/config/config';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Button } from '@/components/ui/button';
+import { CalendarIcon } from '@radix-ui/react-icons';
+import { Calendar } from '@/components/ui/calendar';
+import { format } from 'date-fns';
+import { DateTimePicker } from '@/components/ui/date-time-picker';
 
 type Props = {
-	handleSubmit: any;
-	register: UseFormRegister<FormData>;
-	initialFormData?: FormData;
-	errors: FieldErrors<FormData>;
-	isSubmitting: boolean;
-	setValue: UseFormSetValue<FormData>;
+	form: UseFormReturn<FormData>;
+	onSubmit: (data: FormData) => Promise<void>;
 };
 
-const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }) => {
+const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 	return (
-		<form className='max-w-6xl w-full mx-auto flex flex-col gap-4 rounded-lg' onSubmit={handleSubmit}>
-			<InputWithLabel
-				labelName='Job Title'
-				placeholder='Job Title'
-				name='jobTitle'
-				onChange={(e) => setValue('jobTitle', e.currentTarget.value)}
-				value={initialFormData?.jobTitle}
-				errorText={errors.jobTitle?.message ?? ''}
-				isError={!!errors.jobTitle}
-			/>
+		<Form {...form}>
+			<form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-6'>
+				<FormField
+					control={form.control}
+					name='jobTitle'
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Job Title</FormLabel>
+							<FormControl>
+								<Input placeholder='Job title' {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
 
-			<div>
-				<label className='text-xs my-0 py-0'>Job Description</label>
+				<FormLabel>Job description</FormLabel>
 				<TinyEditor
-					initialData={initialFormData?.jobDescription ?? ''}
-					onChange={(data: any) => setValue('jobDescription', data)}
+					initialData={form.getValues('jobDescription') ?? ''}
+					onChange={(data: any) => form.setValue('jobDescription', data)}
 					textareaName='jobDescription'
 				/>
-				{errors.jobDescription && <p className='text-[10px] py-2 text-red-400'>{errors.jobDescription.message}</p>}
-			</div>
+				<FormMessage />
 
-			<div className='md:grid grid-cols-2 gap-4'>
-				<InputWithLabel
-					labelName='Company Name'
-					placeholder='Company Name'
-					name='Company Name'
-					onChange={(e) => setValue('companyName', e.currentTarget.value)}
-					value={initialFormData?.companyName}
-					errorText={errors.companyName?.message ?? ''}
-					isError={!!errors.companyName}
-				/>
-
-				<InputWithLabel
-					labelName='Company Domain'
-					placeholder='Company Domain'
-					name='Company Domain'
-					onChange={(e) => setValue('companyDomain', e.currentTarget.value)}
-					value={initialFormData?.companyDomain}
-					errorText={errors.companyDomain?.message ?? ''}
-					isError={!!errors.companyDomain}
-				/>
-			</div>
-
-			<div className='grid grid-cols-2 gap-4'>
-				<InputWithLabel
-					labelName='Salary'
-					placeholder='Salary'
-					name='Salary'
-					onChange={(e) => setValue('salary', e.currentTarget.value)}
-					value={initialFormData?.salary}
-					errorText={errors.salary?.message ?? ''}
-					isError={!!errors.salary}
-				/>
-
-				<SelectWithLabel
-					options={[
-						{ value: 'NULL', label: 'Select' },
-						{ value: SalaryType.MONTHLY, label: 'Monthly' },
-						{ value: SalaryType.PER_ANUM, label: 'Per-anum' },
-					]}
-					isError={!!errors.salaryType}
-					errorText={errors?.salaryType?.message ?? ''}
-					labelName={'Salary type'}
-					initialValue={{ value: initialFormData?.salaryType ?? '', label: initialFormData?.salaryType ?? '' }}
-					onChange={(data) => typeof data === 'string' && setValue('salaryType', data)}
-				/>
-
-				<SelectWithLabel
-					options={[
-						{ value: 'NULL', label: 'Select' },
-						{ value: SalaryCurrency.EUR, label: 'EUR' },
-						{ value: SalaryCurrency.GBP, label: 'GBP' },
-						{ value: SalaryCurrency.PLN, label: 'PLN' },
-						{ value: SalaryCurrency.INR, label: 'INR' },
-						{ value: SalaryCurrency.USD, label: 'USD' },
-					]}
-					isError={!!errors.salaryCurrency}
-					errorText={errors?.salaryCurrency?.message ?? ''}
-					labelName={'Salary currency'}
-					initialValue={{ value: initialFormData?.salaryCurrency ?? '', label: initialFormData?.salaryCurrency ?? '' }}
-					onChange={(data) => typeof data === 'string' && setValue('salaryCurrency', data)}
-				/>
-
-				<SelectWithLabel
-					options={[
-						{ value: 'NULL', label: 'Select' },
-						{ value: ApplicationStatus.APPLIED, label: 'Applied' },
-						{ value: ApplicationStatus.IN_PROGRESS, label: 'In progress' },
-						{ value: ApplicationStatus.SUCCESS, label: 'Success' },
-						{ value: ApplicationStatus.NO_REPLY, label: 'No reply' },
-						{ value: ApplicationStatus.REJECTED_NO_FEEDBACK, label: 'Rejected no feedback' },
-						{ value: ApplicationStatus.REJECTED_WITH_FEEDBACK, label: 'Rejected with feedback' },
-					]}
-					isError={!!errors.applicationStatus}
-					errorText={errors?.applicationStatus?.message ?? ''}
-					initialValue={{ value: initialFormData?.applicationStatus ?? '', label: initialFormData?.applicationStatus ?? '' }}
-					labelName={'Application Status'}
-					onChange={(data) => typeof data === 'string' && setValue('applicationStatus', data)}
-				/>
-			</div>
-
-			<div className='flex flex-col w-fit'>
-				<label className='text-xs my-0 py-0'>Interview Date</label>
-				<DatePickerCustom onChange={(data) => setValue('interviewDate', data?.toString())} initialValue={initialFormData?.interviewDate} />
-				{errors.interviewDate && <p className='text-[10px] py-2 text-red-400'>{errors.interviewDate.message}</p>}
-			</div>
-
-			<div>
-				<label className='text-xs my-0 py-0'>Company Feedback</label>
-				<TinyEditor
-					initialData={initialFormData?.feedbackFromCompany ?? ''}
-					onChange={(data: any) => setValue('feedbackFromCompany', data)}
-					textareaName='feedbackFromCompany'
-				/>
-				{errors.feedbackFromCompany && <p className='text-[10px] py-2 text-red-400'>{errors.feedbackFromCompany.message}</p>}
-			</div>
-
-			{config.uiShowUploader === '1' && (
-				<div>
-					<label className='text-xs my-0 py-0'>Upload Documents</label>
-					<UploaderCustom setValue={setValue} />
+				<div className='md:grid grid-cols-2 items-center gap-2'>
+					<FormField
+						control={form.control}
+						name='companyName'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Company Name</FormLabel>
+								<FormControl>
+									<Input placeholder='Company name' {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name='companyDomain'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Company Domain</FormLabel>
+								<FormControl>
+									<Input placeholder='Company domain' {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 				</div>
-			)}
 
-			<button
-				type='submit'
-				disabled={isSubmitting}
-				className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-			>
-				Submit
-			</button>
-		</form>
+				<div className='md:grid grid-cols-2 items-center gap-2'>
+					<FormField
+						control={form.control}
+						name='salary'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Salary</FormLabel>
+								<FormControl>
+									<Input placeholder='Salary' {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name='salaryType'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Salary Type</FormLabel>
+								<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder='Select type of salary' />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										<SelectItem value={SalaryType.MONTHLY}>Monthly</SelectItem>
+										<SelectItem value={SalaryType.PER_ANUM}>Yearly</SelectItem>
+									</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
+
+				<div className='md:grid grid-cols-2 items-center gap-2'>
+					<FormField
+						control={form.control}
+						name='salaryCurrency'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Salary Currency</FormLabel>
+								<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder='Select currency type' />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										<SelectItem value={SalaryCurrency.PLN}>PLN</SelectItem>
+										<SelectItem value={SalaryCurrency.EUR}>EUR</SelectItem>
+										<SelectItem value={SalaryCurrency.GBP}>GBP</SelectItem>
+										<SelectItem value={SalaryCurrency.INR}>INR</SelectItem>
+										<SelectItem value={SalaryCurrency.USD}>USD</SelectItem>
+									</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name='applicationStatus'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Application Status</FormLabel>
+								<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder='Select status of the application' />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										<SelectItem value={ApplicationStatus.APPLIED}>Applied</SelectItem>
+										<SelectItem value={ApplicationStatus.IN_PROGRESS}>In progress</SelectItem>
+										<SelectItem value={ApplicationStatus.SUCCESS}>Success</SelectItem>
+										<SelectItem value={ApplicationStatus.NO_REPLY}>No reply</SelectItem>
+										<SelectItem value={ApplicationStatus.REJECTED_NO_FEEDBACK}>Rejected no feedback</SelectItem>
+										<SelectItem value={ApplicationStatus.REJECTED_WITH_FEEDBACK}>Rejected with feedback</SelectItem>
+									</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
+
+				<FormField
+					control={form.control}
+					name='interviewDate'
+					render={({ field }) => (
+						<FormItem className='flex flex-col'>
+							<FormLabel>Interview Date</FormLabel>
+							<Popover>
+								{/* <PopoverTrigger asChild>
+									<FormControl>
+										<Button
+											variant={'outline'}
+											className={cn('w-[240px] pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}
+										>
+											{field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+											<CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+										</Button>
+									</FormControl>
+								</PopoverTrigger> */}
+								{/* <PopoverContent className='w-auto p-0' align='start'>
+									<Calendar mode='single' selected={new Date(field.value)} onSelect={field.onChange} initialFocus />
+								</PopoverContent> */}
+							</Popover>
+							<FormControl>
+								<DateTimePicker value={field.value} onChange={field.onChange} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				<Button type='submit'>Submit</Button>
+			</form>
+		</Form>
 	);
 };
 
-export default CustomForm;
+export default ApplicationDataForm;
