@@ -10,7 +10,7 @@ import { Models } from 'appwrite';
 import { signOut } from '@/lib/server/appwrite';
 import MobileHeader from './MobileHeader';
 import { ThemeSwitcher } from '../ThemeSwitcher';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 
 type Props = {
 	user: Models.User<Models.Preferences> | null;

@@ -10,6 +10,7 @@ import { formatDate } from '@/utils/date';
 import Loader from '../Loader';
 import { DollarCircleOutlined, EditOutlined } from '@ant-design/icons';
 import Tags from '../Tags';
+import { Separator } from '@/components/ui/separator';
 
 type Props = {
 	documentId: string;
@@ -69,7 +70,7 @@ const ApplicationView = ({ documentId }: Props) => {
 							<Tags type={'default'} text={applicationData.applicationStatus ?? ''} iconType={''} />
 						</div>
 
-						<Divider className='mt-2' />
+						<Separator className='mt-2' />
 						<div>
 							<h2 className='text-md'>Job Activity</h2>
 							<p className='text-sm text-muted-foreground'>

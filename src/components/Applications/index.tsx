@@ -11,7 +11,7 @@ import { InfoCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import Notifications from '../Notifications';
 import ApplicationFilter from './ApplicationFilter';
 import { ApplicationStatus } from '../ApplicationForm/utility';
-import { Separator } from '../ui/separator';
+import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
