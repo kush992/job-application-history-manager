@@ -1,7 +1,7 @@
 'use client';
 
 import { appRoutes } from '@/utils/constants';
-// import { Button } from 'antd';
+import cn from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
@@ -48,14 +48,18 @@ const Header: React.FC<Props> = ({ user }) => {
 					{user?.$id && (
 						<ul className='flex justify-between items-center m-0 gap-4'>
 							<li className='list-none'>
-								<Link href={appRoutes.addApplicationPage}>
-									<PlusCircleFilled className='text-secondary-foreground' height='40px' width='40px' />
-								</Link>
+								<Button variant='outline'>
+									<Link href={appRoutes.addApplicationPage}>
+										<PlusCircleFilled className='text-secondary-foreground' height='40px' width='40px' />
+									</Link>
+								</Button>
 							</li>
 							<li className='list-none'>
 								<Link
 									href={appRoutes.applicationPage}
-									className={`text-secondary-foreground ${isActive(appRoutes.applicationPage) ? 'bg-muted p-2 rounded-lg' : ''}`}
+									className={cn('text-secondary-foreground', {
+										'bg-muted p-2 rounded-lg': isActive(appRoutes.applicationPage),
+									})}
 								>
 									Your Applications
 								</Link>

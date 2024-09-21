@@ -1,7 +1,5 @@
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
-import SelectWithLabel from '@/components/SelectCustom';
 import { Button } from '@/components/ui/button';
-import { FormControl } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { DeleteFilled } from '@ant-design/icons';
@@ -33,7 +31,7 @@ const ApplicationFilter: React.FC<Props> = ({ onInputChange, filterByStatus, cle
 					</SelectContent>
 				</Select>
 
-				<Button type='reset' onClick={clearAllFilters}>
+				<Button type='reset' onClick={clearAllFilters} variant='outline' className='flex items-center gap-1'>
 					<DeleteFilled />
 					<span>Clear filters</span>
 				</Button>

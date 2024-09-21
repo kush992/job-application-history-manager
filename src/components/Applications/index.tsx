@@ -4,7 +4,6 @@ import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Query } from 'appwrite';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
-import { Button, Divider } from 'antd';
 import { appRoutes } from '@/utils/constants';
 import SubHeader from '../SubHeader';
 import ApplicationList from './ApplicationList';
@@ -13,6 +12,8 @@ import Notifications from '../Notifications';
 import ApplicationFilter from './ApplicationFilter';
 import { ApplicationStatus } from '../ApplicationForm/utility';
 import { Separator } from '../ui/separator';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 type Props = {
 	userId: string;
@@ -124,7 +125,9 @@ const Application: React.FC<Props> = ({ userId }) => {
 					<SubHeader previousPageTitle='Home' href='/' />
 					<h1 className='text-xl font-semibold !m-0'>Application Data</h1>
 				</div>
-				<Button href={appRoutes.addApplicationPage}>Add new</Button>
+				<Button variant='outline'>
+					<Link href={appRoutes.addApplicationPage}>Add new</Link>
+				</Button>
 			</div>
 
 			<div className='flex flex-col items-center gap-2 w-full'>
@@ -150,7 +153,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 				{!documents.length && <p className='text-base my-10'>No data to show.</p>}
 
 				<Button
-					// type='primary'
+					variant='outline'
 					onClick={() => fetchApplicationData(documents[documents.length - 1].$id, companyNameFilter, statusFilter)}
 					disabled={!hasMore || isLoading}
 				>
