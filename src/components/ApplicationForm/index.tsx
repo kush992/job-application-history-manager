@@ -7,7 +7,6 @@ import { formSchema, SalaryCurrency, SalaryType, FormData } from './utility';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { ID, Permission, Role } from 'appwrite';
 import { useRouter } from 'next/navigation';
-import CustomForm from './OldForm';
 import SubHeader from '../SubHeader';
 import Loader from '../Loader';
 import { appRoutes } from '@/utils/constants';
@@ -160,7 +159,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			) : (
 				<>
 					<ApplicationDataForm form={form} onSubmit={onSubmit} />
-					{/* <CustomForm
+					{/* <OldCustomForm
 						handleSubmit={handleSubmit(onSubmit)}
 						register={register}
 						isSubmitting={isSubmitting}

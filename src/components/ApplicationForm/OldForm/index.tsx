@@ -19,7 +19,7 @@ type Props = {
 	setValue: UseFormSetValue<FormData>;
 };
 
-const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }) => {
+const OldCustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitting, initialFormData, setValue }) => {
 	return (
 		<form className='max-w-6xl w-full mx-auto flex flex-col gap-4 rounded-lg' onSubmit={handleSubmit}>
 			<InputWithLabel
@@ -156,4 +156,4 @@ const CustomForm: React.FC<Props> = ({ handleSubmit, register, errors, isSubmitt
 	);
 };
 
-export default CustomForm;
+export default OldCustomForm;
