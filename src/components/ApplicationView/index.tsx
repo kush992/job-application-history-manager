@@ -6,7 +6,7 @@ import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { JobApplicationData } from '@/types/apiResponseTypes';
 import SubHeader from '../SubHeader';
 import { appRoutes } from '@/utils/constants';
-import { formatDate } from '@/utils/date';
+import { formatDate, transformDate } from '@/utils/date';
 import Loader from '../Loader';
 import { DollarCircleOutlined, EditOutlined } from '@ant-design/icons';
 import Tags from '../Tags';
@@ -52,35 +52,40 @@ const ApplicationView = ({ documentId }: Props) => {
 	}, [documentId, openNotification]);
 
 	return (
-		<div className='flex flex-col gap-6'>
+		<div className='flex flex-col gap-6 p-4'>
 			{isFetching && <Loader />}
 			{!isFetching && !applicationData.$id && contextHolder}
 			{!isFetching && applicationData.$id && (
 				<>
-					<div className=' md:rounded-lg border p-4'>
+					<div className='flex flex-col gap-4 rounded-lg border p-4'>
 						<div className='flex justify-between items-center'>
 							<SubHeader previousPageTitle='Applications' href={appRoutes.applicationPage} />
 							<Link href={`${appRoutes.updateApplicationPage}/${documentId}`} className='underline'>
 								<EditOutlined />
 							</Link>
 						</div>
+
 						<div>
 							<p className='text-sm'>{applicationData.companyName}</p>
 							<h1 className='text-2xl font-semibold !mt-0 !mb-2'>{applicationData.jobTitle}</h1>
 							<Tags type={'default'} text={applicationData.applicationStatus ?? ''} iconType={''} />
 						</div>
 
-						<Separator className='mt-2' />
+						<Separator className='my-4' />
 						<div>
 							<h2 className='text-md'>Job Activity</h2>
-							<p className='text-sm text-muted-foreground'>
-								Applied on: <strong>{formatDate(applicationData.$createdAt)}</strong>
-							</p>
-							{applicationData?.interviewDate && (
-								<p className='text-sm text-muted-foreground'>
-									Interview Date: <b>{formatDate(applicationData.interviewDate)}</b>
+							<div className='flex flex-col gap-2'>
+								{applicationData?.interviewDate && (
+									<p className='text-sm flex flex-col md:gap-4 md:flex-row'>
+										<span>● Interview</span>
+										<span className='text-muted-foreground'>{formatDate(applicationData.interviewDate)}</span>
+									</p>
+								)}
+								<p className='text-sm flex flex-col md:gap-4 md:flex-row'>
+									<span>● Applied</span>
+									<span className='text-muted-foreground'>{formatDate(applicationData.$createdAt)}</span>
 								</p>
-							)}
+							</div>
 							{salaryDetail && (
 								<p className='text-sm text-muted-foreground'>
 									<DollarCircleOutlined /> {salaryDetail}
@@ -89,7 +94,7 @@ const ApplicationView = ({ documentId }: Props) => {
 						</div>
 					</div>
 
-					<div className='border p-4 md:rounded-lg'>
+					<div className='border p-4 rounded-lg'>
 						{applicationData?.feedbackFromCompany && (
 							<div>
 								<Divider />
