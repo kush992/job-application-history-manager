@@ -36,6 +36,8 @@ export async function POST(req: NextRequest) {
 			},
 		});
 
+		console.log('API_CONFIG', process.env.PROJECT_ID, process.env.CLIENT_EMAIL, process.env.PRIVATE_KEY);
+
 		console.log('GCP_STORAGE', JSON.stringify(storage));
 
 		const bucket = storage.bucket(String(process.env.BUCKET_NAME));
