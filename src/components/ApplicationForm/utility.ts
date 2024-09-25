@@ -40,6 +40,9 @@ export const formSchema = z.object({
 	companyName: z.string().nonempty('Company name is a required field'),
 	companyDomain: z.string().optional(),
 	interviewDate: z.date().optional(),
+	links: z.string().optional(),
 });
 
 export type FormData = z.infer<typeof formSchema>;
+
+export const FILES_SEPARATOR = ',____,';

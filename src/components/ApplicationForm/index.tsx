@@ -37,6 +37,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 		salaryCurrency: applicationData?.salaryCurrency,
 		salaryType: applicationData?.salaryType,
 		interviewDate: applicationData?.interviewDate || undefined,
+		links: applicationData?.links || undefined,
 	};
 
 	// const {
@@ -99,14 +100,19 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			.finally(() => {
 				setIsSubmitting(false);
 			});
+
+		if (data.links) {
+			addLinks(data, documentId || applicationData.$id);
+		}
 	}
 
 	function addDocument(data: FormData) {
+		const documentId = ID.unique();
 		database
 			.createDocument(
 				appwriteDatabaseConfig.applicationDatabase,
 				appwriteDatabaseConfig.applicationDatabaseCollectionId,
-				ID.unique(),
+				documentId,
 				{
 					...data,
 				},
@@ -114,6 +120,9 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			)
 			.then((response) => {
 				// console.log('response', response);
+				if (data.links) {
+					addLinks(data, documentId);
+				}
 				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {
@@ -122,6 +131,19 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			.finally(() => {
 				setIsSubmitting(false);
 			});
+	}
+
+	function addLinks(data: FormData, documentId: string) {
+		database.createDocument(
+			appwriteDatabaseConfig.applicationDatabase,
+			appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
+			ID.unique(),
+			{
+				link: data.links,
+				userId: userId,
+				jobApplications: [documentId],
+			},
+		);
 	}
 
 	useEffect(() => {

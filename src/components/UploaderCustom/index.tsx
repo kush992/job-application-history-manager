@@ -28,22 +28,21 @@ const UploaderCustom: React.FC<Props> = ({ setValue }) => {
 		multiple: true,
 		supportServerRender: true,
 		async onChange(info) {
-			const uploadOk = await uploadFile(info.file.originFileObj as File);
-			if (uploadOk) {
-				message.success(`${info.file.name} file uploaded successfully`);
-
-				database.createDocument(
-					appwriteDatabaseConfig.applicationDatabase,
-					appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
-					ID.unique(),
-					{
-						link: uploadOk,
-						userId: nanoid(12),
-					},
-				);
-			} else {
-				message.error(`${info.file.name} file upload failed.`);
-			}
+			// const uploadOk = await uploadFile(info.file.originFileObj as File);
+			// if (uploadOk) {
+			// 	message.success(`${info.file.name} file uploaded successfully`);
+			// 	database.createDocument(
+			// 		appwriteDatabaseConfig.applicationDatabase,
+			// 		appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
+			// 		ID.unique(),
+			// 		{
+			// 			link: uploadOk,
+			// 			userId: nanoid(12),
+			// 		},
+			// 	);
+			// } else {
+			// 	message.error(`${info.file.name} file upload failed.`);
+			// }
 		},
 		onDrop(e) {
 			// console.log('Dropped files', e.dataTransfer.files);
