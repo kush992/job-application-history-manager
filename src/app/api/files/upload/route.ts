@@ -28,11 +28,13 @@ export async function POST(req: NextRequest) {
 
 		const fileContent = filePart.split('\r\n\r\n')[1].split('\r\n--')[0];
 
+		const privateKey = process?.env?.PRIVATE_KEY?.replace(/\\n/g, '\n');
+
 		const storage = new Storage({
 			projectId: process.env.PROJECT_ID,
 			credentials: {
 				client_email: process.env.CLIENT_EMAIL,
-				private_key: process.env.PRIVATE_KEY,
+				private_key: privateKey,
 			},
 		});
 
@@ -51,7 +53,9 @@ export async function POST(req: NextRequest) {
 			fields: { 'x-goog-meta-source': 'job-application-manager' },
 		};
 
-		const [response] = await fileObject.generateSignedPostPolicyV4(options);
+		// const [response] = await fileObject.generateSignedPostPolicyV4(options);
+
+		const [response] = await fileObject.getSignedUrl({ version: 'v4', action: 'write', expires: Date.now() + 5 * 60 * 1000 });
 
 		console.log('GCP_STORAGE_BUCKET_FILE_SIGNING_RESP', JSON.stringify(response));
 
