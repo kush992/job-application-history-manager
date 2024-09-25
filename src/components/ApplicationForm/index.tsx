@@ -134,16 +134,29 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	}
 
 	function addLinks(data: FormData, documentId: string) {
-		database.createDocument(
-			appwriteDatabaseConfig.applicationDatabase,
-			appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
-			ID.unique(),
-			{
-				link: data.links,
-				userId: userId,
-				jobApplications: [documentId],
-			},
-		);
+		if (isUpdateForm) {
+			database.updateDocument(
+				appwriteDatabaseConfig.applicationDatabase,
+				appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
+				documentId,
+				{
+					link: data.links,
+					userId: userId,
+					jobApplications: [documentId],
+				},
+			);
+		} else {
+			database.createDocument(
+				appwriteDatabaseConfig.applicationDatabase,
+				appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
+				ID.unique(),
+				{
+					link: data.links,
+					userId: userId,
+					jobApplications: [documentId],
+				},
+			);
+		}
 	}
 
 	useEffect(() => {

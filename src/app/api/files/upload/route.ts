@@ -36,6 +36,8 @@ export async function POST(req: NextRequest) {
 			},
 		});
 
+		console.log('GCP_STORAGE', storage);
+
 		const bucket = storage.bucket(String(process.env.BUCKET_NAME));
 		const fileObject = bucket.file(fileName);
 		const options = {
