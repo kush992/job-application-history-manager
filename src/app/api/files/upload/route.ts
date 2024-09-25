@@ -36,13 +36,13 @@ export async function POST(req: NextRequest) {
 			},
 		});
 
-		console.log('GCP_STORAGE', storage);
-		console.log('GCP_STORAGE_BUCKET', storage.bucket(String(process.env.BUCKET_NAME)));
+		console.log('GCP_STORAGE', JSON.stringify(storage));
 
 		const bucket = storage.bucket(String(process.env.BUCKET_NAME));
-		const fileObject = bucket.file(fileName);
+		console.log('GCP_STORAGE_BUCKET', JSON.stringify(bucket));
 
-		console.log('FILE_OBJ', fileObject);
+		const fileObject = bucket.file(fileName);
+		console.log('FILE_OBJ', JSON.stringify(fileObject));
 
 		const options = {
 			expires: Date.now() + 5 * 60 * 1000, // 5 minutes,
@@ -51,12 +51,12 @@ export async function POST(req: NextRequest) {
 
 		const [response] = await fileObject.generateSignedPostPolicyV4(options);
 
-		console.log('GCP_STORAGE_BUCKET_FILE_SIGNING_RESP', response);
+		console.log('GCP_STORAGE_BUCKET_FILE_SIGNING_RESP', JSON.stringify(response));
 
 		// console.log('File uploaded successfully:', fileName);
 		return NextResponse.json(response);
 	} catch (error) {
-		console.error('Error in upload files API route:', error);
+		console.error('Error in upload files API route:', JSON.stringify(error));
 		return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
 	}
 }
