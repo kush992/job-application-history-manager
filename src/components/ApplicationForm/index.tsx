@@ -1,16 +1,15 @@
 'use client';
-import React, { FormEvent, useEffect, useState } from 'react';
-import { Path, PathValue, RegisterOptions, useForm, UseFormRegisterReturn } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import * as z from 'zod';
-import { formSchema, SalaryCurrency, SalaryType, FormData } from './utility';
+import { formSchema, FormData } from './utility';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
-import { ID, Permission, Role } from 'appwrite';
+import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
 import SubHeader from '../SubHeader';
 import Loader from '../Loader';
 import { appRoutes } from '@/utils/constants';
 import ApplicationDataForm from './Form';
+import { useForm } from 'react-hook-form';
 
 type Props = {
 	documentId?: string;

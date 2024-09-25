@@ -1,21 +1,14 @@
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import cn from 'classnames';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import React from 'react';
-import { UseFormRegister, FieldErrors, UseFormSetValue, UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 import { ApplicationStatus, FILES_SEPARATOR, FormData, SalaryCurrency, SalaryType } from '../utility';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Popover } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
-import { CalendarIcon } from '@radix-ui/react-icons';
-import { Calendar } from '@/components/ui/calendar';
-import { format } from 'date-fns';
 import { DateTimePicker } from '@/components/ui/date-time-picker';
 import { useFileUpload } from '@/hooks/useFileUpload';
-import { appwriteDatabaseConfig, database } from '@/appwrite/config';
-import { ID } from 'appwrite';
-import { nanoid } from 'nanoid';
 
 type Props = {
 	form: UseFormReturn<FormData>;
@@ -198,7 +191,8 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					)}
 				/>
 
-				<FormField
+				{/* TODO: resolve me and add security */}
+				{/* <FormField
 					control={form.control}
 					name='links'
 					render={({ field }) => (
@@ -225,7 +219,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 							<FormMessage />
 						</FormItem>
 					)}
-				/>
+				/> */}
 
 				<Button type='submit'>Submit</Button>
 			</form>
