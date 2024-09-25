@@ -55,12 +55,14 @@ export async function POST(req: NextRequest) {
 
 		// const [response] = await fileObject.generateSignedPostPolicyV4(options);
 
-		const [response] = await fileObject.getSignedUrl({ version: 'v4', action: 'write', expires: Date.now() + 5 * 60 * 1000 });
+		// const [response] = await fileObject.getSignedUrl({ version: 'v4', action: 'write', expires: Date.now() + 5 * 60 * 1000 });
+		const asdf = await fileObject.save(fileContent);
+		console.log('>>>>>>>>>>>>>ASDF', asdf);
 
-		console.log('GCP_STORAGE_BUCKET_FILE_SIGNING_RESP', JSON.stringify(response));
+		// console.log('GCP_STORAGE_BUCKET_FILE_SIGNING_RESP', JSON.stringify(response));
 
 		// console.log('File uploaded successfully:', fileName);
-		return NextResponse.json(response);
+		return NextResponse.json('response');
 	} catch (error) {
 		console.error('Error in upload files API route:', JSON.stringify(error));
 		return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
