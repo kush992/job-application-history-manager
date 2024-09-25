@@ -2,7 +2,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import cn from 'classnames';
 import React from 'react';
 import { UseFormRegister, FieldErrors, UseFormSetValue, UseFormReturn } from 'react-hook-form';
-import { ApplicationStatus, FormData, SalaryCurrency, SalaryType } from '../utility';
+import { ApplicationStatus, FILES_SEPARATOR, FormData, SalaryCurrency, SalaryType } from '../utility';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -12,6 +12,10 @@ import { CalendarIcon } from '@radix-ui/react-icons';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { DateTimePicker } from '@/components/ui/date-time-picker';
+import { useFileUpload } from '@/hooks/useFileUpload';
+import { appwriteDatabaseConfig, database } from '@/appwrite/config';
+import { ID } from 'appwrite';
+import { nanoid } from 'nanoid';
 
 type Props = {
 	form: UseFormReturn<FormData>;
@@ -19,6 +23,8 @@ type Props = {
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
+	const uploadFile = useFileUpload();
+
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-6'>
@@ -186,6 +192,35 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 							</Popover>
 							<FormControl>
 								<DateTimePicker value={field.value} onChange={field.onChange} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				<FormField
+					control={form.control}
+					name='links'
+					render={({ field }) => (
+						<FormItem className='flex flex-col'>
+							<FormLabel>Upload Files</FormLabel>
+							<FormControl>
+								<Input
+									id='fileUploader'
+									type='file'
+									multiple
+									name='link'
+									onChange={async (e) => {
+										const files = e.target.files;
+										if (files?.length) {
+											const uploadedFileUrls = await uploadFile(Array.from(files));
+
+											if (uploadedFileUrls) {
+												form.setValue('links', uploadedFileUrls.join(FILES_SEPARATOR));
+											}
+										}
+									}}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>

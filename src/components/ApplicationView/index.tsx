@@ -11,6 +11,7 @@ import Loader from '../Loader';
 import { DollarCircleOutlined, EditOutlined } from '@ant-design/icons';
 import Tags from '../Tags';
 import { Separator } from '@/components/ui/separator';
+import DOMPurify from 'dompurify';
 
 type Props = {
 	documentId: string;
@@ -101,7 +102,7 @@ const ApplicationView = ({ documentId }: Props) => {
 								<h2 className='text-lg font-semibold !mt-3'>Additional details after applying</h2>
 								<div
 									className='rounded-lg prose prose:!text-muted-foreground prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
-									dangerouslySetInnerHTML={{ __html: applicationData?.feedbackFromCompany }}
+									dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(applicationData?.feedbackFromCompany) }}
 								/>
 								<Divider />
 							</div>
@@ -109,8 +110,8 @@ const ApplicationView = ({ documentId }: Props) => {
 						<div>
 							<h2 className='text-lg font-semibold !m-0'>Application Data</h2>
 							<div
-								className='rounded-lg prose prose-headings:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
-								dangerouslySetInnerHTML={{ __html: applicationData?.jobDescription }}
+								className='rounded-lg prose prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
+								dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(applicationData?.jobDescription) }}
 							/>
 						</div>
 					</div>
