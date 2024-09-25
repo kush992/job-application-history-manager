@@ -37,15 +37,21 @@ export async function POST(req: NextRequest) {
 		});
 
 		console.log('GCP_STORAGE', storage);
+		console.log('GCP_STORAGE_BUCKET', storage.bucket(String(process.env.BUCKET_NAME)));
 
 		const bucket = storage.bucket(String(process.env.BUCKET_NAME));
 		const fileObject = bucket.file(fileName);
+
+		console.log('FILE_OBJ', fileObject);
+
 		const options = {
 			expires: Date.now() + 5 * 60 * 1000, // 5 minutes,
 			fields: { 'x-goog-meta-source': 'job-application-manager' },
 		};
 
 		const [response] = await fileObject.generateSignedPostPolicyV4(options);
+
+		console.log('GCP_STORAGE_BUCKET_FILE_SIGNING_RESP', response);
 
 		// console.log('File uploaded successfully:', fileName);
 		return NextResponse.json(response);
