@@ -58,7 +58,7 @@ const ApplicationView = ({ documentId }: Props) => {
 			{!isFetching && !applicationData.$id && contextHolder}
 			{!isFetching && applicationData.$id && (
 				<>
-					<div className='flex flex-col gap-4 rounded-lg border p-4'>
+					<div className='flex flex-col gap-4 rounded-lg border p-4 bg-primary-foreground'>
 						<div className='flex justify-between items-center'>
 							<SubHeader previousPageTitle='Applications' href={appRoutes.applicationPage} />
 							<Link href={`${appRoutes.updateApplicationPage}/${documentId}`} className='underline'>
@@ -69,7 +69,7 @@ const ApplicationView = ({ documentId }: Props) => {
 						<div>
 							<p className='text-sm'>{applicationData.companyName}</p>
 							<h1 className='text-2xl font-semibold !mt-0 !mb-2'>{applicationData.jobTitle}</h1>
-							<Tags type={'default'} text={applicationData.applicationStatus ?? ''} iconType={''} />
+							<Tags type='default' text={applicationData.applicationStatus ?? ''} iconType='' />
 						</div>
 
 						<Separator className='my-4' />
@@ -95,13 +95,13 @@ const ApplicationView = ({ documentId }: Props) => {
 						</div>
 					</div>
 
-					<div className='border p-4 rounded-lg'>
+					<div className='border p-4 rounded-lg bg-primary-foreground'>
 						{applicationData?.feedbackFromCompany && (
 							<div>
 								<Divider />
 								<h2 className='text-lg font-semibold !mt-3'>Additional details after applying</h2>
 								<div
-									className='rounded-lg prose prose:!text-muted-foreground prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
+									className='rounded-lg prose !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
 									dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(applicationData?.feedbackFromCompany) }}
 								/>
 								<Divider />
@@ -110,7 +110,7 @@ const ApplicationView = ({ documentId }: Props) => {
 						<div>
 							<h2 className='text-lg font-semibold !m-0'>Application Data</h2>
 							<div
-								className='rounded-lg prose prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
+								className='rounded-lg prose !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
 								dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(applicationData?.jobDescription) }}
 							/>
 						</div>
