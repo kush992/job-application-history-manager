@@ -9,6 +9,7 @@ import { Popover } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { DateTimePicker } from '@/components/ui/date-time-picker';
 import { useFileUpload } from '@/hooks/useFileUpload';
+import { config } from '@/config/config';
 
 type Props = {
 	form: UseFormReturn<FormData>;
@@ -194,34 +195,36 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 				/>
 
 				{/* TODO: resolve me and add security */}
-				<FormField
-					control={form.control}
-					name='links'
-					render={({ field }) => (
-						<FormItem className='flex flex-col'>
-							<FormLabel>Upload Files</FormLabel>
-							<FormControl>
-								<Input
-									id='fileUploader'
-									type='file'
-									multiple
-									name='link'
-									onChange={async (e) => {
-										const files = e.target.files;
-										if (files?.length) {
-											const uploadedFileUrls = await uploadFile(Array.from(files));
+				{config.uiShowUploader === '1' && (
+					<FormField
+						control={form.control}
+						name='links'
+						render={({ field }) => (
+							<FormItem className='flex flex-col'>
+								<FormLabel>Upload Files</FormLabel>
+								<FormControl>
+									<Input
+										id='fileUploader'
+										type='file'
+										multiple
+										name='link'
+										onChange={async (e) => {
+											const files = e.target.files;
+											if (files?.length) {
+												const uploadedFileUrls = await uploadFile(Array.from(files));
 
-											if (uploadedFileUrls) {
-												form.setValue('links', uploadedFileUrls.join(FILES_SEPARATOR));
+												if (uploadedFileUrls) {
+													form.setValue('links', uploadedFileUrls.join(FILES_SEPARATOR));
+												}
 											}
-										}
-									}}
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+										}}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				)}
 
 				<Button type='submit'>Submit</Button>
 			</form>

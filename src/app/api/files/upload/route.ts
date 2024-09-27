@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 		const fileNameMatch = contentDisposition.match(/filename="(.+?)"/);
 		const fileName = fileNameMatch ? fileNameMatch[1] : `uploaded-file-${nanoid(12)}`;
 
-		const fileContent = filePart.split('\r\n\r\n')[1].split('\r\n--')[0];
+		// const fileContent = filePart.split('\r\n\r\n')[1].split('\r\n--')[0];
 
 		const privateKey = process?.env?.PRIVATE_KEY?.replace(/\\n/g, '\n');
 

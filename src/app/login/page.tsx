@@ -42,6 +42,7 @@ const LoginPage: React.FC = async () => {
 										required
 										className='text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500'
 										placeholder='Enter email'
+										autoComplete='email'
 									/>
 								</div>
 							</div>
@@ -56,6 +57,7 @@ const LoginPage: React.FC = async () => {
 										required
 										className='text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500'
 										placeholder='Enter password'
+										autoComplete='password'
 									/>
 								</div>
 							</div>

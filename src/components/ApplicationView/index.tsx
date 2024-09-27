@@ -101,6 +101,7 @@ const ApplicationView = ({ documentId }: Props) => {
 							applicationData.links.split(FILES_SEPARATOR).map((link, index) => (
 								<a key={index + 1} href={link}>
 									{link}
+									<br />
 								</a>
 							))}
 						{applicationData?.feedbackFromCompany && (
