@@ -97,7 +97,12 @@ const ApplicationView = ({ documentId }: Props) => {
 					</div>
 
 					<div className='border p-4 rounded-lg bg-primary-foreground'>
-						{applicationData.links && applicationData.links.split(FILES_SEPARATOR).map((link) => <a href={link}>{link}</a>)}
+						{applicationData.links &&
+							applicationData.links.split(FILES_SEPARATOR).map((link, index) => (
+								<a key={index + 1} href={link}>
+									{link}
+								</a>
+							))}
 						{applicationData?.feedbackFromCompany && (
 							<div>
 								<Divider />
