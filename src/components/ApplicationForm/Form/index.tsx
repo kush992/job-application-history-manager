@@ -35,13 +35,15 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					)}
 				/>
 
-				<FormLabel>Job description</FormLabel>
-				<TinyEditor
-					initialData={form.getValues('jobDescription') ?? ''}
-					onChange={(data: any) => form.setValue('jobDescription', data)}
-					textareaName='jobDescription'
-				/>
-				<FormMessage />
+				<FormItem>
+					<FormLabel>Job description</FormLabel>
+					<TinyEditor
+						initialData={form.getValues('jobDescription') ?? ''}
+						onChange={(data: string) => form.setValue('jobDescription', data)}
+						textareaName='jobDescription'
+					/>
+					<FormMessage />
+				</FormItem>
 
 				<div className='md:grid grid-cols-2 items-center gap-2'>
 					<FormField
@@ -192,7 +194,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 				/>
 
 				{/* TODO: resolve me and add security */}
-				{/* <FormField
+				<FormField
 					control={form.control}
 					name='links'
 					render={({ field }) => (
@@ -219,7 +221,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 							<FormMessage />
 						</FormItem>
 					)}
-				/> */}
+				/>
 
 				<Button type='submit'>Submit</Button>
 			</form>

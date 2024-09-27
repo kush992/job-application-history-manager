@@ -12,6 +12,7 @@ import { DollarCircleOutlined, EditOutlined } from '@ant-design/icons';
 import Tags from '../Tags';
 import { Separator } from '@/components/ui/separator';
 import DOMPurify from 'dompurify';
+import { FILES_SEPARATOR } from '../ApplicationForm/utility';
 
 type Props = {
 	documentId: string;
@@ -96,6 +97,7 @@ const ApplicationView = ({ documentId }: Props) => {
 					</div>
 
 					<div className='border p-4 rounded-lg bg-primary-foreground'>
+						{applicationData.links && applicationData.links.split(FILES_SEPARATOR).map((link) => <a href={link}>{link}</a>)}
 						{applicationData?.feedbackFromCompany && (
 							<div>
 								<Divider />
@@ -110,7 +112,7 @@ const ApplicationView = ({ documentId }: Props) => {
 						<div>
 							<h2 className='text-lg font-semibold !m-0'>Application Data</h2>
 							<div
-								className='rounded-lg prose !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
+								className='rounded-lg prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
 								dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(applicationData?.jobDescription) }}
 							/>
 						</div>
