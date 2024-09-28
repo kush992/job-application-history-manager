@@ -29,12 +29,12 @@ export function UserMenu() {
 
 				{/* links */}
 				<DropdownMenuGroup>
-					<DropdownMenuItem>
-						<Link href={appRoutes.addApplicationPage}>Add application</Link>
-					</DropdownMenuItem>
-					<DropdownMenuItem>
-						<Link href={appRoutes.applicationPage}>Your applications</Link>
-					</DropdownMenuItem>
+					<Link href={appRoutes.addApplicationPage}>
+						<DropdownMenuItem>Add application</DropdownMenuItem>
+					</Link>
+					<Link href={appRoutes.applicationPage}>
+						<DropdownMenuItem>Your applications</DropdownMenuItem>
+					</Link>
 				</DropdownMenuGroup>
 
 				<DropdownMenuSeparator />
@@ -48,13 +48,11 @@ export function UserMenu() {
 
 				<DropdownMenuSeparator />
 
-				<DropdownMenuItem>
-					<form action={signOut} className='w-full'>
-						<button type='submit' className='w-full text-left'>
-							Log out
-						</button>
-					</form>
-				</DropdownMenuItem>
+				<form action={signOut} className='w-full'>
+					<button type='submit' className='w-full text-left'>
+						<DropdownMenuItem>Log out</DropdownMenuItem>
+					</button>
+				</form>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
