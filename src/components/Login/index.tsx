@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginFormSchema, signUpFormSchema } from '@/lib/schemas';
+import { loginFormSchema } from '@/lib/schemas';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import Link from 'next/link';
 import { appRoutes } from '@/utils/constants';
@@ -72,7 +72,7 @@ const LogIn: React.FC<Props> = ({ handleLogin }) => {
 			</CardContent>
 			<CardFooter>
 				<p className='text-muted-foreground'>
-					Don't have an account? &nbsp;
+					Don&apos;t have an account? &nbsp;
 					<Link className='text-primary' href={appRoutes.signUpPage}>
 						Create here
 					</Link>

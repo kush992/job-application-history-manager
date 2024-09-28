@@ -10,8 +10,6 @@ import Loader from '../Loader';
 import { appRoutes } from '@/utils/constants';
 import ApplicationDataForm from './Form';
 import { useForm } from 'react-hook-form';
-import { Toast } from '../ui/toast';
-import { Toaster } from '../ui/toaster';
 import { useToast } from '@/hooks/use-toast';
 
 type Props = {
@@ -198,21 +196,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 				<h1 className='text-xl font-semibold !m-0'>{isUpdateForm ? 'Edit' : 'Add latest applied'}</h1>
 			</div>
 
-			{isLoading ? (
-				<Loader />
-			) : (
-				<>
-					<ApplicationDataForm form={form} onSubmit={onSubmit} />
-					{/* <OldCustomForm
-						handleSubmit={handleSubmit(onSubmit)}
-						register={register}
-						isSubmitting={isSubmitting}
-						errors={errors}
-						initialFormData={initialFormData}
-						setValue={setValue}
-					/> */}
-				</>
-			)}
+			{isLoading ? <Loader /> : <ApplicationDataForm form={form} onSubmit={onSubmit} />}
 		</div>
 	);
 };
