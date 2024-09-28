@@ -11,6 +11,7 @@ import { signOut } from '@/lib/server/appwrite';
 import MobileHeader from './MobileHeader';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 import { Button } from '@/components/ui/button';
+import { UserMenu } from '../UserMenu';
 
 type Props = {
 	user: Models.User<Models.Preferences> | null;
@@ -63,11 +64,7 @@ const Header: React.FC<Props> = ({ user }) => {
 										Your Applications
 									</Link>
 								</li>
-								<form action={signOut}>
-									<Button type='submit' className='text-secondary-foreground' variant='ghost'>
-										Signout
-									</Button>
-								</form>
+								<UserMenu />
 							</ul>
 						)}
 						{!user?.$id && (
@@ -78,11 +75,7 @@ const Header: React.FC<Props> = ({ user }) => {
 					</nav>
 					<div className='md:hidden flex items-center gap-2'>
 						<ThemeSwitcher />
-						{user?.$id && (
-							<Button onClick={() => setIsDrawerOpen(!isDrawerOpen)}>
-								<MenuFoldOutlined />
-							</Button>
-						)}
+						{user?.$id && <UserMenu />}
 						{!user?.$id && (
 							<Button>
 								<Link href='/login'>Login</Link>
