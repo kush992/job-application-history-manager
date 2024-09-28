@@ -99,7 +99,7 @@ const ApplicationView = ({ documentId }: Props) => {
 					<div className='border p-4 rounded-lg bg-primary-foreground'>
 						{applicationData.links &&
 							applicationData.links.split(FILES_SEPARATOR).map((link, index) => (
-								<a key={index + 1} href={link}>
+								<a key={index + 1} href={link} className='text-sm'>
 									{link}
 									<br />
 								</a>

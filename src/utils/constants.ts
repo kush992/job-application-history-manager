@@ -6,4 +6,6 @@ export const appRoutes = {
 	viewApplicationPage: '/applications/view',
 	interviewQuestionsPage: '/interview-questions',
 	aboutPage: '/about',
+	loginPage: '/login',
+	signUpPage: '/signup',
 };
