@@ -5,11 +5,12 @@ import { formSchema, FormData } from './utility';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
-import SubHeader from '../SubHeader';
 import Loader from '../Loader';
 import { appRoutes } from '@/utils/constants';
 import ApplicationDataForm from './Form';
 import { useForm } from 'react-hook-form';
+import { useToast } from '@/hooks/use-toast';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 
 type Props = {
 	documentId?: string;
@@ -23,6 +24,9 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [applicationData, setApplicationData] = useState<any>({} as any);
+	const [error, setError] = useState('');
+
+	const { toast } = useToast();
 
 	const initialFormData: FormData = {
 		userId: applicationData?.userId || userId,
@@ -90,19 +94,19 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 				// [Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
 			)
 			.then((response) => {
+				if (data.links) {
+					addLinks(data, documentId || applicationData.$id);
+				}
 				// console.log('response', response);
 				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {
+				setError(error);
 				console.error(error);
 			})
 			.finally(() => {
 				setIsSubmitting(false);
 			});
-
-		if (data.links) {
-			addLinks(data, documentId || applicationData.$id);
-		}
 	}
 
 	function addDocument(data: FormData) {
@@ -125,6 +129,10 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {
+				toast({
+					title: 'Error',
+					content: error?.message,
+				});
 				console.error(error);
 			})
 			.finally(() => {
@@ -133,29 +141,29 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	}
 
 	function addLinks(data: FormData, documentId: string) {
-		if (isUpdateForm) {
-			database.updateDocument(
-				appwriteDatabaseConfig.applicationDatabase,
-				appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
-				documentId,
-				{
-					link: data.links,
-					userId: userId,
-					jobApplications: [documentId],
-				},
-			);
-		} else {
-			database.createDocument(
-				appwriteDatabaseConfig.applicationDatabase,
-				appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
-				ID.unique(),
-				{
-					link: data.links,
-					userId: userId,
-					jobApplications: [documentId],
-				},
-			);
-		}
+		// if (isUpdateForm) {
+		// 	database.updateDocument(
+		// 		appwriteDatabaseConfig.applicationDatabase,
+		// 		appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
+		// 		documentId,
+		// 		{
+		// 			link: data.links,
+		// 			userId: userId,
+		// 			jobApplications: [documentId],
+		// 		},
+		// 	);
+		// } else {
+		database.createDocument(
+			appwriteDatabaseConfig.applicationDatabase,
+			appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
+			ID.unique(),
+			{
+				link: data.links,
+				userId: userId,
+				jobApplications: [documentId],
+			},
+		);
+		// }
 	}
 
 	useEffect(() => {
@@ -184,25 +192,21 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	return (
 		<div className='flex flex-col gap-6'>
 			<div>
-				<SubHeader previousPageTitle='Applications' href={appRoutes.applicationPage} />
-				<h1 className='text-xl font-semibold !m-0'>{isUpdateForm ? 'Edit' : 'Add latest applied'}</h1>
+				<Breadcrumb className='mb-2'>
+					<BreadcrumbList>
+						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
+						<BreadcrumbSeparator />
+						<BreadcrumbLink href={appRoutes.applicationPage}>Applications</BreadcrumbLink>
+						<BreadcrumbSeparator />
+						<BreadcrumbItem>
+							<BreadcrumbPage>{isUpdateForm ? 'Update' : 'Add'}</BreadcrumbPage>
+						</BreadcrumbItem>
+					</BreadcrumbList>
+				</Breadcrumb>
+				<h1 className='text-xl font-semibold !m-0'>{isUpdateForm ? 'Update' : 'Add latest applied'}</h1>
 			</div>
 
-			{isLoading ? (
-				<Loader />
-			) : (
-				<>
-					<ApplicationDataForm form={form} onSubmit={onSubmit} />
-					{/* <OldCustomForm
-						handleSubmit={handleSubmit(onSubmit)}
-						register={register}
-						isSubmitting={isSubmitting}
-						errors={errors}
-						initialFormData={initialFormData}
-						setValue={setValue}
-					/> */}
-				</>
-			)}
+			{isLoading ? <Loader /> : <ApplicationDataForm form={form} onSubmit={onSubmit} />}
 		</div>
 	);
 };

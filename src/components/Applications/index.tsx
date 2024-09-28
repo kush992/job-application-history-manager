@@ -5,7 +5,6 @@ import { Query } from 'appwrite';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { appRoutes } from '@/utils/constants';
-import SubHeader from '../SubHeader';
 import ApplicationList from './ApplicationList';
 import { InfoCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import Notifications from '../Notifications';
@@ -14,6 +13,7 @@ import { ApplicationStatus } from '../ApplicationForm/utility';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 
 type Props = {
 	userId: string;
@@ -118,11 +118,20 @@ const Application: React.FC<Props> = ({ userId }) => {
 	}, [notification]);
 
 	return (
-		<div className='rounded-lg'>
+		<div className='rounded-md'>
 			{notification.content && <Notifications {...notification} />}
+			<Breadcrumb className='mb-2'>
+				<BreadcrumbList>
+					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
+					<BreadcrumbSeparator />
+					<BreadcrumbItem>
+						<BreadcrumbPage>Applications</BreadcrumbPage>
+					</BreadcrumbItem>
+				</BreadcrumbList>
+			</Breadcrumb>
+
 			<div className='flex justify-between items-center mb-6'>
 				<div>
-					<SubHeader previousPageTitle='Home' href='/' />
 					<h1 className='text-xl font-semibold !m-0'>Application Data</h1>
 				</div>
 				<Button variant='outline'>
@@ -140,7 +149,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 				<ApplicationFilter onInputChange={onInputChange} filterByStatus={filterByStatus} clearAllFilters={clearAllFilters} />
 
 				{documents.length > 0 && (
-					<div className='flex flex-col border rounded-lg overflow-hidden w-full'>
+					<div className='flex flex-col border rounded-md overflow-hidden w-full'>
 						{documents?.map((data) => (
 							<div key={data.$id}>
 								<ApplicationList data={data} onClickDelete={softDeleteData} />
@@ -156,6 +165,8 @@ const Application: React.FC<Props> = ({ userId }) => {
 					variant='outline'
 					onClick={() => fetchApplicationData(documents[documents.length - 1].$id, companyNameFilter, statusFilter)}
 					disabled={!hasMore || isLoading}
+					className='w-full flex gap-1 items-center mt-2'
+					size='lg'
 				>
 					{isLoading && <LoadingOutlined />}
 					<span>{isLoading ? 'Loading...' : 'Load more'}</span>

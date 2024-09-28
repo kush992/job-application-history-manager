@@ -1,12 +1,12 @@
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
-import Tags from '@/components/Tags';
 import { JobApplicationData } from '@/types/apiResponseTypes';
 import { appRoutes } from '@/utils/constants';
-import { formatDate, transformDate } from '@/utils/date';
+import { transformDate } from '@/utils/date';
 import { DeleteFilled, DollarCircleFilled, EditFilled } from '@ant-design/icons';
 import Link from 'next/link';
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 type Props = {
 	data: JobApplicationData;
@@ -40,13 +40,11 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 						<p className='!my-0 text-muted-foreground'>{data.companyName}</p>
 					</div>
 					<p className='text-muted-foreground text-xs md:hidden'>{transformDate(data.$createdAt)}</p>
-					<div className='flex items-center my-2 md:my-0'>
+					<div className='flex items-center my-2 gap-2 md:my-0'>
 						{data.applicationStatus && (
-							<Tags
-								iconType=''
-								type={getApplicationStatusColor(data.applicationStatus as ApplicationStatus)}
-								text={data.applicationStatus}
-							/>
+							<Badge variant={'secondary'} title={data.applicationStatus} className=''>
+								{data.applicationStatus}
+							</Badge>
 						)}
 						{data.salary && <DollarCircleFilled className='!text-primary' />}
 					</div>
@@ -55,12 +53,12 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 			</Link>
 
 			<div className='flex sm:flex-col w-full justify-between gap-4 sm:max-w-fit pt-2 sm:pt-0'>
-				<Button variant='outline'>
-					<Link href={`${appRoutes.updateApplicationPage}/${data.$id}`} className='flex items-center gap-1 text-sm !text-muted-foreground'>
+				<Link href={`${appRoutes.updateApplicationPage}/${data.$id}`}>
+					<Button variant='outline' className='flex items-center gap-1 text-sm !text-muted-foreground'>
 						<EditFilled />
 						Edit
-					</Link>
-				</Button>
+					</Button>
+				</Link>
 				<Button variant='destructive' onClick={() => onClickDelete(data.$id)}>
 					<DeleteFilled className='' />
 				</Button>
