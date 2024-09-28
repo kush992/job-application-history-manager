@@ -5,10 +5,8 @@ import cn from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
-import { MenuFoldOutlined, PlusCircleFilled } from '@ant-design/icons';
+import { PlusCircleFilled } from '@ant-design/icons';
 import { Models } from 'appwrite';
-import { signOut } from '@/lib/server/appwrite';
-import MobileHeader from './MobileHeader';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 import { Button } from '@/components/ui/button';
 import { UserMenu } from '../UserMenu';
@@ -81,7 +79,6 @@ const Header: React.FC<Props> = ({ user }) => {
 								<Link href='/login'>Login</Link>
 							</Button>
 						)}
-						{isDrawerOpen && <MobileHeader showDrawer={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />}
 					</div>
 				</div>
 			</header>
