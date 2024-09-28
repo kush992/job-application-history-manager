@@ -64,7 +64,7 @@ const LogIn: React.FC<Props> = ({ handleLogin }) => {
 								)}
 							/>
 						</div>
-						<Button type='submit' className='w-full' disabled={loading}>
+						<Button type='submit' className='w-full' disabled={loading || !form.formState.isValid}>
 							Create account
 						</Button>
 					</form>

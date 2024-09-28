@@ -27,7 +27,7 @@ const Header: React.FC<Props> = ({ user }) => {
 	console.log(pathname);
 
 	return (
-		<header className='border-b border-muted z-50 sticky top-0 inset-x-0 backdrop-blur duration-200 bg-background'>
+		<>
 			<div className='bg-muted text-muted-foreground text-xs py-1 text-center'>
 				Currently on testing stage. <br />
 				Please report any bugs here{' '}
@@ -35,64 +35,64 @@ const Header: React.FC<Props> = ({ user }) => {
 					kushbhalodi.project@gmail.com
 				</a>
 			</div>
-			<nav className='max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4'>
-				<div>
-					<p className=''>
+			<header className='border-b border-muted z-50 sticky top-0 backdrop-blur duration-200 bg-background'>
+				<div className='max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4'>
+					<div>
 						<Link href={appRoutes.home} className='flex flex-col'>
 							<span className='text-lg font-bold text-secondary-foreground'>JobJourney</span>
 						</Link>
-					</p>
-				</div>
-				<div className='hidden md:flex justify-center items-center gap-4'>
-					<ThemeSwitcher />
-					{user?.$id && (
-						<ul className='flex justify-between items-center m-0 gap-4'>
-							<li className='list-none'>
-								<Button variant='outline'>
+					</div>
+					<nav className='hidden md:flex justify-center items-center gap-4'>
+						<ThemeSwitcher />
+						{user?.$id && (
+							<ul className='flex justify-between items-center m-0 gap-4'>
+								<li className='list-none'>
 									<Link href={appRoutes.addApplicationPage}>
-										<PlusCircleFilled className='text-secondary-foreground' height='40px' width='40px' />
+										<Button variant='outline'>
+											<PlusCircleFilled className='text-secondary-foreground' height='40px' width='40px' />
+										</Button>
 									</Link>
-								</Button>
-							</li>
-							<li className='list-none'>
-								<Link
-									href={appRoutes.applicationPage}
-									className={cn('text-secondary-foreground', {
-										'bg-muted p-2 rounded-md': isActive(appRoutes.applicationPage),
-									})}
-								>
-									Your Applications
-								</Link>
-							</li>
-							<form action={signOut}>
-								<Button type='submit' className='text-secondary-foreground' variant='ghost'>
-									Signout
-								</Button>
-							</form>
-						</ul>
-					)}
-					{!user?.$id && (
-						<Button>
-							<Link href='/login'>Login</Link>
-						</Button>
-					)}
+								</li>
+								<li className='list-none'>
+									<Link
+										href={appRoutes.applicationPage}
+										className={cn('text-secondary-foreground', {
+											'bg-muted p-2 rounded-md': isActive(appRoutes.applicationPage),
+										})}
+									>
+										Your Applications
+									</Link>
+								</li>
+								<form action={signOut}>
+									<Button type='submit' className='text-secondary-foreground' variant='ghost'>
+										Signout
+									</Button>
+								</form>
+							</ul>
+						)}
+						{!user?.$id && (
+							<Button>
+								<Link href='/login'>Login</Link>
+							</Button>
+						)}
+					</nav>
+					<div className='md:hidden flex items-center gap-2'>
+						<ThemeSwitcher />
+						{user?.$id && (
+							<Button onClick={() => setIsDrawerOpen(!isDrawerOpen)}>
+								<MenuFoldOutlined />
+							</Button>
+						)}
+						{!user?.$id && (
+							<Button>
+								<Link href='/login'>Login</Link>
+							</Button>
+						)}
+						{isDrawerOpen && <MobileHeader showDrawer={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />}
+					</div>
 				</div>
-				<div className='md:hidden flex items-center gap-2'>
-					<ThemeSwitcher />
-					{user?.$id && (
-						<Button onClick={() => setIsDrawerOpen(!isDrawerOpen)}>
-							<MenuFoldOutlined />
-						</Button>
-					)}
-					{!user?.$id && (
-						<Button>
-							<Link href='/login'>Login</Link>
-						</Button>
-					)}
-					{isDrawerOpen && <MobileHeader showDrawer={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />}
-				</div>
-			</nav>
-		</header>
+			</header>
+		</>
 	);
 };
 

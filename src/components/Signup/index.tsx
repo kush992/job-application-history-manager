@@ -96,7 +96,7 @@ const SignUp: React.FC<Props> = ({ handleSignup }) => {
 								)}
 							/>
 						</div>
-						<Button type='submit' className='w-full' disabled={loading}>
+						<Button type='submit' className='w-full' disabled={loading || !form.formState.isValid}>
 							{loading ? 'Creating account...' : 'Create account'}
 						</Button>
 					</form>
