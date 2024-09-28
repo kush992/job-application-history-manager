@@ -1,16 +1,10 @@
-import { Button } from '@/components/ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
-	DropdownMenuPortal,
 	DropdownMenuSeparator,
-	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
@@ -23,13 +17,17 @@ export function UserMenu() {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Avatar className='cursor-pointer'>
-					<AvatarImage src='https://img.kushbhalodi.com/images/avatar.png' alt='@shadcn' />
-					<AvatarFallback>CN</AvatarFallback>
+					<AvatarImage src='https://img.kushbhalodi.com/images/avatar.png' alt='profile-image' />
+					<AvatarFallback>UP</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className='w-56'>
+
+			<DropdownMenuContent className='w-48'>
 				<DropdownMenuLabel>My Account</DropdownMenuLabel>
+
 				<DropdownMenuSeparator />
+
+				{/* links */}
 				<DropdownMenuGroup>
 					<DropdownMenuItem>
 						<Link href={appRoutes.addApplicationPage}>Add application</Link>
@@ -38,12 +36,23 @@ export function UserMenu() {
 						<Link href={appRoutes.applicationPage}>Your applications</Link>
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
+
 				<DropdownMenuSeparator />
+
+				{/* settings */}
+				<DropdownMenuGroup>
+					<DropdownMenuItem disabled>Dashboard</DropdownMenuItem>
+					<DropdownMenuItem disabled>Profile</DropdownMenuItem>
+					<DropdownMenuItem disabled>Settings</DropdownMenuItem>
+				</DropdownMenuGroup>
+
+				<DropdownMenuSeparator />
+
 				<DropdownMenuItem>
-					<form action={signOut}>
-						<Button type='submit' className='text-secondary-foreground' variant='ghost'>
-							Signout
-						</Button>
+					<form action={signOut} className='w-full'>
+						<button type='submit' className='w-full text-left'>
+							Log out
+						</button>
 					</form>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
