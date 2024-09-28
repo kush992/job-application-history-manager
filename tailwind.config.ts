@@ -62,6 +62,8 @@ const config: Config = {
 					'4': 'hsl(var(--chart-4))',
 					'5': 'hsl(var(--chart-5))',
 				},
+				successColor: 'hsl(var(--success-color))',
+				warningColor: 'hsl(var(--warning-color))',
 			},
 		},
 	},

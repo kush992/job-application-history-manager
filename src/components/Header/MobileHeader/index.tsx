@@ -18,17 +18,17 @@ const MobileHeader: React.FC<Props> = ({ showDrawer, onClose }) => {
 					<Link
 						onClick={onClose}
 						href={appRoutes.addApplicationPage}
-						className='p-3 bg-white rounded-lg text-black flex gap-4 items-center'
+						className='p-3 bg-white rounded-md text-black flex gap-4 items-center'
 					>
 						<PlusOutlined /> Add application
 					</Link>
-					<Link onClick={onClose} href={appRoutes.applicationPage} className='p-3 bg-white rounded-lg text-black flex gap-4 items-center'>
+					<Link onClick={onClose} href={appRoutes.applicationPage} className='p-3 bg-white rounded-md text-black flex gap-4 items-center'>
 						<EyeOutlined /> Your applications
 					</Link>
 				</div>
 
 				<form action={signOut}>
-					<button type='submit' className='p-3 bg-red-300 w-full rounded-lg text-white'>
+					<button type='submit' className='p-3 bg-red-300 w-full rounded-md text-white'>
 						Signout
 					</button>
 				</form>

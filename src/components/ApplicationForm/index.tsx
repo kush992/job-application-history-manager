@@ -5,12 +5,12 @@ import { formSchema, FormData } from './utility';
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
-import SubHeader from '../SubHeader';
 import Loader from '../Loader';
 import { appRoutes } from '@/utils/constants';
 import ApplicationDataForm from './Form';
 import { useForm } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 
 type Props = {
 	documentId?: string;
@@ -192,8 +192,18 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	return (
 		<div className='flex flex-col gap-6'>
 			<div>
-				<SubHeader previousPageTitle='Applications' href={appRoutes.applicationPage} />
-				<h1 className='text-xl font-semibold !m-0'>{isUpdateForm ? 'Edit' : 'Add latest applied'}</h1>
+				<Breadcrumb className='mb-2'>
+					<BreadcrumbList>
+						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
+						<BreadcrumbSeparator />
+						<BreadcrumbLink href={appRoutes.applicationPage}>Applications</BreadcrumbLink>
+						<BreadcrumbSeparator />
+						<BreadcrumbItem>
+							<BreadcrumbPage>{isUpdateForm ? 'Update' : 'Add'}</BreadcrumbPage>
+						</BreadcrumbItem>
+					</BreadcrumbList>
+				</Breadcrumb>
+				<h1 className='text-xl font-semibold !m-0'>{isUpdateForm ? 'Update' : 'Add latest applied'}</h1>
 			</div>
 
 			{isLoading ? <Loader /> : <ApplicationDataForm form={form} onSubmit={onSubmit} />}

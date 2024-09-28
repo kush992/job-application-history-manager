@@ -58,7 +58,7 @@ const Header: React.FC<Props> = ({ user }) => {
 								<Link
 									href={appRoutes.applicationPage}
 									className={cn('text-secondary-foreground', {
-										'bg-muted p-2 rounded-lg': isActive(appRoutes.applicationPage),
+										'bg-muted p-2 rounded-md': isActive(appRoutes.applicationPage),
 									})}
 								>
 									Your Applications
