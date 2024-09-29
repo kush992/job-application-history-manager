@@ -224,13 +224,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								</FormControl>
 								<div className='flex flex-wrap gap-2'>
 									{fileStatuses.map((status, index) => (
-										<DocumentInfoCard
-											key={status.file.name}
-											fileName={status.file.name}
-											error={status.error ?? ''}
-											isLoading={status.isLoading}
-											isSuccess={status.isSuccess}
-										/>
+										<DocumentInfoCard key={status.file.name} {...status} />
 									))}
 								</div>
 								<FormMessage />

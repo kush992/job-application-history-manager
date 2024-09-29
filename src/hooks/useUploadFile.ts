@@ -1,4 +1,3 @@
-import { purifyFileName } from '@/utils/utility';
 import { useState, useCallback } from 'react';
 
 type UploadFileStatus = {
@@ -10,6 +9,7 @@ type UploadFileStatus = {
 
 type UseFileUploadReturn = {
 	uploadFiles: (files: File[]) => Promise<any[]>;
+	deleteFile: (file: File) => Promise<any>;
 	fileStatuses: UploadFileStatus[];
 	resetStatuses: () => void;
 };
@@ -91,9 +91,39 @@ export const useUploadFile = (): UseFileUploadReturn => {
 		setFileStatuses([]);
 	}, []);
 
+	const deleteFile = useCallback(async (file: File) => {
+		try {
+			const res = await fetch('/api/files/delete', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					fileName: file.name,
+					contentType: file.type,
+				}),
+			});
+
+			if (!res.ok) {
+				throw new Error('Failed to get signed URL');
+			}
+
+			const response = await res.json();
+
+			if (!response) {
+				throw new Error('An error occurred with remove file');
+			}
+
+			return response;
+		} catch (err: any) {
+			console.error(`Upload error for file ${file.name}:`, err);
+		}
+	}, []);
+
 	return {
 		uploadFiles,
 		fileStatuses,
 		resetStatuses,
+		deleteFile,
 	};
 };
