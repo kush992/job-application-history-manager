@@ -2,15 +2,18 @@
 	{
 		"origin": [
 			"http://localhost:3000",
-			"https://kushbhalodi.com/"
-		],
-		"method": [
-			"POST",
-			"GET",
-			"PUT"
+			"https://career.kushbhalodi.com"
 		],
 		"responseHeader": [
-			"Content-Type"
+			"Content-Type",
+			"Authorization"
+		],
+		"method": [
+			"GET",
+			"HEAD",
+			"PUT",
+			"POST",
+			"OPTIONS"
 		],
 		"maxAgeSeconds": 3600
 	}

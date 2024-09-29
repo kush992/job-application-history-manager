@@ -1,15 +1,16 @@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { ApplicationStatus, FILES_SEPARATOR, FormData, SalaryCurrency, SalaryType, uploadFile } from '../utility';
+import { ApplicationStatus, FILES_SEPARATOR, FormData, SalaryCurrency, SalaryType } from '../utility';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Popover } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { DateTimePicker } from '@/components/ui/date-time-picker';
-import { useFileUpload } from '@/hooks/useFileUpload';
 import { config } from '@/config/config';
+import { useUploadFile } from '@/hooks/useUploadFile';
+import DocumentInfoCard from '@/components/DocumentInfoCard';
 
 type Props = {
 	form: UseFormReturn<FormData>;
@@ -17,7 +18,7 @@ type Props = {
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
-	// const uploadFile = useFileUpload();
+	const { uploadFiles, fileStatuses, resetStatuses } = useUploadFile();
 
 	return (
 		<Form {...form}>
@@ -211,15 +212,27 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										onChange={async (e) => {
 											const files = e.target.files;
 											if (files?.length) {
-												const uploadedFileUrls = await uploadFile(files[0]);
+												const uploadedFileUrls = await uploadFiles(Array.from(files));
 
-												// if (uploadedFileUrls) {
-												// 	form.setValue('links', uploadedFileUrls.join(FILES_SEPARATOR));
-												// }
+												if (uploadedFileUrls) {
+													console.log(uploadedFileUrls);
+													form.setValue('links', uploadedFileUrls.join(FILES_SEPARATOR));
+												}
 											}
 										}}
 									/>
 								</FormControl>
+								<div className='flex flex-wrap gap-2'>
+									{fileStatuses.map((status, index) => (
+										<DocumentInfoCard
+											key={status.file.name}
+											fileName={status.file.name}
+											error={status.error ?? ''}
+											isLoading={status.isLoading}
+											isSuccess={status.isSuccess}
+										/>
+									))}
+								</div>
 								<FormMessage />
 							</FormItem>
 						)}

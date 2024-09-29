@@ -46,39 +46,3 @@ export const formSchema = z.object({
 export type FormData = z.infer<typeof formSchema>;
 
 export const FILES_SEPARATOR = ',____,';
-
-export const uploadFile = async (file: File) => {
-	// Step 1: Get the signed URL
-	const res = await fetch('/api/files/newUpload', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			fileName: file.name,
-			contentType: file.type,
-		}),
-	});
-
-	const { url } = await res.json();
-
-	// Step 2: Upload the file using the signed URL
-	if (!url) {
-		throw new Error('An error occurred while getting signed url');
-	}
-
-	const uploadRes = await fetch(url, {
-		method: 'PUT',
-		headers: {
-			'Content-Type': file.type,
-		},
-		body: file,
-	});
-
-	if (uploadRes.ok) {
-		console.log('File uploaded successfully');
-		return uploadRes;
-	} else {
-		console.error('Upload failed');
-	}
-};
