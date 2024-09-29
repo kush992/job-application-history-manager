@@ -1,7 +1,7 @@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { ApplicationStatus, FILES_SEPARATOR, FormData, SalaryCurrency, SalaryType } from '../utility';
+import { ApplicationStatus, FILES_SEPARATOR, FormData, SalaryCurrency, SalaryType, uploadFile } from '../utility';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -17,7 +17,7 @@ type Props = {
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
-	const uploadFile = useFileUpload();
+	// const uploadFile = useFileUpload();
 
 	return (
 		<Form {...form}>
@@ -211,11 +211,11 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										onChange={async (e) => {
 											const files = e.target.files;
 											if (files?.length) {
-												const uploadedFileUrls = await uploadFile(Array.from(files));
+												const uploadedFileUrls = await uploadFile(files[0]);
 
-												if (uploadedFileUrls) {
-													form.setValue('links', uploadedFileUrls.join(FILES_SEPARATOR));
-												}
+												// if (uploadedFileUrls) {
+												// 	form.setValue('links', uploadedFileUrls.join(FILES_SEPARATOR));
+												// }
 											}
 										}}
 									/>
