@@ -29,7 +29,7 @@ const LogIn: React.FC<Props> = ({ handleLogin }) => {
 		<Card className='max-w-[400px] w-full mx-auto'>
 			<CardHeader>
 				<CardTitle>Login</CardTitle>
-				<CardDescription>Login with email and password below.</CardDescription>
+				<CardDescription>Enter your email below to login to your account</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<Form {...form}>
@@ -56,6 +56,10 @@ const LogIn: React.FC<Props> = ({ handleLogin }) => {
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Password</FormLabel>
+										{/* TODO: add the reset password */}
+										{/* <Link href='#' className='ml-auto inline-block text-sm underline'>
+											Forgot your password?
+										</Link> */}
 										<FormControl>
 											<Input placeholder='Password' type='password' {...field} />
 										</FormControl>
@@ -65,18 +69,18 @@ const LogIn: React.FC<Props> = ({ handleLogin }) => {
 							/>
 						</div>
 						<Button type='submit' className='w-full' disabled={loading || !form.formState.isValid}>
-							Create account
+							{form.formState.isSubmitting ? 'Loging in...' : 'Login'}
 						</Button>
 					</form>
 				</Form>
 			</CardContent>
 			<CardFooter>
-				<p className='text-muted-foreground'>
-					Don&apos;t have an account? &nbsp;
-					<Link className='text-primary' href={appRoutes.signUpPage}>
+				<div className='mt-4 text-center text-sm'>
+					Don&apos;t have an account?{' '}
+					<Link href={appRoutes.signUpPage} className='underline'>
 						Create here
 					</Link>
-				</p>
+				</div>
 			</CardFooter>
 		</Card>
 	);

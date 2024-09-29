@@ -32,7 +32,7 @@ const SignUp: React.FC<Props> = ({ handleSignup }) => {
 	const onSubmit = async (data: FormData) => {
 		setLoading(true);
 		try {
-			await handleSignup(data); // Submit the form data to the server function
+			await handleSignup(data);
 		} catch (error) {
 			console.error('Signup failed:', error);
 		} finally {
@@ -97,18 +97,18 @@ const SignUp: React.FC<Props> = ({ handleSignup }) => {
 							/>
 						</div>
 						<Button type='submit' className='w-full' disabled={loading || !form.formState.isValid}>
-							{loading ? 'Creating account...' : 'Create account'}
+							{form.formState.isSubmitting ? 'Creating account...' : 'Create account'}
 						</Button>
 					</form>
 				</Form>
 			</CardContent>
 			<CardFooter>
-				<p className='text-muted-foreground'>
-					Already have an account?&nbsp;
-					<Link className='text-primary' href={appRoutes.loginPage}>
+				<div className='mt-4 text-center text-sm'>
+					Already have an account?{' '}
+					<Link href={appRoutes.loginPage} className='underline'>
 						Login here
 					</Link>
-				</p>
+				</div>
 			</CardFooter>
 		</Card>
 	);
