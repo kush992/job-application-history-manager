@@ -63,6 +63,10 @@ export const uploadFile = async (file: File) => {
 	const { url } = await res.json();
 
 	// Step 2: Upload the file using the signed URL
+	if (!url) {
+		throw new Error('An error occurred while getting signed url');
+	}
+
 	const uploadRes = await fetch(url, {
 		method: 'PUT',
 		headers: {

@@ -16,6 +16,9 @@ const bucketName = String(process.env.BUCKET_NAME);
 const expiresIn = 60 * 60; // 1 hour in seconds
 
 export async function POST(request: NextRequest) {
+	console.log('private_key', process.env.PRIVATE_KEY);
+	console.log('transformed_private_key', process.env.PRIVATE_KEY?.split(String.raw`\n`).join('\n'));
+
 	try {
 		const { fileName, contentType } = await request.json();
 
