@@ -1,6 +1,7 @@
 import ApplicationView from '@/components/ApplicationView';
 import Loader from '@/components/Loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
+import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -12,7 +13,7 @@ type Params = {
 export default async function ViewApplication({ params }: { params: Params }) {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect('/signup');
+	if (!user) redirect(appRoutes.loginPage);
 
 	return (
 		<Suspense fallback={<Loader />}>
