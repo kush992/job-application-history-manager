@@ -25,7 +25,7 @@ export type JobApplicationData = {
 	feedbackFromCompany: null | string;
 	companyName: string;
 	companyDomain: string;
-	interviewDate: null | string;
+	interviewDate: null | Date;
 	isSoftDeleted: null | boolean;
 	links: null | string;
 	$id: string;
@@ -33,12 +33,26 @@ export type JobApplicationData = {
 	$createdAt: string;
 	$updatedAt: string;
 	$permissions: any[];
-	interviewQuestionsTable: InterviewQuestion[];
+	interviewQuestionsTable?: InterviewQuestion[];
+	documents: DocumentsData[];
 	$databaseId: string;
 	$collectionId: string;
+};
+
+export type DocumentsData = {
+	$collectionId: string;
+	$createdAt: Date;
+	$databaseId: string;
+	$id: string;
+	$permissions: any[];
+	$updatedAt: Date;
+	link: string;
+	userId: string;
 };
 
 export type Response<T> = {
 	total: number;
 	documents: T[];
 };
+
+

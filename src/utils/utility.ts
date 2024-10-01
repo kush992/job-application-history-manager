@@ -26,3 +26,7 @@ export const jsonParseString = (data: Object | unknown) => JSON?.parse(JSON?.str
 export const purifyFileName = (fileName: string) => {
 	return fileName.replace(/[^a-zA-Z0-9.]/g, '-');
 };
+
+export const getFileName = (link: string) => {
+	return link.split('/')?.slice(-1)?.toString();
+};

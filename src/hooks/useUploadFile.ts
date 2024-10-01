@@ -9,7 +9,7 @@ type UploadFileStatus = {
 
 type UseFileUploadReturn = {
 	uploadFiles: (files: File[]) => Promise<any[]>;
-	deleteFile: (file: File) => Promise<any>;
+	deleteFile: (fileName: string) => Promise<any>;
 	fileStatuses: UploadFileStatus[];
 	resetStatuses: () => void;
 };
@@ -91,7 +91,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 		setFileStatuses([]);
 	}, []);
 
-	const deleteFile = useCallback(async (file: File) => {
+	const deleteFile = useCallback(async (fileName: string) => {
 		try {
 			const res = await fetch('/api/files/delete', {
 				method: 'POST',
@@ -99,8 +99,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					fileName: file.name,
-					contentType: file.type,
+					fileName,
 				}),
 			});
 
@@ -116,7 +115,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 
 			return response;
 		} catch (err: any) {
-			console.error(`Upload error for file ${file.name}:`, err);
+			console.error(`Upload error for file ${fileName}:`, err);
 		}
 	}, []);
 

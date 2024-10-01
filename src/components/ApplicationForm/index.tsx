@@ -11,6 +11,7 @@ import ApplicationDataForm from './Form';
 import { useForm } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
+import { JobApplicationData } from '@/types/apiResponseTypes';
 
 type Props = {
 	documentId?: string;
@@ -23,7 +24,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	const router = useRouter();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [applicationData, setApplicationData] = useState<any>({} as any);
+	const [applicationData, setApplicationData] = useState<JobApplicationData>({} as JobApplicationData);
 	const [error, setError] = useState('');
 
 	const { toast } = useToast();
@@ -140,19 +141,21 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			});
 	}
 
-	function addLinks(data: FormData, documentId: string) {
-		// if (isUpdateForm) {
-		// 	database.updateDocument(
-		// 		appwriteDatabaseConfig.applicationDatabase,
-		// 		appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
-		// 		documentId,
-		// 		{
-		// 			link: data.links,
-		// 			userId: userId,
-		// 			jobApplications: [documentId],
-		// 		},
-		// 	);
-		// } else {
+	// TODO: add logic to update the created data
+	function addLinks(data: FormData, applicationDocumentId: string) {
+		if (applicationData.links) {
+			const documentId = applicationData.documents[0].$id;
+
+			database.updateDocument(
+				appwriteDatabaseConfig.applicationDatabase,
+				appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
+				documentId,
+				{
+					link: data.links,
+				},
+			);
+		}
+
 		database.createDocument(
 			appwriteDatabaseConfig.applicationDatabase,
 			appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
@@ -160,10 +163,9 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			{
 				link: data.links,
 				userId: userId,
-				jobApplications: [documentId],
+				jobApplications: [applicationDocumentId],
 			},
 		);
-		// }
 	}
 
 	useEffect(() => {
@@ -177,7 +179,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 				);
 
 				if (response.$id) {
-					setApplicationData(response);
+					setApplicationData(response as JobApplicationData);
 				}
 			} catch (errors) {
 				console.error(errors);

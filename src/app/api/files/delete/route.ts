@@ -22,9 +22,7 @@ export async function POST(request: NextRequest) {
 		const bucket = storage.bucket(bucketName);
 		const file = bucket.file(fileName);
 
-		const response = await file.delete();
-
-		console.log('deleteFile', response);
+		await file.delete();
 
 		return NextResponse.json({ status: 'success' }, { status: 200 });
 	} catch (error) {

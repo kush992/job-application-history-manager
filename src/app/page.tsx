@@ -58,7 +58,12 @@ export default function Home() {
 							<p>
 								JobJourney is currently in the testing phase. If {"you're"} interested in helping me build a better job hunting
 								experience, {"I'd"} love to hear from you! Reach out to me on LinkedIn for early access or to provide feedback:{' '}
-								<a className='italic underline' href='https://www.linkedin.com/in/kush-bhalodi-b11991184/' target='__blank'>
+								<a
+									className='italic underline'
+									href='https://www.linkedin.com/in/kush-bhalodi-b11991184/'
+									target='__blank'
+									rel='noopener noreferrer'
+								>
 									Kush Bhalodi
 								</a>
 							</p>
@@ -69,13 +74,13 @@ export default function Home() {
 							</p>
 							<p>
 								<strong>P.S.</strong> Check out my portfolio:{' '}
-								<a className='italic underline' href='https://kushbhalodi.com/' target='__blank'>
+								<a className='italic underline' href='https://kushbhalodi.com/' target='__blank' rel='noopener noreferrer'>
 									{'<KushBhalodi />'}
 								</a>
 							</p>
 							<p>
 								<strong>P.P.S.</strong> You can find the code for JobJourney on Github:{' '}
-								<a href='https://github.com/kush992' className='italic underline' target='__blank'>
+								<a href='https://github.com/kush992' className='italic underline' target='__blank' rel='noopener noreferrer'>
 									kush992
 								</a>
 							</p>

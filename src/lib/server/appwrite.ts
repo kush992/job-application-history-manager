@@ -75,7 +75,7 @@ export async function signUpWithEmail(formData: FormData) {
 }
 
 export async function loginWithEmail(formData: FormData) {
-	'use server';
+	('use server');
 
 	console.log('formData', formData);
 

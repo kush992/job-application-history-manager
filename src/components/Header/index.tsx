@@ -4,7 +4,7 @@ import { appRoutes } from '@/utils/constants';
 import cn from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
+import React from 'react';
 import { PlusCircleFilled } from '@ant-design/icons';
 import { Models } from 'appwrite';
 import { ThemeSwitcher } from '../ThemeSwitcher';
@@ -16,14 +16,11 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ user }) => {
-	const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 	const pathname = usePathname();
 
 	const isActive = (route: string) => {
 		return pathname === route;
 	};
-
-	console.log(pathname);
 
 	return (
 		<>

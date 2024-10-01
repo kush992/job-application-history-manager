@@ -11,6 +11,7 @@ import { DateTimePicker } from '@/components/ui/date-time-picker';
 import { config } from '@/config/config';
 import { useUploadFile } from '@/hooks/useUploadFile';
 import DocumentInfoCard from '@/components/DocumentInfoCard';
+import { getFileName } from '@/utils/utility';
 
 type Props = {
 	form: UseFormReturn<FormData>;
@@ -18,7 +19,10 @@ type Props = {
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
-	const { uploadFiles, fileStatuses, resetStatuses } = useUploadFile();
+	const { uploadFiles, fileStatuses } = useUploadFile();
+
+	const isShowFileStatus = fileStatuses.some((status) => status.isLoading);
+	const initialLinks = form.getValues('links');
 
 	return (
 		<Form {...form}>
@@ -165,28 +169,13 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					/>
 				</div>
 
+				{/* FIXME: add separate input fields for date and time */}
 				<FormField
 					control={form.control}
 					name='interviewDate'
 					render={({ field }) => (
 						<FormItem className='flex flex-col'>
 							<FormLabel>Interview Date</FormLabel>
-							<Popover>
-								{/* <PopoverTrigger asChild>
-									<FormControl>
-										<Button
-											variant={'outline'}
-											className={cn('w-[240px] pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}
-										>
-											{field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
-											<CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-										</Button>
-									</FormControl>
-								</PopoverTrigger> */}
-								{/* <PopoverContent className='w-auto p-0' align='start'>
-									<Calendar mode='single' selected={new Date(field.value)} onSelect={field.onChange} initialFocus />
-								</PopoverContent> */}
-							</Popover>
 							<FormControl>
 								<DateTimePicker value={field.value} onChange={field.onChange} />
 							</FormControl>
@@ -215,18 +204,25 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 												const uploadedFileUrls = await uploadFiles(Array.from(files));
 
 												if (uploadedFileUrls) {
-													console.log(uploadedFileUrls);
-													form.setValue('links', uploadedFileUrls.join(FILES_SEPARATOR));
+													if (!initialLinks) {
+														form.setValue('links', uploadedFileUrls.join(FILES_SEPARATOR));
+													} else {
+														const newLinks = uploadedFileUrls.join(FILES_SEPARATOR);
+														form.setValue('links', initialLinks + FILES_SEPARATOR + newLinks); // joining the recent with initial links
+													}
 												}
 											}
 										}}
 									/>
 								</FormControl>
-								<div className='flex flex-wrap gap-2'>
-									{fileStatuses.map((status, index) => (
-										<DocumentInfoCard key={status.file.name} {...status} />
-									))}
-								</div>
+
+								{/* show current progress of files */}
+								{isShowFileStatus && fileStatuses.map((status) => <DocumentInfoCard key={status.file.name} {...status} />)}
+
+								{/* show all the files associated to this application */}
+								{initialLinks?.split(FILES_SEPARATOR).map((link, index) => (
+									<DocumentInfoCard key={`${index + 1} - ${getFileName(link)}`} fileName={getFileName(link)} />
+								))}
 								<FormMessage />
 							</FormItem>
 						)}

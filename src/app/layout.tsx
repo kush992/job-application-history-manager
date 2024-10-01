@@ -36,7 +36,6 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }>) {
 	const user = await getLoggedInUser();
-	console.log(jsonParseString(user));
 
 	return (
 		<html lang='en'>

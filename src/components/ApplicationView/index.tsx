@@ -14,6 +14,8 @@ import { FILES_SEPARATOR } from '../ApplicationForm/utility';
 import { Button } from '../ui/button';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { Badge } from '../ui/badge';
+import { ArrowUpRight } from 'lucide-react';
+import { getFileName } from '@/utils/utility';
 
 type Props = {
 	documentId: string;
@@ -113,16 +115,25 @@ const ApplicationView = ({ documentId }: Props) => {
 					</div>
 
 					<div className='border p-4 rounded-md bg-primary-foreground'>
-						{applicationData.links &&
-							applicationData.links.split(FILES_SEPARATOR).map((link, index) => (
-								<a key={index + 1} href={link} className='text-sm'>
-									{link}
-									<br />
-								</a>
-							))}
+						{applicationData.links && (
+							<div>
+								<h2 className='text-lg font-semibold !mt-3'>Documents Added</h2>
+								{applicationData.links &&
+									applicationData.links.split(FILES_SEPARATOR).map((link, index) => (
+										<a key={index + 1} href={link} className='text-sm w-fit text-wrap' target='__blank' rel='noopener noreferrer'>
+											<Button
+												variant='link'
+												className='over px-0 text-wrap h-full flex items-center justify-between text-left w-full'
+											>
+												{getFileName(link)}
+											</Button>
+										</a>
+									))}
+								<Divider />
+							</div>
+						)}
 						{applicationData?.feedbackFromCompany && (
 							<div>
-								<Divider />
 								<h2 className='text-lg font-semibold !mt-3'>Additional details after applying</h2>
 								<div
 									className='rounded-md prose !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
