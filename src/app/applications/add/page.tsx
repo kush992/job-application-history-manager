@@ -5,11 +5,12 @@ import { Suspense } from 'react';
 import Loader from '@/components/Loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
+import { appRoutes } from '@/utils/constants';
 
 export default async function AddApplication() {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect('/login');
+	if (!user) redirect(appRoutes.signUpPage);
 
 	return (
 		<Suspense fallback={<Loader />}>

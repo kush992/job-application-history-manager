@@ -1,6 +1,7 @@
 import ApplicationForm from '@/components/ApplicationForm';
 import Loader from '@/components/Loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
+import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { GetServerSidePropsContext } from 'next';
 import { redirect } from 'next/navigation';
@@ -13,7 +14,7 @@ type Params = {
 export default async function UpdateApplication({ params }: { params: Params }) {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect('/login');
+	if (!user) redirect(appRoutes.signUpPage);
 
 	return (
 		<Suspense fallback={<Loader />}>

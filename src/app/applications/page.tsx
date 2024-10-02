@@ -4,11 +4,12 @@ import Loader from '@/components/Loader';
 import { Analytics } from '@vercel/analytics/next';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
+import { appRoutes } from '@/utils/constants';
 
 const ApplicationPage = async () => {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect('/login');
+	if (!user) redirect(appRoutes.signUpPage);
 
 	return (
 		<Suspense fallback={<Loader />}>

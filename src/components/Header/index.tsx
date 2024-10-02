@@ -64,7 +64,7 @@ const Header: React.FC<Props> = ({ user }) => {
 						)}
 						{!user?.$id && (
 							<Button>
-								<Link href='/login'>Login</Link>
+								<Link href={appRoutes.signUpPage}>SignIn</Link>
 							</Button>
 						)}
 					</nav>
@@ -73,7 +73,7 @@ const Header: React.FC<Props> = ({ user }) => {
 						{user?.$id && <UserMenu />}
 						{!user?.$id && (
 							<Button>
-								<Link href='/login'>Login</Link>
+								<Link href={appRoutes.signUpPage}>SignIn</Link>
 							</Button>
 						)}
 					</div>
