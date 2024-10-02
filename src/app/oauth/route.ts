@@ -18,5 +18,7 @@ export async function GET(request: NextRequest) {
 		secure: true,
 	});
 
+	console.log('SESSION >>> oauth/route.ts', session);
+
 	return NextResponse.redirect(`${request.nextUrl.origin}/applications`);
 }
