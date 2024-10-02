@@ -63,18 +63,18 @@ const Header: React.FC<Props> = ({ user }) => {
 							</ul>
 						)}
 						{!user?.$id && (
-							<Button>
-								<Link href={appRoutes.signUpPage}>SignIn</Link>
-							</Button>
+							<Link href={appRoutes.signUpPage}>
+								<Button>SignIn</Button>
+							</Link>
 						)}
 					</nav>
 					<div className='md:hidden flex items-center gap-2'>
 						<ThemeSwitcher />
 						{user?.$id && <UserMenu />}
 						{!user?.$id && (
-							<Button>
-								<Link href={appRoutes.signUpPage}>SignIn</Link>
-							</Button>
+							<Link href={appRoutes.signUpPage}>
+								<Button>SignIn</Button>
+							</Link>
 						)}
 					</div>
 				</div>
