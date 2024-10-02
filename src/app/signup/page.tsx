@@ -9,9 +9,6 @@ import { Lock } from 'lucide-react';
 
 const SignupPage: React.FC = async () => {
 	const user = await getLoggedInUser();
-
-	console.log('USER >>> app/signup/page.tsx', user);
-
 	if (user) redirect('/applications');
 
 	return (

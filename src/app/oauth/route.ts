@@ -1,7 +1,9 @@
 // src/app/oauth/route.js
 
 import { createAdminClient } from '@/lib/server/appwrite';
+import { appRoutes } from '@/utils/constants';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -18,7 +20,5 @@ export async function GET(request: NextRequest) {
 		secure: true,
 	});
 
-	console.log('SESSION >>> oauth/route.ts', session);
-
-	return NextResponse.redirect(`${request.nextUrl.origin}/applications`);
+	return NextResponse.redirect(`${request.nextUrl.origin}/${appRoutes.applicationPage}`);
 }

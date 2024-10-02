@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 export async function createSessionClient() {
 	const client = new Client().setEndpoint(config.appwriteUrl).setProject(config.appwriteProjectId);
 
-	const session = cookies().get('my-custom-session');
+	const session = cookies().get('session');
 	if (!session || !session.value) {
 		throw new Error('No session');
 	}
@@ -56,7 +56,7 @@ export async function signUpWithEmail(formData: FormData) {
 	try {
 		await account.create(ID.unique(), email, password, name);
 		const session = await account.createEmailPasswordSession(email, password);
-		cookies().set('my-custom-session', session.secret, {
+		cookies().set('session', session.secret, {
 			path: '/',
 			httpOnly: true,
 			sameSite: 'strict',
@@ -90,7 +90,7 @@ export async function loginWithEmail(formData: FormData) {
 
 	try {
 		const session = await account.createEmailPasswordSession(email, password);
-		cookies().set('my-custom-session', session.secret, {
+		cookies().set('session', session.secret, {
 			path: '/',
 			httpOnly: true,
 			sameSite: 'strict',
@@ -113,7 +113,7 @@ export async function signOut() {
 
 	const { account } = await createSessionClient();
 
-	cookies().delete('my-custom-session');
+	cookies().delete('session');
 	await account.deleteSession('current');
 
 	redirect('/');
