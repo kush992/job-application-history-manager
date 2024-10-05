@@ -74,7 +74,7 @@ const ApplicationView = ({ documentId }: Props) => {
 			{!isFetching && !applicationData.$id && contextHolder}
 			{!isFetching && applicationData.$id && (
 				<>
-					<div className='flex flex-col gap-4 rounded-md border p-4 bg-primary-foreground'>
+					<div className='flex flex-col gap-4 rounded-md border p-4 bg-background'>
 						<div className='flex justify-between items-start'>
 							<div>
 								<p className='text-sm'>{applicationData.companyName}</p>
@@ -93,7 +93,7 @@ const ApplicationView = ({ documentId }: Props) => {
 						<Separator className='my-2' />
 
 						<div>
-							<h2 className='text-md'>Job Activity</h2>
+							<h2 className='text-base'>Job Activity</h2>
 							<div className='flex flex-col gap-2'>
 								{applicationData?.interviewDate && (
 									<p className='text-sm flex flex-col md:gap-4 md:flex-row'>
@@ -114,7 +114,7 @@ const ApplicationView = ({ documentId }: Props) => {
 						</div>
 					</div>
 
-					<div className='border p-4 rounded-md bg-primary-foreground'>
+					<div className='border p-4 rounded-md bg-background'>
 						{applicationData.links && (
 							<div>
 								<h2 className='text-lg font-semibold !mt-3'>Documents Added</h2>

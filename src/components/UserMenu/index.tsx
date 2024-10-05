@@ -11,19 +11,39 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import Link from 'next/link';
 import { appRoutes } from '@/utils/constants';
 import { signOut } from '@/lib/server/appwrite';
+import { Models } from 'node-appwrite';
+import React from 'react';
 
-export function UserMenu() {
+type Props = {
+	user: Models.User<Models.Preferences> | null;
+};
+
+export function UserMenu({ user }: Props) {
+	const userInitials = user?.name
+		?.split(' ')
+		.map((name) => name[0])
+		.join('');
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Avatar className='cursor-pointer'>
+				<Avatar className='cursor-pointer h-8 w-8'>
 					<AvatarImage src='https://img.kushbhalodi.com/images/avatar.png' alt='profile-image' />
-					<AvatarFallback>UP</AvatarFallback>
+					<AvatarFallback>{userInitials}</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent className='w-48'>
-				<DropdownMenuLabel>My Account</DropdownMenuLabel>
+			<DropdownMenuContent className='mr-2 md:mr-0' slot='left'>
+				<DropdownMenuLabel className='flex gap-2 items-center'>
+					<Avatar className='cursor-pointer'>
+						<AvatarImage src='https://img.kushbhalodi.com/images/avatar.png' alt='profile-image' />
+						<AvatarFallback>{userInitials}</AvatarFallback>
+					</Avatar>
+					<div>
+						<p>{user?.name}</p>
+						<p className='text-xs text-muted-foreground'>{user?.email}</p>
+					</div>
+				</DropdownMenuLabel>
 
 				<DropdownMenuSeparator />
 

@@ -59,7 +59,7 @@ const Header: React.FC<Props> = ({ user }) => {
 										Your Applications
 									</Link>
 								</li>
-								<UserMenu />
+								<UserMenu user={user} />
 							</ul>
 						)}
 						{!user?.$id && (
@@ -70,7 +70,7 @@ const Header: React.FC<Props> = ({ user }) => {
 					</nav>
 					<div className='md:hidden flex items-center gap-2'>
 						<ThemeSwitcher />
-						{user?.$id && <UserMenu />}
+						{user?.$id && <UserMenu user={user} />}
 						{!user?.$id && (
 							<Link href={appRoutes.signUpPage}>
 								<Button>SignIn</Button>

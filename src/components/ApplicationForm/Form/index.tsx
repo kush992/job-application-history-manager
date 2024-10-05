@@ -148,7 +148,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Application Status</FormLabel>
-								<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+								<Select onValueChange={field.onChange} value={field.value ?? undefined}>
 									<FormControl>
 										<SelectTrigger>
 											<SelectValue placeholder='Select status of the application' />
@@ -200,6 +200,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										name='link'
 										onChange={async (e) => {
 											const files = e.target.files;
+
 											if (files?.length) {
 												const uploadedFileUrls = await uploadFiles(Array.from(files));
 
