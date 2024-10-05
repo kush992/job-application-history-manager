@@ -24,7 +24,7 @@ const Header: React.FC<Props> = ({ user }) => {
 
 	return (
 		<>
-			<div className='bg-muted text-muted-foreground text-xs py-1 text-center'>
+			<div className='bg-background text-muted-foreground text-xs py-1 text-center border-b'>
 				Currently on testing stage. <br />
 				Please report any bugs here{' '}
 				<a target='_blank' href='mailto:kushbhalodi.project@gmail.com' className='underline italic'>
