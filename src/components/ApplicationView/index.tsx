@@ -96,12 +96,12 @@ const ApplicationView = ({ documentId }: Props) => {
 							<h2 className='text-base'>Job Activity</h2>
 							<div className='flex flex-col gap-2'>
 								{applicationData?.interviewDate && (
-									<p className='text-sm flex flex-col md:gap-4 md:flex-row'>
+									<p className='text-sm flex flex-col'>
 										<span>● Interview</span>
 										<span className='text-muted-foreground'>{formatDate(applicationData.interviewDate)}</span>
 									</p>
 								)}
-								<p className='text-sm flex flex-col md:gap-4 md:flex-row'>
+								<p className='text-sm flex flex-col'>
 									<span>● Applied</span>
 									<span className='text-muted-foreground'>{formatDate(applicationData.$createdAt)}</span>
 								</p>
