@@ -193,7 +193,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 
 	return (
 		<div className='flex flex-col gap-6'>
-			<div>
+			<div className='p-4'>
 				<Breadcrumb className='mb-2'>
 					<BreadcrumbList>
 						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>

@@ -14,7 +14,7 @@ type Props = {
 const ApplicationFilter: React.FC<Props> = ({ onInputChange, filterByStatus, clearAllFilters }) => {
 	return (
 		<form className='w-full flex sm:flex-row flex-col items-center gap-2' onReset={clearAllFilters}>
-			<Input placeholder='Search for job title, position...' onChange={(e) => onInputChange(e.target.value)} className='md:!w-[70%]' />
+			<Input placeholder='Search for company name' onChange={(e) => onInputChange(e.target.value)} className='md:!w-[70%]' />
 
 			<div className='flex items-center w-full gap-2'>
 				<Select onValueChange={filterByStatus} defaultValue=''>

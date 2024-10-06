@@ -26,7 +26,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-6'>
+			<form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-6 bg-background p-4 md:m-4 md:rounded-md md:border'>
 				<FormField
 					control={form.control}
 					name='jobTitle'
