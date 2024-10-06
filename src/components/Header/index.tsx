@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import { PlusCircleFilled } from '@ant-design/icons';
 import { Models } from 'appwrite';
-import { ThemeSwitcher } from '../ThemeSwitcher';
+// import { ThemeSwitcher } from '../ThemeSwitcher';
 import { Button } from '@/components/ui/button';
 import { UserMenu } from '../UserMenu';
 
@@ -39,7 +39,7 @@ const Header: React.FC<Props> = ({ user }) => {
 						</Link>
 					</div>
 					<nav className='hidden md:flex justify-center items-center gap-4'>
-						<ThemeSwitcher />
+						{/* <ThemeSwitcher /> */}
 						{user?.$id && (
 							<ul className='flex justify-between items-center m-0 gap-4'>
 								<li className='list-none'>
@@ -69,7 +69,7 @@ const Header: React.FC<Props> = ({ user }) => {
 						)}
 					</nav>
 					<div className='md:hidden flex items-center gap-2'>
-						<ThemeSwitcher />
+						{/* <ThemeSwitcher /> */}
 						{user?.$id && <UserMenu user={user} />}
 						{!user?.$id && (
 							<Link href={appRoutes.signUpPage}>

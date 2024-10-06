@@ -4,7 +4,11 @@ import {
 	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
+	DropdownMenuPortal,
 	DropdownMenuSeparator,
+	DropdownMenuSub,
+	DropdownMenuSubContent,
+	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
@@ -13,6 +17,7 @@ import { appRoutes } from '@/utils/constants';
 import { signOut } from '@/lib/server/appwrite';
 import { Models } from 'node-appwrite';
 import React from 'react';
+import { useTheme } from 'next-themes';
 
 type Props = {
 	user: Models.User<Models.Preferences> | null;
@@ -23,6 +28,8 @@ export function UserMenu({ user }: Props) {
 		?.split(' ')
 		.map((name) => name[0])
 		.join('');
+
+	const { setTheme } = useTheme();
 
 	return (
 		<DropdownMenu>
@@ -64,6 +71,17 @@ export function UserMenu({ user }: Props) {
 					<DropdownMenuItem disabled>Dashboard</DropdownMenuItem>
 					<DropdownMenuItem disabled>Profile</DropdownMenuItem>
 					<DropdownMenuItem disabled>Settings</DropdownMenuItem>
+
+					<DropdownMenuSub>
+						<DropdownMenuSubTrigger>Appearance</DropdownMenuSubTrigger>
+						<DropdownMenuPortal>
+							<DropdownMenuSubContent>
+								<DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
+							</DropdownMenuSubContent>
+						</DropdownMenuPortal>
+					</DropdownMenuSub>
 				</DropdownMenuGroup>
 
 				<DropdownMenuSeparator />
