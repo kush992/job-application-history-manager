@@ -79,7 +79,7 @@ const ApplicationView = ({ documentId }: Props) => {
 							<div>
 								<p className='text-sm'>{applicationData.companyName}</p>
 								<h1 className='text-2xl font-semibold !mt-0 !mb-2'>{applicationData.jobTitle}</h1>
-								<Badge>{applicationData?.applicationStatus}</Badge>
+								<Badge variant='secondary'>{applicationData?.applicationStatus}</Badge>
 							</div>
 							<div>
 								<Link href={`${appRoutes.updateApplicationPage}/${documentId}`} className='underline'>
