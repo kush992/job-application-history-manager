@@ -7,6 +7,9 @@ import Link from 'next/link';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { MoreHorizontal } from 'lucide-react';
+import { AlertDialogCustom } from '@/components/AlertDialogCustom';
 
 type Props = {
 	data: JobApplicationData;
@@ -32,7 +35,7 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 	}
 
 	return (
-		<div className='bg-background p-4 grid sm:grid-cols-[1fr_auto]'>
+		<div className='bg-background p-4 grid grid-cols-[1fr_auto] gap-2'>
 			<Link href={`${appRoutes.viewApplicationPage}/${data.$id}`}>
 				<div className='grid sm:grid-cols-3 sm:gap-4 w-full items-start'>
 					<div>
@@ -52,17 +55,23 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 				</div>
 			</Link>
 
-			<div className='flex sm:flex-col w-full justify-between gap-4 sm:max-w-fit pt-2 sm:pt-0'>
-				<Link href={`${appRoutes.updateApplicationPage}/${data.$id}`}>
-					<Button variant='outline' className='flex items-center gap-1 text-sm !text-muted-foreground'>
-						<EditFilled />
-						Edit
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<Button variant='outline' size='icon'>
+						<MoreHorizontal className='cursor-pointer' />
 					</Button>
-				</Link>
-				<Button variant='destructive' onClick={() => onClickDelete(data.$id)}>
-					<DeleteFilled className='' />
-				</Button>
-			</div>
+				</DropdownMenuTrigger>
+
+				<DropdownMenuContent align='end'>
+					<Link href={`${appRoutes.updateApplicationPage}/${data.$id}`}>
+						<Button variant='ghost' className='flex gap-1 items-center w-full justify-start'>
+							<EditFilled /> Edit
+						</Button>
+					</Link>
+
+					<AlertDialogCustom buttonName='Delete' icon={<DeleteFilled />} onClickContinue={() => onClickDelete(data.$id)} />
+				</DropdownMenuContent>
+			</DropdownMenu>
 		</div>
 	);
 };

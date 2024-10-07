@@ -44,7 +44,7 @@ const Header: React.FC<Props> = ({ user }) => {
 							<ul className='flex justify-between items-center m-0 gap-4'>
 								<li className='list-none'>
 									<Link href={appRoutes.addApplicationPage}>
-										<Button variant='outline'>
+										<Button variant='outline' size='icon'>
 											<PlusCircleFilled className='text-secondary-foreground' height='40px' width='40px' />
 										</Button>
 									</Link>

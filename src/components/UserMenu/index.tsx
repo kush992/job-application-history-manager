@@ -40,7 +40,7 @@ export function UserMenu({ user }: Props) {
 				</Avatar>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent className='mr-2 md:mr-0' slot='left'>
+			<DropdownMenuContent align='end' className='mr-2 md:mr-0' slot='left'>
 				<DropdownMenuLabel className='flex gap-2 items-center'>
 					<Avatar className='cursor-pointer'>
 						<AvatarImage src='https://img.kushbhalodi.com/images/avatar.png' alt='profile-image' />
