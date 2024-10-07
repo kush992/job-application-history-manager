@@ -83,7 +83,7 @@ const ApplicationView = ({ documentId }: Props) => {
 							</div>
 							<div>
 								<Link href={`${appRoutes.updateApplicationPage}/${documentId}`} className='underline'>
-									<Button>
+									<Button size='icon'>
 										<EditOutlined />
 									</Button>
 								</Link>
