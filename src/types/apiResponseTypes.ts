@@ -1,18 +1,3 @@
-export type InterviewQuestion = {
-	id: number;
-	question: string;
-	answer: string;
-	isAnswerCorrect: boolean;
-	correctAnswer: string;
-	$id: string;
-	$tenant: string;
-	$createdAt: string;
-	$updatedAt: string;
-	$permissions: any[];
-	$databaseId: string;
-	$collectionId: string;
-};
-
 export type JobApplicationData = {
 	userId: string;
 	jobTitle: string;
@@ -33,7 +18,7 @@ export type JobApplicationData = {
 	$createdAt: string;
 	$updatedAt: string;
 	$permissions: any[];
-	interviewQuestionsTable?: InterviewQuestion[];
+	interviewQuestions?: InterviewQuestionsData;
 	documents: DocumentsData[];
 	$databaseId: string;
 	$collectionId: string;
@@ -50,9 +35,19 @@ export type DocumentsData = {
 	userId: string;
 };
 
+export type InterviewQuestionsData = {
+	$collectionId: string;
+	$createdAt: string;
+	$databaseId: string;
+	$id: string;
+	$permissions: any[];
+	$updatedAt: string;
+	questionsAndAnswers: string[];
+	jobApplications: string;
+	isPrivate: boolean;
+};
+
 export type Response<T> = {
 	total: number;
 	documents: T[];
 };
-
-

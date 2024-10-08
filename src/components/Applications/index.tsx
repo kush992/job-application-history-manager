@@ -1,6 +1,6 @@
 'use client';
 
-import { appwriteDatabaseConfig, database } from '@/appwrite/config';
+import { appwriteDbConfig, database } from '@/appwrite/config';
 import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Query } from 'appwrite';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -48,8 +48,8 @@ const Application: React.FC<Props> = ({ userId }) => {
 			}
 
 			const response = (await database.listDocuments(
-				appwriteDatabaseConfig.applicationDatabase,
-				appwriteDatabaseConfig.applicationDatabaseCollectionId,
+				appwriteDbConfig.applicationDb,
+				appwriteDbConfig.applicationDbCollectionId,
 				queries,
 			)) as Response<JobApplicationData>;
 
@@ -70,7 +70,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 
 	function softDeleteData(documentId: string) {
 		database
-			.updateDocument(appwriteDatabaseConfig.applicationDatabase, appwriteDatabaseConfig.applicationDatabaseCollectionId, String(documentId), {
+			.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, String(documentId), {
 				isSoftDelete: true,
 				softDeleteDateAndTime: new Date(),
 			})

@@ -1,4 +1,4 @@
-import { appwriteDatabaseConfig, database } from '@/appwrite/config';
+import { appwriteDbConfig, database } from '@/appwrite/config';
 import { NextRequest, NextResponse } from 'next/server';
 import { FormData } from '@/components/ApplicationForm/utility';
 import { IncomingMessage } from 'http';

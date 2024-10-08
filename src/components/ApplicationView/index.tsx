@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Divider, notification } from 'antd';
-import { appwriteDatabaseConfig, database } from '@/appwrite/config';
+import { appwriteDbConfig, database } from '@/appwrite/config';
 import { JobApplicationData } from '@/types/apiResponseTypes';
 import { appRoutes } from '@/utils/constants';
 import { formatDate, transformDate } from '@/utils/date';
@@ -16,6 +16,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Badge } from '../ui/badge';
 import { ArrowUpRight } from 'lucide-react';
 import { getFileName } from '@/utils/utility';
+import { InterviewQuestions } from '../InterviewQuestions';
 
 type Props = {
 	documentId: string;
@@ -41,8 +42,8 @@ const ApplicationView = ({ documentId }: Props) => {
 			setIsFetching(true);
 			try {
 				const response: JobApplicationData = await database.getDocument(
-					appwriteDatabaseConfig.applicationDatabase,
-					appwriteDatabaseConfig.applicationDatabaseCollectionId,
+					appwriteDbConfig.applicationDb,
+					appwriteDbConfig.applicationDbCollectionId,
 					documentId,
 				);
 				setApplicationData(response);
@@ -116,7 +117,7 @@ const ApplicationView = ({ documentId }: Props) => {
 
 					<div className='border p-4 rounded-md bg-background'>
 						{applicationData.links && (
-							<div>
+							<div id='documentsData'>
 								<h2 className='text-lg font-semibold !mt-3'>Documents Added</h2>
 								{applicationData.links &&
 									applicationData.links.split(FILES_SEPARATOR).map((link, index) => (
@@ -133,7 +134,7 @@ const ApplicationView = ({ documentId }: Props) => {
 							</div>
 						)}
 						{applicationData?.feedbackFromCompany && (
-							<div>
+							<div id='additionalDetails'>
 								<h2 className='text-lg font-semibold !mt-3'>Additional details after applying</h2>
 								<div
 									className='rounded-md prose !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
@@ -142,7 +143,7 @@ const ApplicationView = ({ documentId }: Props) => {
 								<Divider />
 							</div>
 						)}
-						<div>
+						<div id='applicationData'>
 							<h2 className='text-lg font-semibold !m-0'>Application Data</h2>
 							<div
 								className='rounded-md prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
@@ -150,6 +151,13 @@ const ApplicationView = ({ documentId }: Props) => {
 							/>
 						</div>
 					</div>
+
+					{applicationData?.interviewQuestions && (
+						<div className='border p-4 rounded-md bg-background' id='interviewQuestions'>
+							<h2 className='text-lg font-semibold !m-0'>Interview Questions Data</h2>
+							<InterviewQuestions questionsAndAnswers={applicationData?.interviewQuestions?.questionsAndAnswers} />
+						</div>
+					)}
 				</>
 			)}
 		</div>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formSchema, FormData } from './utility';
-import { appwriteDatabaseConfig, database } from '@/appwrite/config';
+import { appwriteDbConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
 import Loader from '../Loader';
@@ -75,8 +75,8 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	function updateDocument(data: FormData) {
 		database
 			.updateDocument(
-				appwriteDatabaseConfig.applicationDatabase,
-				appwriteDatabaseConfig.applicationDatabaseCollectionId,
+				appwriteDbConfig.applicationDb,
+				appwriteDbConfig.applicationDbCollectionId,
 				String(documentId),
 				{
 					...data,
@@ -111,8 +111,8 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 		const documentId = ID.unique();
 		database
 			.createDocument(
-				appwriteDatabaseConfig.applicationDatabase,
-				appwriteDatabaseConfig.applicationDatabaseCollectionId,
+				appwriteDbConfig.applicationDb,
+				appwriteDbConfig.applicationDbCollectionId,
 				documentId,
 				{
 					...data,
@@ -147,14 +147,9 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 		if (applicationData.links) {
 			const documentId = applicationData.documents[0].$id;
 
-			database.updateDocument(
-				appwriteDatabaseConfig.applicationDatabase,
-				appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
-				documentId,
-				{
-					link: data.links,
-				},
-			);
+			database.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbDocumentCollectionId, documentId, {
+				link: data.links,
+			});
 
 			toast({
 				title: 'Success',
@@ -162,16 +157,11 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			});
 		}
 
-		database.createDocument(
-			appwriteDatabaseConfig.applicationDatabase,
-			appwriteDatabaseConfig.applicationDatabaseDocumentCollectionId,
-			ID.unique(),
-			{
-				link: data.links,
-				userId: userId,
-				jobApplications: [applicationDocumentId],
-			},
-		);
+		database.createDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbDocumentCollectionId, ID.unique(), {
+			link: data.links,
+			userId: userId,
+			jobApplications: [applicationDocumentId],
+		});
 
 		toast({
 			title: 'Success',
@@ -184,8 +174,8 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			setIsLoading(true);
 			try {
 				const response = await database.getDocument(
-					appwriteDatabaseConfig.applicationDatabase,
-					appwriteDatabaseConfig.applicationDatabaseCollectionId,
+					appwriteDbConfig.applicationDb,
+					appwriteDbConfig.applicationDbCollectionId,
 					String(documentId),
 				);
 

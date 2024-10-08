@@ -7,10 +7,9 @@ appwriteClient.setEndpoint(config.appwriteUrl).setProject(config.appwriteProject
 
 export const database = new Databases(appwriteClient);
 
-export const accounts = new Account(appwriteClient);
-
-export const appwriteDatabaseConfig = {
-	applicationDatabase: String(process.env.NEXT_PUBLIC_APPLICATION_DB),
-	applicationDatabaseCollectionId: String(process.env.NEXT_PUBLIC_APPLICATION_DB_COLLECTION_ID),
-	applicationDatabaseDocumentCollectionId: String(process.env.NEXT_PUBLIC_APPLICATION_DB_DOCUMENTS_COLLECTION_ID),
+export const appwriteDbConfig = {
+	applicationDb: String(process.env.NEXT_PUBLIC_APPLICATION_DB),
+	applicationDbCollectionId: String(process.env.NEXT_PUBLIC_APPLICATION_DB_COLLECTION_ID),
+	applicationDbDocumentCollectionId: String(process.env.NEXT_PUBLIC_APPLICATION_DB_DOCUMENTS_COLLECTION_ID),
+	applicationDbInterviewQuestionsCollectionId: String(process.env.NEXT_PUBLIC_APPLICATION_DB_INTERVIEW_QUESTIONS_COLLECTION_ID),
 };
