@@ -1,11 +1,10 @@
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { ApplicationStatus, FILES_SEPARATOR, FormData, SalaryCurrency, SalaryType } from '../utility';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Popover } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { DateTimePicker } from '@/components/ui/date-time-picker';
 import { config } from '@/config/config';
@@ -217,6 +216,8 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 									/>
 								</FormControl>
 
+								<FormDescription>File should be less than 10MB.</FormDescription>
+
 								{/* show current progress of files */}
 								{isShowFileStatus && fileStatuses.map((status) => <DocumentInfoCard key={status.file.name} {...status} />)}
 
@@ -230,7 +231,9 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					/>
 				)}
 
-				<Button type='submit'>Submit</Button>
+				<Button type='submit' disabled={form.formState.isSubmitting}>
+					Submit
+				</Button>
 			</form>
 		</Form>
 	);

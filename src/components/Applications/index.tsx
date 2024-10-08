@@ -1,19 +1,20 @@
 'use client';
+
 import { appwriteDatabaseConfig, database } from '@/appwrite/config';
 import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Query } from 'appwrite';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { appRoutes } from '@/utils/constants';
 import ApplicationList from './ApplicationList';
 import { InfoCircleFilled, LoadingOutlined } from '@ant-design/icons';
-import Notifications from '../Notifications';
 import ApplicationFilter from './ApplicationFilter';
 import { ApplicationStatus } from '../ApplicationForm/utility';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
+import { useToast } from '@/hooks/use-toast';
 
 type Props = {
 	userId: string;
@@ -24,12 +25,10 @@ const Application: React.FC<Props> = ({ userId }) => {
 	const [totalDocuments, setTotalDocuments] = useState<number>(0);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [hasMore, setHasMore] = useState<boolean>(true);
-	const [notification, setNotification] = useState<{ content: string; type: '' | 'success' | 'error' }>({
-		content: '',
-		type: '',
-	});
 	const [companyNameFilter, setCompanyNameFilter] = useState<string | undefined>(undefined);
 	const [statusFilter, setStatusFilter] = useState<ApplicationStatus | undefined>(undefined);
+
+	const { toast } = useToast();
 
 	const fetchApplicationData = async (lastId?: string, query?: string, statusFilter?: ApplicationStatus) => {
 		setIsLoading(true);
@@ -76,11 +75,17 @@ const Application: React.FC<Props> = ({ userId }) => {
 				softDeleteDateAndTime: new Date(),
 			})
 			.then(() => {
-				setNotification({ content: 'Application deleted', type: 'success' });
+				toast({
+					title: 'Success',
+					description: 'Application deleted successfully',
+				});
 				fetchApplicationData();
 			})
 			.catch((error) => {
-				setNotification({ content: 'An error occured', type: 'error' });
+				toast({
+					title: 'Error',
+					description: 'Failed to delete application',
+				});
 				console.error(error);
 			});
 	}
@@ -107,19 +112,8 @@ const Application: React.FC<Props> = ({ userId }) => {
 		fetchApplicationData();
 	}, []);
 
-	useEffect(() => {
-		if (notification.content) {
-			const timer = setTimeout(() => {
-				setNotification({ content: '', type: '' });
-			}, 1000);
-
-			return () => clearTimeout(timer);
-		}
-	}, [notification]);
-
 	return (
 		<div className='rounded-md'>
-			{notification.content && <Notifications {...notification} />}
 			<Breadcrumb className='mb-2'>
 				<BreadcrumbList>
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>

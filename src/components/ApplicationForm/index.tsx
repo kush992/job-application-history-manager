@@ -44,17 +44,6 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 		links: applicationData?.links || undefined,
 	};
 
-	// const {
-	// 	register,
-	// 	handleSubmit,
-	// 	formState: { errors, defaultValues },
-	// 	setValue,
-	// } = useForm<FormData>({
-	// 	resolver: zodResolver(formSchema),
-	// 	defaultValues: { ...initialFormData },
-	// 	values: { ...initialFormData },
-	// });
-
 	const form = useForm<FormData>({
 		resolver: zodResolver(formSchema),
 		defaultValues: { ...initialFormData },
@@ -98,12 +87,20 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 				if (data.links) {
 					addLinks(data, documentId || applicationData.$id);
 				}
-				// console.log('response', response);
+				toast({
+					title: 'Success',
+					description: 'Application updated successfully',
+				});
 				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {
 				setError(error);
 				console.error(error);
+
+				toast({
+					title: 'Error',
+					description: 'Error updating application',
+				});
 			})
 			.finally(() => {
 				setIsSubmitting(false);
@@ -127,12 +124,16 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 				if (data.links) {
 					addLinks(data, documentId);
 				}
+				toast({
+					title: 'Success',
+					description: 'Application added successfully',
+				});
 				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {
 				toast({
 					title: 'Error',
-					content: error?.message,
+					description: error?.message,
 				});
 				console.error(error);
 			})
@@ -154,6 +155,11 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 					link: data.links,
 				},
 			);
+
+			toast({
+				title: 'Success',
+				description: 'File uploaded successfully',
+			});
 		}
 
 		database.createDocument(
@@ -166,6 +172,11 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 				jobApplications: [applicationDocumentId],
 			},
 		);
+
+		toast({
+			title: 'Success',
+			description: 'File uploaded successfully',
+		});
 	}
 
 	useEffect(() => {

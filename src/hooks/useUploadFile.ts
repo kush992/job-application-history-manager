@@ -33,6 +33,15 @@ export const useUploadFile = (): UseFileUploadReturn => {
 		);
 
 		const uploadPromises = files.map(async (file) => {
+			if (file.size > 10 * 1024 * 1024) {
+				updateFileStatus(file, {
+					isLoading: false,
+					isSuccess: false,
+					error: 'File size should be less than 10MB',
+				});
+				return;
+			}
+
 			try {
 				// Step 1: Get the signed URL
 				const res = await fetch('/api/files/upload', {
