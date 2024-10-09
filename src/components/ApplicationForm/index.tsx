@@ -22,12 +22,10 @@ type Props = {
 
 const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	const router = useRouter();
-	const [isSubmitting, setIsSubmitting] = useState(false);
+	const { toast } = useToast();
+
 	const [isLoading, setIsLoading] = useState(false);
 	const [applicationData, setApplicationData] = useState<JobApplicationData>({} as JobApplicationData);
-	const [error, setError] = useState('');
-
-	const { toast } = useToast();
 
 	const initialFormData: FormData = {
 		userId: applicationData?.userId || userId,
@@ -51,8 +49,6 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	});
 
 	async function onSubmit(data: FormData) {
-		setIsSubmitting(true);
-
 		if (!data.applicationStatus) {
 			delete data.applicationStatus;
 		}
@@ -94,16 +90,12 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 				router.push(appRoutes.applicationPage);
 			})
 			.catch((error) => {
-				setError(error);
 				console.error(error);
 
 				toast({
 					title: 'Error',
 					description: 'Error updating application',
 				});
-			})
-			.finally(() => {
-				setIsSubmitting(false);
 			});
 	}
 
@@ -136,9 +128,6 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 					description: error?.message,
 				});
 				console.error(error);
-			})
-			.finally(() => {
-				setIsSubmitting(false);
 			});
 	}
 

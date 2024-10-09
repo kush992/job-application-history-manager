@@ -45,6 +45,7 @@ export type InterviewQuestionsData = {
 	questionsAndAnswers: string[];
 	jobApplications: string;
 	isPrivate: boolean;
+	userId: string;
 };
 
 export type Response<T> = {
