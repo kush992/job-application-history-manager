@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { formSchema, FormData, normaliseQuestionsAndAnswers } from './utility';
+import { formSchema, QnAFormData, normaliseQuestionsAndAnswers, denormaliseQuestionsAndAnswers } from './utility';
 import { appwriteDbConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
@@ -27,19 +27,19 @@ const InterviewQuestionsForm = ({ documentId, isUpdateForm, userId }: Props) => 
 	const [isLoading, setIsLoading] = useState(false);
 	const [interviewQAData, setInterviewQAData] = useState<InterviewQuestionsData>({} as InterviewQuestionsData);
 
-	const initialFormData: FormData = {
+	const initialFormData: QnAFormData = {
 		userId: interviewQAData?.userId || userId,
 		isPrivate: interviewQAData.isPrivate,
 		questionsAndAnswers: normaliseQuestionsAndAnswers(interviewQAData?.questionsAndAnswers) || [],
 	};
 
-	const form = useForm<FormData>({
+	const form = useForm<QnAFormData>({
 		resolver: zodResolver(formSchema),
 		defaultValues: { ...initialFormData },
 		values: { ...initialFormData },
 	});
 
-	async function onSubmit(data: FormData) {
+	async function onSubmit(data: QnAFormData) {
 		if (!isUpdateForm) {
 			addDocument(data);
 		} else {
@@ -47,10 +47,11 @@ const InterviewQuestionsForm = ({ documentId, isUpdateForm, userId }: Props) => 
 		}
 	}
 
-	function updateDocument(data: FormData) {
+	function updateDocument(data: QnAFormData) {
 		database
 			.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbInterviewQuestionsCollectionId, String(documentId), {
 				...data,
+				questionsAndAnswers: denormaliseQuestionsAndAnswers(data.questionsAndAnswers),
 			})
 			.then((response) => {
 				toast({
@@ -69,11 +70,12 @@ const InterviewQuestionsForm = ({ documentId, isUpdateForm, userId }: Props) => 
 			});
 	}
 
-	function addDocument(data: FormData) {
+	function addDocument(data: QnAFormData) {
 		const documentId = ID.unique();
 		database
 			.createDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbInterviewQuestionsCollectionId, documentId, {
 				...data,
+				questionsAndAnswers: denormaliseQuestionsAndAnswers(data.questionsAndAnswers),
 			})
 			.then((response) => {
 				toast({

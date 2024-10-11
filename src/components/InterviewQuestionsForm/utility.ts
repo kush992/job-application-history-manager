@@ -13,7 +13,7 @@ export const formSchema = z.object({
 	isPrivate: z.boolean().optional(),
 });
 
-export type FormData = z.infer<typeof formSchema>;
+export type QnAFormData = z.infer<typeof formSchema>;
 
 export const normaliseQuestionsAndAnswers = (questionsAndAnswers: string[]) => {
 	return questionsAndAnswers?.map((questionsAndAnswer) => {
@@ -23,6 +23,6 @@ export const normaliseQuestionsAndAnswers = (questionsAndAnswers: string[]) => {
 	});
 };
 
-export const denormaliseQuestionsAndAnswers = (questionsAndAnswers: FormData['questionsAndAnswers']) => {
+export const denormaliseQuestionsAndAnswers = (questionsAndAnswers: QnAFormData['questionsAndAnswers']) => {
 	return questionsAndAnswers?.map((qa) => JSON.stringify(qa));
 };
