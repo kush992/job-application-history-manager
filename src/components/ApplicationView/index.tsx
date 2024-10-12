@@ -6,16 +6,16 @@ import { appwriteDbConfig, database } from '@/appwrite/config';
 import { JobApplicationData } from '@/types/apiResponseTypes';
 import { appRoutes } from '@/utils/constants';
 import { formatDate, transformDate } from '@/utils/date';
-import Loader from '../../components/Loader';
+import Loader from '../Loader';
 import { DollarCircleOutlined, EditOutlined } from '@ant-design/icons';
 import { Separator } from '@/components/ui/separator';
 import DOMPurify from 'dompurify';
 import { FILES_SEPARATOR } from '../ApplicationForm/utility';
-import { Button } from '../../components/ui/button';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../../components/ui/breadcrumb';
-import { Badge } from '../../components/ui/badge';
+import { Button } from '../ui/button';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
+import { Badge } from '../ui/badge';
 import { getFileName } from '@/utils/utility';
-import { QnAAccordion } from '../../components/QnAAccordion';
+import { QnAAccordion } from '../QnAAccordion';
 
 type Props = {
 	documentId: string;

@@ -4,7 +4,7 @@ import Loader from '@/components/Loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 import { appRoutes } from '@/utils/constants';
-import QnAForm from '@/pages/QnAForm';
+import QnAForm from '@/components/QnAForm';
 
 export default async function AddInterviewQuestions() {
 	const user = await getLoggedInUser();

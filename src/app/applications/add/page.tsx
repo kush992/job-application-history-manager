@@ -1,4 +1,4 @@
-import ApplicationForm from '@/pages/ApplicationForm';
+import ApplicationForm from '@/components/ApplicationForm';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 import Loader from '@/components/Loader';

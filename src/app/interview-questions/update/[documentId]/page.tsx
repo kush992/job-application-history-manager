@@ -1,5 +1,5 @@
 import Loader from '@/components/Loader';
-import QnAForm from '@/pages/QnAForm';
+import QnAForm from '@/components/QnAForm';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';

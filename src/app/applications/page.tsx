@@ -4,7 +4,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 import { appRoutes } from '@/utils/constants';
-import ApplicationPage from '@/pages/ApplicationPage';
+import ApplicationPage from '@/components/ApplicationPage';
 
 const ApplicationsPage = async () => {
 	const user = await getLoggedInUser();

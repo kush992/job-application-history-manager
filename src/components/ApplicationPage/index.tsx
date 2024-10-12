@@ -13,7 +13,7 @@ import { ApplicationStatus } from '../ApplicationForm/utility';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../../components/ui/breadcrumb';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { useToast } from '@/hooks/use-toast';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';

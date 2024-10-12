@@ -1,4 +1,4 @@
-import ApplicationForm from '@/pages/ApplicationForm';
+import ApplicationForm from '@/components/ApplicationForm';
 import Loader from '@/components/Loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { appRoutes } from '@/utils/constants';

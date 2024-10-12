@@ -5,15 +5,15 @@ import { formSchema, QnAFormData, normaliseQuestionsAndAnswers, denormaliseQuest
 import { appwriteDbConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
-import Loader from '../../components/Loader';
+import Loader from '../Loader';
 import { appRoutes } from '@/utils/constants';
 import { useForm } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../../components/ui/breadcrumb';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { InterviewQuestionsData, JobApplicationData } from '@/types/apiResponseTypes';
-import QuestionAndAnswerForm from './Form';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
+import QuestionAndAnswerForm from './Form';
 
 type Props = {
 	documentId?: string;

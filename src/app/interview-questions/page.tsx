@@ -4,7 +4,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 import { appRoutes } from '@/utils/constants';
-import QnAPage from '@/pages/QnAPage';
+import QnAPage from '@/components/QnAPage';
 
 const QuestionsAndAnswersPage = async () => {
 	const user = await getLoggedInUser();
