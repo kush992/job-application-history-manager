@@ -22,7 +22,7 @@ type Props = {
 	userId: string;
 };
 
-const QnAForm = ({ documentId, isUpdateForm, userId }: Props) => {
+const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	const router = useRouter();
 	const { toast } = useToast();
 

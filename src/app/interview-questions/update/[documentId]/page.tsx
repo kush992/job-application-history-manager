@@ -1,10 +1,8 @@
-import ApplicationForm from '@/pages/ApplicationForm';
 import Loader from '@/components/Loader';
 import QnAForm from '@/pages/QnAForm';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
-import { GetServerSidePropsContext } from 'next';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 

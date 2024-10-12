@@ -1,6 +1,6 @@
-import ApplicationView from '@/components/ApplicationView';
 import Loader from '@/components/Loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
+import ApplicationView from '@/pages/ApplicationView';
 import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { redirect } from 'next/navigation';
