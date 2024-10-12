@@ -7,7 +7,7 @@ type Props = {
 /**
  * @param questionsAndAnswers - array of strings with JSON stringify content questions and answers
  */
-export function InterviewQuestions({ questionsAndAnswers }: Props) {
+export function QnAAccordion({ questionsAndAnswers }: Props) {
 	/**
 	 * @param questionsAndAnswers - array of strings with JSON stringify content questions and answers
 	 * @returns array of objects with `question` and `answer` attribute

@@ -1,5 +1,5 @@
 import { database } from '@/appwrite/config';
-import { FormData } from '@/components/ApplicationForm/utility';
+import { FormData } from '@/pages/ApplicationForm/utility';
 import { NextRequest, NextResponse } from 'next/server';
 import { IncomingMessage } from 'http';
 import formidable from 'formidable';

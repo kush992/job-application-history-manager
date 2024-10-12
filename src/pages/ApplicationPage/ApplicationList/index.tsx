@@ -1,4 +1,4 @@
-import { ApplicationStatus } from '@/components/ApplicationForm/utility';
+import { ApplicationStatus } from '@/pages/ApplicationForm/utility';
 import { JobApplicationData } from '@/types/apiResponseTypes';
 import { appRoutes } from '@/utils/constants';
 import { transformDate } from '@/utils/date';

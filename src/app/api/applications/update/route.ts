@@ -1,6 +1,6 @@
 import { appwriteDbConfig, database } from '@/appwrite/config';
 import { NextRequest, NextResponse } from 'next/server';
-import { FormData } from '@/components/ApplicationForm/utility';
+import { FormData } from '@/pages/ApplicationForm/utility';
 import { IncomingMessage } from 'http';
 import formidable from 'formidable';
 import { getFieldValue } from '@/utils/utility';

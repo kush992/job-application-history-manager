@@ -5,13 +5,15 @@ import { formSchema, QnAFormData, normaliseQuestionsAndAnswers, denormaliseQuest
 import { appwriteDbConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
-import Loader from '../Loader';
+import Loader from '../../components/Loader';
 import { appRoutes } from '@/utils/constants';
 import { useForm } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../../components/ui/breadcrumb';
 import { InterviewQuestionsData, JobApplicationData } from '@/types/apiResponseTypes';
 import QuestionAndAnswerForm from './Form';
+import PageTitle from '@/components/ui/page-title';
+import PageDescription from '@/components/ui/page-description';
 
 type Props = {
 	documentId?: string;
@@ -20,7 +22,7 @@ type Props = {
 	userId: string;
 };
 
-const InterviewQuestionsForm = ({ documentId, isUpdateForm, userId }: Props) => {
+const QnAForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	const router = useRouter();
 	const { toast } = useToast();
 
@@ -118,8 +120,8 @@ const InterviewQuestionsForm = ({ documentId, isUpdateForm, userId }: Props) => 
 
 	return (
 		<div className='flex flex-col gap-6'>
-			<div className='p-4'>
-				<Breadcrumb className='mb-2'>
+			<div className='px-4 pt-4'>
+				<Breadcrumb className='mb-4'>
 					<BreadcrumbList>
 						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 						<BreadcrumbSeparator />
@@ -130,7 +132,9 @@ const InterviewQuestionsForm = ({ documentId, isUpdateForm, userId }: Props) => 
 						</BreadcrumbItem>
 					</BreadcrumbList>
 				</Breadcrumb>
-				<h1 className='text-xl font-semibold !m-0'>{isUpdateForm ? 'Update' : 'Add latest applied'}</h1>
+
+				<PageTitle title={isUpdateForm ? 'Update' : 'Add latest applied'} />
+				<PageDescription description='Add the latest applied questions and answers' />
 			</div>
 
 			{isLoading ? <Loader /> : <QuestionAndAnswerForm form={form} onSubmit={onSubmit} />}
@@ -138,4 +142,4 @@ const InterviewQuestionsForm = ({ documentId, isUpdateForm, userId }: Props) => 
 	);
 };
 
-export default InterviewQuestionsForm;
+export default QnAForm;

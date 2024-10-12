@@ -1,12 +1,12 @@
 import React, { Suspense } from 'react';
-import Application from '@/components/Applications';
 import Loader from '@/components/Loader';
 import { Analytics } from '@vercel/analytics/next';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 import { appRoutes } from '@/utils/constants';
+import ApplicationPage from '@/pages/ApplicationPage';
 
-const ApplicationPage = async () => {
+const ApplicationsPage = async () => {
 	const user = await getLoggedInUser();
 
 	if (!user) redirect(appRoutes.signUpPage);
@@ -15,10 +15,10 @@ const ApplicationPage = async () => {
 		<Suspense fallback={<Loader />}>
 			<main className='flex min-h-screen flex-col gap-8 max-w-6xl mx-auto p-4 '>
 				<Analytics />
-				<Application userId={user.$id} />
+				<ApplicationPage userId={user.$id} />
 			</main>
 		</Suspense>
 	);
 };
 
-export default ApplicationPage;
+export default ApplicationsPage;

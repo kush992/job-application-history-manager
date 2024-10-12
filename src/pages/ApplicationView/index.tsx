@@ -6,17 +6,16 @@ import { appwriteDbConfig, database } from '@/appwrite/config';
 import { JobApplicationData } from '@/types/apiResponseTypes';
 import { appRoutes } from '@/utils/constants';
 import { formatDate, transformDate } from '@/utils/date';
-import Loader from '../Loader';
+import Loader from '../../components/Loader';
 import { DollarCircleOutlined, EditOutlined } from '@ant-design/icons';
 import { Separator } from '@/components/ui/separator';
 import DOMPurify from 'dompurify';
 import { FILES_SEPARATOR } from '../ApplicationForm/utility';
-import { Button } from '../ui/button';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
-import { Badge } from '../ui/badge';
-import { ArrowUpRight } from 'lucide-react';
+import { Button } from '../../components/ui/button';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../../components/ui/breadcrumb';
+import { Badge } from '../../components/ui/badge';
 import { getFileName } from '@/utils/utility';
-import { InterviewQuestions } from '../InterviewQuestions';
+import { QnAAccordion } from '../../components/QnAAccordion';
 
 type Props = {
 	documentId: string;
@@ -155,7 +154,7 @@ const ApplicationView = ({ documentId }: Props) => {
 					{applicationData?.interviewQuestions && (
 						<div className='border p-4 rounded-md bg-background' id='interviewQuestions'>
 							<h2 className='text-lg font-semibold !m-0'>Interview Questions Data</h2>
-							<InterviewQuestions questionsAndAnswers={applicationData?.interviewQuestions?.questionsAndAnswers} />
+							<QnAAccordion questionsAndAnswers={applicationData?.interviewQuestions?.questionsAndAnswers} />
 						</div>
 					)}
 				</>

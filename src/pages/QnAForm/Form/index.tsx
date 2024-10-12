@@ -62,9 +62,11 @@ const QuestionAndAnswerForm: React.FC<Props> = ({ form, onSubmit }) => {
 							</div>
 						</div>
 					))}
+
 					<Button type='button' onClick={() => append({ question: '', answer: '' })} className='mt-4' variant='secondary'>
 						<Plus /> Add Question and Answer
 					</Button>
+
 					<FormField
 						control={form.control}
 						name='isPrivate'

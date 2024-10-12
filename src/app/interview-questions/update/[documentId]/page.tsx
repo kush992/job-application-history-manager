@@ -1,5 +1,6 @@
 import ApplicationForm from '@/pages/ApplicationForm';
 import Loader from '@/components/Loader';
+import QnAForm from '@/pages/QnAForm';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
@@ -20,7 +21,7 @@ export default async function UpdateApplication({ params }: { params: Params }) 
 		<Suspense fallback={<Loader />}>
 			<main className='flex min-h-screen flex-col gap-8 max-w-6xl mx-auto p-4 '>
 				<Analytics />
-				<ApplicationForm documentId={params.documentId} isUpdateForm userId={user.$id} />
+				<QnAForm documentId={params.documentId} isUpdateForm userId={user.$id} />
 			</main>
 		</Suspense>
 	);
