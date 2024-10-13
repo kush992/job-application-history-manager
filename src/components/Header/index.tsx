@@ -35,7 +35,7 @@ const Header: React.FC<Props> = ({ user }) => {
 				<div className='max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4'>
 					<div>
 						<Link href={appRoutes.home} className='flex flex-col'>
-							<span className='text-lg font-bold text-secondary-foreground'>JobJourney</span>
+							<span className='text-lg font-bold text-secondary-foreground tracking-tighter'>JobJourney</span>
 						</Link>
 					</div>
 					<nav className='hidden md:flex justify-center items-center gap-4'>

@@ -1,4 +1,4 @@
-import { appwriteDatabaseConfig, database } from '@/appwrite/config';
+import { appwriteDbConfig, database } from '@/appwrite/config';
 import { JobApplicationData } from '@/types/apiResponseTypes';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -11,8 +11,8 @@ export async function GET(req: NextRequest) {
 		}
 
 		const response: JobApplicationData = await database.getDocument(
-			appwriteDatabaseConfig.applicationDatabase,
-			appwriteDatabaseConfig.applicationDatabaseCollectionId,
+			appwriteDbConfig.applicationDb,
+			appwriteDbConfig.applicationDbCollectionId,
 			documentId,
 		);
 

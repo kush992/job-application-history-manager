@@ -1,6 +1,6 @@
 'use client';
 
-import { appwriteDatabaseConfig, database } from '@/appwrite/config';
+import { appwriteDbConfig, database } from '@/appwrite/config';
 import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Query } from 'appwrite';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -15,12 +15,14 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { useToast } from '@/hooks/use-toast';
+import PageTitle from '@/components/ui/page-title';
+import PageDescription from '@/components/ui/page-description';
 
 type Props = {
 	userId: string;
 };
 
-const Application: React.FC<Props> = ({ userId }) => {
+const ApplicationPage: React.FC<Props> = ({ userId }) => {
 	const [documents, setDocuments] = useState<JobApplicationData[]>([]);
 	const [totalDocuments, setTotalDocuments] = useState<number>(0);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -48,8 +50,8 @@ const Application: React.FC<Props> = ({ userId }) => {
 			}
 
 			const response = (await database.listDocuments(
-				appwriteDatabaseConfig.applicationDatabase,
-				appwriteDatabaseConfig.applicationDatabaseCollectionId,
+				appwriteDbConfig.applicationDb,
+				appwriteDbConfig.applicationDbCollectionId,
 				queries,
 			)) as Response<JobApplicationData>;
 
@@ -70,7 +72,7 @@ const Application: React.FC<Props> = ({ userId }) => {
 
 	function softDeleteData(documentId: string) {
 		database
-			.updateDocument(appwriteDatabaseConfig.applicationDatabase, appwriteDatabaseConfig.applicationDatabaseCollectionId, String(documentId), {
+			.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, String(documentId), {
 				isSoftDelete: true,
 				softDeleteDateAndTime: new Date(),
 			})
@@ -126,7 +128,8 @@ const Application: React.FC<Props> = ({ userId }) => {
 
 			<div className='flex justify-between items-center mb-6'>
 				<div>
-					<h1 className='text-xl font-semibold !m-0'>Application Data</h1>
+					<PageTitle title='Applied jobs' />
+					<PageDescription description='This is a collection of all the jobs you have applied for.' />
 				</div>
 				<Button variant='outline'>
 					<Link href={appRoutes.addApplicationPage}>Add new</Link>
@@ -170,4 +173,4 @@ const Application: React.FC<Props> = ({ userId }) => {
 	);
 };
 
-export default Application;
+export default ApplicationPage;
