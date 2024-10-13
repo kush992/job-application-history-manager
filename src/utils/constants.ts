@@ -11,3 +11,4 @@ export const appRoutes = {
 	loginPage: '/login',
 	signUpPage: '/signup',
 };
+

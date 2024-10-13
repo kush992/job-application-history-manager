@@ -1,8 +1,10 @@
+'use server';
+
 import { appwriteDbConfig, database } from '@/appwrite/config';
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { QnAShowType } from '@/components/QnAPage/utility';
 import { Response, InterviewQuestionsData, JobApplicationData } from '@/types/apiResponseTypes';
-import { Query } from 'appwrite';
+import { Query } from 'node-appwrite';
 
 export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	const query =
@@ -53,6 +55,20 @@ export const fetchApplicationData = async (userId: string, lastId?: string, quer
 	} catch (error) {
 		console.error(error);
 		return {} as Response<JobApplicationData>;
+	}
+};
+
+export const fetchApplicationDataById = async (documentId: string, userId: string) => {
+	try {
+		const response = await database.getDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, String(documentId), [
+			Query.equal('userId', userId),
+			Query.equal('isSoftDelete', false),
+		]);
+
+		return response as JobApplicationData;
+	} catch (errors) {
+		console.error(errors);
+		return {} as JobApplicationData;
 	}
 };
 
