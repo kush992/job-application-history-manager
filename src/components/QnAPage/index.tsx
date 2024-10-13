@@ -73,12 +73,12 @@ const QnAPage: React.FC<Props> = ({ userId }) => {
 				<PageDescription description='This is a collection of questions and answers posted by all the users that are available publicly' />
 			</div>
 
-			<Tabs defaultValue={QnAShowType.PUBLIC} className='' onValueChange={(value) => handleTabChange(value as QnAShowType)}>
-				<TabsList>
-					<TabsTrigger value={QnAShowType.PUBLIC} onClick={() => handleTabChange(QnAShowType.PUBLIC)}>
+			<Tabs defaultValue={QnAShowType.PUBLIC} className='w-full' onValueChange={(value) => handleTabChange(value as QnAShowType)}>
+				<TabsList className='w-full border'>
+					<TabsTrigger className='w-full' value={QnAShowType.PUBLIC}>
 						Public
 					</TabsTrigger>
-					<TabsTrigger value={QnAShowType.PRIVATE} onClick={() => handleTabChange(QnAShowType.PUBLIC)}>
+					<TabsTrigger className='w-full' value={QnAShowType.PRIVATE}>
 						Private
 					</TabsTrigger>
 				</TabsList>
@@ -87,7 +87,7 @@ const QnAPage: React.FC<Props> = ({ userId }) => {
 					Collection made by all the QnA that are marked as public
 				</TabsContent>
 				<TabsContent value={QnAShowType.PRIVATE} className='text-muted-foreground text-sm'>
-					Collection made by all the QnA that are marked as private
+					Collection made by all the QnA that are posted by you
 				</TabsContent>
 			</Tabs>
 			<div className='border p-4 rounded-md bg-background'>

@@ -62,6 +62,9 @@ export function UserMenu({ user }: Props) {
 					<Link href={appRoutes.applicationPage}>
 						<DropdownMenuItem>Your applications</DropdownMenuItem>
 					</Link>
+					<Link href={appRoutes.interviewQuestionsPage}>
+						<DropdownMenuItem>Interview Questions</DropdownMenuItem>
+					</Link>
 				</DropdownMenuGroup>
 
 				<DropdownMenuSeparator />
