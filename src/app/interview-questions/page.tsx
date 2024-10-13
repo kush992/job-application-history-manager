@@ -5,7 +5,7 @@ import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 import { appRoutes } from '@/utils/constants';
 import QnAPage from '@/components/QnAPage';
-import { dehydrate, HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { fetchQnAData } from '@/lib/server/appwrite-queries';
 import { QnAShowType } from '@/components/QnAPage/utility';
 

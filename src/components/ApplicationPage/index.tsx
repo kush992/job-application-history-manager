@@ -1,9 +1,6 @@
 'use client';
 
-import { appwriteDbConfig, database } from '@/appwrite/config';
-import { JobApplicationData, Response } from '@/types/apiResponseTypes';
-import { Query } from 'appwrite';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { appRoutes } from '@/utils/constants';
 import ApplicationList from './ApplicationList';
@@ -17,102 +14,59 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { useToast } from '@/hooks/use-toast';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { fetchApplicationData, softDeleteData } from '@/lib/server/appwrite-queries';
 
 type Props = {
 	userId: string;
 };
 
 const ApplicationPage: React.FC<Props> = ({ userId }) => {
-	const [documents, setDocuments] = useState<JobApplicationData[]>([]);
-	const [totalDocuments, setTotalDocuments] = useState<number>(0);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [hasMore, setHasMore] = useState<boolean>(true);
 	const [companyNameFilter, setCompanyNameFilter] = useState<string | undefined>(undefined);
 	const [statusFilter, setStatusFilter] = useState<ApplicationStatus | undefined>(undefined);
+	const [lastId, setLastId] = useState<string | undefined>(undefined);
+
+	const { data, error, isLoading, isFetching, refetch, isRefetching } = useQuery({
+		queryKey: ['applicationData', userId, lastId, companyNameFilter, statusFilter],
+		queryFn: () => fetchApplicationData(userId, lastId, companyNameFilter, statusFilter as ApplicationStatus),
+		enabled: !!userId,
+	});
 
 	const { toast } = useToast();
 
-	const fetchApplicationData = async (lastId?: string, query?: string, statusFilter?: ApplicationStatus) => {
-		setIsLoading(true);
-		try {
-			const queries = [Query.limit(20), Query.equal('isSoftDelete', false), Query.equal('userId', userId), Query.orderDesc('$createdAt')];
-
-			if (lastId) {
-				queries.push(Query.cursorAfter(lastId));
-			}
-
-			if (query) {
-				queries.push(Query.contains('companyName', query));
-			}
-
-			if (statusFilter) {
-				queries.push(Query.contains('applicationStatus', statusFilter));
-			}
-
-			const response = (await database.listDocuments(
-				appwriteDbConfig.applicationDb,
-				appwriteDbConfig.applicationDbCollectionId,
-				queries,
-			)) as Response<JobApplicationData>;
-
-			setTotalDocuments(response.total);
-
-			setDocuments((prevDocuments) => (lastId ? [...prevDocuments, ...response.documents] : response.documents));
-			if (response.documents.length) {
-				setHasMore(response.documents.length === 20);
-			} else {
-				setHasMore(false);
-			}
-		} catch (error) {
+	const mutation = useMutation({
+		mutationFn: (documentId: string) => softDeleteData(documentId, refetch),
+		onSuccess: () => {
+			toast({ title: 'success', description: 'Application deleted successfully' });
+		},
+		onError: (error) => {
+			toast({ title: 'Error', description: 'Failed to delete application' });
 			console.error(error);
-		} finally {
-			setIsLoading(false);
-		}
+		},
+	});
+
+	const debouncedFetching = useCallback(debounce(refetch, 400), []);
+
+	const onShowMore = async (lastId: string) => {
+		setLastId(lastId);
+		await debouncedFetching();
 	};
-
-	function softDeleteData(documentId: string) {
-		database
-			.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, String(documentId), {
-				isSoftDelete: true,
-				softDeleteDateAndTime: new Date(),
-			})
-			.then(() => {
-				toast({
-					title: 'Success',
-					description: 'Application deleted successfully',
-				});
-				fetchApplicationData();
-			})
-			.catch((error) => {
-				toast({
-					title: 'Error',
-					description: 'Failed to delete application',
-				});
-				console.error(error);
-			});
-	}
-
-	const debouncedFetching = useCallback(debounce(fetchApplicationData, 400), []);
 
 	const onInputChange = async (value: string) => {
 		setCompanyNameFilter(value);
-		await debouncedFetching('', value);
+		await debouncedFetching();
 	};
 
 	const filterByStatus = async (value: ApplicationStatus) => {
 		setStatusFilter(value);
-		await debouncedFetching('', '', value);
+		await debouncedFetching();
 	};
 
 	const clearAllFilters = async () => {
-		setCompanyNameFilter('');
+		setCompanyNameFilter(undefined);
 		setStatusFilter(undefined);
-		await debouncedFetching(undefined, undefined, undefined);
+		await debouncedFetching();
 	};
-
-	useEffect(() => {
-		fetchApplicationData();
-	}, []);
 
 	return (
 		<div className='rounded-md'>
@@ -140,33 +94,36 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 				<p className='text-xs text-center flex items-center gap-1 text-muted-foreground'>
 					<InfoCircleFilled />
 					<span>
-						Total: {totalDocuments} Showing: {documents.length}
+						Total: {data?.total} Showing: {data?.total}
 					</span>
 				</p>
 				<ApplicationFilter onInputChange={onInputChange} filterByStatus={filterByStatus} clearAllFilters={clearAllFilters} />
 
-				{documents.length > 0 && (
+				{error && <p className='text-base my-10'>Something went wrong</p>}
+				{(isFetching || isRefetching || isLoading) && <p className='text-base my-10'>Fetching...</p>}
+
+				{!isLoading && !isFetching && !isRefetching && !error && data && data?.documents?.length > 0 && (
 					<div className='flex flex-col border rounded-md overflow-hidden w-full'>
-						{documents?.map((data) => (
+						{data?.documents?.map((data) => (
 							<div key={data.$id}>
-								<ApplicationList data={data} onClickDelete={softDeleteData} />
+								<ApplicationList data={data} onClickDelete={() => mutation.mutate(data.$id)} />
 								<Separator />
 							</div>
 						))}
 					</div>
 				)}
 
-				{!documents.length && <p className='text-base my-10'>No data to show.</p>}
+				{data?.total === 0 && <p className='text-base my-10'>No data to show.</p>}
 
 				<Button
 					variant='outline'
-					onClick={() => fetchApplicationData(documents[documents.length - 1].$id, companyNameFilter, statusFilter)}
-					disabled={!hasMore || isLoading}
+					onClick={() => onShowMore(String(data?.documents[data?.documents.length - 1].$id))}
+					disabled={isLoading || isFetching || isRefetching}
 					className='w-full flex gap-1 items-center mt-2'
 					size='lg'
 				>
-					{isLoading && <LoadingOutlined />}
-					<span>{isLoading ? 'Loading...' : 'Load more'}</span>
+					{isLoading || isFetching || (isRefetching && <LoadingOutlined />)}
+					<span>{isLoading || isFetching || isRefetching ? 'Loading...' : 'Next page'}</span>
 				</Button>
 			</div>
 		</div>
