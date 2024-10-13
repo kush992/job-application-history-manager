@@ -3,7 +3,7 @@ import Loader from '@/components/Loader';
 import { Analytics } from '@vercel/analytics/next';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
-import { appRoutes } from '@/utils/constants';
+import { appRoutes, QueryKeys } from '@/utils/constants';
 import ApplicationPage from '@/components/ApplicationPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { fetchApplicationData } from '@/lib/server/appwrite-queries';
@@ -15,7 +15,7 @@ const ApplicationsPage = async () => {
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
-		queryKey: ['applicationData'],
+		queryKey: [QueryKeys.APPLICATIONS_PAGE],
 		queryFn: () => fetchApplicationData(user.$id),
 	});
 

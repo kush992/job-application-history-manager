@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { appwriteDbConfig, database } from '@/appwrite/config';
-import { appRoutes } from '@/utils/constants';
+import { appRoutes, QueryKeys } from '@/utils/constants';
 import { formatDate } from '@/utils/date';
 import Loader from '../Loader';
 import { DollarCircleOutlined, EditOutlined } from '@ant-design/icons';
@@ -24,7 +24,7 @@ type Props = {
 
 const ApplicationView = ({ documentId, userId }: Props) => {
 	const { data, error, isLoading, isFetching } = useQuery({
-		queryKey: ['applicationDataById', documentId, userId],
+		queryKey: [QueryKeys.APPLICATION_BY_ID, documentId, userId],
 		queryFn: () => database.getDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, documentId),
 	});
 

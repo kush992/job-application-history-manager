@@ -5,7 +5,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import PageDescription from '@/components/ui/page-description';
 import PageTitle from '@/components/ui/page-title';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { appRoutes } from '@/utils/constants';
+import { appRoutes, QueryKeys } from '@/utils/constants';
 import React, { useState } from 'react';
 import { QnAShowType } from './utility';
 import { useQuery } from '@tanstack/react-query';
@@ -19,7 +19,7 @@ const QnAPage: React.FC<Props> = ({ userId }) => {
 	const [curQnAType, setCurQnAType] = useState<QnAShowType>(QnAShowType.PUBLIC);
 
 	const { data, error, isFetching, isLoading, refetch, isRefetching } = useQuery({
-		queryKey: ['questionsAndAnswers'],
+		queryKey: [QueryKeys.QUESTIONS_AND_ANSWERS_PAGE, userId, curQnAType],
 		queryFn: () => fetchQnAData(userId, curQnAType),
 	});
 

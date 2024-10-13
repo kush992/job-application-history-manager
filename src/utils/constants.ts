@@ -12,3 +12,8 @@ export const appRoutes = {
 	signUpPage: '/signup',
 };
 
+export enum QueryKeys {
+	APPLICATIONS_PAGE = 'APPLICATIONS_PAGE',
+	APPLICATION_BY_ID = 'APPLICATION_BY_ID',
+	QUESTIONS_AND_ANSWERS_PAGE = 'QUESTIONS_AND_ANSWERS_PAGE',
+}

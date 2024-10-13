@@ -1,7 +1,7 @@
 import Loader from '@/components/Loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import ApplicationView from '@/components/ApplicationView';
-import { appRoutes } from '@/utils/constants';
+import { appRoutes, QueryKeys } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -19,7 +19,7 @@ export default async function ViewApplication({ params }: { params: Params }) {
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
-		queryKey: ['applicationDataById', params.documentId, user.$id],
+		queryKey: [QueryKeys.APPLICATION_BY_ID, params.documentId, user.$id],
 		queryFn: () => fetchApplicationDataById(params.documentId, user.$id),
 	});
 

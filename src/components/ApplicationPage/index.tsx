@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState } from 'react';
 import debounce from 'lodash/debounce';
-import { appRoutes } from '@/utils/constants';
+import { appRoutes, QueryKeys } from '@/utils/constants';
 import ApplicationList from './ApplicationList';
 import { InfoCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import ApplicationFilter from './ApplicationFilter';
@@ -27,7 +27,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 	const [lastId, setLastId] = useState<string | undefined>(undefined);
 
 	const { data, error, isLoading, isFetching, refetch, isRefetching } = useQuery({
-		queryKey: ['applicationData', userId, lastId, companyNameFilter, statusFilter],
+		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, lastId, companyNameFilter, statusFilter],
 		queryFn: () => fetchApplicationData(userId, lastId, companyNameFilter, statusFilter as ApplicationStatus),
 		enabled: !!userId,
 	});

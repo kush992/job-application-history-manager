@@ -72,15 +72,9 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 
 	function updateDocument(data: FormData) {
 		database
-			.updateDocument(
-				appwriteDbConfig.applicationDb,
-				appwriteDbConfig.applicationDbCollectionId,
-				String(documentId),
-				{
-					...data,
-				},
-				// [Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
-			)
+			.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, String(documentId), {
+				...data,
+			})
 			.then((response) => {
 				if (data.links) {
 					addLinks(data, documentId || applicationData.$id);
@@ -104,17 +98,10 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	function addDocument(data: FormData) {
 		const documentId = ID.unique();
 		database
-			.createDocument(
-				appwriteDbConfig.applicationDb,
-				appwriteDbConfig.applicationDbCollectionId,
-				documentId,
-				{
-					...data,
-				},
-				// [Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
-			)
+			.createDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, documentId, {
+				...data,
+			})
 			.then((response) => {
-				// console.log('response', response);
 				if (data.links) {
 					addLinks(data, documentId);
 				}

@@ -3,7 +3,7 @@ import Loader from '@/components/Loader';
 import { Analytics } from '@vercel/analytics/next';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
-import { appRoutes } from '@/utils/constants';
+import { appRoutes, QueryKeys } from '@/utils/constants';
 import QnAPage from '@/components/QnAPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { fetchQnAData } from '@/lib/server/appwrite-queries';
@@ -16,7 +16,7 @@ const QuestionsAndAnswersPage = async () => {
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
-		queryKey: ['questionsAndAnswers'],
+		queryKey: [QueryKeys.QUESTIONS_AND_ANSWERS_PAGE, user.$id, QnAShowType.PUBLIC],
 		queryFn: () => fetchQnAData(user.$id, QnAShowType.PUBLIC),
 	});
 
