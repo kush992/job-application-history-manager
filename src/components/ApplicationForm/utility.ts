@@ -43,6 +43,6 @@ export const formSchema = z.object({
 	links: z.string().optional(),
 });
 
-export type FormData = z.infer<typeof formSchema>;
+export type JobApplicationFormData = z.infer<typeof formSchema>;
 
 export const FILES_SEPARATOR = ',____,';

@@ -1,10 +1,8 @@
-'use server';
-
 import { appwriteDbConfig, database } from '@/appwrite/config';
-import { ApplicationStatus } from '@/components/ApplicationForm/utility';
+import { ApplicationStatus, JobApplicationFormData } from '@/components/ApplicationForm/utility';
 import { QnAShowType } from '@/components/QnAPage/utility';
 import { Response, InterviewQuestionsData, JobApplicationData } from '@/types/apiResponseTypes';
-import { Query } from 'node-appwrite';
+import { ID, Query } from 'node-appwrite';
 
 export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	const query =
@@ -60,15 +58,65 @@ export const fetchApplicationData = async (userId: string, lastId?: string, quer
 
 export const fetchApplicationDataById = async (documentId: string, userId: string) => {
 	try {
-		const response = await database.getDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, String(documentId), [
-			Query.equal('userId', userId),
-			Query.equal('isSoftDelete', false),
-		]);
+		const response = await database.getDocument(
+			appwriteDbConfig.applicationDb,
+			appwriteDbConfig.applicationDbCollectionId,
+			String(documentId),
+			[],
+		);
 
 		return response as JobApplicationData;
 	} catch (errors) {
 		console.error(errors);
 		return {} as JobApplicationData;
+	}
+};
+
+export const addDocument = async (data: JobApplicationFormData) => {
+	const documentId = ID.unique();
+	try {
+		const response = await database.createDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, documentId, data);
+
+		return response;
+	} catch (error) {
+		console.error(error);
+		return {} as InterviewQuestionsData;
+	}
+};
+
+export const updateDocument = async (data: JobApplicationFormData, documentId: string) => {
+	try {
+		const response = await database.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, documentId, data);
+
+		return response;
+	} catch (error) {
+		console.error(error);
+		return {} as InterviewQuestionsData;
+	}
+};
+
+export const addLinks = async (links: string, applicationDocumentId: string, userId: string) => {
+	if (links) {
+		const documentId = applicationDocumentId;
+
+		try {
+			await database.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbDocumentCollectionId, documentId, {
+				link: links,
+			});
+			return;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	try {
+		await database.createDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbDocumentCollectionId, ID.unique(), {
+			link: links,
+			userId: userId,
+			jobApplications: [applicationDocumentId],
+		});
+	} catch (error) {
+		console.error(error);
 	}
 };
 

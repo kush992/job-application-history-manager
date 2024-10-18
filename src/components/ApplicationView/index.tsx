@@ -16,6 +16,8 @@ import { Badge } from '../ui/badge';
 import { getFileName } from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
 import { useQuery } from '@tanstack/react-query';
+import { Query } from 'node-appwrite';
+import { fetchApplicationDataById } from '@/lib/server/appwrite-queries';
 
 type Props = {
 	documentId: string;
@@ -25,7 +27,7 @@ type Props = {
 const ApplicationView = ({ documentId, userId }: Props) => {
 	const { data, error, isLoading, isFetching } = useQuery({
 		queryKey: [QueryKeys.APPLICATION_BY_ID, documentId, userId],
-		queryFn: () => database.getDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, documentId),
+		queryFn: () => fetchApplicationDataById(documentId, userId),
 	});
 
 	const salaryDetail = data?.salary && `${data?.salary} ${data?.salaryCurrency?.toLowerCase()} / ${data?.salaryType?.toLowerCase()}`;

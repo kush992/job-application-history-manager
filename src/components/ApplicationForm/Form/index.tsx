@@ -1,7 +1,7 @@
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { ApplicationStatus, FILES_SEPARATOR, FormData, SalaryCurrency, SalaryType } from '../utility';
+import { ApplicationStatus, FILES_SEPARATOR, JobApplicationFormData, SalaryCurrency, SalaryType } from '../utility';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -13,8 +13,8 @@ import DocumentInfoCard from '@/components/DocumentInfoCard';
 import { getFileName } from '@/utils/utility';
 
 type Props = {
-	form: UseFormReturn<FormData>;
-	onSubmit: (data: FormData) => Promise<void>;
+	form: UseFormReturn<JobApplicationFormData>;
+	onSubmit: (data: JobApplicationFormData) => Promise<void>;
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {

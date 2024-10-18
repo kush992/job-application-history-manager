@@ -15,8 +15,8 @@ const ApplicationsPage = async () => {
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
-		queryKey: [QueryKeys.APPLICATIONS_PAGE],
-		queryFn: () => fetchApplicationData(user.$id),
+		queryKey: [QueryKeys.APPLICATIONS_PAGE, user.$id],
+		queryFn: () => fetchApplicationData(user.$id, undefined, undefined, undefined),
 	});
 
 	return (
