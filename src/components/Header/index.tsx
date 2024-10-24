@@ -10,6 +10,7 @@ import { Models } from 'appwrite';
 // import { ThemeSwitcher } from '../ThemeSwitcher';
 import { Button } from '@/components/ui/button';
 import { UserMenu } from '../UserMenu';
+import { Info } from 'lucide-react';
 
 type Props = {
 	user: Models.User<Models.Preferences> | null;
@@ -24,12 +25,8 @@ const Header: React.FC<Props> = ({ user }) => {
 
 	return (
 		<>
-			<div className='bg-background text-muted-foreground text-xs py-1 text-center border-b'>
-				Currently on testing stage. <br />
-				Please report any bugs here{' '}
-				<a target='_blank' href='mailto:kushbhalodi.project@gmail.com' className='underline italic'>
-					kushbhalodi.project@gmail.com
-				</a>
+			<div className='bg-background text-muted-foreground text-xs py-2 text-center border-b flex gap-1 items-center justify-center'>
+				<Info className='w-5 h-5' /> Currently on testing stage
 			</div>
 			<header className='border-b border-muted z-50 sticky top-0 backdrop-blur duration-200 bg-background'>
 				<div className='max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4'>

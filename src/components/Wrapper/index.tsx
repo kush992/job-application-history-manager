@@ -5,6 +5,7 @@ import { Models } from 'appwrite';
 import { jsonParseString } from '@/utils/utility';
 import { ThemeProvider } from '../ThemeProvider';
 import { Toaster } from '../ui/toaster';
+import Footer from '../Footer';
 
 export default function Wrapper({
 	children,
@@ -18,6 +19,7 @@ export default function Wrapper({
 			<Header user={jsonParseString(user)} />
 			{children}
 			<Toaster />
+			<Footer />
 		</ThemeProvider>
 	);
 }
