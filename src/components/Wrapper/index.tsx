@@ -15,7 +15,13 @@ export default function Wrapper({
 	user: Models.User<Models.Preferences> | null;
 }>) {
 	return (
-		<ThemeProvider attribute='class' themes={['dark', 'light', 'system']} defaultTheme='system' enableColorScheme disableTransitionOnChange>
+		<ThemeProvider
+			attribute="class"
+			themes={['dark', 'light', 'system']}
+			defaultTheme="system"
+			enableColorScheme
+			disableTransitionOnChange
+		>
 			<Header user={jsonParseString(user)} />
 			{children}
 			<Toaster />

@@ -11,16 +11,24 @@ type Params = {
 	documentId: string;
 };
 
-export default async function UpdateApplication({ params }: { params: Params }) {
+export default async function UpdateApplication({
+	params,
+}: {
+	params: Params;
+}) {
 	const user = await getLoggedInUser();
 
 	if (!user) redirect(appRoutes.signUpPage);
 
 	return (
 		<Suspense fallback={<Loader />}>
-			<main className='flex min-h-screen flex-col gap-8 max-w-6xl mx-auto p-4 '>
+			<main className="flex min-h-screen flex-col gap-8 max-w-6xl mx-auto p-4 ">
 				<Analytics />
-				<ApplicationForm documentId={params.documentId} isUpdateForm userId={user.$id} />
+				<ApplicationForm
+					documentId={params.documentId}
+					isUpdateForm
+					userId={user.$id}
+				/>
 			</main>
 		</Suspense>
 	);

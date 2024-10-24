@@ -6,5 +6,7 @@ export const config = {
 	uiShowData: String(process.env.NEXT_PUBLIC_UI_SHOW_DATA),
 	uiShowUploader: String(process.env.NEXT_PUBLIC_UI_SHOW_UPLOADER),
 	hashKeyForData: String(process.env.NEXT_PUBLIC_HASH_KEY_FOR_DATA),
-	dataFetchingLimitForAppwrite: Number(process.env.NEXT_PUBLIC_TABLE_DATA_FETCHING_LIMIT_FOR_APPWRITE),
+	dataFetchingLimitForAppwrite: Number(
+		process.env.NEXT_PUBLIC_TABLE_DATA_FETCHING_LIMIT_FOR_APPWRITE,
+	),
 };

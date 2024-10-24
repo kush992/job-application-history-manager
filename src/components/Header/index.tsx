@@ -46,37 +46,54 @@ const Header: React.FC<Props> = ({ user }) => {
 	return (
 		<>
 			{!isHidden && (
-				<div className='bg-background text-muted-foreground text-xs py-2 text-center border-b flex gap-2 items-center justify-center'>
+				<div className="bg-background text-muted-foreground text-xs py-2 text-center border-b flex gap-2 items-center justify-center">
 					Currently on testing stage{' '}
-					<Button size='icon' variant='ghost' className='w-7 h-7' onClick={hideTestingInfo}>
-						<X className='cursor-pointer w-5 h-5' />
+					<Button
+						size="icon"
+						variant="ghost"
+						className="w-7 h-7"
+						onClick={hideTestingInfo}
+					>
+						<X className="cursor-pointer w-5 h-5" />
 					</Button>
 				</div>
 			)}
-			<header className='border-b border-muted z-50 sticky top-0 backdrop-blur duration-200 bg-background'>
-				<div className='max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4'>
+			<header className="border-b border-muted z-50 sticky top-0 backdrop-blur duration-200 bg-background">
+				<div className="max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4">
 					<div>
-						<Link href={appRoutes.home} className='flex flex-col'>
-							<span className='text-lg font-bold text-secondary-foreground tracking-tighter'>JobJourney</span>
+						<Link href={appRoutes.home} className="flex flex-col">
+							<span className="text-lg font-bold text-secondary-foreground tracking-tighter">
+								JobJourney
+							</span>
 						</Link>
 					</div>
-					<nav className='hidden md:flex justify-center items-center gap-4'>
+					<nav className="hidden md:flex justify-center items-center gap-4">
 						{/* <ThemeSwitcher /> */}
 						{user?.$id && (
-							<ul className='flex justify-between items-center m-0 gap-4'>
-								<li className='list-none'>
+							<ul className="flex justify-between items-center m-0 gap-4">
+								<li className="list-none">
 									<Link href={appRoutes.addApplicationPage}>
-										<Button variant='outline' size='icon'>
-											<PlusCircleFilled className='text-secondary-foreground' height='40px' width='40px' />
+										<Button variant="outline" size="icon">
+											<PlusCircleFilled
+												className="text-secondary-foreground"
+												height="40px"
+												width="40px"
+											/>
 										</Button>
 									</Link>
 								</li>
-								<li className='list-none'>
+								<li className="list-none">
 									<Link
 										href={appRoutes.applicationPage}
-										className={cn('text-secondary-foreground', {
-											'bg-muted p-2 rounded-md': isActive(appRoutes.applicationPage),
-										})}
+										className={cn(
+											'text-secondary-foreground',
+											{
+												'bg-muted p-2 rounded-md':
+													isActive(
+														appRoutes.applicationPage,
+													),
+											},
+										)}
 									>
 										Your Applications
 									</Link>
@@ -90,7 +107,7 @@ const Header: React.FC<Props> = ({ user }) => {
 							</Link>
 						)}
 					</nav>
-					<div className='md:hidden flex items-center gap-2'>
+					<div className="md:hidden flex items-center gap-2">
 						{/* <ThemeSwitcher /> */}
 						{user?.$id && <UserMenu user={user} />}
 						{!user?.$id && (
