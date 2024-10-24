@@ -4,7 +4,7 @@ import { appRoutes } from '@/utils/constants';
 import cn from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PlusCircleFilled } from '@ant-design/icons';
 import { Models } from 'appwrite';
 // import { ThemeSwitcher } from '../ThemeSwitcher';
@@ -17,7 +17,7 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ user }) => {
-	const [isHidden, setIsHidden] = useState<boolean>(localStorage.getItem('isHidden') === 'true');
+	const [isHidden, setIsHidden] = useState<boolean>(true);
 	const pathname = usePathname();
 
 	const isActive = (route: string) => {
@@ -33,6 +33,15 @@ const Header: React.FC<Props> = ({ user }) => {
 		localStorage.setItem('isHidden', 'true');
 		setIsHidden(true);
 	};
+
+	useEffect(() => {
+		const isHidden = localStorage.getItem('isHidden');
+		if (isHidden === 'true') {
+			setIsHidden(true);
+		} else {
+			setIsHidden(false);
+		}
+	}, []);
 
 	return (
 		<>
