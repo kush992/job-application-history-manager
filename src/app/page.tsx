@@ -76,6 +76,8 @@ export default function Home() {
 					</p>
 				</div>
 
+				<p>Touched</p>
+
 				<Analytics />
 			</main>
 		</Suspense>
