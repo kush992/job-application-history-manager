@@ -1,12 +1,12 @@
 name: On push to any branch
 on: push
-  jobs:
-	test:
-	  runs-on: ubuntu-latest
-	  steps:
-		- name: Checkout repository
-		  uses: actions/checkout@v4
-		- name: Install dependencies
-		  run: npm ci
-		- name: Run lint
-		  run: npm run lint
+jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+        - name: Install dependencies
+          run: npm ci
+        - name: Run lint
+          run: npm run lint
