@@ -38,8 +38,11 @@ export default async function RootLayout({
 	const user = await getLoggedInUser();
 
 	return (
-		<html lang='en'>
-			<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'></meta>
+		<html lang="en">
+			<meta
+				name="viewport"
+				content="width=device-width, initial-scale=1, maximum-scale=1"
+			></meta>
 			<body className={inter.className}>
 				<Wrapper user={jsonParseString(user)}>{children}</Wrapper>
 			</body>

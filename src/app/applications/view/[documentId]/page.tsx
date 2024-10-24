@@ -17,7 +17,7 @@ export default async function ViewApplication({ params }: { params: Params }) {
 
 	return (
 		<Suspense fallback={<Loader />}>
-			<main className='flex min-h-screen flex-col gap-8 max-w-6xl mx-auto md:p-4'>
+			<main className="flex min-h-screen flex-col gap-8 max-w-6xl mx-auto md:p-4">
 				<Analytics />
 				<ApplicationView documentId={params.documentId} />
 			</main>

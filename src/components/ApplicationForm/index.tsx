@@ -9,7 +9,14 @@ import Loader from '../Loader';
 import { appRoutes } from '@/utils/constants';
 import { useForm } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '../ui/breadcrumb';
 import { JobApplicationData } from '@/types/apiResponseTypes';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
@@ -27,7 +34,9 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	const { toast } = useToast();
 
 	const [isLoading, setIsLoading] = useState(false);
-	const [applicationData, setApplicationData] = useState<JobApplicationData>({} as JobApplicationData);
+	const [applicationData, setApplicationData] = useState<JobApplicationData>(
+		{} as JobApplicationData,
+	);
 
 	const initialFormData: FormData = {
 		userId: applicationData?.userId || userId,
@@ -138,9 +147,14 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 		if (applicationData.links) {
 			const documentId = applicationData.documents[0].$id;
 
-			database.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbDocumentCollectionId, documentId, {
-				link: data.links,
-			});
+			database.updateDocument(
+				appwriteDbConfig.applicationDb,
+				appwriteDbConfig.applicationDbDocumentCollectionId,
+				documentId,
+				{
+					link: data.links,
+				},
+			);
 
 			toast({
 				title: 'Success',
@@ -148,11 +162,16 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 			});
 		}
 
-		database.createDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbDocumentCollectionId, ID.unique(), {
-			link: data.links,
-			userId: userId,
-			jobApplications: [applicationDocumentId],
-		});
+		database.createDocument(
+			appwriteDbConfig.applicationDb,
+			appwriteDbConfig.applicationDbDocumentCollectionId,
+			ID.unique(),
+			{
+				link: data.links,
+				userId: userId,
+				jobApplications: [applicationDocumentId],
+			},
+		);
 
 		toast({
 			title: 'Success',
@@ -184,24 +203,36 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 	}, [isUpdateForm, documentId]);
 
 	return (
-		<div className='flex flex-col gap-6'>
-			<div className='px-4 pt-4'>
-				<Breadcrumb className='mb-4'>
+		<div className="flex flex-col gap-6">
+			<div className="px-4 pt-4">
+				<Breadcrumb className="mb-4">
 					<BreadcrumbList>
-						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
+						<BreadcrumbLink href={appRoutes.home}>
+							Home
+						</BreadcrumbLink>
 						<BreadcrumbSeparator />
-						<BreadcrumbLink href={appRoutes.applicationPage}>Applications</BreadcrumbLink>
+						<BreadcrumbLink href={appRoutes.applicationPage}>
+							Applications
+						</BreadcrumbLink>
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
-							<BreadcrumbPage>{isUpdateForm ? 'Update' : 'Add'}</BreadcrumbPage>
+							<BreadcrumbPage>
+								{isUpdateForm ? 'Update' : 'Add'}
+							</BreadcrumbPage>
 						</BreadcrumbItem>
 					</BreadcrumbList>
 				</Breadcrumb>
-				<PageTitle title={isUpdateForm ? 'Update' : 'Add latest applied'} />
-				<PageDescription description='Fill up all the details that are available' />
+				<PageTitle
+					title={isUpdateForm ? 'Update' : 'Add latest applied'}
+				/>
+				<PageDescription description="Fill up all the details that are available" />
 			</div>
 
-			{isLoading ? <Loader /> : <ApplicationDataForm form={form} onSubmit={onSubmit} />}
+			{isLoading ? (
+				<Loader />
+			) : (
+				<ApplicationDataForm form={form} onSubmit={onSubmit} />
+			)}
 		</div>
 	);
 };

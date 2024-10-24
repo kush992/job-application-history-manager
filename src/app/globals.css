@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
 	.text-balance {
 		text-wrap: balance;
@@ -80,7 +79,6 @@ h6 {
 }
 
 @layer base {
-	
 	:root {
 		--background: 0 0% 100%;
 		--foreground: 240 10% 3.9%;
@@ -110,7 +108,7 @@ h6 {
 		--success-color: 142.1 76.2% 36.3%;
 		--warning-color: 45.4 93.4% 47.5%;
 		--app-background: 220 14.3% 95.9%;
-		--fonts: "Poppins", serif;
+		--fonts: 'Poppins', serif;
 	}
 
 	.dark {
@@ -141,114 +139,114 @@ h6 {
 		--success-color: 143.8 61.2% 20.2%;
 		--warning-color: 28.4 72.5% 25.7%;
 		--app-background: 240 5.9% 10%;
-		--fonts: "Poppins", serif;
+		--fonts: 'Poppins', serif;
 	}
 }
 
 .poppins-thin {
-	font-family: "Poppins", serif;
+	font-family: 'Poppins', serif;
 	font-weight: 100;
 	font-style: normal;
-  }
-  
-  .poppins-extralight {
-	font-family: "Poppins", serif;
+}
+
+.poppins-extralight {
+	font-family: 'Poppins', serif;
 	font-weight: 200;
 	font-style: normal;
-  }
-  
-  .poppins-light {
-	font-family: "Poppins", serif;
+}
+
+.poppins-light {
+	font-family: 'Poppins', serif;
 	font-weight: 300;
 	font-style: normal;
-  }
-  
-  .poppins-regular {
-	font-family: "Poppins", serif;
+}
+
+.poppins-regular {
+	font-family: 'Poppins', serif;
 	font-weight: 400;
 	font-style: normal;
-  }
-  
-  .poppins-medium {
-	font-family: "Poppins", serif;
+}
+
+.poppins-medium {
+	font-family: 'Poppins', serif;
 	font-weight: 500;
 	font-style: normal;
-  }
-  
-  .poppins-semibold {
-	font-family: "Poppins", serif;
+}
+
+.poppins-semibold {
+	font-family: 'Poppins', serif;
 	font-weight: 600;
 	font-style: normal;
-  }
-  
-  .poppins-bold {
-	font-family: "Poppins", serif;
+}
+
+.poppins-bold {
+	font-family: 'Poppins', serif;
 	font-weight: 700;
 	font-style: normal;
-  }
-  
-  .poppins-extrabold {
-	font-family: "Poppins", serif;
+}
+
+.poppins-extrabold {
+	font-family: 'Poppins', serif;
 	font-weight: 800;
 	font-style: normal;
-  }
-  
-  .poppins-black {
-	font-family: "Poppins", serif;
+}
+
+.poppins-black {
+	font-family: 'Poppins', serif;
 	font-weight: 900;
 	font-style: normal;
-  }
-  
-  .poppins-thin-italic {
-	font-family: "Poppins", serif;
+}
+
+.poppins-thin-italic {
+	font-family: 'Poppins', serif;
 	font-weight: 100;
 	font-style: italic;
-  }
-  
-  .poppins-extralight-italic {
-	font-family: "Poppins", serif;
+}
+
+.poppins-extralight-italic {
+	font-family: 'Poppins', serif;
 	font-weight: 200;
 	font-style: italic;
-  }
-  
-  .poppins-light-italic {
-	font-family: "Poppins", serif;
+}
+
+.poppins-light-italic {
+	font-family: 'Poppins', serif;
 	font-weight: 300;
 	font-style: italic;
-  }
-  
-  .poppins-regular-italic {
-	font-family: "Poppins", serif;
+}
+
+.poppins-regular-italic {
+	font-family: 'Poppins', serif;
 	font-weight: 400;
 	font-style: italic;
-  }
-  
-  .poppins-medium-italic {
-	font-family: "Poppins", serif;
+}
+
+.poppins-medium-italic {
+	font-family: 'Poppins', serif;
 	font-weight: 500;
 	font-style: italic;
-  }
-  
-  .poppins-semibold-italic {
-	font-family: "Poppins", serif;
+}
+
+.poppins-semibold-italic {
+	font-family: 'Poppins', serif;
 	font-weight: 600;
 	font-style: italic;
-  }
-  
-  .poppins-bold-italic {
-	font-family: "Poppins", serif;
+}
+
+.poppins-bold-italic {
+	font-family: 'Poppins', serif;
 	font-weight: 700;
 	font-style: italic;
-  }
-  
-  .poppins-extrabold-italic {
-	font-family: "Poppins", serif;
+}
+
+.poppins-extrabold-italic {
+	font-family: 'Poppins', serif;
 	font-weight: 800;
 	font-style: italic;
-  }
-  
-  .poppins-black-italic {
-	font-family: "Poppins", serif;
+}
+
+.poppins-black-italic {
+	font-family: 'Poppins', serif;
 	font-weight: 900;
 	font-style: italic;
-  }
+}
