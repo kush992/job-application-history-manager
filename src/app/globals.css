@@ -105,10 +105,14 @@ h6 {
 		--chart-3: 197 37% 24%;
 		--chart-4: 43 74% 66%;
 		--chart-5: 27 87% 67%;
+
+		/* customs */
 		--success-color: 142.1 76.2% 36.3%;
 		--warning-color: 45.4 93.4% 47.5%;
 		--app-background: 220 14.3% 95.9%;
 		--fonts: 'Poppins', serif;
+		--dark-green-accent: 143.8 61.2% 20.2%;
+		--light-green-accent: 140.6 84.2% 92.5%
 	}
 
 	.dark {
