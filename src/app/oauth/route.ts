@@ -23,11 +23,14 @@ export async function GET(request: NextRequest) {
 	// Workaround for redirecting to the application page
 	// https://github.com/vercel/next.js/issues/59218
 	// https://github.com/vercel/next.js/issues/59218#issuecomment-1837889917
+	// NextResponse.rewrite(
+	// 	new URL(
+	// 		`${request.nextUrl.origin}/${appRoutes.applicationPage}`,
+	// 		request.url,
+	// 	),
+	// );
 	return NextResponse.redirect(
-		new URL(
-			`${request.nextUrl.origin}/${appRoutes.applicationPage}`,
-			request.url,
-		),
+		new URL(appRoutes.home, request.nextUrl.origin),
 		{
 			status: 303,
 		},
