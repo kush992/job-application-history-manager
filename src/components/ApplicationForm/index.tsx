@@ -98,7 +98,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 					title: 'Success',
 					description: 'Application updated successfully',
 				});
-				router.push(appRoutes.applicationPage);
+				router.push(appRoutes.application);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -131,7 +131,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 					title: 'Success',
 					description: 'Application added successfully',
 				});
-				router.push(appRoutes.applicationPage);
+				router.push(appRoutes.application);
 			})
 			.catch((error) => {
 				toast({
@@ -211,7 +211,7 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 							Home
 						</BreadcrumbLink>
 						<BreadcrumbSeparator />
-						<BreadcrumbLink href={appRoutes.applicationPage}>
+						<BreadcrumbLink href={appRoutes.application}>
 							Applications
 						</BreadcrumbLink>
 						<BreadcrumbSeparator />

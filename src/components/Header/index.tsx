@@ -72,7 +72,7 @@ const Header: React.FC<Props> = ({ user }) => {
 						{user?.$id && (
 							<ul className="flex justify-between items-center m-0 gap-4">
 								<li className="list-none">
-									<Link href={appRoutes.addApplicationPage}>
+									<Link href={appRoutes.addApplication}>
 										<Button variant="outline" size="icon">
 											<PlusCircleFilled
 												className="text-secondary-foreground"
@@ -84,13 +84,13 @@ const Header: React.FC<Props> = ({ user }) => {
 								</li>
 								<li className="list-none">
 									<Link
-										href={appRoutes.applicationPage}
+										href={appRoutes.application}
 										className={cn(
 											'text-secondary-foreground',
 											{
 												'bg-muted p-2 rounded-md':
 													isActive(
-														appRoutes.applicationPage,
+														appRoutes.application,
 													),
 											},
 										)}
@@ -102,7 +102,7 @@ const Header: React.FC<Props> = ({ user }) => {
 							</ul>
 						)}
 						{!user?.$id && (
-							<Link href={appRoutes.signUpPage}>
+							<Link href={appRoutes.signUp}>
 								<Button>SignIn</Button>
 							</Link>
 						)}
@@ -111,7 +111,7 @@ const Header: React.FC<Props> = ({ user }) => {
 						{/* <ThemeSwitcher /> */}
 						{user?.$id && <UserMenu user={user} />}
 						{!user?.$id && (
-							<Link href={appRoutes.signUpPage}>
+							<Link href={appRoutes.signUp}>
 								<Button>SignIn</Button>
 							</Link>
 						)}

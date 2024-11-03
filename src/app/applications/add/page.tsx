@@ -9,7 +9,7 @@ import { appRoutes } from '@/utils/constants';
 export default async function AddApplication() {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect(appRoutes.signUpPage);
+	if (!user) redirect(appRoutes.signUp);
 
 	return (
 		<Suspense fallback={<Loader />}>

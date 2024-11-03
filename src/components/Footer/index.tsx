@@ -5,49 +5,77 @@ import {
 } from '@radix-ui/react-icons';
 import { Bug, Mail } from 'lucide-react';
 import React from 'react';
+import { Separator } from '../ui/separator';
+import { footerLinks } from './utility';
+import Link from 'next/link';
 
 const Footer = () => {
 	return (
-		<footer className="md:rounded-md p-4 max-w-6xl mx-auto md:mb-4">
-			<p className="leading-7 text-xs text-muted-foreground text-center !my-0">
-				KushBhalodi © 2024
-			</p>
-			<div className="flex items-center gap-1 w-full justify-center my-2">
-				<a
-					href="https://www.linkedin.com/in/kush-bhalodi-b11991184/"
-					target="_blank"
-					rel="noreferrer"
-				>
-					<LinkedInLogoIcon className="w-5 h-5" />
-				</a>
-				<a
-					target="_blank"
-					href="mailto:kushbhalodi.project@gmail.com"
-					className="underline italic"
-				>
-					<Mail className="w-5 h-5" />
-				</a>
-				<a
-					target="_blank"
-					href="https://github.com/kush992"
-					rel="noreferrer"
-				>
-					<GitHubLogoIcon className="w-5 h-5" />
-				</a>
-				<a target="_blank" href="https://kushbhalodi.com">
-					<GlobeIcon className="w-5 h-5" />
-				</a>
-			</div>
-			<a
-				href="https://github.com/kush992/job-application-history-manager/issues"
-				target="_blank"
-				rel="noreferrer"
-				className="hover:underline text-sm"
-			>
-				<div className="flex gap-1 items-center justify-center text-muted-foreground">
-					Report bugs here <Bug className="w-5 h-5" />
+		<footer className="p-4 sm:p-6 bg-background">
+			<div className="mx-auto max-w-5xl flex flex-col items-center gap-4">
+				<div>
+					<a
+						href="https://flowbite.com"
+						className="flex items-center"
+					>
+						<span className="self-center text-2xl font-semibold whitespace-nowrap tracking-tighter">
+							JobJourney
+						</span>
+					</a>
 				</div>
-			</a>
+				<ul className="flex flex-wrap justify-center items-center gap-4">
+					{footerLinks.map((link) => (
+						<li key={link.href} className="list-none">
+							<Link href={link.href} className="hover:underline">
+								{link.title}
+							</Link>
+						</li>
+					))}
+				</ul>
+
+				<div className="flex items-center gap-1 w-full justify-center">
+					<a
+						href="https://www.linkedin.com/in/kush-bhalodi-b11991184/"
+						target="_blank"
+						rel="noreferrer"
+					>
+						<LinkedInLogoIcon className="w-5 h-5" />
+					</a>
+					<a
+						target="_blank"
+						href="mailto:kushbhalodi.project@gmail.com"
+						className="underline italic"
+					>
+						<Mail className="w-5 h-5" />
+					</a>
+					<a
+						target="_blank"
+						href="https://github.com/kush992"
+						rel="noreferrer"
+					>
+						<GitHubLogoIcon className="w-5 h-5" />
+					</a>
+					<a target="_blank" href="https://kushbhalodi.com">
+						<GlobeIcon className="w-5 h-5" />
+					</a>
+				</div>
+			</div>
+
+			<Separator className="my-4" />
+
+			<div className="flex items-center w-full mt-4">
+				<span className="text-sm text-muted-foreground text-center w-full">
+					© 2022{' '}
+					<a
+						href="https://kushbhalodi.com"
+						target="_blank"
+						className="hover:underline"
+					>
+						KushBhalodi™
+					</a>
+					. All Rights Reserved.
+				</span>
+			</div>
 		</footer>
 	);
 };

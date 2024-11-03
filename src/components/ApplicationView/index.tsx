@@ -71,7 +71,7 @@ const ApplicationView = ({ documentId }: Props) => {
 				<BreadcrumbList>
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 					<BreadcrumbSeparator />
-					<BreadcrumbLink href={appRoutes.applicationPage}>
+					<BreadcrumbLink href={appRoutes.application}>
 						Applications
 					</BreadcrumbLink>
 					<BreadcrumbSeparator />
@@ -102,7 +102,7 @@ const ApplicationView = ({ documentId }: Props) => {
 							</div>
 							<div>
 								<Link
-									href={`${appRoutes.updateApplicationPage}/${documentId}`}
+									href={`${appRoutes.updateApplication}/${documentId}`}
 									className="underline"
 								>
 									<Button size="icon">

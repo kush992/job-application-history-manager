@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
 	// https://github.com/vercel/next.js/issues/59218#issuecomment-1837889917
 	return NextResponse.redirect(
 		new URL(
-			`${request.nextUrl.origin}/${appRoutes.applicationPage}`,
+			`${request.nextUrl.origin}/${appRoutes.application}`,
 			request.url,
 		),
 		{

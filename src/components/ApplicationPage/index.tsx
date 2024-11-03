@@ -164,7 +164,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 					<PageDescription description="This is a collection of all the jobs you have applied for." />
 				</div>
 				<Button variant="outline">
-					<Link href={appRoutes.addApplicationPage}>Add new</Link>
+					<Link href={appRoutes.addApplication}>Add new</Link>
 				</Button>
 			</div>
 
