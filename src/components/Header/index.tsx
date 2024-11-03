@@ -106,7 +106,7 @@ const Header: React.FC<Props> = ({ user }) => {
 													{
 														'bg-muted p-2 rounded-md':
 															isActive(
-																appRoutes.applicationPage,
+																navBarLink.href,
 															),
 													},
 												)}
