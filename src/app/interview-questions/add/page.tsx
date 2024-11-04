@@ -9,7 +9,7 @@ import QnAForm from '@/components/QnAForm';
 export default async function AddInterviewQuestions() {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect(appRoutes.signUpPage);
+	if (!user) redirect(appRoutes.signUp);
 
 	return (
 		<Suspense fallback={<Loader />}>

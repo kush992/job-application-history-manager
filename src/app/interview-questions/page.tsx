@@ -9,7 +9,7 @@ import QnAPage from '@/components/QnAPage';
 const QuestionsAndAnswersPage = async () => {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect(appRoutes.signUpPage);
+	if (!user) redirect(appRoutes.signUp);
 
 	return (
 		<Suspense fallback={<Loader />}>

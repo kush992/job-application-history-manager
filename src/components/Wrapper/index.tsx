@@ -22,9 +22,9 @@ export default function Wrapper({
 			enableColorScheme
 			disableTransitionOnChange
 		>
-			<Header user={jsonParseString(user)} />
-			{children}
 			<Toaster />
+			<Header user={jsonParseString(user)} />
+			<div className="min-h-screen">{children}</div>
 			<Footer />
 		</ThemeProvider>
 	);

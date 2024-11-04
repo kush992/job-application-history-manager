@@ -86,7 +86,7 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 					title: 'Success',
 					description: 'Application updated successfully',
 				});
-				router.push(appRoutes.applicationPage);
+				router.push(appRoutes.application);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -117,7 +117,7 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 					title: 'Success',
 					description: 'Application added successfully',
 				});
-				router.push(appRoutes.applicationPage);
+				router.push(appRoutes.application);
 			})
 			.catch((error) => {
 				toast({
@@ -160,7 +160,7 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 							Home
 						</BreadcrumbLink>
 						<BreadcrumbSeparator />
-						<BreadcrumbLink href={appRoutes.applicationPage}>
+						<BreadcrumbLink href={appRoutes.application}>
 							Interview Questions
 						</BreadcrumbLink>
 						<BreadcrumbSeparator />
