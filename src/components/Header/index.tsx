@@ -72,15 +72,13 @@ const Header: React.FC<Props> = ({ user }) => {
 							<ul className="flex justify-between items-center m-0 gap-4">
 								{navBarLinks.map((navBarLink) =>
 									navBarLink.href ===
-									appRoutes.addApplicationPage ? (
+									appRoutes.addApplication ? (
 										<li
 											className="list-none"
 											key={navBarLink.href}
 										>
 											<Link
-												href={
-													appRoutes.addApplicationPage
-												}
+												href={appRoutes.addApplication}
 											>
 												<Button
 													variant="outline"
@@ -121,7 +119,7 @@ const Header: React.FC<Props> = ({ user }) => {
 							</ul>
 						)}
 						{!user?.$id && (
-							<Link href={appRoutes.signUpPage}>
+							<Link href={appRoutes.signUp}>
 								<Button>SignIn</Button>
 							</Link>
 						)}
@@ -129,7 +127,7 @@ const Header: React.FC<Props> = ({ user }) => {
 					<div className="md:hidden flex items-center gap-2">
 						{user?.$id && <UserMenu user={user} />}
 						{!user?.$id && (
-							<Link href={appRoutes.signUpPage}>
+							<Link href={appRoutes.signUp}>
 								<Button>SignIn</Button>
 							</Link>
 						)}

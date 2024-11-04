@@ -106,7 +106,7 @@ const LogIn: React.FC<Props> = ({ handleLogin }) => {
 			<CardFooter>
 				<div className="mt-4 text-center text-sm">
 					Don&apos;t have an account?{' '}
-					<Link href={appRoutes.signUpPage} className="underline">
+					<Link href={appRoutes.signUp} className="underline">
 						Create here
 					</Link>
 				</div>

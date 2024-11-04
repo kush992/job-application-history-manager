@@ -74,6 +74,8 @@ const config: Config = {
 				},
 				successColor: 'hsl(var(--success-color))',
 				warningColor: 'hsl(var(--warning-color))',
+				darkGreenAccent: 'hsl(var(--dark-green-accent))',
+				lightGreenAccent: 'hsl(var(--light-green-accent))',
 			},
 			keyframes: {
 				'accordion-down': {

@@ -9,7 +9,7 @@ import ApplicationPage from '@/components/ApplicationPage';
 const ApplicationsPage = async () => {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect(appRoutes.signUpPage);
+	if (!user) redirect(appRoutes.signUp);
 
 	return (
 		<Suspense fallback={<Loader />}>

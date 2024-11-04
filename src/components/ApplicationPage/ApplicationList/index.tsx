@@ -44,7 +44,7 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 
 	return (
 		<div className="bg-background p-4 grid grid-cols-[1fr_auto] gap-2">
-			<Link href={`${appRoutes.viewApplicationPage}/${data.$id}`}>
+			<Link href={`${appRoutes.viewApplication}/${data.$id}`}>
 				<div className="grid sm:grid-cols-3 sm:gap-4 w-full items-start">
 					<div>
 						<h3 className="text-base font-[500] !pb-0 !my-0 text-primary">
@@ -85,9 +85,7 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 				</DropdownMenuTrigger>
 
 				<DropdownMenuContent align="end">
-					<Link
-						href={`${appRoutes.updateApplicationPage}/${data.$id}`}
-					>
+					<Link href={`${appRoutes.updateApplication}/${data.$id}`}>
 						<Button
 							variant="ghost"
 							className="flex gap-1 items-center w-full justify-start"
