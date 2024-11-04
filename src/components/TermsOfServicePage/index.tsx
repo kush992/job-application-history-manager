@@ -11,7 +11,7 @@ export default function TermsOfServicePage() {
 	const lastUpdated = 'November 4, 2024';
 
 	return (
-		<div className="container mx-auto px-4 py-8">
+		<div className="mx-auto py-8">
 			<Card className="w-full max-w-3xl mx-auto">
 				<CardHeader>
 					<CardTitle className="text-3xl font-bold">
