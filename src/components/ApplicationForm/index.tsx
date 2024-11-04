@@ -20,12 +20,7 @@ import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import ApplicationDataForm from './Form';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import {
-	addDocument,
-	addLinks,
-	fetchApplicationDataById,
-	updateDocument,
-} from '@/lib/server/appwrite-queries';
+import { addDocument, addLinks, fetchApplicationDataById, updateDocument } from '@/lib/server/appwrite-queries';
 
 type Props = {
 	documentId?: string;
@@ -44,8 +39,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	});
 
 	const addLinksMutation = useMutation({
-		mutationFn: (links: string) =>
-			addLinks(links, applicationData.documents[0].$id, userId),
+		mutationFn: (links: string) => addLinks(links, applicationData.documents[0].$id, userId),
 		onSuccess: () => {
 			toast({
 				title: 'success',
@@ -145,32 +139,20 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			<div className="px-4 pt-4">
 				<Breadcrumb className="mb-4">
 					<BreadcrumbList>
-						<BreadcrumbLink href={appRoutes.home}>
-							Home
-						</BreadcrumbLink>
+						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 						<BreadcrumbSeparator />
-						<BreadcrumbLink href={appRoutes.application}>
-							Applications
-						</BreadcrumbLink>
+						<BreadcrumbLink href={appRoutes.application}>Applications</BreadcrumbLink>
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
-							<BreadcrumbPage>
-								{isUpdateForm ? 'Update' : 'Add'}
-							</BreadcrumbPage>
+							<BreadcrumbPage>{isUpdateForm ? 'Update' : 'Add'}</BreadcrumbPage>
 						</BreadcrumbItem>
 					</BreadcrumbList>
 				</Breadcrumb>
-				<PageTitle
-					title={isUpdateForm ? 'Update' : 'Add latest applied'}
-				/>
+				<PageTitle title={isUpdateForm ? 'Update' : 'Add latest applied'} />
 				<PageDescription description="Fill up all the details that are available" />
 			</div>
 
-			{isLoading ? (
-				<Loader />
-			) : (
-				<ApplicationDataForm form={form} onSubmit={onSubmit} />
-			)}
+			{isLoading ? <Loader /> : <ApplicationDataForm form={form} onSubmit={onSubmit} />}
 		</div>
 	);
 };

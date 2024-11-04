@@ -4,24 +4,10 @@ import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '../ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginFormSchema } from '@/lib/schemas';
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '../ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import Link from 'next/link';
 import { appRoutes } from '@/utils/constants';
 
@@ -43,9 +29,7 @@ const LogIn: React.FC<Props> = ({ handleLogin }) => {
 		<Card className="max-w-[400px] w-full mx-auto">
 			<CardHeader>
 				<CardTitle>Login</CardTitle>
-				<CardDescription>
-					Enter your email below to login to your account
-				</CardDescription>
+				<CardDescription>Enter your email below to login to your account</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<Form {...form}>
@@ -58,10 +42,7 @@ const LogIn: React.FC<Props> = ({ handleLogin }) => {
 									<FormItem>
 										<FormLabel>Email</FormLabel>
 										<FormControl>
-											<Input
-												placeholder="Email"
-												{...field}
-											/>
+											<Input placeholder="Email" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -80,25 +61,15 @@ const LogIn: React.FC<Props> = ({ handleLogin }) => {
 											Forgot your password?
 										</Link> */}
 										<FormControl>
-											<Input
-												placeholder="Password"
-												type="password"
-												{...field}
-											/>
+											<Input placeholder="Password" type="password" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
 								)}
 							/>
 						</div>
-						<Button
-							type="submit"
-							className="w-full"
-							disabled={loading || !form.formState.isValid}
-						>
-							{form.formState.isSubmitting
-								? 'Loging in...'
-								: 'Login'}
+						<Button type="submit" className="w-full" disabled={loading || !form.formState.isValid}>
+							{form.formState.isSubmitting ? 'Loging in...' : 'Login'}
 						</Button>
 					</form>
 				</Form>

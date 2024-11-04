@@ -2,15 +2,8 @@ import React from 'react';
 
 const Loader = () => {
 	return (
-		<div
-			aria-label="Loading..."
-			role="status"
-			className="flex items-center justify-center space-x-2 h-full "
-		>
-			<svg
-				className="h-20 w-20 animate-spin stroke-gray-500"
-				viewBox="0 0 256 256"
-			>
+		<div aria-label="Loading..." role="status" className="flex items-center justify-center space-x-2 h-full ">
+			<svg className="h-20 w-20 animate-spin stroke-gray-500" viewBox="0 0 256 256">
 				<line
 					x1="128"
 					y1="32"
@@ -84,9 +77,7 @@ const Loader = () => {
 					stroke-width="24"
 				></line>
 			</svg>
-			<span className="text-4xl font-medium text-gray-500">
-				Loading...
-			</span>
+			<span className="text-4xl font-medium text-gray-500">Loading...</span>
 		</div>
 	);
 };

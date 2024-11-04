@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useUploadFile } from '@/hooks/useUploadFile';
 import { CircleCheck, CircleX, LoaderCircle } from 'lucide-react';
@@ -19,14 +13,7 @@ type Props = {
 	isShowRemoveBtn?: boolean;
 };
 
-const DocumentInfoCard: React.FC<Props> = ({
-	file,
-	fileName,
-	isLoading,
-	isSuccess,
-	error,
-	isShowRemoveBtn = true,
-}) => {
+const DocumentInfoCard: React.FC<Props> = ({ file, fileName, isLoading, isSuccess, error, isShowRemoveBtn = true }) => {
 	const { deleteFile } = useUploadFile();
 
 	return (
@@ -36,19 +23,11 @@ const DocumentInfoCard: React.FC<Props> = ({
 					{file?.name || fileName} &nbsp;
 					<div>
 						{file && isLoading && <LoaderCircle />}
-						{file && !isLoading && isSuccess && (
-							<CircleCheck className="!text-successColor" />
-						)}
-						{file && !isLoading && !isSuccess && (
-							<CircleX className="!text-destructive" />
-						)}
+						{file && !isLoading && isSuccess && <CircleCheck className="!text-successColor" />}
+						{file && !isLoading && !isSuccess && <CircleX className="!text-destructive" />}
 					</div>
 				</CardTitle>
-				{error && (
-					<CardDescription className="text-destructive">
-						{error}
-					</CardDescription>
-				)}
+				{error && <CardDescription className="text-destructive">{error}</CardDescription>}
 			</CardHeader>
 			{isShowRemoveBtn && (
 				<CardContent className="pb-0">

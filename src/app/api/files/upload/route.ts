@@ -17,10 +17,7 @@ export async function POST(request: NextRequest) {
 		const { fileName, contentType } = await request.json();
 
 		if (!fileName || !contentType) {
-			return NextResponse.json(
-				{ error: 'fileName and contentType are required' },
-				{ status: 400 },
-			);
+			return NextResponse.json({ error: 'fileName and contentType are required' }, { status: 400 });
 		}
 
 		const bucket = storage.bucket(bucketName);
@@ -35,15 +32,9 @@ export async function POST(request: NextRequest) {
 
 		const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
 
-		return NextResponse.json(
-			{ url: signedUrl, publicUrl },
-			{ status: 200 },
-		);
+		return NextResponse.json({ url: signedUrl, publicUrl }, { status: 200 });
 	} catch (error) {
 		console.error('Error generating signed URL:', error);
-		return NextResponse.json(
-			{ error: 'Error generating signed URL' },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: 'Error generating signed URL' }, { status: 500 });
 	}
 }

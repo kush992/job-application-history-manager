@@ -23,19 +23,12 @@ type Props = {
 };
 
 const QnAPage: React.FC<Props> = ({ userId }) => {
-	const [curQnAType, setCurQnAType] = useState<QnAShowType>(
-		QnAShowType.PUBLIC,
-	);
+	const [curQnAType, setCurQnAType] = useState<QnAShowType>(QnAShowType.PUBLIC);
 
-	const { data, error, isFetching, isLoading, refetch, isRefetching } =
-		useQuery({
-			queryKey: [
-				QueryKeys.QUESTIONS_AND_ANSWERS_PAGE,
-				userId,
-				curQnAType,
-			],
-			queryFn: () => fetchQnAData(userId, curQnAType),
-		});
+	const { data, error, isFetching, isLoading, refetch, isRefetching } = useQuery({
+		queryKey: [QueryKeys.QUESTIONS_AND_ANSWERS_PAGE, userId, curQnAType],
+		queryFn: () => fetchQnAData(userId, curQnAType),
+	});
 
 	function handleTabChange(type: QnAShowType) {
 		setCurQnAType(type);
@@ -73,16 +66,10 @@ const QnAPage: React.FC<Props> = ({ userId }) => {
 					</TabsTrigger>
 				</TabsList>
 
-				<TabsContent
-					value={QnAShowType.PUBLIC}
-					className="text-muted-foreground text-sm"
-				>
+				<TabsContent value={QnAShowType.PUBLIC} className="text-muted-foreground text-sm">
 					Collection made by all the QnA that are marked as public
 				</TabsContent>
-				<TabsContent
-					value={QnAShowType.PRIVATE}
-					className="text-muted-foreground text-sm"
-				>
+				<TabsContent value={QnAShowType.PRIVATE} className="text-muted-foreground text-sm">
 					Collection made by all the QnA that are posted by you
 				</TabsContent>
 			</Tabs>
@@ -93,11 +80,7 @@ const QnAPage: React.FC<Props> = ({ userId }) => {
 			{!isFetching && !isRefetching && !isLoading && (
 				<div className="border p-4 rounded-md bg-background">
 					<QnAAccordion
-						questionsAndAnswers={
-							data?.documents
-								?.map((d) => d.questionsAndAnswers)
-								.flat() || []
-						}
+						questionsAndAnswers={data?.documents?.map((d) => d.questionsAndAnswers).flat() || []}
 					/>
 				</div>
 			)}

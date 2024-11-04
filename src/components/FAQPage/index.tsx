@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from '../ui/accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 
 const FAQPage = () => {
 	const faqData = {
@@ -37,27 +32,13 @@ const FAQPage = () => {
 	return (
 		<section className="flex flex-col items-center gap-10 w-full">
 			<div className="pt-4 text-center">
-				<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-					{faqData.title}
-				</h1>
-				<p className="leading-7 [&:not(:first-child)]:mt-6">
-					{faqData.description}
-				</p>
+				<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{faqData.title}</h1>
+				<p className="leading-7 [&:not(:first-child)]:mt-6">{faqData.description}</p>
 			</div>
-			<Accordion
-				type="single"
-				collapsible
-				className="max-w-3xl w-full mx-auto"
-			>
+			<Accordion type="single" collapsible className="max-w-3xl w-full mx-auto">
 				{faqData.questionsAndAnswers.map((qa, index) => (
-					<AccordionItem
-						key={index}
-						value={`item-${index}`}
-						className="bg-background rounded-md p-2"
-					>
-						<AccordionTrigger className="text-left">
-							{qa.question}
-						</AccordionTrigger>
+					<AccordionItem key={index} value={`item-${index}`} className="bg-background rounded-md p-2">
+						<AccordionTrigger className="text-left">{qa.question}</AccordionTrigger>
 						<AccordionContent>{qa.answer}</AccordionContent>
 					</AccordionItem>
 				))}

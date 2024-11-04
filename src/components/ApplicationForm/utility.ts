@@ -31,22 +31,11 @@ export enum RoleType {
 export const formSchema = z.object({
 	userId: z.string().optional().default(' '),
 	jobTitle: z.string().nonempty('Job title is a required field'),
-	jobDescription: z
-		.string()
-		.nonempty('Job description is a required field')
-		.optional(),
+	jobDescription: z.string().nonempty('Job description is a required field').optional(),
 	salary: z.string().optional(),
 	salaryType: z.string().default(SalaryType.MONTHLY).optional().nullable(),
-	salaryCurrency: z
-		.string()
-		.default(SalaryCurrency.PLN)
-		.optional()
-		.nullable(),
-	applicationStatus: z
-		.string()
-		.default(ApplicationStatus.APPLIED)
-		.optional()
-		.nullable(),
+	salaryCurrency: z.string().default(SalaryCurrency.PLN).optional().nullable(),
+	applicationStatus: z.string().default(ApplicationStatus.APPLIED).optional().nullable(),
 	feedbackFromCompany: z.string().optional().nullable().default(''),
 	companyName: z.string().nonempty('Company name is a required field'),
 	companyDomain: z.string().optional(),

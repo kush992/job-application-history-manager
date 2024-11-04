@@ -16,10 +16,7 @@ export async function POST(request: NextRequest) {
 		const { fileName } = await request.json();
 
 		if (!fileName) {
-			return NextResponse.json(
-				{ error: 'fileName is required' },
-				{ status: 400 },
-			);
+			return NextResponse.json({ error: 'fileName is required' }, { status: 400 });
 		}
 
 		const bucket = storage.bucket(bucketName);
@@ -30,9 +27,6 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json({ status: 'success' }, { status: 200 });
 	} catch (error) {
 		console.error('Error deleting file:', error);
-		return NextResponse.json(
-			{ error: 'Error deleting file' },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: 'Error deleting file' }, { status: 500 });
 	}
 }

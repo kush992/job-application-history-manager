@@ -1,8 +1,4 @@
-import {
-	GitHubLogoIcon,
-	GlobeIcon,
-	LinkedInLogoIcon,
-} from '@radix-ui/react-icons';
+import { GitHubLogoIcon, GlobeIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
 import { Bug, Mail } from 'lucide-react';
 import React from 'react';
 import { Separator } from '../ui/separator';
@@ -14,10 +10,7 @@ const Footer = () => {
 		<footer className="p-4 sm:p-6 bg-background">
 			<div className="mx-auto max-w-5xl flex flex-col items-center gap-4">
 				<div>
-					<a
-						href="https://flowbite.com"
-						className="flex items-center"
-					>
+					<a href="https://flowbite.com" className="flex items-center">
 						<span className="self-center text-2xl font-semibold whitespace-nowrap tracking-tighter">
 							JobJourney
 						</span>
@@ -34,25 +27,13 @@ const Footer = () => {
 				</ul>
 
 				<div className="flex items-center gap-1 w-full justify-center">
-					<a
-						href="https://www.linkedin.com/in/kush-bhalodi-b11991184/"
-						target="_blank"
-						rel="noreferrer"
-					>
+					<a href="https://www.linkedin.com/in/kush-bhalodi-b11991184/" target="_blank" rel="noreferrer">
 						<LinkedInLogoIcon className="w-5 h-5" />
 					</a>
-					<a
-						target="_blank"
-						href="mailto:kushbhalodi.project@gmail.com"
-						className="underline italic"
-					>
+					<a target="_blank" href="mailto:kushbhalodi.project@gmail.com" className="underline italic">
 						<Mail className="w-5 h-5" />
 					</a>
-					<a
-						target="_blank"
-						href="https://github.com/kush992"
-						rel="noreferrer"
-					>
+					<a target="_blank" href="https://github.com/kush992" rel="noreferrer">
 						<GitHubLogoIcon className="w-5 h-5" />
 					</a>
 					<a target="_blank" href="https://kushbhalodi.com">
@@ -66,11 +47,7 @@ const Footer = () => {
 			<div className="flex items-center w-full mt-4">
 				<span className="text-sm text-muted-foreground text-center w-full">
 					© 2022{' '}
-					<a
-						href="https://kushbhalodi.com"
-						target="_blank"
-						className="hover:underline"
-					>
+					<a href="https://kushbhalodi.com" target="_blank" className="hover:underline">
 						KushBhalodi™
 					</a>
 					. All Rights Reserved.

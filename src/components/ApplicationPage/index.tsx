@@ -22,42 +22,22 @@ import { useToast } from '@/hooks/use-toast';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-	fetchApplicationData,
-	softDeleteData,
-} from '@/lib/server/appwrite-queries';
+import { fetchApplicationData, softDeleteData } from '@/lib/server/appwrite-queries';
 
 type Props = {
 	userId: string;
 };
 
 const ApplicationPage: React.FC<Props> = ({ userId }) => {
-	const [companyNameFilter, setCompanyNameFilter] = useState<
-		string | undefined
-	>(undefined);
-	const [statusFilter, setStatusFilter] = useState<
-		ApplicationStatus | undefined
-	>(undefined);
+	const [companyNameFilter, setCompanyNameFilter] = useState<string | undefined>(undefined);
+	const [statusFilter, setStatusFilter] = useState<ApplicationStatus | undefined>(undefined);
 	const [lastId, setLastId] = useState<string | undefined>(undefined);
 
-	const { data, error, isLoading, isFetching, refetch, isRefetching } =
-		useQuery({
-			queryKey: [
-				QueryKeys.APPLICATIONS_PAGE,
-				userId,
-				lastId,
-				companyNameFilter,
-				statusFilter,
-			],
-			queryFn: () =>
-				fetchApplicationData(
-					userId,
-					lastId,
-					companyNameFilter,
-					statusFilter as ApplicationStatus,
-				),
-			enabled: !!userId,
-		});
+	const { data, error, isLoading, isFetching, refetch, isRefetching } = useQuery({
+		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, lastId, companyNameFilter, statusFilter],
+		queryFn: () => fetchApplicationData(userId, lastId, companyNameFilter, statusFilter as ApplicationStatus),
+		enabled: !!userId,
+	});
 
 	const { toast } = useToast();
 
@@ -136,59 +116,31 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 					clearAllFilters={clearAllFilters}
 				/>
 
-				{error && (
-					<p className="text-base my-10">Something went wrong</p>
-				)}
-				{(isFetching || isRefetching || isLoading) && (
-					<p className="text-base my-10">Fetching...</p>
+				{error && <p className="text-base my-10">Something went wrong</p>}
+				{(isFetching || isRefetching || isLoading) && <p className="text-base my-10">Fetching...</p>}
+
+				{!isLoading && !isFetching && !isRefetching && !error && data && data?.documents?.length > 0 && (
+					<div className="flex flex-col border rounded-md overflow-hidden w-full">
+						{data?.documents?.map((data) => (
+							<div key={data.$id}>
+								<ApplicationList data={data} onClickDelete={() => mutation.mutate(data.$id)} />
+								<Separator />
+							</div>
+						))}
+					</div>
 				)}
 
-				{!isLoading &&
-					!isFetching &&
-					!isRefetching &&
-					!error &&
-					data &&
-					data?.documents?.length > 0 && (
-						<div className="flex flex-col border rounded-md overflow-hidden w-full">
-							{data?.documents?.map((data) => (
-								<div key={data.$id}>
-									<ApplicationList
-										data={data}
-										onClickDelete={() =>
-											mutation.mutate(data.$id)
-										}
-									/>
-									<Separator />
-								</div>
-							))}
-						</div>
-					)}
-
-				{data?.total === 0 && (
-					<p className="text-base my-10">No data to show.</p>
-				)}
+				{data?.total === 0 && <p className="text-base my-10">No data to show.</p>}
 
 				<Button
 					variant="outline"
-					onClick={() =>
-						onShowMore(
-							String(
-								data?.documents[data?.documents.length - 1].$id,
-							),
-						)
-					}
+					onClick={() => onShowMore(String(data?.documents[data?.documents.length - 1].$id))}
 					disabled={isLoading || isFetching || isRefetching}
 					className="w-full flex gap-1 items-center mt-2"
 					size="lg"
 				>
-					{isLoading ||
-						isFetching ||
-						(isRefetching && <LoadingOutlined />)}
-					<span>
-						{isLoading || isFetching || isRefetching
-							? 'Loading...'
-							: 'Next page'}
-					</span>
+					{isLoading || isFetching || (isRefetching && <LoadingOutlined />)}
+					<span>{isLoading || isFetching || isRefetching ? 'Loading...' : 'Next page'}</span>
 				</Button>
 			</div>
 		</div>

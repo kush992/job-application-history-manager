@@ -6,7 +6,9 @@ import { ID, Query } from 'node-appwrite';
 
 export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	const query =
-		showType === QnAShowType.PUBLIC ? [Query.equal('isPrivate', false)] : [Query.equal('userId', userId), Query.equal('isPrivate', true)];
+		showType === QnAShowType.PUBLIC
+			? [Query.equal('isPrivate', false)]
+			: [Query.equal('userId', userId), Query.equal('isPrivate', true)];
 
 	try {
 		const response: Response<InterviewQuestionsData> = await database.listDocuments(
@@ -27,8 +29,18 @@ export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	}
 };
 
-export const fetchApplicationData = async (userId: string, lastId?: string, query?: string, statusFilter?: ApplicationStatus) => {
-	const queries = [Query.limit(20), Query.equal('isSoftDelete', false), Query.equal('userId', userId), Query.orderDesc('$createdAt')];
+export const fetchApplicationData = async (
+	userId: string,
+	lastId?: string,
+	query?: string,
+	statusFilter?: ApplicationStatus,
+) => {
+	const queries = [
+		Query.limit(20),
+		Query.equal('isSoftDelete', false),
+		Query.equal('userId', userId),
+		Query.orderDesc('$createdAt'),
+	];
 
 	if (lastId) {
 		queries.push(Query.cursorAfter(lastId));
@@ -75,7 +87,12 @@ export const fetchApplicationDataById = async (documentId: string, userId: strin
 export const addDocument = async (data: JobApplicationFormData) => {
 	const documentId = ID.unique();
 	try {
-		const response = await database.createDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, documentId, data);
+		const response = await database.createDocument(
+			appwriteDbConfig.applicationDb,
+			appwriteDbConfig.applicationDbCollectionId,
+			documentId,
+			data,
+		);
 
 		return response;
 	} catch (error) {
@@ -86,7 +103,12 @@ export const addDocument = async (data: JobApplicationFormData) => {
 
 export const updateDocument = async (data: JobApplicationFormData, documentId: string) => {
 	try {
-		const response = await database.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, documentId, data);
+		const response = await database.updateDocument(
+			appwriteDbConfig.applicationDb,
+			appwriteDbConfig.applicationDbCollectionId,
+			documentId,
+			data,
+		);
 
 		return response;
 	} catch (error) {
@@ -100,9 +122,14 @@ export const addLinks = async (links: string, applicationDocumentId: string, use
 		const documentId = applicationDocumentId;
 
 		try {
-			await database.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbDocumentCollectionId, documentId, {
-				link: links,
-			});
+			await database.updateDocument(
+				appwriteDbConfig.applicationDb,
+				appwriteDbConfig.applicationDbDocumentCollectionId,
+				documentId,
+				{
+					link: links,
+				},
+			);
 			return;
 		} catch (error) {
 			console.error(error);
@@ -110,11 +137,16 @@ export const addLinks = async (links: string, applicationDocumentId: string, use
 	}
 
 	try {
-		await database.createDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbDocumentCollectionId, ID.unique(), {
-			link: links,
-			userId: userId,
-			jobApplications: [applicationDocumentId],
-		});
+		await database.createDocument(
+			appwriteDbConfig.applicationDb,
+			appwriteDbConfig.applicationDbDocumentCollectionId,
+			ID.unique(),
+			{
+				link: links,
+				userId: userId,
+				jobApplications: [applicationDocumentId],
+			},
+		);
 	} catch (error) {
 		console.error(error);
 	}
@@ -122,10 +154,15 @@ export const addLinks = async (links: string, applicationDocumentId: string, use
 
 export const softDeleteData = async (documentId: string, refetch: () => void) => {
 	database
-		.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, String(documentId), {
-			isSoftDelete: true,
-			softDeleteDateAndTime: new Date(),
-		})
+		.updateDocument(
+			appwriteDbConfig.applicationDb,
+			appwriteDbConfig.applicationDbCollectionId,
+			String(documentId),
+			{
+				isSoftDelete: true,
+				softDeleteDateAndTime: new Date(),
+			},
+		)
 		.then(() => {
 			refetch();
 		})

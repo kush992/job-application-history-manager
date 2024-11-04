@@ -1,14 +1,6 @@
 import React from 'react';
 import { useFieldArray, UseFormReturn } from 'react-hook-form';
-import {
-	Form,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormControl,
-	FormMessage,
-} from '@/components/ui/form';
+import { Form, FormDescription, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -32,14 +24,9 @@ const QuestionAndAnswerForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 	return (
 		<Form {...form}>
-			<form
-				onSubmit={handleSubmit(onSubmit)}
-				className="border p-4 rounded-md bg-background md:m-4"
-			>
+			<form onSubmit={handleSubmit(onSubmit)} className="border p-4 rounded-md bg-background md:m-4">
 				<div className="flex flex-col gap-2">
-					<FormDescription>
-						Enter the questions and answers
-					</FormDescription>
+					<FormDescription>Enter the questions and answers</FormDescription>
 					{fields.map((field, index: number) => (
 						<div key={field.id} className="flex flex-col">
 							<div className="w-full p-2">
@@ -50,10 +37,7 @@ const QuestionAndAnswerForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<FormItem>
 											<FormLabel>Question</FormLabel>
 											<FormControl>
-												<Input
-													placeholder="Question"
-													{...field}
-												/>
+												<Input placeholder="Question" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -66,21 +50,13 @@ const QuestionAndAnswerForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<FormItem>
 											<FormLabel>Answer</FormLabel>
 											<FormControl>
-												<Textarea
-													placeholder="Answer"
-													{...field}
-												/>
+												<Textarea placeholder="Answer" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
 									)}
 								/>
-								<Button
-									type="button"
-									variant="outline"
-									onClick={() => remove(index)}
-									className="mt-2"
-								>
+								<Button type="button" variant="outline" onClick={() => remove(index)} className="mt-2">
 									<X /> Remove
 								</Button>
 							</div>
@@ -102,16 +78,12 @@ const QuestionAndAnswerForm: React.FC<Props> = ({ form, onSubmit }) => {
 						render={({ field }) => (
 							<FormItem className="flex flex-row items-start space-x-3 space-y-0">
 								<FormControl>
-									<Checkbox
-										checked={field.value}
-										onCheckedChange={field.onChange}
-									/>
+									<Checkbox checked={field.value} onCheckedChange={field.onChange} />
 								</FormControl>
 								<div className="space-y-1 leading-none">
 									<FormLabel>Is private</FormLabel>
 									<FormDescription>
-										Decide whether to make the questions and
-										answers private or not.
+										Decide whether to make the questions and answers private or not.
 									</FormDescription>
 								</div>
 							</FormItem>

@@ -7,10 +7,7 @@ export async function GET(req: NextRequest) {
 		const documentId = req.nextUrl.searchParams.get('documentId');
 
 		if (!documentId) {
-			return NextResponse.json(
-				{ error: 'Document ID is required' },
-				{ status: 400 },
-			);
+			return NextResponse.json({ error: 'Document ID is required' }, { status: 400 });
 		}
 
 		const response: JobApplicationData = await database.getDocument(
@@ -22,9 +19,6 @@ export async function GET(req: NextRequest) {
 		return NextResponse.json(response);
 	} catch (error) {
 		console.error(error);
-		return NextResponse.json(
-			{ error: 'Error fetching data' },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: 'Error fetching data' }, { status: 500 });
 	}
 }

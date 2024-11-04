@@ -21,9 +21,7 @@ const TinyEditor = ({ initialData, onChange, textareaName }: Props) => {
 		<>
 			<Editor
 				apiKey={config.tinymceApiKey}
-				onInit={(_evt: any, editor: any) =>
-					(editorRef.current = editor)
-				}
+				onInit={(_evt: any, editor: any) => (editorRef.current = editor)}
 				initialValue={initialData}
 				onEditorChange={(newValue) => handleEditorChange(newValue)}
 				textareaName={textareaName}

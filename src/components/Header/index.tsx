@@ -48,12 +48,7 @@ const Header: React.FC<Props> = ({ user }) => {
 			{!isHidden && (
 				<div className="bg-background text-muted-foreground text-xs py-2 text-center border-b flex gap-2 items-center justify-center">
 					Currently on testing stage
-					<Button
-						size="icon"
-						variant="ghost"
-						className="w-7 h-7"
-						onClick={hideTestingInfo}
-					>
+					<Button size="icon" variant="ghost" className="w-7 h-7" onClick={hideTestingInfo}>
 						<X className="cursor-pointer w-5 h-5" />
 					</Button>
 				</div>
@@ -71,19 +66,10 @@ const Header: React.FC<Props> = ({ user }) => {
 						{user?.$id && (
 							<ul className="flex justify-between items-center m-0 gap-4">
 								{navBarLinks.map((navBarLink) =>
-									navBarLink.href ===
-									appRoutes.addApplication ? (
-										<li
-											className="list-none"
-											key={navBarLink.href}
-										>
-											<Link
-												href={appRoutes.addApplication}
-											>
-												<Button
-													variant="outline"
-													size="icon"
-												>
+									navBarLink.href === appRoutes.addApplication ? (
+										<li className="list-none" key={navBarLink.href}>
+											<Link href={appRoutes.addApplication}>
+												<Button variant="outline" size="icon">
 													<PlusCircleFilled
 														className="text-secondary-foreground"
 														height="40px"
@@ -93,21 +79,12 @@ const Header: React.FC<Props> = ({ user }) => {
 											</Link>
 										</li>
 									) : (
-										<li
-											className="list-none"
-											key={navBarLink.href}
-										>
+										<li className="list-none" key={navBarLink.href}>
 											<Link
 												href={navBarLink.href}
-												className={cn(
-													'text-secondary-foreground',
-													{
-														'bg-muted p-2 rounded-md':
-															isActive(
-																navBarLink.href,
-															),
-													},
-												)}
+												className={cn('text-secondary-foreground', {
+													'bg-muted p-2 rounded-md': isActive(navBarLink.href),
+												})}
 											>
 												{navBarLink.page}
 											</Link>

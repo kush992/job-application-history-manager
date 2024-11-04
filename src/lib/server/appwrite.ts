@@ -5,9 +5,7 @@ import { config } from '@/config/config';
 import { redirect } from 'next/navigation';
 
 export async function createSessionClient() {
-	const client = new Client()
-		.setEndpoint(config.appwriteUrl)
-		.setProject(config.appwriteProjectId);
+	const client = new Client().setEndpoint(config.appwriteUrl).setProject(config.appwriteProjectId);
 
 	const session = cookies().get('session');
 	if (!session || !session.value) {
@@ -60,10 +58,7 @@ export async function signUpWithEmail(formData: FormData) {
 
 	try {
 		await account.create(ID.unique(), email, password, name);
-		const session = await account.createEmailPasswordSession(
-			email,
-			password,
-		);
+		const session = await account.createEmailPasswordSession(email, password);
 		cookies().set('session', session.secret, {
 			path: '/',
 			httpOnly: true,
@@ -97,10 +92,7 @@ export async function loginWithEmail(formData: FormData) {
 	const { account } = await createAdminClient();
 
 	try {
-		const session = await account.createEmailPasswordSession(
-			email,
-			password,
-		);
+		const session = await account.createEmailPasswordSession(email, password);
 		cookies().set('session', session.secret, {
 			path: '/',
 			httpOnly: true,

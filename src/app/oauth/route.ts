@@ -29,10 +29,7 @@ export async function GET(request: NextRequest) {
 	// 		request.url,
 	// 	),
 	// );
-	return NextResponse.redirect(
-		new URL(appRoutes.home, request.nextUrl.origin),
-		{
-			status: 303,
-		},
-	);
+	return NextResponse.redirect(new URL(appRoutes.home, request.nextUrl.origin), {
+		status: 303,
+	});
 }

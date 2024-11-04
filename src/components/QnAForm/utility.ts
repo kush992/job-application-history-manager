@@ -23,8 +23,6 @@ export const normaliseQuestionsAndAnswers = (questionsAndAnswers: string[]) => {
 	});
 };
 
-export const denormaliseQuestionsAndAnswers = (
-	questionsAndAnswers: QnAFormData['questionsAndAnswers'],
-) => {
+export const denormaliseQuestionsAndAnswers = (questionsAndAnswers: QnAFormData['questionsAndAnswers']) => {
 	return questionsAndAnswers?.map((qa) => JSON.stringify(qa));
 };

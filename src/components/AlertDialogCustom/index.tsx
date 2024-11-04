@@ -17,11 +17,7 @@ type Props = {
 	onClickContinue: (params?: unknown) => void;
 };
 
-export function AlertDialogCustom({
-	buttonName,
-	icon,
-	onClickContinue,
-}: Props) {
+export function AlertDialogCustom({ buttonName, icon, onClickContinue }: Props) {
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
@@ -31,19 +27,14 @@ export function AlertDialogCustom({
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
-					<AlertDialogTitle>
-						Are you absolutely sure?
-					</AlertDialogTitle>
+					<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 					<AlertDialogDescription>
-						This action cannot be undone. This will permanently
-						delete this item.
+						This action cannot be undone. This will permanently delete this item.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={onClickContinue}>
-						Continue
-					</AlertDialogAction>
+					<AlertDialogAction onClick={onClickContinue}>Continue</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

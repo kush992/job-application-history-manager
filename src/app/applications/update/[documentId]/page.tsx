@@ -3,11 +3,7 @@ import Loader from '@/components/Loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { fetchApplicationDataById } from '@/lib/server/appwrite-queries';
 import { appRoutes, QueryKeys } from '@/utils/constants';
-import {
-	dehydrate,
-	HydrationBoundary,
-	QueryClient,
-} from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/next';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -16,11 +12,7 @@ type Params = {
 	documentId: string;
 };
 
-export default async function UpdateApplication({
-	params,
-}: {
-	params: Params;
-}) {
+export default async function UpdateApplication({ params }: { params: Params }) {
 	const user = await getLoggedInUser();
 
 	if (!user) redirect(appRoutes.signUp);
@@ -36,11 +28,7 @@ export default async function UpdateApplication({
 			<main className="flex min-h-screen flex-col gap-8 max-w-6xl mx-auto p-4 ">
 				<Analytics />
 				<HydrationBoundary state={dehydrate(queryClient)}>
-					<ApplicationForm
-						documentId={params.documentId}
-						isUpdateForm
-						userId={user.$id}
-					/>
+					<ApplicationForm documentId={params.documentId} isUpdateForm userId={user.$id} />
 				</HydrationBoundary>
 			</main>
 		</Suspense>

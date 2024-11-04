@@ -38,8 +38,7 @@ const ApplicationView = ({ documentId, userId }: Props) => {
 	});
 
 	const salaryDetail =
-		data?.salary &&
-		`${data?.salary} ${data?.salaryCurrency?.toLowerCase()} / ${data?.salaryType?.toLowerCase()}`;
+		data?.salary && `${data?.salary} ${data?.salaryCurrency?.toLowerCase()} / ${data?.salaryType?.toLowerCase()}`;
 
 	return (
 		<div className="flex flex-col gap-6 p-4">
@@ -47,9 +46,7 @@ const ApplicationView = ({ documentId, userId }: Props) => {
 				<BreadcrumbList>
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 					<BreadcrumbSeparator />
-					<BreadcrumbLink href={appRoutes.application}>
-						Applications
-					</BreadcrumbLink>
+					<BreadcrumbLink href={appRoutes.application}>Applications</BreadcrumbLink>
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
 						<BreadcrumbPage>{data?.jobTitle}</BreadcrumbPage>
@@ -64,18 +61,11 @@ const ApplicationView = ({ documentId, userId }: Props) => {
 						<div className="flex justify-between items-start">
 							<div>
 								<p className="text-sm">{data?.companyName}</p>
-								<h1 className="text-2xl font-semibold !mt-0 !mb-2">
-									{data?.jobTitle}
-								</h1>
-								<Badge variant="secondary">
-									{data?.applicationStatus}
-								</Badge>
+								<h1 className="text-2xl font-semibold !mt-0 !mb-2">{data?.jobTitle}</h1>
+								<Badge variant="secondary">{data?.applicationStatus}</Badge>
 							</div>
 							<div>
-								<Link
-									href={`${appRoutes.updateApplication}/${documentId}`}
-									className="underline"
-								>
+								<Link href={`${appRoutes.updateApplication}/${documentId}`} className="underline">
 									<Button size="icon">
 										<EditOutlined />
 									</Button>
@@ -91,16 +81,12 @@ const ApplicationView = ({ documentId, userId }: Props) => {
 								{data?.interviewDate && (
 									<p className="text-sm flex flex-col">
 										<span>● Interview</span>
-										<span className="text-muted-foreground">
-											{formatDate(data?.interviewDate)}
-										</span>
+										<span className="text-muted-foreground">{formatDate(data?.interviewDate)}</span>
 									</p>
 								)}
 								<p className="text-sm flex flex-col">
 									<span>● Applied</span>
-									<span className="text-muted-foreground">
-										{formatDate(data?.$createdAt)}
-									</span>
+									<span className="text-muted-foreground">{formatDate(data?.$createdAt)}</span>
 								</p>
 							</div>
 							{salaryDetail && (
@@ -114,76 +100,54 @@ const ApplicationView = ({ documentId, userId }: Props) => {
 					<div className="border p-4 rounded-md bg-background">
 						{data?.links && (
 							<div id="documentsData">
-								<h2 className="text-lg font-semibold !mt-3">
-									Documents Added
-								</h2>
+								<h2 className="text-lg font-semibold !mt-3">Documents Added</h2>
 								{data?.links &&
-									data?.links
-										.split(FILES_SEPARATOR)
-										.map((link: string, index: number) => (
-											<a
-												key={index + 1}
-												href={link}
-												className="text-sm w-fit text-wrap"
-												target="__blank"
-												rel="noopener noreferrer"
+									data?.links.split(FILES_SEPARATOR).map((link: string, index: number) => (
+										<a
+											key={index + 1}
+											href={link}
+											className="text-sm w-fit text-wrap"
+											target="__blank"
+											rel="noopener noreferrer"
+										>
+											<Button
+												variant="link"
+												className="over px-0 text-wrap h-full flex items-center justify-between text-left w-full"
 											>
-												<Button
-													variant="link"
-													className="over px-0 text-wrap h-full flex items-center justify-between text-left w-full"
-												>
-													{getFileName(link)}
-												</Button>
-											</a>
-										))}
+												{getFileName(link)}
+											</Button>
+										</a>
+									))}
 								<Separator className="my-3" />
 							</div>
 						)}
 						{data?.feedbackFromCompany && (
 							<div id="additionalDetails">
-								<h2 className="text-lg font-semibold !mt-3">
-									Additional details after applying
-								</h2>
+								<h2 className="text-lg font-semibold !mt-3">Additional details after applying</h2>
 								<div
 									className="rounded-md prose !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
 									dangerouslySetInnerHTML={{
-										__html: DOMPurify.sanitize(
-											data?.feedbackFromCompany,
-										),
+										__html: DOMPurify.sanitize(data?.feedbackFromCompany),
 									}}
 								/>
 								<Separator className="my-3" />
 							</div>
 						)}
 						<div id="applicationData">
-							<h2 className="text-lg font-semibold !m-0">
-								Application Data
-							</h2>
+							<h2 className="text-lg font-semibold !m-0">Application Data</h2>
 							<div
 								className="rounded-md prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
 								dangerouslySetInnerHTML={{
-									__html: DOMPurify.sanitize(
-										data?.jobDescription,
-									),
+									__html: DOMPurify.sanitize(data?.jobDescription),
 								}}
 							/>
 						</div>
 					</div>
 
 					{data?.interviewQuestions && (
-						<div
-							className="border p-4 rounded-md bg-background"
-							id="interviewQuestions"
-						>
-							<h2 className="text-lg font-semibold !m-0">
-								Interview Questions Data
-							</h2>
-							<QnAAccordion
-								questionsAndAnswers={
-									data?.interviewQuestions
-										?.questionsAndAnswers
-								}
-							/>
+						<div className="border p-4 rounded-md bg-background" id="interviewQuestions">
+							<h2 className="text-lg font-semibold !m-0">Interview Questions Data</h2>
+							<QnAAccordion questionsAndAnswers={data?.interviewQuestions?.questionsAndAnswers} />
 						</div>
 					)}
 				</>
