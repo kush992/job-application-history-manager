@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
-import { MoveRight } from 'lucide-react';
+import { ChevronRight, MoveRight } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { featureData } from './utility';
@@ -13,32 +13,18 @@ export default function HomePage() {
 		<>
 			<section>
 				<div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
-					<a
-						href="#"
+					<Link
+						href={appRoutes.pricing}
 						className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm bg-lightGreenAccent rounded-full text-darkGreenAccent"
 					>
 						<span className="text-xs bg-darkGreenAccent rounded-full text-white px-4 py-1.5 me-3">
 							New
 						</span>
 						<span className="text-sm font-medium">
-							Jumbotron component was launched! See {"what's"} new
+							Available now - Premium plan
 						</span>
-						<svg
-							className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 6 10"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="m1 9 4-4-4-4"
-							/>
-						</svg>
-					</a>
+						<ChevronRight className="text-darkGreenAccent" />
+					</Link>
 					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
 						Welcome to JobJourney – Your Job Application Tracker
 					</h1>
