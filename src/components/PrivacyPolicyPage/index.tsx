@@ -11,7 +11,6 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Separator } from '@/components/ui/separator';
 
 export default function PrivacyPolicyPage() {
 	const lastUpdated = 'November 4, 2023'; // Replace with your actual last updated date
