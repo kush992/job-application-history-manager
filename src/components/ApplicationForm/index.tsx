@@ -8,12 +8,24 @@ import Loader from '../Loader';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import { useForm } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '../ui/breadcrumb';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import ApplicationDataForm from './Form';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import { addDocument, addLinks, fetchApplicationDataById, updateDocument } from '@/lib/server/appwrite-queries';
+import {
+	addDocument,
+	addLinks,
+	fetchApplicationDataById,
+	updateDocument,
+} from '@/lib/server/appwrite-queries';
 
 type Props = {
 	documentId?: string;
@@ -32,9 +44,13 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	});
 
 	const addLinksMutation = useMutation({
-		mutationFn: (links: string) => addLinks(links, applicationData.documents[0].$id, userId),
+		mutationFn: (links: string) =>
+			addLinks(links, applicationData.documents[0].$id, userId),
 		onSuccess: () => {
-			toast({ title: 'success', description: 'File uploaded successfully' });
+			toast({
+				title: 'success',
+				description: 'File uploaded successfully',
+			});
 		},
 		onError: (error) => {
 			toast({ title: 'Error', description: error?.message });
@@ -50,7 +66,10 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			return addDocument(data);
 		},
 		onSuccess: () => {
-			toast({ title: 'success', description: 'Application added successfully' });
+			toast({
+				title: 'success',
+				description: 'Application added successfully',
+			});
 			router.push(appRoutes.applicationPage);
 		},
 		onError: (error) => {
@@ -68,7 +87,10 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			return updateDocument(data, String(documentId));
 		},
 		onSuccess: () => {
-			toast({ title: 'success', description: 'Application updated successfully' });
+			toast({
+				title: 'success',
+				description: 'Application updated successfully',
+			});
 			router.push(appRoutes.applicationPage);
 		},
 		onError: (error) => {
@@ -119,24 +141,36 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	}
 
 	return (
-		<div className='flex flex-col gap-6'>
-			<div className='px-4 pt-4'>
-				<Breadcrumb className='mb-4'>
+		<div className="flex flex-col gap-6">
+			<div className="px-4 pt-4">
+				<Breadcrumb className="mb-4">
 					<BreadcrumbList>
-						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
+						<BreadcrumbLink href={appRoutes.home}>
+							Home
+						</BreadcrumbLink>
 						<BreadcrumbSeparator />
-						<BreadcrumbLink href={appRoutes.applicationPage}>Applications</BreadcrumbLink>
+						<BreadcrumbLink href={appRoutes.application}>
+							Applications
+						</BreadcrumbLink>
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
-							<BreadcrumbPage>{isUpdateForm ? 'Update' : 'Add'}</BreadcrumbPage>
+							<BreadcrumbPage>
+								{isUpdateForm ? 'Update' : 'Add'}
+							</BreadcrumbPage>
 						</BreadcrumbItem>
 					</BreadcrumbList>
 				</Breadcrumb>
-				<PageTitle title={isUpdateForm ? 'Update' : 'Add latest applied'} />
-				<PageDescription description='Fill up all the details that are available' />
+				<PageTitle
+					title={isUpdateForm ? 'Update' : 'Add latest applied'}
+				/>
+				<PageDescription description="Fill up all the details that are available" />
 			</div>
 
-			{isLoading ? <Loader /> : <ApplicationDataForm form={form} onSubmit={onSubmit} />}
+			{isLoading ? (
+				<Loader />
+			) : (
+				<ApplicationDataForm form={form} onSubmit={onSubmit} />
+			)}
 		</div>
 	);
 };

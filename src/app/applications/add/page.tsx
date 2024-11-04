@@ -9,11 +9,11 @@ import { appRoutes } from '@/utils/constants';
 export default async function AddApplication() {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect(appRoutes.signUpPage);
+	if (!user) redirect(appRoutes.signUp);
 
 	return (
 		<Suspense fallback={<Loader />}>
-			<main className='flex min-h-screen flex-col gap-8 max-w-6xl mx-auto '>
+			<main className="flex min-h-screen flex-col gap-8 max-w-6xl mx-auto ">
 				<Analytics />
 				<ApplicationForm userId={user.$id} />
 			</main>

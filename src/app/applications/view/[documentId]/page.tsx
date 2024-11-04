@@ -15,7 +15,7 @@ type Params = {
 export default async function ViewApplication({ params }: { params: Params }) {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect(appRoutes.signUpPage);
+	if (!user) redirect(appRoutes.signUp);
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
@@ -25,7 +25,7 @@ export default async function ViewApplication({ params }: { params: Params }) {
 
 	return (
 		<Suspense fallback={<Loader />}>
-			<main className='flex min-h-screen flex-col gap-8 max-w-6xl mx-auto md:p-4'>
+			<main className="flex min-h-screen flex-col gap-8 max-w-6xl mx-auto md:p-4">
 				<Analytics />
 				<HydrationBoundary state={dehydrate(queryClient)}>
 					<ApplicationView documentId={params.documentId} userId={user.$id} />

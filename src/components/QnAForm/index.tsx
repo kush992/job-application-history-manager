@@ -1,7 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { formSchema, QnAFormData, normaliseQuestionsAndAnswers, denormaliseQuestionsAndAnswers } from './utility';
+import {
+	formSchema,
+	QnAFormData,
+	normaliseQuestionsAndAnswers,
+	denormaliseQuestionsAndAnswers,
+} from './utility';
 import { appwriteDbConfig, database } from '@/appwrite/config';
 import { ID } from 'appwrite';
 import { useRouter } from 'next/navigation';
@@ -9,8 +14,18 @@ import Loader from '../Loader';
 import { appRoutes } from '@/utils/constants';
 import { useForm } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
-import { InterviewQuestionsData, JobApplicationData } from '@/types/apiResponseTypes';
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '../ui/breadcrumb';
+import {
+	InterviewQuestionsData,
+	JobApplicationData,
+} from '@/types/apiResponseTypes';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import QuestionAndAnswerForm from './Form';
@@ -27,12 +42,16 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	const { toast } = useToast();
 
 	const [isLoading, setIsLoading] = useState(false);
-	const [interviewQAData, setInterviewQAData] = useState<InterviewQuestionsData>({} as InterviewQuestionsData);
+	const [interviewQAData, setInterviewQAData] =
+		useState<InterviewQuestionsData>({} as InterviewQuestionsData);
 
 	const initialFormData: QnAFormData = {
 		userId: interviewQAData?.userId || userId,
 		isPrivate: interviewQAData.isPrivate,
-		questionsAndAnswers: normaliseQuestionsAndAnswers(interviewQAData?.questionsAndAnswers) || [],
+		questionsAndAnswers:
+			normaliseQuestionsAndAnswers(
+				interviewQAData?.questionsAndAnswers,
+			) || [],
 	};
 
 	const form = useForm<QnAFormData>({
@@ -51,16 +70,23 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 
 	function updateDocument(data: QnAFormData) {
 		database
-			.updateDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbInterviewQuestionsCollectionId, String(documentId), {
-				...data,
-				questionsAndAnswers: denormaliseQuestionsAndAnswers(data.questionsAndAnswers),
-			})
+			.updateDocument(
+				appwriteDbConfig.applicationDb,
+				appwriteDbConfig.applicationDbInterviewQuestionsCollectionId,
+				String(documentId),
+				{
+					...data,
+					questionsAndAnswers: denormaliseQuestionsAndAnswers(
+						data.questionsAndAnswers,
+					),
+				},
+			)
 			.then((response) => {
 				toast({
 					title: 'Success',
 					description: 'Application updated successfully',
 				});
-				router.push(appRoutes.applicationPage);
+				router.push(appRoutes.application);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -75,16 +101,23 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	function addDocument(data: QnAFormData) {
 		const documentId = ID.unique();
 		database
-			.createDocument(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbInterviewQuestionsCollectionId, documentId, {
-				...data,
-				questionsAndAnswers: denormaliseQuestionsAndAnswers(data.questionsAndAnswers),
-			})
+			.createDocument(
+				appwriteDbConfig.applicationDb,
+				appwriteDbConfig.applicationDbInterviewQuestionsCollectionId,
+				documentId,
+				{
+					...data,
+					questionsAndAnswers: denormaliseQuestionsAndAnswers(
+						data.questionsAndAnswers,
+					),
+				},
+			)
 			.then((response) => {
 				toast({
 					title: 'Success',
 					description: 'Application added successfully',
 				});
-				router.push(appRoutes.applicationPage);
+				router.push(appRoutes.application);
 			})
 			.catch((error) => {
 				toast({
@@ -119,25 +152,37 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	}, [isUpdateForm, documentId]);
 
 	return (
-		<div className='flex flex-col gap-6'>
-			<div className='px-4 pt-4'>
-				<Breadcrumb className='mb-4'>
+		<div className="flex flex-col gap-6">
+			<div className="px-4 pt-4">
+				<Breadcrumb className="mb-4">
 					<BreadcrumbList>
-						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
+						<BreadcrumbLink href={appRoutes.home}>
+							Home
+						</BreadcrumbLink>
 						<BreadcrumbSeparator />
-						<BreadcrumbLink href={appRoutes.applicationPage}>Interview Questions</BreadcrumbLink>
+						<BreadcrumbLink href={appRoutes.application}>
+							Interview Questions
+						</BreadcrumbLink>
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
-							<BreadcrumbPage>{isUpdateForm ? 'Update' : 'Add'}</BreadcrumbPage>
+							<BreadcrumbPage>
+								{isUpdateForm ? 'Update' : 'Add'}
+							</BreadcrumbPage>
 						</BreadcrumbItem>
 					</BreadcrumbList>
 				</Breadcrumb>
 
-				<PageTitle title={isUpdateForm ? 'Update' : 'Add latest applied'} />
-				<PageDescription description='Add the latest applied questions and answers' />
+				<PageTitle
+					title={isUpdateForm ? 'Update' : 'Add latest applied'}
+				/>
+				<PageDescription description="Add the latest applied questions and answers" />
 			</div>
 
-			{isLoading ? <Loader /> : <QuestionAndAnswerForm form={form} onSubmit={onSubmit} />}
+			{isLoading ? (
+				<Loader />
+			) : (
+				<QuestionAndAnswerForm form={form} onSubmit={onSubmit} />
+			)}
 		</div>
 	);
 };

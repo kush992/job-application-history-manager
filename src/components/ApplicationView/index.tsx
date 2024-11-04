@@ -11,7 +11,14 @@ import { Separator } from '@/components/ui/separator';
 import DOMPurify from 'dompurify';
 import { FILES_SEPARATOR } from '../ApplicationForm/utility';
 import { Button } from '../ui/button';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '../ui/breadcrumb';
 import { Badge } from '../ui/badge';
 import { getFileName } from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
@@ -30,15 +37,19 @@ const ApplicationView = ({ documentId, userId }: Props) => {
 		queryFn: () => fetchApplicationDataById(documentId, userId),
 	});
 
-	const salaryDetail = data?.salary && `${data?.salary} ${data?.salaryCurrency?.toLowerCase()} / ${data?.salaryType?.toLowerCase()}`;
+	const salaryDetail =
+		data?.salary &&
+		`${data?.salary} ${data?.salaryCurrency?.toLowerCase()} / ${data?.salaryType?.toLowerCase()}`;
 
 	return (
-		<div className='flex flex-col gap-6 p-4'>
+		<div className="flex flex-col gap-6 p-4">
 			<Breadcrumb>
 				<BreadcrumbList>
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 					<BreadcrumbSeparator />
-					<BreadcrumbLink href={appRoutes.applicationPage}>Applications</BreadcrumbLink>
+					<BreadcrumbLink href={appRoutes.application}>
+						Applications
+					</BreadcrumbLink>
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
 						<BreadcrumbPage>{data?.jobTitle}</BreadcrumbPage>
@@ -49,87 +60,130 @@ const ApplicationView = ({ documentId, userId }: Props) => {
 			{(isFetching || isLoading) && <Loader />}
 			{!isFetching && !isLoading && data?.$id && (
 				<>
-					<div className='flex flex-col gap-4 rounded-md border p-4 bg-background'>
-						<div className='flex justify-between items-start'>
+					<div className="flex flex-col gap-4 rounded-md border p-4 bg-background">
+						<div className="flex justify-between items-start">
 							<div>
-								<p className='text-sm'>{data?.companyName}</p>
-								<h1 className='text-2xl font-semibold !mt-0 !mb-2'>{data?.jobTitle}</h1>
-								<Badge variant='secondary'>{data?.applicationStatus}</Badge>
+								<p className="text-sm">{data?.companyName}</p>
+								<h1 className="text-2xl font-semibold !mt-0 !mb-2">
+									{data?.jobTitle}
+								</h1>
+								<Badge variant="secondary">
+									{data?.applicationStatus}
+								</Badge>
 							</div>
 							<div>
-								<Link href={`${appRoutes.updateApplicationPage}/${documentId}`} className='underline'>
-									<Button size='icon'>
+								<Link
+									href={`${appRoutes.updateApplication}/${documentId}`}
+									className="underline"
+								>
+									<Button size="icon">
 										<EditOutlined />
 									</Button>
 								</Link>
 							</div>
 						</div>
 
-						<Separator className='my-2' />
+						<Separator className="my-2" />
 
 						<div>
-							<h2 className='text-base'>Job Activity</h2>
-							<div className='flex flex-col gap-2'>
+							<h2 className="text-base">Job Activity</h2>
+							<div className="flex flex-col gap-2">
 								{data?.interviewDate && (
-									<p className='text-sm flex flex-col'>
+									<p className="text-sm flex flex-col">
 										<span>● Interview</span>
-										<span className='text-muted-foreground'>{formatDate(data?.interviewDate)}</span>
+										<span className="text-muted-foreground">
+											{formatDate(data?.interviewDate)}
+										</span>
 									</p>
 								)}
-								<p className='text-sm flex flex-col'>
+								<p className="text-sm flex flex-col">
 									<span>● Applied</span>
-									<span className='text-muted-foreground'>{formatDate(data?.$createdAt)}</span>
+									<span className="text-muted-foreground">
+										{formatDate(data?.$createdAt)}
+									</span>
 								</p>
 							</div>
 							{salaryDetail && (
-								<p className='text-sm text-muted-foreground'>
+								<p className="text-sm text-muted-foreground">
 									<DollarCircleOutlined /> {salaryDetail}
 								</p>
 							)}
 						</div>
 					</div>
 
-					<div className='border p-4 rounded-md bg-background'>
+					<div className="border p-4 rounded-md bg-background">
 						{data?.links && (
-							<div id='documentsData'>
-								<h2 className='text-lg font-semibold !mt-3'>Documents Added</h2>
+							<div id="documentsData">
+								<h2 className="text-lg font-semibold !mt-3">
+									Documents Added
+								</h2>
 								{data?.links &&
-									data?.links.split(FILES_SEPARATOR).map((link: string, index: number) => (
-										<a key={index + 1} href={link} className='text-sm w-fit text-wrap' target='__blank' rel='noopener noreferrer'>
-											<Button
-												variant='link'
-												className='over px-0 text-wrap h-full flex items-center justify-between text-left w-full'
+									data?.links
+										.split(FILES_SEPARATOR)
+										.map((link: string, index: number) => (
+											<a
+												key={index + 1}
+												href={link}
+												className="text-sm w-fit text-wrap"
+												target="__blank"
+												rel="noopener noreferrer"
 											>
-												{getFileName(link)}
-											</Button>
-										</a>
-									))}
-								<Separator className='my-3' />
+												<Button
+													variant="link"
+													className="over px-0 text-wrap h-full flex items-center justify-between text-left w-full"
+												>
+													{getFileName(link)}
+												</Button>
+											</a>
+										))}
+								<Separator className="my-3" />
 							</div>
 						)}
 						{data?.feedbackFromCompany && (
-							<div id='additionalDetails'>
-								<h2 className='text-lg font-semibold !mt-3'>Additional details after applying</h2>
+							<div id="additionalDetails">
+								<h2 className="text-lg font-semibold !mt-3">
+									Additional details after applying
+								</h2>
 								<div
-									className='rounded-md prose !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
-									dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data?.feedbackFromCompany) }}
+									className="rounded-md prose !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
+									dangerouslySetInnerHTML={{
+										__html: DOMPurify.sanitize(
+											data?.feedbackFromCompany,
+										),
+									}}
 								/>
-								<Separator className='my-3' />
+								<Separator className="my-3" />
 							</div>
 						)}
-						<div id='applicationData'>
-							<h2 className='text-lg font-semibold !m-0'>Application Data</h2>
+						<div id="applicationData">
+							<h2 className="text-lg font-semibold !m-0">
+								Application Data
+							</h2>
 							<div
-								className='rounded-md prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none'
-								dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data?.jobDescription) }}
+								className="rounded-md prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
+								dangerouslySetInnerHTML={{
+									__html: DOMPurify.sanitize(
+										data?.jobDescription,
+									),
+								}}
 							/>
 						</div>
 					</div>
 
 					{data?.interviewQuestions && (
-						<div className='border p-4 rounded-md bg-background' id='interviewQuestions'>
-							<h2 className='text-lg font-semibold !m-0'>Interview Questions Data</h2>
-							<QnAAccordion questionsAndAnswers={data?.interviewQuestions?.questionsAndAnswers} />
+						<div
+							className="border p-4 rounded-md bg-background"
+							id="interviewQuestions"
+						>
+							<h2 className="text-lg font-semibold !m-0">
+								Interview Questions Data
+							</h2>
+							<QnAAccordion
+								questionsAndAnswers={
+									data?.interviewQuestions
+										?.questionsAndAnswers
+								}
+							/>
 						</div>
 					)}
 				</>

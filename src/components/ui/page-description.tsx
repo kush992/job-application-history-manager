@@ -5,7 +5,7 @@ type Props = {
 };
 
 const PageDescription: React.FC<Props> = ({ description }) => {
-	return <p className='text-sm text-muted-foreground'>{description}</p>;
+	return <p className="text-sm text-muted-foreground">{description}</p>;
 };
 
 export default PageDescription;

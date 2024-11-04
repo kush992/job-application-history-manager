@@ -11,7 +11,7 @@ import { fetchApplicationData } from '@/lib/server/appwrite-queries';
 const ApplicationsPage = async () => {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect(appRoutes.signUpPage);
+	if (!user) redirect(appRoutes.signUp);
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
@@ -21,7 +21,7 @@ const ApplicationsPage = async () => {
 
 	return (
 		<Suspense fallback={<Loader />}>
-			<main className='flex min-h-screen flex-col gap-8 max-w-6xl mx-auto p-4 '>
+			<main className="flex min-h-screen flex-col gap-8 max-w-6xl mx-auto p-4 ">
 				<Analytics />
 				<HydrationBoundary state={dehydrate(queryClient)}>
 					<ApplicationPage userId={user.$id} />

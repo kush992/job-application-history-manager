@@ -2,12 +2,20 @@ import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { JobApplicationData } from '@/types/apiResponseTypes';
 import { appRoutes } from '@/utils/constants';
 import { transformDate } from '@/utils/date';
-import { DeleteFilled, DollarCircleFilled, EditFilled } from '@ant-design/icons';
+import {
+	DeleteFilled,
+	DollarCircleFilled,
+	EditFilled,
+} from '@ant-design/icons';
 import Link from 'next/link';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
 import { AlertDialogCustom } from '@/components/AlertDialogCustom';
 
@@ -35,41 +43,62 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 	}
 
 	return (
-		<div className='bg-background p-4 grid grid-cols-[1fr_auto] gap-2'>
-			<Link href={`${appRoutes.viewApplicationPage}/${data.$id}`}>
-				<div className='grid sm:grid-cols-3 sm:gap-4 w-full items-start'>
+		<div className="bg-background p-4 grid grid-cols-[1fr_auto] gap-2">
+			<Link href={`${appRoutes.viewApplication}/${data.$id}`}>
+				<div className="grid sm:grid-cols-3 sm:gap-4 w-full items-start">
 					<div>
-						<h3 className='text-base font-[500] !pb-0 !my-0 text-primary'>{data.jobTitle}</h3>
-						<p className='!my-0 text-muted-foreground'>{data.companyName}</p>
+						<h3 className="text-base font-[500] !pb-0 !my-0 text-primary">
+							{data.jobTitle}
+						</h3>
+						<p className="!my-0 text-muted-foreground">
+							{data.companyName}
+						</p>
 					</div>
-					<p className='text-muted-foreground text-xs md:hidden'>{transformDate(data.$createdAt)}</p>
-					<div className='flex items-center my-2 gap-2 md:my-0'>
+					<p className="text-muted-foreground text-xs md:hidden">
+						{transformDate(data.$createdAt)}
+					</p>
+					<div className="flex items-center my-2 gap-2 md:my-0">
 						{data.applicationStatus && (
-							<Badge variant={'secondary'} title={data.applicationStatus} className=''>
+							<Badge
+								variant={'secondary'}
+								title={data.applicationStatus}
+								className=""
+							>
 								{data.applicationStatus}
 							</Badge>
 						)}
-						{data.salary && <DollarCircleFilled className='!text-primary' />}
+						{data.salary && (
+							<DollarCircleFilled className="!text-primary" />
+						)}
 					</div>
-					<p className='hidden md:block md:!my-0 text-muted-foreground text-xs md:text-sm'>{transformDate(data.$createdAt)}</p>
+					<p className="hidden md:block md:!my-0 text-muted-foreground text-xs md:text-sm">
+						{transformDate(data.$createdAt)}
+					</p>
 				</div>
 			</Link>
 
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button variant='outline' size='icon'>
-						<MoreHorizontal className='cursor-pointer' />
+					<Button variant="outline" size="icon">
+						<MoreHorizontal className="cursor-pointer" />
 					</Button>
 				</DropdownMenuTrigger>
 
-				<DropdownMenuContent align='end'>
-					<Link href={`${appRoutes.updateApplicationPage}/${data.$id}`}>
-						<Button variant='ghost' className='flex gap-1 items-center w-full justify-start'>
+				<DropdownMenuContent align="end">
+					<Link href={`${appRoutes.updateApplication}/${data.$id}`}>
+						<Button
+							variant="ghost"
+							className="flex gap-1 items-center w-full justify-start"
+						>
 							<EditFilled /> Edit
 						</Button>
 					</Link>
 
-					<AlertDialogCustom buttonName='Delete' icon={<DeleteFilled />} onClickContinue={() => onClickDelete(data.$id)} />
+					<AlertDialogCustom
+						buttonName="Delete"
+						icon={<DeleteFilled />}
+						onClickContinue={() => onClickDelete(data.$id)}
+					/>
 				</DropdownMenuContent>
 			</DropdownMenu>
 		</div>

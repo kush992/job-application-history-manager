@@ -1,8 +1,12 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
 	darkMode: ['class'],
-	content: ['./src/pages/**/*.{js,ts,jsx,tsx,mdx}', './src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/app/**/*.{js,ts,jsx,tsx,mdx}'],
+	content: [
+		'./src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+		'./src/components/**/*.{js,ts,jsx,tsx,mdx}',
+		'./src/app/**/*.{js,ts,jsx,tsx,mdx}',
+	],
 	theme: {
 		container: {
 			center: true,
@@ -12,9 +16,14 @@ const config: Config = {
 			},
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Inter', 'sans-serif'],
+				poppins: ['Poppins', 'sans-serif'],
+			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'gradient-conic':
+					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -65,6 +74,8 @@ const config: Config = {
 				},
 				successColor: 'hsl(var(--success-color))',
 				warningColor: 'hsl(var(--warning-color))',
+				darkGreenAccent: 'hsl(var(--dark-green-accent))',
+				lightGreenAccent: 'hsl(var(--light-green-accent))',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -90,6 +101,9 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [require('@tailwindcss/typography'), require('tailwindcss-animate')],
+	plugins: [
+		require('@tailwindcss/typography'),
+		require('tailwindcss-animate'),
+	],
 };
 export default config;

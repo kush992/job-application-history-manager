@@ -4,6 +4,7 @@ import './globals.css';
 import Wrapper from '@/components/Wrapper';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { jsonParseString } from '@/utils/utility';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,10 +39,15 @@ export default async function RootLayout({
 	const user = await getLoggedInUser();
 
 	return (
-		<html lang='en'>
-			<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'></meta>
+		<html lang="en">
+			<meta
+				name="viewport"
+				content="width=device-width, initial-scale=1, maximum-scale=1"
+			></meta>
 			<body className={inter.className}>
+				{/* <ErrorBoundary> */}
 				<Wrapper user={jsonParseString(user)}>{children}</Wrapper>
+				{/* </ErrorBoundary> */}
 			</body>
 		</html>
 	);

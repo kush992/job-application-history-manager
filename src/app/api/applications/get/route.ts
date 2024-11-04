@@ -5,10 +5,11 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
 	try {
-		const response = (await database.listDocuments(appwriteDbConfig.applicationDb, appwriteDbConfig.applicationDbCollectionId, [
-			Query.equal('isSoftDelete', false),
-			Query.orderDesc('$createdAt'),
-		])) as Response<JobApplicationData>;
+		const response = (await database.listDocuments(
+			appwriteDbConfig.applicationDb,
+			appwriteDbConfig.applicationDbCollectionId,
+			[Query.equal('isSoftDelete', false), Query.orderDesc('$createdAt')],
+		)) as Response<JobApplicationData>;
 
 		// console.log('response', response);
 
@@ -17,6 +18,9 @@ export async function GET() {
 		}
 	} catch (error) {
 		console.error(error);
-		return NextResponse.json({ error: 'Error fetching data' }, { status: 500 });
+		return NextResponse.json(
+			{ error: 'Error fetching data' },
+			{ status: 500 },
+		);
 	}
 }

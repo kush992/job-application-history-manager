@@ -8,6 +8,7 @@ import { Toaster } from '../ui/toaster';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
+import Footer from '../Footer';
 
 export default function Wrapper({
 	children,
@@ -19,12 +20,19 @@ export default function Wrapper({
 	const [queryClient] = React.useState(() => new QueryClient());
 
 	return (
-		<ThemeProvider attribute='class' themes={['dark', 'light', 'system']} defaultTheme='system' enableColorScheme disableTransitionOnChange>
+		<ThemeProvider
+			attribute="class"
+			themes={['dark', 'light', 'system']}
+			defaultTheme="system"
+			enableColorScheme
+			disableTransitionOnChange
+		>
 			<QueryClientProvider client={queryClient}>
-				<Header user={jsonParseString(user)} />
 				<ReactQueryDevtools initialIsOpen={false} />
-				{children}
 				<Toaster />
+				<Header user={jsonParseString(user)} />
+				<div className="min-h-screen">{children}</div>
+				<Footer />
 			</QueryClientProvider>
 		</ThemeProvider>
 	);

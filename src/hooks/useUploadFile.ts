@@ -17,8 +17,15 @@ type UseFileUploadReturn = {
 export const useUploadFile = (): UseFileUploadReturn => {
 	const [fileStatuses, setFileStatuses] = useState<UploadFileStatus[]>([]);
 
-	const updateFileStatus = (file: File, update: Partial<UploadFileStatus>) => {
-		setFileStatuses((prevStatuses) => prevStatuses.map((status) => (status.file === file ? { ...status, ...update } : status)));
+	const updateFileStatus = (
+		file: File,
+		update: Partial<UploadFileStatus>,
+	) => {
+		setFileStatuses((prevStatuses) =>
+			prevStatuses.map((status) =>
+				status.file === file ? { ...status, ...update } : status,
+			),
+		);
 	};
 
 	const uploadFiles = useCallback(async (files: File[]) => {
