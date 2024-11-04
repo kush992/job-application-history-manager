@@ -54,7 +54,7 @@ export default function HomePage() {
 								Get started <MoveRight />
 							</Button>
 						</Link>
-						<Link href={appRoutes.signUp}>
+						<Link href={appRoutes.aboutUs}>
 							<Button
 								size="lg"
 								variant="outline"
