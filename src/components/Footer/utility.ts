@@ -15,4 +15,5 @@ export const footerLinks = [
 		href: appRoutes.privacyPolicy,
 	},
 	{ title: 'Contact Us', href: appRoutes.contactUs },
+	{ title: 'FAQ', href: appRoutes.faq },
 ];

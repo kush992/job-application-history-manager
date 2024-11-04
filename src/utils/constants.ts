@@ -9,6 +9,7 @@ export const appRoutes = {
 	interviewQuestions: '/interview-questions',
 	addInterviewQuestions: '/interview-questions/add',
 	updateInterviewQuestions: '/interview-questions/update',
+	faq: '/faq',
 	pricing: '/pricing',
 	aboutUs: '/about-us',
 	contactUs: '/contact-us',
