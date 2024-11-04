@@ -20,7 +20,7 @@ const PricingPage = () => {
 						Designed for Candidates like you
 					</h1>
 					<p className="leading-7 [&:not(:first-child)]:mt-6">
-						Explore JobJourney's plans:
+						Explore {"JobJourney's"} plans:
 					</p>
 				</div>
 				<div className="space-y-8 flex flex-col md:flex-row justify-center sm:gap-6 xl:gap-10 lg:space-y-0">
