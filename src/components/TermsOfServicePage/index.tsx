@@ -76,10 +76,10 @@ export default function TermsOfServicePage() {
 						</h2>
 						<p>
 							JobJourney owns all intellectual property rights to
-							the platform's design, functionality, and content
-							(excluding user-uploaded content). Users are granted
-							a limited license to use the platform for personal
-							job application management.
+							the {"platform's"} design, functionality, and
+							content (excluding user-uploaded content). Users are
+							granted a limited license to use the platform for
+							personal job application management.
 						</p>
 					</section>
 
