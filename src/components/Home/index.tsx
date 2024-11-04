@@ -1,6 +1,11 @@
 import Loader from '@/components/Loader';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+} from '@/components/ui/card';
 import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { ChevronRight, MoveRight } from 'lucide-react';
@@ -78,10 +83,12 @@ export default function HomePage() {
 					<div className="grid md:grid-cols-2 gap-8">
 						{featureData.map((data) => (
 							<Card key={data.tag}>
-								<CardHeader>
-									<p className="bg-lightGreenAccent text-darkGreenAccent text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md w-fit mb-2">
-										{data.tag}
-									</p>
+								<CardHeader className="text-center">
+									<CardDescription>
+										<p className="bg-lightGreenAccent text-darkGreenAccent text-xs font-medium inline-flex items-center text-center px-2.5 py-0.5 rounded-md w-fit mb-2">
+											{data.tag}
+										</p>
+									</CardDescription>
 									<h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
 										{data.title}
 									</h3>

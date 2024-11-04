@@ -17,7 +17,7 @@ const PricingPage = () => {
 			<div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 				<div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
 					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-						Designed for Candidates like you
+						Designed for candidates like you
 					</h1>
 					<p className="leading-7 [&:not(:first-child)]:mt-6">
 						Explore {"JobJourney's"} plans:
@@ -41,38 +41,20 @@ const PricingPage = () => {
 								className="space-y-4 text-left !m-0"
 							>
 								<li className="flex items-center space-x-3">
-									<Check />
-									<span>Individual configuration</span>
+									<Check className="text-successColor" />
+									<span>Add up to 20 job applications</span>
 								</li>
 								<li className="flex items-center space-x-3">
-									<Check />
-									<span>No setup, or hidden fees</span>
-								</li>
-								<li className="flex items-center space-x-3">
-									<Check />
+									<Check className="text-successColor" />
 									<span>
-										Team size:{' '}
-										<span className="font-semibold">
-											100+ developers
-										</span>
+										Upload documents for each application
 									</span>
 								</li>
 								<li className="flex items-center space-x-3">
-									<Check />
+									<Check className="text-successColor" />
 									<span>
-										Premium support:{' '}
-										<span className="font-semibold">
-											36 months
-										</span>
-									</span>
-								</li>
-								<li className="flex items-center space-x-3">
-									<Check />
-									<span>
-										Free updates:{' '}
-										<span className="font-semibold">
-											36 months
-										</span>
+										Add up to 20 interview questions to the
+										public community page
 									</span>
 								</li>
 							</ul>
@@ -91,7 +73,7 @@ const PricingPage = () => {
 
 					<Card className="max-w-[400px] w-full">
 						<CardHeader className="text-center">
-							<CardTitle>Starter</CardTitle>
+							<CardTitle>Premium (Coming Soon)</CardTitle>
 							<CardDescription>
 								Best option for personal use & for your next
 								project.
@@ -106,38 +88,20 @@ const PricingPage = () => {
 								className="space-y-4 text-left !m-0"
 							>
 								<li className="flex items-center space-x-3">
-									<Check />
-									<span>Individual configuration</span>
+									<Check className="text-successColor" />
+									<span>Unlimited applications</span>
 								</li>
 								<li className="flex items-center space-x-3">
-									<Check />
-									<span>No setup, or hidden fees</span>
-								</li>
-								<li className="flex items-center space-x-3">
-									<Check />
+									<Check className="text-successColor" />
 									<span>
-										Team size:{' '}
-										<span className="font-semibold">
-											100+ developers
-										</span>
+										Unlimited interview insights on the
+										public page
 									</span>
 								</li>
 								<li className="flex items-center space-x-3">
-									<Check />
+									<Check className="text-successColor" />
 									<span>
-										Premium support:{' '}
-										<span className="font-semibold">
-											36 months
-										</span>
-									</span>
-								</li>
-								<li className="flex items-center space-x-3">
-									<Check />
-									<span>
-										Free updates:{' '}
-										<span className="font-semibold">
-											36 months
-										</span>
+										Additional customization options
 									</span>
 								</li>
 							</ul>
