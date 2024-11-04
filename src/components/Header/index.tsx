@@ -7,10 +7,10 @@ import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { PlusCircleFilled } from '@ant-design/icons';
 import { Models } from 'appwrite';
-// import { ThemeSwitcher } from '../ThemeSwitcher';
 import { Button } from '@/components/ui/button';
 import { UserMenu } from '../UserMenu';
 import { CircleX, Info, X } from 'lucide-react';
+import { navBarLinks } from './utility';
 
 type Props = {
 	user: Models.User<Models.Preferences> | null;
@@ -47,7 +47,7 @@ const Header: React.FC<Props> = ({ user }) => {
 		<>
 			{!isHidden && (
 				<div className="bg-background text-muted-foreground text-xs py-2 text-center border-b flex gap-2 items-center justify-center">
-					Currently on testing stage{' '}
+					Currently on testing stage
 					<Button
 						size="icon"
 						variant="ghost"
@@ -68,36 +68,53 @@ const Header: React.FC<Props> = ({ user }) => {
 						</Link>
 					</div>
 					<nav className="hidden md:flex justify-center items-center gap-4">
-						{/* <ThemeSwitcher /> */}
 						{user?.$id && (
 							<ul className="flex justify-between items-center m-0 gap-4">
-								<li className="list-none">
-									<Link href={appRoutes.addApplication}>
-										<Button variant="outline" size="icon">
-											<PlusCircleFilled
-												className="text-secondary-foreground"
-												height="40px"
-												width="40px"
-											/>
-										</Button>
-									</Link>
-								</li>
-								<li className="list-none">
-									<Link
-										href={appRoutes.application}
-										className={cn(
-											'text-secondary-foreground',
-											{
-												'bg-muted p-2 rounded-md':
-													isActive(
-														appRoutes.application,
-													),
-											},
-										)}
-									>
-										Your Applications
-									</Link>
-								</li>
+								{navBarLinks.map((navBarLink) =>
+									navBarLink.href ===
+									appRoutes.addApplication ? (
+										<li
+											className="list-none"
+											key={navBarLink.href}
+										>
+											<Link
+												href={appRoutes.addApplication}
+											>
+												<Button
+													variant="outline"
+													size="icon"
+												>
+													<PlusCircleFilled
+														className="text-secondary-foreground"
+														height="40px"
+														width="40px"
+													/>
+												</Button>
+											</Link>
+										</li>
+									) : (
+										<li
+											className="list-none"
+											key={navBarLink.href}
+										>
+											<Link
+												href={navBarLink.href}
+												className={cn(
+													'text-secondary-foreground',
+													{
+														'bg-muted p-2 rounded-md':
+															isActive(
+																navBarLink.href,
+															),
+													},
+												)}
+											>
+												{navBarLink.page}
+											</Link>
+										</li>
+									),
+								)}
+
 								<UserMenu user={user} />
 							</ul>
 						)}
@@ -108,7 +125,6 @@ const Header: React.FC<Props> = ({ user }) => {
 						)}
 					</nav>
 					<div className="md:hidden flex items-center gap-2">
-						{/* <ThemeSwitcher /> */}
 						{user?.$id && <UserMenu user={user} />}
 						{!user?.$id && (
 							<Link href={appRoutes.signUp}>

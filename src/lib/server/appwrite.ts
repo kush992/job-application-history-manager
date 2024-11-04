@@ -120,8 +120,6 @@ export async function loginWithEmail(formData: FormData) {
 }
 
 export async function signOut() {
-	'use server';
-
 	const { account } = await createSessionClient();
 
 	cookies().delete('session');
