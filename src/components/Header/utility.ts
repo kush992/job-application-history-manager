@@ -3,14 +3,14 @@ import { appRoutes } from '@/utils/constants';
 export const navBarLinks = [
 	{
 		page: 'Add',
-		href: appRoutes.addApplicationPage,
+		href: appRoutes.addApplication,
 	},
 	{
 		page: 'Applications',
-		href: appRoutes.applicationPage,
+		href: appRoutes.application,
 	},
 	{
 		page: 'Interview Questions',
-		href: appRoutes.interviewQuestionsPage,
+		href: appRoutes.interviewQuestions,
 	},
 ];
