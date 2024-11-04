@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { appwriteDbConfig, database } from '@/appwrite/config';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import { formatDate } from '@/utils/date';
 import Loader from '../Loader';
@@ -23,7 +22,6 @@ import { Badge } from '../ui/badge';
 import { getFileName } from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
 import { useQuery } from '@tanstack/react-query';
-import { Query } from 'node-appwrite';
 import { fetchApplicationDataById } from '@/lib/server/appwrite-queries';
 
 type Props = {
