@@ -31,7 +31,7 @@ export enum RoleType {
 export const formSchema = z.object({
 	userId: z.string().optional().default(' '),
 	jobTitle: z.string().nonempty('Job title is a required field'),
-	jobDescription: z.string().nonempty('Job description is a required field').optional(),
+	notes: z.string().nonempty('Job description is a required field').optional(),
 	salary: z.string().optional(),
 	salaryType: z.string().default(SalaryType.MONTHLY).optional().nullable(),
 	salaryCurrency: z.string().default(SalaryCurrency.PLN).optional().nullable(),

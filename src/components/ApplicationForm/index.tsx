@@ -96,7 +96,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	const initialFormData: JobApplicationFormData = {
 		userId: applicationData?.userId || userId,
 		jobTitle: applicationData.jobTitle,
-		jobDescription: applicationData.jobDescription,
+		notes: applicationData.notes,
 		companyName: applicationData?.companyName,
 		companyDomain: applicationData?.companyDomain || undefined,
 		feedbackFromCompany: applicationData?.feedbackFromCompany,

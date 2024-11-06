@@ -46,9 +46,9 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 				<FormItem>
 					<FormLabel>Job description</FormLabel>
 					<TinyEditor
-						initialData={form.getValues('jobDescription') ?? ''}
-						onChange={(data: string) => form.setValue('jobDescription', data)}
-						textareaName="jobDescription"
+						initialData={form.getValues('notes') ?? ''}
+						onChange={(data: string) => form.setValue('notes', data)}
+						textareaName="notes"
 					/>
 					<FormMessage />
 				</FormItem>

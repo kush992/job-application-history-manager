@@ -136,7 +136,7 @@ const ApplicationView = ({ documentId, userId }: Props) => {
 							<div
 								className="rounded-md prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
 								dangerouslySetInnerHTML={{
-									__html: DOMPurify.sanitize(data?.jobDescription),
+									__html: DOMPurify.sanitize(data?.notes),
 								}}
 							/>
 						</div>

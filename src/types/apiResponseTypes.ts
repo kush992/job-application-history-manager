@@ -1,7 +1,7 @@
 export type JobApplicationData = {
 	userId: string;
 	jobTitle: string;
-	jobDescription: string;
+	notes: string;
 	deletedAt: null | string;
 	salary: string;
 	salaryType: string;

@@ -50,7 +50,7 @@ export async function PUT(req: NextRequest) {
 
 	// 		const formData: FormData = {
 	// 			jobTitle: getFieldValue(fields.jobTitle),
-	// 			jobDescription: getFieldValue(fields.jobDescription),
+	// 			notes: getFieldValue(fields.notes),
 	// 			companyName: getFieldValue(fields.companyName),
 	// 			companyDomain: getFieldValue(fields.companyDomain),
 	// 			applicationStatus: getFieldValue(fields.applicationStatus),
