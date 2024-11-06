@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function NotFound() {
 	return (
 		<section>
-			<div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 h-[80vh] flex items-center">
+			<div className="py-8 mx-auto max-w-screen-xl lg:py-16 lg:px-6 h-[80vh] flex items-center">
 				<div className="mx-auto max-w-screen-sm text-center">
 					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">404</h1>
 					<p className="mt-10 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
