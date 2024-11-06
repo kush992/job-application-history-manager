@@ -40,10 +40,7 @@ export default async function RootLayout({
 
 	return (
 		<html lang="en">
-			<meta
-				name="viewport"
-				content="width=device-width, initial-scale=1, maximum-scale=1"
-			></meta>
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
 			<body className={inter.className}>
 				{/* <ErrorBoundary> */}
 				<Wrapper user={jsonParseString(user)}>{children}</Wrapper>

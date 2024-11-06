@@ -1,30 +1,10 @@
-import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import {
-	ApplicationStatus,
-	FILES_SEPARATOR,
-	FormData,
-	SalaryCurrency,
-	SalaryType,
-} from '../utility';
+import { ApplicationStatus, FILES_SEPARATOR, JobApplicationFormData, SalaryCurrency, SalaryType } from '../utility';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { DateTimePicker } from '@/components/ui/date-time-picker';
 import { config } from '@/config/config';
@@ -33,15 +13,22 @@ import DocumentInfoCard from '@/components/DocumentInfoCard';
 import { getFileName } from '@/utils/utility';
 
 type Props = {
-	form: UseFormReturn<FormData>;
-	onSubmit: (data: FormData) => Promise<void>;
+	form: UseFormReturn<JobApplicationFormData>;
+	onSubmit: (data: JobApplicationFormData) => Promise<void>;
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
-	const { uploadFiles, fileStatuses } = useUploadFile();
+	const { uploadFiles, deleteFile, fileStatuses } = useUploadFile();
 
 	const isShowFileStatus = fileStatuses.some((status) => status.isLoading);
 	const initialLinks = form.getValues('links');
+
+	const removeFile = (fileName: string) => {
+		const links = form.getValues('links')?.split(FILES_SEPARATOR);
+		const newLinks = links?.filter((link) => !link.includes(fileName)).join(FILES_SEPARATOR);
+		form.setValue('links', newLinks);
+		deleteFile(fileName);
+	};
 
 	return (
 		<Form {...form}>
@@ -64,13 +51,11 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 				/>
 
 				<FormItem>
-					<FormLabel>Job description</FormLabel>
+					<FormLabel>Notes</FormLabel>
 					<TinyEditor
-						initialData={form.getValues('jobDescription') ?? ''}
-						onChange={(data: string) =>
-							form.setValue('jobDescription', data)
-						}
-						textareaName="jobDescription"
+						initialData={form.getValues('notes') ?? ''}
+						onChange={(data: string) => form.setValue('notes', data)}
+						textareaName="notes"
 					/>
 					<FormMessage />
 				</FormItem>
@@ -83,10 +68,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 							<FormItem>
 								<FormLabel>Company Name</FormLabel>
 								<FormControl>
-									<Input
-										placeholder="Company name"
-										{...field}
-									/>
+									<Input placeholder="Company name" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -99,10 +81,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 							<FormItem>
 								<FormLabel>Company Domain</FormLabel>
 								<FormControl>
-									<Input
-										placeholder="Company domain"
-										{...field}
-									/>
+									<Input placeholder="Company domain" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -130,22 +109,15 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Salary Type</FormLabel>
-								<Select
-									onValueChange={field.onChange}
-									defaultValue={field.value ?? undefined}
-								>
+								<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
 									<FormControl>
 										<SelectTrigger>
 											<SelectValue placeholder="Select type of salary" />
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
-										<SelectItem value={SalaryType.MONTHLY}>
-											Monthly
-										</SelectItem>
-										<SelectItem value={SalaryType.PER_ANUM}>
-											Yearly
-										</SelectItem>
+										<SelectItem value={SalaryType.MONTHLY}>Monthly</SelectItem>
+										<SelectItem value={SalaryType.PER_ANUM}>Yearly</SelectItem>
 									</SelectContent>
 								</Select>
 								<FormMessage />
@@ -161,31 +133,18 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Salary Currency</FormLabel>
-								<Select
-									onValueChange={field.onChange}
-									defaultValue={field.value ?? undefined}
-								>
+								<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
 									<FormControl>
 										<SelectTrigger>
 											<SelectValue placeholder="Select currency type" />
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
-										<SelectItem value={SalaryCurrency.PLN}>
-											PLN
-										</SelectItem>
-										<SelectItem value={SalaryCurrency.EUR}>
-											EUR
-										</SelectItem>
-										<SelectItem value={SalaryCurrency.GBP}>
-											GBP
-										</SelectItem>
-										<SelectItem value={SalaryCurrency.INR}>
-											INR
-										</SelectItem>
-										<SelectItem value={SalaryCurrency.USD}>
-											USD
-										</SelectItem>
+										<SelectItem value={SalaryCurrency.PLN}>PLN</SelectItem>
+										<SelectItem value={SalaryCurrency.EUR}>EUR</SelectItem>
+										<SelectItem value={SalaryCurrency.GBP}>GBP</SelectItem>
+										<SelectItem value={SalaryCurrency.INR}>INR</SelectItem>
+										<SelectItem value={SalaryCurrency.USD}>USD</SelectItem>
 									</SelectContent>
 								</Select>
 								<FormMessage />
@@ -198,50 +157,21 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Application Status</FormLabel>
-								<Select
-									onValueChange={field.onChange}
-									value={field.value ?? undefined}
-								>
+								<Select onValueChange={field.onChange} value={field.value ?? undefined}>
 									<FormControl>
 										<SelectTrigger>
 											<SelectValue placeholder="Select status of the application" />
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
-										<SelectItem
-											value={ApplicationStatus.APPLIED}
-										>
-											Applied
-										</SelectItem>
-										<SelectItem
-											value={
-												ApplicationStatus.IN_PROGRESS
-											}
-										>
-											In progress
-										</SelectItem>
-										<SelectItem
-											value={ApplicationStatus.SUCCESS}
-										>
-											Success
-										</SelectItem>
-										<SelectItem
-											value={ApplicationStatus.NO_REPLY}
-										>
-											No reply
-										</SelectItem>
-										<SelectItem
-											value={
-												ApplicationStatus.REJECTED_NO_FEEDBACK
-											}
-										>
+										<SelectItem value={ApplicationStatus.APPLIED}>Applied</SelectItem>
+										<SelectItem value={ApplicationStatus.IN_PROGRESS}>In progress</SelectItem>
+										<SelectItem value={ApplicationStatus.SUCCESS}>Success</SelectItem>
+										<SelectItem value={ApplicationStatus.NO_REPLY}>No reply</SelectItem>
+										<SelectItem value={ApplicationStatus.REJECTED_NO_FEEDBACK}>
 											Rejected no feedback
 										</SelectItem>
-										<SelectItem
-											value={
-												ApplicationStatus.REJECTED_WITH_FEEDBACK
-											}
-										>
+										<SelectItem value={ApplicationStatus.REJECTED_WITH_FEEDBACK}>
 											Rejected with feedback
 										</SelectItem>
 									</SelectContent>
@@ -260,10 +190,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						<FormItem className="flex flex-col">
 							<FormLabel>Interview Date</FormLabel>
 							<FormControl>
-								<DateTimePicker
-									value={field.value}
-									onChange={field.onChange}
-								/>
+								<DateTimePicker value={field.value} onChange={field.onChange} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -288,29 +215,16 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 											const files = e.target.files;
 
 											if (files?.length) {
-												const uploadedFileUrls =
-													await uploadFiles(
-														Array.from(files),
-													);
+												const uploadedFileUrls = await uploadFiles(Array.from(files));
 
 												if (uploadedFileUrls) {
 													if (!initialLinks) {
-														form.setValue(
-															'links',
-															uploadedFileUrls.join(
-																FILES_SEPARATOR,
-															),
-														);
+														form.setValue('links', uploadedFileUrls.join(FILES_SEPARATOR));
 													} else {
-														const newLinks =
-															uploadedFileUrls.join(
-																FILES_SEPARATOR,
-															);
+														const newLinks = uploadedFileUrls.join(FILES_SEPARATOR);
 														form.setValue(
 															'links',
-															initialLinks +
-																FILES_SEPARATOR +
-																newLinks,
+															initialLinks + FILES_SEPARATOR + newLinks,
 														); // joining the recent with initial links
 													}
 												}
@@ -319,17 +233,12 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 									/>
 								</FormControl>
 
-								<FormDescription>
-									File should be less than 10MB.
-								</FormDescription>
+								<FormDescription>File should be less than 10MB.</FormDescription>
 
 								{/* show current progress of files */}
 								{isShowFileStatus &&
 									fileStatuses.map((status) => (
-										<DocumentInfoCard
-											key={status.file.name}
-											{...status}
-										/>
+										<DocumentInfoCard key={status.file.name} {...status} />
 									))}
 
 								{/* show all the files associated to this application */}
@@ -339,6 +248,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<DocumentInfoCard
 											key={`${index + 1} - ${getFileName(link)}`}
 											fileName={getFileName(link)}
+											removeFile={removeFile}
 										/>
 									))}
 								<FormMessage />

@@ -1,11 +1,6 @@
 import Loader from '@/components/Loader';
 import { Button } from '@/components/ui/button';
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { ChevronRight, MoveRight } from 'lucide-react';
@@ -22,12 +17,8 @@ export default function HomePage() {
 						href={appRoutes.pricing}
 						className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm bg-lightGreenAccent rounded-full text-darkGreenAccent"
 					>
-						<span className="text-xs bg-darkGreenAccent rounded-full text-white px-4 py-1.5 me-3">
-							New
-						</span>
-						<span className="text-sm font-medium">
-							Available now - Premium plan
-						</span>
+						<span className="text-xs bg-darkGreenAccent rounded-full text-white px-4 py-1.5 me-3">New</span>
+						<span className="text-sm font-medium">Available now - Premium plan</span>
 						<ChevronRight className="text-darkGreenAccent" />
 					</Link>
 					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
@@ -38,19 +29,12 @@ export default function HomePage() {
 					</p>
 					<div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center my-6">
 						<Link href={appRoutes.signUp}>
-							<Button
-								size="lg"
-								className="flex items-center gap-2"
-							>
+							<Button size="lg" className="flex items-center gap-2">
 								Get started <MoveRight />
 							</Button>
 						</Link>
 						<Link href={appRoutes.aboutUs}>
-							<Button
-								size="lg"
-								variant="outline"
-								className="flex items-center gap-2"
-							>
+							<Button size="lg" variant="outline" className="flex items-center gap-2">
 								Learn More
 							</Button>
 						</Link>
@@ -65,12 +49,10 @@ export default function HomePage() {
 						Tired of spreadsheets for tracking job applications?
 					</h2>
 					<p className="leading-7 [&:not(:first-child)]:mt-6 text-muted-foreground">
-						With JobJourney, effortlessly manage and track every
-						application, from submissions to interviews, in a single
-						portal. Forget Excel – our tool is designed to organize
-						all your application data, including files, notes, and
-						interview insights, all in one place for easy access and
-						analysis.{' '}
+						With JobJourney, effortlessly manage and track every application, from submissions to
+						interviews, in a single portal. Forget Excel – our tool is designed to organize all your
+						application data, including files, notes, and interview insights, all in one place for easy
+						access and analysis.{' '}
 					</p>
 				</div>
 			</section>
@@ -94,9 +76,7 @@ export default function HomePage() {
 									</h3>
 								</CardHeader>
 								<CardContent>
-									<p className="leading-7 text-muted-foreground">
-										{data.description}
-									</p>
+									<p className="leading-7 text-muted-foreground">{data.description}</p>
 								</CardContent>
 							</Card>
 						))}

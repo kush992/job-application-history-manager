@@ -16,3 +16,9 @@ export const appRoutes = {
 	privacyPolicy: '/privacy-policy',
 	termsOfService: '/terms-of-service',
 };
+
+export enum QueryKeys {
+	APPLICATIONS_PAGE = 'APPLICATIONS_PAGE',
+	APPLICATION_BY_ID = 'APPLICATION_BY_ID',
+	QUESTIONS_AND_ANSWERS_PAGE = 'QUESTIONS_AND_ANSWERS_PAGE',
+}

@@ -1,5 +1,5 @@
 import { database } from '@/appwrite/config';
-import { FormData } from '@/components/ApplicationForm/utility';
+import { JobApplicationFormData } from '@/components/ApplicationForm/utility';
 import { NextRequest, NextResponse } from 'next/server';
 import { IncomingMessage } from 'http';
 import formidable from 'formidable';
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
 	// 		const formData: FormData = {
 	// 			jobTitle: getFieldValue(fields.jobTitle),
-	// 			jobDescription: getFieldValue(fields.jobDescription),
+	// 			notes: getFieldValue(fields.notes),
 	// 			companyName: getFieldValue(fields.companyName),
 	// 			companyDomain: getFieldValue(fields.companyDomain),
 	// 			applicationStatus: getFieldValue(fields.applicationStatus),

@@ -35,32 +35,20 @@ export function UserMenu({ user }: Props) {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Avatar className="cursor-pointer h-8 w-8">
-					<AvatarImage
-						src="https://img.kushbhalodi.com/images/avatar.png"
-						alt="profile-image"
-					/>
+					<AvatarImage src="https://img.kushbhalodi.com/images/avatar.png" alt="profile-image" />
 					<AvatarFallback>{userInitials}</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent
-				align="end"
-				className="mr-2 md:mr-0"
-				slot="left"
-			>
+			<DropdownMenuContent align="end" className="mr-2 md:mr-0" slot="left">
 				<DropdownMenuLabel className="flex gap-2 items-center">
 					<Avatar className="cursor-pointer">
-						<AvatarImage
-							src="https://img.kushbhalodi.com/images/avatar.png"
-							alt="profile-image"
-						/>
+						<AvatarImage src="https://img.kushbhalodi.com/images/avatar.png" alt="profile-image" />
 						<AvatarFallback>{userInitials}</AvatarFallback>
 					</Avatar>
 					<div>
 						<p>{user?.name}</p>
-						<p className="text-xs text-muted-foreground">
-							{user?.email}
-						</p>
+						<p className="text-xs text-muted-foreground">{user?.email}</p>
 					</div>
 				</DropdownMenuLabel>
 
@@ -88,26 +76,12 @@ export function UserMenu({ user }: Props) {
 					<DropdownMenuItem disabled>Settings</DropdownMenuItem>
 
 					<DropdownMenuSub>
-						<DropdownMenuSubTrigger>
-							Appearance
-						</DropdownMenuSubTrigger>
+						<DropdownMenuSubTrigger>Appearance</DropdownMenuSubTrigger>
 						<DropdownMenuPortal>
 							<DropdownMenuSubContent>
-								<DropdownMenuItem
-									onClick={() => setTheme('light')}
-								>
-									Light
-								</DropdownMenuItem>
-								<DropdownMenuItem
-									onClick={() => setTheme('dark')}
-								>
-									Dark
-								</DropdownMenuItem>
-								<DropdownMenuItem
-									onClick={() => setTheme('system')}
-								>
-									System
-								</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
 							</DropdownMenuSubContent>
 						</DropdownMenuPortal>
 					</DropdownMenuSub>

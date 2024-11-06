@@ -1,6 +1,6 @@
 import { appwriteDbConfig, database } from '@/appwrite/config';
 import { NextRequest, NextResponse } from 'next/server';
-import { FormData } from '@/components/ApplicationForm/utility';
+import { JobApplicationFormData } from '@/components/ApplicationForm/utility';
 import { IncomingMessage } from 'http';
 import formidable from 'formidable';
 import { getFieldValue } from '@/utils/utility';
@@ -50,7 +50,7 @@ export async function PUT(req: NextRequest) {
 
 	// 		const formData: FormData = {
 	// 			jobTitle: getFieldValue(fields.jobTitle),
-	// 			jobDescription: getFieldValue(fields.jobDescription),
+	// 			notes: getFieldValue(fields.notes),
 	// 			companyName: getFieldValue(fields.companyName),
 	// 			companyDomain: getFieldValue(fields.companyDomain),
 	// 			applicationStatus: getFieldValue(fields.applicationStatus),

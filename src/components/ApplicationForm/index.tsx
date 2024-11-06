@@ -1,12 +1,11 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+
+import { FC } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { formSchema, FormData } from './utility';
-import { appwriteDbConfig, database } from '@/appwrite/config';
-import { ID } from 'appwrite';
+import { formSchema, JobApplicationFormData } from './utility';
 import { useRouter } from 'next/navigation';
 import Loader from '../Loader';
-import { appRoutes } from '@/utils/constants';
+import { appRoutes, QueryKeys } from '@/utils/constants';
 import { useForm } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -17,10 +16,11 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '../ui/breadcrumb';
-import { JobApplicationData } from '@/types/apiResponseTypes';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import ApplicationDataForm from './Form';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { addDocument, addLinks, fetchApplicationDataById, updateDocument } from '@/lib/server/appwrite-queries';
 
 type Props = {
 	documentId?: string;
@@ -29,19 +29,74 @@ type Props = {
 	userId: string;
 };
 
-const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
+const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	const router = useRouter();
 	const { toast } = useToast();
 
-	const [isLoading, setIsLoading] = useState(false);
-	const [applicationData, setApplicationData] = useState<JobApplicationData>(
-		{} as JobApplicationData,
-	);
+	const { data: applicationData, isLoading } = useSuspenseQuery({
+		queryKey: [QueryKeys.APPLICATION_BY_ID, documentId, userId],
+		queryFn: () => fetchApplicationDataById(String(documentId), userId),
+	});
 
-	const initialFormData: FormData = {
+	const addLinksMutation = useMutation({
+		mutationFn: (links: string) => addLinks(links, applicationData.documents[0].$id, userId),
+		onSuccess: () => {
+			toast({
+				title: 'success',
+				description: 'File uploaded successfully',
+			});
+		},
+		onError: (error) => {
+			toast({ title: 'Error', description: error?.message });
+			console.error(error);
+		},
+	});
+
+	const createDocMutation = useMutation({
+		mutationFn: (data: JobApplicationFormData) => {
+			if (data.links) {
+				addLinksMutation.mutate(data.links);
+			}
+			return addDocument(data);
+		},
+		onSuccess: () => {
+			toast({
+				title: 'success',
+				description: 'Application added successfully',
+			});
+			router.push(appRoutes.application);
+		},
+		onError: (error) => {
+			toast({ title: 'Error', description: error?.message });
+			console.error(error);
+		},
+	});
+
+	const updateDocMutation = useMutation({
+		mutationFn: (data: JobApplicationFormData) => {
+			if (data.links) {
+				addLinksMutation.mutate(data.links);
+			}
+			console.log(documentId);
+			return updateDocument(data, String(documentId));
+		},
+		onSuccess: () => {
+			toast({
+				title: 'success',
+				description: 'Application updated successfully',
+			});
+			router.push(appRoutes.application);
+		},
+		onError: (error) => {
+			toast({ title: 'Error', description: error?.message });
+			console.error(error);
+		},
+	});
+
+	const initialFormData: JobApplicationFormData = {
 		userId: applicationData?.userId || userId,
 		jobTitle: applicationData.jobTitle,
-		jobDescription: applicationData.jobDescription,
+		notes: applicationData.notes,
 		companyName: applicationData?.companyName,
 		companyDomain: applicationData?.companyDomain || undefined,
 		feedbackFromCompany: applicationData?.feedbackFromCompany,
@@ -53,13 +108,13 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 		links: applicationData?.links || undefined,
 	};
 
-	const form = useForm<FormData>({
+	const form = useForm<JobApplicationFormData>({
 		resolver: zodResolver(formSchema),
 		defaultValues: { ...initialFormData },
 		values: { ...initialFormData },
 	});
 
-	async function onSubmit(data: FormData) {
+	async function onSubmit(data: JobApplicationFormData) {
 		if (!data.applicationStatus) {
 			delete data.applicationStatus;
 		}
@@ -73,166 +128,31 @@ const ApplicationForm = ({ documentId, isUpdateForm, userId }: Props) => {
 		}
 
 		if (!isUpdateForm) {
-			addDocument(data);
+			createDocMutation.mutate(data);
 		} else {
-			updateDocument(data);
+			updateDocMutation.mutate(data);
 		}
 	}
-
-	function updateDocument(data: FormData) {
-		database
-			.updateDocument(
-				appwriteDbConfig.applicationDb,
-				appwriteDbConfig.applicationDbCollectionId,
-				String(documentId),
-				{
-					...data,
-				},
-				// [Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
-			)
-			.then((response) => {
-				if (data.links) {
-					addLinks(data, documentId || applicationData.$id);
-				}
-				toast({
-					title: 'Success',
-					description: 'Application updated successfully',
-				});
-				router.push(appRoutes.application);
-			})
-			.catch((error) => {
-				console.error(error);
-
-				toast({
-					title: 'Error',
-					description: 'Error updating application',
-				});
-			});
-	}
-
-	function addDocument(data: FormData) {
-		const documentId = ID.unique();
-		database
-			.createDocument(
-				appwriteDbConfig.applicationDb,
-				appwriteDbConfig.applicationDbCollectionId,
-				documentId,
-				{
-					...data,
-				},
-				// [Permission.read(Role.user(userId)), Permission.write(Role.user(userId)), Permission.update(Role.user(userId))],
-			)
-			.then((response) => {
-				// console.log('response', response);
-				if (data.links) {
-					addLinks(data, documentId);
-				}
-				toast({
-					title: 'Success',
-					description: 'Application added successfully',
-				});
-				router.push(appRoutes.application);
-			})
-			.catch((error) => {
-				toast({
-					title: 'Error',
-					description: error?.message,
-				});
-				console.error(error);
-			});
-	}
-
-	// TODO: add logic to update the created data
-	function addLinks(data: FormData, applicationDocumentId: string) {
-		if (applicationData.links) {
-			const documentId = applicationData.documents[0].$id;
-
-			database.updateDocument(
-				appwriteDbConfig.applicationDb,
-				appwriteDbConfig.applicationDbDocumentCollectionId,
-				documentId,
-				{
-					link: data.links,
-				},
-			);
-
-			toast({
-				title: 'Success',
-				description: 'File uploaded successfully',
-			});
-		}
-
-		database.createDocument(
-			appwriteDbConfig.applicationDb,
-			appwriteDbConfig.applicationDbDocumentCollectionId,
-			ID.unique(),
-			{
-				link: data.links,
-				userId: userId,
-				jobApplications: [applicationDocumentId],
-			},
-		);
-
-		toast({
-			title: 'Success',
-			description: 'File uploaded successfully',
-		});
-	}
-
-	useEffect(() => {
-		const getApplicationDataById = async () => {
-			setIsLoading(true);
-			try {
-				const response = await database.getDocument(
-					appwriteDbConfig.applicationDb,
-					appwriteDbConfig.applicationDbCollectionId,
-					String(documentId),
-				);
-
-				if (response.$id) {
-					setApplicationData(response as JobApplicationData);
-				}
-			} catch (errors) {
-				console.error(errors);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-
-		documentId && isUpdateForm && getApplicationDataById();
-	}, [isUpdateForm, documentId]);
 
 	return (
 		<div className="flex flex-col gap-6">
 			<div className="px-4 pt-4">
 				<Breadcrumb className="mb-4">
 					<BreadcrumbList>
-						<BreadcrumbLink href={appRoutes.home}>
-							Home
-						</BreadcrumbLink>
+						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 						<BreadcrumbSeparator />
-						<BreadcrumbLink href={appRoutes.application}>
-							Applications
-						</BreadcrumbLink>
+						<BreadcrumbLink href={appRoutes.application}>Applications</BreadcrumbLink>
 						<BreadcrumbSeparator />
 						<BreadcrumbItem>
-							<BreadcrumbPage>
-								{isUpdateForm ? 'Update' : 'Add'}
-							</BreadcrumbPage>
+							<BreadcrumbPage>{isUpdateForm ? 'Update' : 'Add'}</BreadcrumbPage>
 						</BreadcrumbItem>
 					</BreadcrumbList>
 				</Breadcrumb>
-				<PageTitle
-					title={isUpdateForm ? 'Update' : 'Add latest applied'}
-				/>
+				<PageTitle title={isUpdateForm ? 'Update' : 'Add latest applied'} />
 				<PageDescription description="Fill up all the details that are available" />
 			</div>
 
-			{isLoading ? (
-				<Loader />
-			) : (
-				<ApplicationDataForm form={form} onSubmit={onSubmit} />
-			)}
+			{isLoading ? <Loader /> : <ApplicationDataForm form={form} onSubmit={onSubmit} />}
 		</div>
 	);
 };

@@ -3,14 +3,7 @@ import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 import Loader from '@/components/Loader';
 import { signUpWithGoogle } from '@/lib/server/oauth';
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Lock } from 'lucide-react';
 
@@ -26,8 +19,7 @@ const SignupPage: React.FC = async () => {
 					<CardHeader className="text-center">
 						<CardTitle>Sign into JobJourney</CardTitle>
 						<CardDescription>
-							Welcome! Please sign in to continue your journey
-							with JobJourney
+							Welcome! Please sign in to continue your journey with JobJourney
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="text-center">
@@ -37,8 +29,7 @@ const SignupPage: React.FC = async () => {
 					</CardContent>
 					<CardFooter className="text-xs bg-secondary pt-6 w-full justify-center gap-1 items-center">
 						<Lock size={15} />
-						Secured by{' '}
-						<span className="font-semibold">Appwrite</span>
+						Secured by <span className="font-semibold">Appwrite</span>
 					</CardFooter>
 				</Card>
 			</div>
