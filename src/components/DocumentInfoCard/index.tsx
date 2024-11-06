@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useUploadFile } from '@/hooks/useUploadFile';
 import { CircleCheck, CircleX, LoaderCircle } from 'lucide-react';
 
 type Props = {
@@ -11,11 +10,18 @@ type Props = {
 	isSuccess?: boolean;
 	error?: string | null;
 	isShowRemoveBtn?: boolean;
+	removeFile?: (fileName: string) => void;
 };
 
-const DocumentInfoCard: React.FC<Props> = ({ file, fileName, isLoading, isSuccess, error, isShowRemoveBtn = true }) => {
-	const { deleteFile } = useUploadFile();
-
+const DocumentInfoCard: React.FC<Props> = ({
+	file,
+	fileName,
+	isLoading,
+	isSuccess,
+	error,
+	isShowRemoveBtn = true,
+	removeFile,
+}) => {
 	return (
 		<Card className="flex items-center justify-between py-2">
 			<CardHeader className="py-0">
@@ -36,7 +42,7 @@ const DocumentInfoCard: React.FC<Props> = ({ file, fileName, isLoading, isSucces
 						onClick={(e) => {
 							e.preventDefault();
 							e.stopPropagation();
-							fileName && deleteFile(fileName);
+							fileName && removeFile?.(fileName);
 						}}
 						disabled={!fileName}
 						size="sm"

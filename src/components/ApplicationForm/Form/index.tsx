@@ -18,10 +18,17 @@ type Props = {
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
-	const { uploadFiles, fileStatuses } = useUploadFile();
+	const { uploadFiles, deleteFile, fileStatuses } = useUploadFile();
 
 	const isShowFileStatus = fileStatuses.some((status) => status.isLoading);
 	const initialLinks = form.getValues('links');
+
+	const removeFile = (fileName: string) => {
+		const links = form.getValues('links')?.split(FILES_SEPARATOR);
+		const newLinks = links?.filter((link) => !link.includes(fileName)).join(FILES_SEPARATOR);
+		form.setValue('links', newLinks);
+		deleteFile(fileName);
+	};
 
 	return (
 		<Form {...form}>
@@ -44,7 +51,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 				/>
 
 				<FormItem>
-					<FormLabel>Job description</FormLabel>
+					<FormLabel>Notes</FormLabel>
 					<TinyEditor
 						initialData={form.getValues('notes') ?? ''}
 						onChange={(data: string) => form.setValue('notes', data)}
@@ -241,6 +248,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<DocumentInfoCard
 											key={`${index + 1} - ${getFileName(link)}`}
 											fileName={getFileName(link)}
+											removeFile={removeFile}
 										/>
 									))}
 								<FormMessage />
