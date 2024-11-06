@@ -13,12 +13,12 @@ export async function GET(request: NextRequest) {
 	const { account } = await createAdminClient();
 	const session = await account.createSession(String(userId), String(secret));
 
-	cookies().set('session', session.secret, {
-		path: '/',
-		httpOnly: true,
-		sameSite: 'strict',
-		secure: true,
-	});
+	// cookies().set('session', session.secret, {
+	// 	path: '/',
+	// 	httpOnly: true,
+	// 	sameSite: 'strict',
+	// 	secure: true,
+	// });
 
 	// Workaround for redirecting to the application page
 	// https://github.com/vercel/next.js/issues/59218
@@ -29,7 +29,10 @@ export async function GET(request: NextRequest) {
 	// 		request.url,
 	// 	),
 	// );
-	return NextResponse.redirect(new URL(appRoutes.home, request.nextUrl.origin), {
-		status: 303,
-	});
+	// return NextResponse.redirect(new URL(appRoutes.home, request.nextUrl.origin), {
+	// 	status: 303,
+	// }).cookies.set('session', session.secret);
+	const response = NextResponse.redirect(`${request.nextUrl.origin}/applications`);
+	response.cookies.set('session', session.secret);
+	return response;
 }
