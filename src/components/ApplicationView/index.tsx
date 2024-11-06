@@ -29,10 +29,12 @@ type Props = {
 	userId: string;
 };
 
-const ApplicationView = ({ documentId, userId }: Props) => {
+const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 	const { data, error, isLoading, isFetching } = useQuery({
 		queryKey: [QueryKeys.APPLICATION_BY_ID, documentId, userId],
 		queryFn: () => fetchApplicationDataById(documentId, userId),
+		enabled: !!userId,
+		staleTime: 1000 * 60 * 5, // 5 minutes
 	});
 
 	const salaryDetail =

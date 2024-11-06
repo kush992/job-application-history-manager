@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import ApplicationList from './ApplicationList';
-import { InfoCircleFilled, LoadingOutlined } from '@ant-design/icons';
+import { InfoCircleFilled } from '@ant-design/icons';
 import ApplicationFilter from './ApplicationFilter';
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { Separator } from '@/components/ui/separator';
@@ -37,6 +37,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, lastId, companyNameFilter, statusFilter],
 		queryFn: () => fetchApplicationData(userId, lastId, companyNameFilter, statusFilter as ApplicationStatus),
 		enabled: !!userId,
+		staleTime: 1000 * 60 * 5, // 5 minutes
 	});
 
 	const { toast } = useToast();
@@ -58,27 +59,34 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 		},
 	});
 
-	const debouncedFetching = useCallback(debounce(refetch, 400), []);
+	const debouncedFetching = useCallback(
+		() =>
+			debounce(() => {
+				console.log('debounced fetching');
+				refetch();
+			}, 5000),
+		[refetch],
+	);
 
-	const onShowMore = async (lastId: string) => {
-		setLastId(lastId);
-		await debouncedFetching();
-	};
+	// const onShowMore = async (lastId: string) => {
+	// 	setLastId(lastId);
+	// 	await debouncedFetching();
+	// };
 
-	const onInputChange = async (value: string) => {
+	const onInputChange = (value: string) => {
 		setCompanyNameFilter(value);
-		await debouncedFetching();
+		debouncedFetching();
 	};
 
-	const filterByStatus = async (value: ApplicationStatus) => {
+	const filterByStatus = (value: ApplicationStatus) => {
 		setStatusFilter(value);
-		await debouncedFetching();
+		debouncedFetching();
 	};
 
-	const clearAllFilters = async () => {
+	const clearAllFilters = () => {
 		setCompanyNameFilter(undefined);
 		setStatusFilter(undefined);
-		await debouncedFetching();
+		debouncedFetching();
 	};
 
 	return (
@@ -106,9 +114,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 			<div className="flex flex-col items-center gap-2 w-full">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
 					<InfoCircleFilled />
-					<span>
-						Total: {data?.total} Showing: {data?.total}
-					</span>
+					<span>Total: {data?.total}</span>
 				</p>
 				<ApplicationFilter
 					onInputChange={onInputChange}
@@ -132,7 +138,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 
 				{data?.total === 0 && <p className="text-base my-10">No data to show.</p>}
 
-				<Button
+				{/* <Button
 					variant="outline"
 					onClick={() => onShowMore(String(data?.documents[data?.documents.length - 1].$id))}
 					disabled={isLoading || isFetching || isRefetching}
@@ -141,7 +147,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 				>
 					{isLoading || isFetching || (isRefetching && <LoadingOutlined />)}
 					<span>{isLoading || isFetching || isRefetching ? 'Loading...' : 'Next page'}</span>
-				</Button>
+				</Button> */}
 			</div>
 		</div>
 	);
