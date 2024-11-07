@@ -106,6 +106,11 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 		salaryType: applicationData?.salaryType,
 		interviewDate: applicationData?.interviewDate || undefined,
 		links: applicationData?.links || undefined,
+		location: applicationData?.location || undefined,
+		jobLink: applicationData?.jobLink || undefined,
+		jobPostedOn: applicationData?.jobPostedOn,
+		workMode: applicationData?.workMode,
+		contractType: applicationData?.contractType,
 	};
 
 	const form = useForm<JobApplicationFormData>({

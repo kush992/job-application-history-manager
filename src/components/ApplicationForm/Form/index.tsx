@@ -182,20 +182,124 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					/>
 				</div>
 
-				{/* FIXME: add separate input fields for date and time */}
-				<FormField
-					control={form.control}
-					name="interviewDate"
-					render={({ field }) => (
-						<FormItem className="flex flex-col">
-							<FormLabel>Interview Date</FormLabel>
-							<FormControl>
-								<DateTimePicker value={field.value} onChange={field.onChange} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+				<div className="md:grid grid-cols-2 items-center gap-2">
+					<FormField
+						control={form.control}
+						name="location"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Location</FormLabel>
+								<FormControl>
+									<Input placeholder="Location" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
+					{/* FIXME: add separate input fields for date and time */}
+					<FormField
+						control={form.control}
+						name="interviewDate"
+						render={({ field }) => (
+							<FormItem className="flex flex-col">
+								<FormLabel>Interview Date</FormLabel>
+								<FormControl>
+									<DateTimePicker value={field.value} onChange={field.onChange} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
+
+				<div className="md:grid grid-cols-2 items-center gap-2">
+					<FormField
+						control={form.control}
+						name="jobLink"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Job Link</FormLabel>
+								<FormControl>
+									<Input placeholder="Job Link" {...field} value={field.value as string} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="jobPostedOn"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Job Posted On</FormLabel>
+								<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder="Select job site" />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										<SelectItem value="LINKEDIN">LinkedIn</SelectItem>
+										<SelectItem value="GLASSDOOR">Glassdoor</SelectItem>
+										<SelectItem value="INDEED">Indeed</SelectItem>
+										<SelectItem value="JUST_JOIN_IT">Just Join IT</SelectItem>
+									</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
+
+				<div className="md:grid grid-cols-2 items-center gap-2">
+					<FormField
+						control={form.control}
+						name="workMode"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Work Mode</FormLabel>
+								<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder="Select work mode" />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										<SelectItem value="REMOTE">Remote</SelectItem>
+										<SelectItem value="HYBRID">Hybrid</SelectItem>
+										<SelectItem value="ON_SITE">On Site</SelectItem>
+									</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="contractType"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Contract Type</FormLabel>
+								<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder="Select contract type" />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										<SelectItem value="FULL_TIME">Full Time</SelectItem>
+										<SelectItem value="PART_TIME">Part Time</SelectItem>
+										<SelectItem value="CONTRACT">Contract</SelectItem>
+										<SelectItem value="INTERNSHIP">Internship</SelectItem>
+										<SelectItem value="FREELANCE">Freelance</SelectItem>
+									</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
 
 				{/* TODO: resolve me and add security */}
 				{config.uiShowUploader === '1' && (
