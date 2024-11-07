@@ -1,6 +1,7 @@
 import { appwriteDbConfig, database } from '@/appwrite/config';
 import { ApplicationStatus, JobApplicationFormData } from '@/components/ApplicationForm/utility';
 import { QnAShowType } from '@/components/QnAPage/utility';
+import { config } from '@/config/config';
 import { Response, InterviewQuestionsData, JobApplicationData } from '@/types/apiResponseTypes';
 import { ID, Query } from 'node-appwrite';
 
@@ -36,7 +37,7 @@ export const fetchApplicationData = async (
 	statusFilter?: ApplicationStatus,
 ) => {
 	const queries = [
-		// Query.limit(20),
+		Query.limit(config.dataFetchingLimitForAppwrite),
 		Query.equal('isSoftDelete', false),
 		Query.equal('userId', userId),
 		Query.orderDesc('$createdAt'),
