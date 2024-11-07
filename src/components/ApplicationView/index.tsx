@@ -68,16 +68,20 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 									{data.contractType && (
 										<>
 											{' '}
-											· <Badge variant="secondary">{data?.contractType}</Badge> ·
+											· <Badge variant="secondary">{data?.contractType}</Badge>
 										</>
 									)}
 									{data.workMode && (
-										<Badge
-											variant="secondary"
-											className="bg-successColor text-lightGreenAccent hover:bg-successColor"
-										>
-											{data?.workMode}
-										</Badge>
+										<>
+											{' '}
+											·{' '}
+											<Badge
+												variant="secondary"
+												className="bg-successColor text-lightGreenAccent hover:bg-successColor"
+											>
+												{data?.workMode}
+											</Badge>
+										</>
 									)}
 								</div>
 								{data.location && <p className="text-muted-foreground">{data?.location}</p>}
