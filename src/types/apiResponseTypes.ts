@@ -50,8 +50,6 @@ export enum WorkMode {
 	ON_SITE = 'ON_SITE',
 }
 
-
-
 export type DocumentsData = {
 	$collectionId: string;
 	$createdAt: Date;
