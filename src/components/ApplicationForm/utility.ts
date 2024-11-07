@@ -1,3 +1,4 @@
+import { ContractType, JobSites, WorkMode } from '@/types/apiResponseTypes';
 import { z } from 'zod';
 
 export enum SalaryType {
@@ -41,6 +42,11 @@ export const formSchema = z.object({
 	companyDomain: z.string().optional(),
 	interviewDate: z.date().optional(),
 	links: z.string().optional(),
+	location: z.string().optional(),
+	jobLink: z.string().optional().nullable(),
+	jobPostedOn: z.string().default(JobSites.LINKEDIN).optional().nullable(),
+	workMode: z.string().default(WorkMode.REMOTE).optional().nullable(),
+	contractType: z.string().default(ContractType.FULL_TIME).optional().nullable(),
 });
 
 export type JobApplicationFormData = z.infer<typeof formSchema>;

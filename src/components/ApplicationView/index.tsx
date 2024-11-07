@@ -23,6 +23,7 @@ import { getFileName } from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
 import { useQuery } from '@tanstack/react-query';
 import { fetchApplicationDataById } from '@/lib/server/appwrite-queries';
+import { Briefcase, ExternalLink, Link2, LinkIcon, MapPin } from 'lucide-react';
 
 type Props = {
 	documentId: string;
@@ -62,7 +63,33 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 							<div>
 								<p className="text-sm">{data?.companyName}</p>
 								<h1 className="text-2xl font-semibold !mt-0 !mb-2">{data?.jobTitle}</h1>
-								<Badge variant="secondary">{data?.applicationStatus}</Badge>
+								<div className="flex items-center gap-1 my-2">
+									<Badge variant="secondary">{data?.applicationStatus}</Badge>
+									{data.contractType && (
+										<>
+											{' '}
+											· <Badge variant="secondary">{data?.contractType}</Badge> ·
+										</>
+									)}
+									{data.workMode && (
+										<Badge
+											variant="secondary"
+											className="bg-successColor text-lightGreenAccent hover:bg-successColor"
+										>
+											{data?.workMode}
+										</Badge>
+									)}
+								</div>
+								{data.location && <p className="text-muted-foreground">{data?.location}</p>}
+								{data.jobLink && (
+									<a
+										href={data.jobLink}
+										target="_blank"
+										className="text-sm hover:underline flex items-center gap-1"
+									>
+										Job Link <ExternalLink className="h-4 w-4" />
+									</a>
+								)}
 							</div>
 							<div>
 								<Link href={`${appRoutes.updateApplication}/${documentId}`} className="underline">

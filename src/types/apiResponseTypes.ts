@@ -22,7 +22,33 @@ export type JobApplicationData = {
 	documents: DocumentsData[];
 	$databaseId: string;
 	$collectionId: string;
+	location?: string;
+	jobLink?: string;
+	jobPostedOn?: JobSites;
+	workMode?: WorkMode;
+	contractType?: ContractType;
 };
+
+export enum JobSites {
+	LINKEDIN = 'LINKEDIN',
+	GLASSDOOR = 'GLASSDOOR',
+	INDEED = 'INDEED',
+	JUST_JOIN_IT = 'JUST_JOIN_IT',
+}
+
+export enum ContractType {
+	FULL_TIME = 'FULL_TIME',
+	PART_TIME = 'PART_TIME',
+	CONTRACT = 'CONTRACT',
+	INTERNSHIP = 'INTERNSHIP',
+	FREELANCE = 'FREELANCE',
+}
+
+export enum WorkMode {
+	REMOTE = 'REMOTE',
+	HYBRID = 'HYBRID',
+	ON_SITE = 'ON_SITE',
+}
 
 export type DocumentsData = {
 	$collectionId: string;
