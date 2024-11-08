@@ -23,6 +23,7 @@ import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { fetchApplicationData, softDeleteData } from '@/lib/server/appwrite-queries';
+import ExcelDownload from '../ExcelDownload';
 
 type Props = {
 	userId: string;
@@ -106,9 +107,11 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 					<PageTitle title="Applied jobs" />
 					<PageDescription description="This is a collection of all the jobs you have applied for." />
 				</div>
-				<Button variant="outline">
-					<Link href={appRoutes.addApplication}>Add new</Link>
-				</Button>
+				<div>
+					<Button variant="outline">
+						<Link href={appRoutes.addApplication}>Add new</Link>
+					</Button>
+				</div>
 			</div>
 
 			<div className="flex flex-col items-center gap-2 w-full">
