@@ -132,6 +132,10 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			delete data.salaryType;
 		}
 
+		if (data.interviewDate) {
+			data.interviewDate = new Date(data.interviewDate);
+		}
+
 		if (!isUpdateForm) {
 			createDocMutation.mutate(data);
 		} else {

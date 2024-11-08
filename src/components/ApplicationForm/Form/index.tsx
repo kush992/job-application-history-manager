@@ -203,9 +203,13 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						name="interviewDate"
 						render={({ field }) => (
 							<FormItem className="flex flex-col">
-								<FormLabel>Interview Date</FormLabel>
+								<FormLabel>Interview Date {typeof field.value}</FormLabel>
+
 								<FormControl>
-									<DateTimePicker value={field.value} onChange={field.onChange} />
+									<DateTimePicker
+										value={field.value && new Date(field?.value)}
+										onChange={(data) => data && form.setValue('interviewDate', new Date(data))}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
