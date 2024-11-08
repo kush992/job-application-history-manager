@@ -15,6 +15,7 @@ export const appRoutes = {
 	contactUs: '/contact-us',
 	privacyPolicy: '/privacy-policy',
 	termsOfService: '/terms-of-service',
+	userSettings: '/user/settings',
 };
 
 export enum QueryKeys {

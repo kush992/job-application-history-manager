@@ -4,12 +4,11 @@ import { QnAShowType } from '@/components/QnAPage/utility';
 import { config } from '@/config/config';
 import { Response, InterviewQuestionsData, JobApplicationData } from '@/types/apiResponseTypes';
 import { ID, Query } from 'node-appwrite';
+import { createSessionClient } from './appwrite';
+import { UserPreferences } from '@/types/user';
 
 export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
-	const query =
-		showType === QnAShowType.PUBLIC
-			? [Query.equal('isPrivate', false)]
-			: [Query.equal('userId', userId), Query.equal('isPrivate', true)];
+	const query = showType === QnAShowType.PUBLIC ? [Query.equal('isPrivate', false)] : [Query.equal('userId', userId)];
 
 	try {
 		const response: Response<InterviewQuestionsData> = await database.listDocuments(
@@ -170,4 +169,20 @@ export const softDeleteData = async (documentId: string, refetch: () => void) =>
 		.catch((error) => {
 			console.error(error);
 		});
+};
+
+export const updateAccountSettings = async (data: UserPreferences) => {
+	try {
+		const response = await fetch('/api/updateUserSettings', {
+			method: 'POST',
+			body: JSON.stringify(data),
+		});
+
+		if (response.ok) {
+			return response.status;
+		}
+	} catch (error) {
+		console.error(error);
+		return error;
+	}
 };

@@ -73,7 +73,9 @@ export function UserMenu({ user }: Props) {
 				<DropdownMenuGroup>
 					<DropdownMenuItem disabled>Dashboard</DropdownMenuItem>
 					<DropdownMenuItem disabled>Profile</DropdownMenuItem>
-					<DropdownMenuItem disabled>Settings</DropdownMenuItem>
+					<Link href={appRoutes.userSettings}>
+						<DropdownMenuItem>Settings</DropdownMenuItem>
+					</Link>
 
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger>Appearance</DropdownMenuSubTrigger>
