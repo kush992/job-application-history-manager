@@ -23,7 +23,7 @@ export default function Wrapper({
 		<ThemeProvider
 			attribute="class"
 			themes={['dark', 'light', 'system']}
-			defaultTheme="system"
+			defaultTheme={user?.prefs?.theme || 'system'}
 			enableColorScheme
 			disableTransitionOnChange
 		>
