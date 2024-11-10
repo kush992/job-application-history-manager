@@ -16,9 +16,13 @@ export async function GET(req: NextRequest) {
 			documentId,
 		);
 
-		return NextResponse.json(response);
+		if (response.documents) {
+			return NextResponse.json(response, { status: 200, statusText: 'ok' });
+		} else {
+			return NextResponse.json({ error: 'Document not found' }, { status: 404 });
+		}
 	} catch (error) {
 		console.error(error);
-		return NextResponse.json({ error: 'Error fetching data' }, { status: 500 });
+		return NextResponse.json({ error: 'Error fetching data', reason: error }, { status: 500 });
 	}
 }

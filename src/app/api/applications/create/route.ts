@@ -6,6 +6,7 @@ import formidable from 'formidable';
 import { getFieldValue } from '@/utils/utility';
 
 export async function POST(req: NextRequest) {
+	console.log('Request:', await req.json());
 	// return new Promise(async (resolve, reject) => {
 	// 	// Convert NextRequest to IncomingMessage
 	// 	const incomingReq = new IncomingMessage(req.body as any);

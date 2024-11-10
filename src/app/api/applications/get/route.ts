@@ -13,8 +13,8 @@ export async function GET() {
 
 		// console.log('response', response);
 
-		if (response.documents.length) {
-			return NextResponse.json(response);
+		if (response.documents && response.total) {
+			return NextResponse.json(response, { status: 200, statusText: 'ok' });
 		}
 	} catch (error) {
 		console.error(error);

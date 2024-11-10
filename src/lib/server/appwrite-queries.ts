@@ -69,18 +69,18 @@ export const fetchApplicationData = async (
 };
 
 export const fetchApplicationDataById = async (documentId: string, userId: string) => {
-	try {
-		const response = await database.getDocument(
-			appwriteDbConfig.applicationDb,
-			appwriteDbConfig.applicationDbCollectionId,
-			String(documentId),
-			[],
-		);
+	const url = new URL(`${origin}/api/applications/getOne?documentId=${documentId}`);
 
-		return response as JobApplicationData;
-	} catch (errors) {
-		console.error(errors);
-		return {} as JobApplicationData;
+	try {
+		const response = await fetch(url);
+
+		if (response.ok) {
+			console.log('response', response);
+			return (await response.json()) as JobApplicationData;
+		}
+	} catch (error) {
+		console.error(error);
+		return error;
 	}
 };
 
