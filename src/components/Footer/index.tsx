@@ -16,7 +16,7 @@ const Footer = () => {
 						</span>
 					</a>
 				</div>
-				<ul className="flex flex-wrap justify-center items-center gap-4">
+				<ul className="flex flex-wrap justify-center items-center gap-4 mx-0">
 					{footerLinks.map((link) => (
 						<li key={link.href} className="list-none">
 							<Link href={link.href} className="hover:underline">
