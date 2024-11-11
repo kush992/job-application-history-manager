@@ -29,25 +29,6 @@ export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	}
 };
 
-export const softDeleteData = async (documentId: string, refetch: () => void) => {
-	database
-		.updateDocument(
-			appwriteDbConfig.applicationDb,
-			appwriteDbConfig.applicationDbCollectionId,
-			String(documentId),
-			{
-				isSoftDelete: true,
-				softDeleteDateAndTime: new Date(),
-			},
-		)
-		.then(() => {
-			refetch();
-		})
-		.catch((error) => {
-			console.error(error);
-		});
-};
-
 export const updateAccountSettings = async (data: UserPreferences) => {
 	try {
 		const response = await fetch(apiRoutes.usersPrefs.update, {

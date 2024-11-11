@@ -79,4 +79,21 @@ export const applicationDataQueries = {
 			throw new Error(`Error updating application: ${error}`);
 		}
 	},
+	delete: async (documentId: string, refetch: () => void) => {
+		try {
+			const response = await fetch(`${origin}${apiRoutes.applications.delete}?documentId=${documentId}`, {
+				method: 'DELETE',
+			});
+
+			if (response.ok) {
+				refetch();
+				return 'Deleted Successfully';
+			} else {
+				throw new Error(`Error deleting application | ${response.status} - ${response.statusText}`);
+			}
+		} catch (error) {
+			console.error(error);
+			throw new Error(`Error deleting application: ${error}`);
+		}
+	},
 };

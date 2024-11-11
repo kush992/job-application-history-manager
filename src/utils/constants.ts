@@ -18,12 +18,14 @@ export const appRoutes = {
 	userSettings: '/user/settings',
 };
 
+// For react-query
 export enum QueryKeys {
 	APPLICATIONS_PAGE = 'APPLICATIONS_PAGE',
 	APPLICATION_BY_ID = 'APPLICATION_BY_ID',
 	QUESTIONS_AND_ANSWERS_PAGE = 'QUESTIONS_AND_ANSWERS_PAGE',
 }
 
+// API structure
 export const apiRoutes = {
 	applications: {
 		getAll: '/api/applications/getAll',
