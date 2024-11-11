@@ -12,10 +12,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Models } from 'node-appwrite';
 import { useMutation } from '@tanstack/react-query';
-import { updateAccountSettings } from '@/lib/server/appwrite-queries';
 import { toast } from '@/hooks/use-toast';
 import { getARandomGradient } from './utility';
 import { useTheme } from 'next-themes';
+import { userPrefQueries } from '@/lib/server/user-queries';
 
 type Props = {
 	user: Models.User<Models.Preferences> | null;
@@ -38,7 +38,7 @@ export default function UserSettingsPage({ user }: Props) {
 	});
 
 	const userPrefUpdate = useMutation({
-		mutationFn: (values: z.infer<typeof userPreferenceFormSchema>) => updateAccountSettings(values),
+		mutationFn: (values: z.infer<typeof userPreferenceFormSchema>) => userPrefQueries.update(values),
 		onSuccess: () => {
 			toast({
 				title: 'success',
