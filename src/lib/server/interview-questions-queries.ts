@@ -20,4 +20,21 @@ export const interviewQuestionsQueries = {
 			throw new Error(`Error fetching Interview Questions data: ${error}`);
 		}
 	},
+	getOne: async (documentId: string): Promise<InterviewQuestionsData> => {
+		const url = new URL(`${origin}${apiRoutes.interviewQuestions.getOne}?documentId=${documentId}`);
+		try {
+			const response = await fetch(url);
+
+			if (response.ok) {
+				return await response.json();
+			} else {
+				throw new Error(
+					`Error fetching Interview Questions data | ${response.status} - ${response.statusText}`,
+				);
+			}
+		} catch (error) {
+			console.error(error);
+			throw new Error(`Error fetching Interview Questions data: ${error}`);
+		}
+	},
 };

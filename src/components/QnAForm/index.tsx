@@ -21,6 +21,8 @@ import { InterviewQuestionsData, JobApplicationData } from '@/types/apiResponseT
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import QuestionAndAnswerForm from './Form';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { interviewQuestionsQueries } from '@/lib/server/interview-questions-queries';
 
 type Props = {
 	documentId?: string;
@@ -33,13 +35,21 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	const router = useRouter();
 	const { toast } = useToast();
 
-	const [isLoading, setIsLoading] = useState(false);
-	const [interviewQAData, setInterviewQAData] = useState<InterviewQuestionsData>({} as InterviewQuestionsData);
+	const {
+		data: interviewQAData,
+		error,
+		isLoading,
+		isFetching,
+	} = useQuery({
+		queryKey: ['interviewQuestions', documentId],
+		queryFn: () => interviewQuestionsQueries.getOne(String(documentId)),
+		enabled: !!documentId,
+	});
 
 	const initialFormData: QnAFormData = {
 		userId: interviewQAData?.userId || userId,
-		isPrivate: interviewQAData.isPrivate,
-		questionsAndAnswers: normaliseQuestionsAndAnswers(interviewQAData?.questionsAndAnswers) || [],
+		isPrivate: interviewQAData?.isPrivate,
+		questionsAndAnswers: normaliseQuestionsAndAnswers(interviewQAData?.questionsAndAnswers ?? []) || [],
 	};
 
 	const form = useForm<QnAFormData>({
@@ -112,29 +122,6 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			});
 	}
 
-	useEffect(() => {
-		const getApplicationDataById = async () => {
-			setIsLoading(true);
-			try {
-				const response = await database.getDocument(
-					appwriteDbConfig.applicationDb,
-					appwriteDbConfig.applicationDbInterviewQuestionsCollectionId,
-					String(documentId),
-				);
-
-				if (response.$id) {
-					setInterviewQAData(response as InterviewQuestionsData);
-				}
-			} catch (errors) {
-				console.error(errors);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-
-		documentId && isUpdateForm && getApplicationDataById();
-	}, [isUpdateForm, documentId]);
-
 	return (
 		<div className="flex flex-col gap-6">
 			<div className="px-4 pt-4">
@@ -155,6 +142,7 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			</div>
 
 			{isLoading ? <Loader /> : <QuestionAndAnswerForm form={form} onSubmit={onSubmit} />}
+			{error && <p>{error?.message}</p>}
 		</div>
 	);
 };
