@@ -4,8 +4,8 @@ import { QnAShowType } from '@/components/QnAPage/utility';
 import { config } from '@/config/config';
 import { Response, InterviewQuestionsData, JobApplicationData } from '@/types/apiResponseTypes';
 import { ID, Query } from 'node-appwrite';
-import { createSessionClient } from './appwrite';
 import { UserPreferences } from '@/types/user';
+import { apiRoutes } from '@/utils/constants';
 
 export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	const query = showType === QnAShowType.PUBLIC ? [Query.equal('isPrivate', false)] : [Query.equal('userId', userId)];
@@ -29,12 +29,7 @@ export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	}
 };
 
-export const fetchApplicationData = async (
-	userId: string,
-	lastId?: string,
-	query?: string,
-	statusFilter?: ApplicationStatus,
-) => {
+export const fetchApplicationData = async (lastId?: string, query?: string, statusFilter?: ApplicationStatus) => {
 	const url = new URL(`${origin}/api/applications/get`);
 
 	if (lastId) url.searchParams.append('lastId', lastId);
@@ -164,7 +159,7 @@ export const softDeleteData = async (documentId: string, refetch: () => void) =>
 
 export const updateAccountSettings = async (data: UserPreferences) => {
 	try {
-		const response = await fetch('/api/updateUserSettings', {
+		const response = await fetch(apiRoutes.usersPrefs.update, {
 			method: 'POST',
 			body: JSON.stringify(data),
 		});

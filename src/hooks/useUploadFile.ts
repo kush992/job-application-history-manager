@@ -1,3 +1,4 @@
+import { apiRoutes } from '@/utils/constants';
 import { useState, useCallback } from 'react';
 
 type UploadFileStatus = {
@@ -46,7 +47,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 
 			try {
 				// Step 1: Get the signed URL
-				const res = await fetch('/api/files/upload', {
+				const res = await fetch(apiRoutes.files.upload, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -104,7 +105,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 
 	const deleteFile = useCallback(async (fileName: string) => {
 		try {
-			const res = await fetch('/api/files/delete', {
+			const res = await fetch(apiRoutes.files.delete, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

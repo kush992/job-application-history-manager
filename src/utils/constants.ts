@@ -23,3 +23,27 @@ export enum QueryKeys {
 	APPLICATION_BY_ID = 'APPLICATION_BY_ID',
 	QUESTIONS_AND_ANSWERS_PAGE = 'QUESTIONS_AND_ANSWERS_PAGE',
 }
+
+export const apiRoutes = {
+	applications: {
+		get: '/api/applications/get',
+		getOne: '/api/applications/getOne',
+		add: '/api/applications/add',
+		update: '/api/applications/update',
+		delete: '/api/applications/delete',
+	},
+	interviewQuestions: {
+		get: '/api/interview-questions/get',
+		getOne: '/api/interview-questions/getOne',
+		add: '/api/interview-questions/add',
+		update: '/api/interview-questions/update',
+		delete: '/api/interview-questions/delete',
+	},
+	files: {
+		upload: '/api/files/upload',
+		delete: '/api/files/delete',
+	},
+	usersPrefs: {
+		update: '/api/user/prefs/update',
+	},
+};
