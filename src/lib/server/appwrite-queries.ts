@@ -29,41 +29,6 @@ export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	}
 };
 
-export const addLinks = async (links: string, applicationDocumentId: string, userId: string) => {
-	if (links) {
-		const documentId = applicationDocumentId;
-
-		try {
-			await database.updateDocument(
-				appwriteDbConfig.applicationDb,
-				appwriteDbConfig.applicationDbDocumentCollectionId,
-				documentId,
-				{
-					link: links,
-				},
-			);
-			return;
-		} catch (error) {
-			console.error(error);
-		}
-	}
-
-	try {
-		await database.createDocument(
-			appwriteDbConfig.applicationDb,
-			appwriteDbConfig.applicationDbDocumentCollectionId,
-			ID.unique(),
-			{
-				link: links,
-				userId: userId,
-				jobApplications: [applicationDocumentId],
-			},
-		);
-	} catch (error) {
-		console.error(error);
-	}
-};
-
 export const softDeleteData = async (documentId: string, refetch: () => void) => {
 	database
 		.updateDocument(

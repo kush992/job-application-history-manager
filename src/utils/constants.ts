@@ -32,6 +32,10 @@ export const apiRoutes = {
 		update: '/api/applications/update',
 		delete: '/api/applications/delete',
 	},
+	applicationDocuments: {
+		add: '/api/application-documents/add',
+		update: '/api/application-documents/update',
+	},
 	interviewQuestions: {
 		get: '/api/interview-questions/get',
 		getOne: '/api/interview-questions/getOne',
