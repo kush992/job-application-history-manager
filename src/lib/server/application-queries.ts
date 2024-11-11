@@ -45,9 +45,9 @@ export const applicationDataQueries = {
 			throw new Error('Failed to fetch application data');
 		}
 	},
-	create: async (data: JobApplicationFormData) => {
+	add: async (data: JobApplicationFormData) => {
 		try {
-			const response = await fetch(apiRoutes.applications.create, {
+			const response = await fetch(apiRoutes.applications.add, {
 				method: 'POST',
 				body: JSON.stringify(data),
 			});

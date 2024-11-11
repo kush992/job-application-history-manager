@@ -28,7 +28,7 @@ export const apiRoutes = {
 	applications: {
 		getAll: '/api/applications/getAll',
 		getOne: '/api/applications/getOne',
-		create: '/api/applications/create',
+		add: '/api/applications/add',
 		update: '/api/applications/update',
 		delete: '/api/applications/delete',
 	},

@@ -59,7 +59,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			if (data.links) {
 				addLinksMutation.mutate(data.links);
 			}
-			return applicationDataQueries.create(data);
+			return applicationDataQueries.add(data);
 		},
 		onSuccess: () => {
 			toast({
