@@ -22,8 +22,8 @@ import { Badge } from '../ui/badge';
 import { getFileName } from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
 import { useQuery } from '@tanstack/react-query';
-import { fetchApplicationDataById } from '@/lib/server/appwrite-queries';
-import { Briefcase, ExternalLink, Link2, LinkIcon, MapPin } from 'lucide-react';
+import { applicationDataQueries } from '@/lib/server/application-queries';
+import { ExternalLink } from 'lucide-react';
 
 type Props = {
 	documentId: string;
@@ -33,7 +33,7 @@ type Props = {
 const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 	const { data, error, isLoading, isFetching } = useQuery({
 		queryKey: [QueryKeys.APPLICATION_BY_ID, documentId, userId],
-		queryFn: () => fetchApplicationDataById(documentId, userId),
+		queryFn: () => applicationDataQueries.getOne(documentId),
 		enabled: !!userId,
 		staleTime: 1000 * 60 * 5, // 5 minutes
 	});

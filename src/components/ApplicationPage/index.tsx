@@ -22,7 +22,7 @@ import { useToast } from '@/hooks/use-toast';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { fetchApplicationData, softDeleteData } from '@/lib/server/appwrite-queries';
+import { applicationDataQueries, softDeleteData } from '@/lib/server/appwrite-queries';
 
 type Props = {
 	userId: string;
@@ -35,7 +35,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 
 	const { data, error, isLoading, isFetching, refetch, isRefetching } = useQuery({
 		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, lastId, companyNameFilter, statusFilter],
-		queryFn: () => fetchApplicationData(lastId, companyNameFilter, statusFilter as ApplicationStatus),
+		queryFn: () => applicationDataQueries.getAll(lastId, companyNameFilter, statusFilter as ApplicationStatus),
 		enabled: !!userId,
 		staleTime: 1000 * 60 * 5, // 5 minutes
 	});

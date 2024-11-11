@@ -29,46 +29,23 @@ export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	}
 };
 
-export const fetchApplicationData = async (lastId?: string, query?: string, statusFilter?: ApplicationStatus) => {
-	const url = new URL(`${origin}/api/applications/get`);
+// export const fetchApplicationDataById = async (documentId: string): Promise<JobApplicationData> => {
+// 	const url = new URL(`${origin}/api/applications/getOne?documentId=${documentId}`);
 
-	if (lastId) url.searchParams.append('lastId', lastId);
-	if (query) url.searchParams.append('searchQuery', query);
-	if (statusFilter) url.searchParams.append('statusFilter', statusFilter);
+// 	try {
+// 		const response = await fetch(url);
 
-	url.searchParams.append('limit', config.dataFetchingLimitForAppwrite.toString());
-
-	try {
-		const response = await fetch(url.toString(), {
-			method: 'GET',
-		});
-
-		if (response.ok) {
-			return (await response.json()) as Response<JobApplicationData>;
-		} else {
-			throw new Error('Failed to fetch application data');
-		}
-	} catch (error) {
-		console.error(error);
-		throw new Error('Failed to fetch application data');
-	}
-};
-
-export const fetchApplicationDataById = async (documentId: string, userId: string) => {
-	const url = new URL(`${origin}/api/applications/getOne?documentId=${documentId}`);
-
-	try {
-		const response = await fetch(url);
-
-		if (response.ok) {
-			console.log('response', response);
-			return (await response.json()) as JobApplicationData;
-		}
-	} catch (error) {
-		console.error(error);
-		return error;
-	}
-};
+// 		if (response.ok) {
+// 			console.log('response', response);
+// 			return (await response.json()) as JobApplicationData;
+// 		} else {
+// 			throw new Error('Failed to fetch application data');
+// 		}
+// 	} catch (error) {
+// 		console.error(error);
+// 		throw new Error('Failed to fetch application data');
+// 	}
+// };
 
 export const addDocument = async (data: JobApplicationFormData) => {
 	const documentId = ID.unique();

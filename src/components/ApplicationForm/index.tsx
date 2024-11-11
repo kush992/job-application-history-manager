@@ -20,7 +20,8 @@ import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import ApplicationDataForm from './Form';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import { addDocument, addLinks, fetchApplicationDataById, updateDocument } from '@/lib/server/appwrite-queries';
+import { addDocument, addLinks, updateDocument } from '@/lib/server/appwrite-queries';
+import { applicationDataQueries } from '@/lib/server/application-queries';
 
 type Props = {
 	documentId?: string;
@@ -35,11 +36,11 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 
 	const { data: applicationData, isLoading } = useSuspenseQuery({
 		queryKey: [QueryKeys.APPLICATION_BY_ID, documentId, userId],
-		queryFn: () => fetchApplicationDataById(String(documentId), userId),
+		queryFn: () => applicationDataQueries.getOne(String(documentId)),
 	});
 
 	const addLinksMutation = useMutation({
-		mutationFn: (links: string) => addLinks(links, applicationData.documents[0].$id, userId),
+		mutationFn: (links: string) => addLinks(links, applicationData?.documents[0]?.$id, userId),
 		onSuccess: () => {
 			toast({
 				title: 'success',
