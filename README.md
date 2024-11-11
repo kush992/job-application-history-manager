@@ -55,13 +55,13 @@ Easily sort and review applications by status, prioritize tasks, and stay organi
 
 In this project, API routes are centralized in an apiRoutes object to improve organization and maintainability. This structure provides several advantages:
 
-- **Centralized Management:** All API endpoints are stored in one object (apiRoutes), making them easy to locate, update, and manage across the application.
+-   **Centralized Management:** All API endpoints are stored in one object (apiRoutes), making them easy to locate, update, and manage across the application.
 
-- **Consistency and Readability:** Each route follows a clear naming convention, using actions like getAll, getOne, add, update, and delete, which improves readability and consistency.
+-   **Consistency and Readability:** Each route follows a clear naming convention, using actions like getAll, getOne, add, update, and delete, which improves readability and consistency.
 
-- **Modular Structure:** Routes are organized by feature or module (e.g., applications, interviewQuestions), which keeps related routes together and simplifies maintenance.
+-   **Modular Structure:** Routes are organized by feature or module (e.g., applications, interviewQuestions), which keeps related routes together and simplifies maintenance.
 
-- **Scalability:** This structure is designed to support the addition of new API routes and functionalities without cluttering the codebase.
+-   **Scalability:** This structure is designed to support the addition of new API routes and functionalities without cluttering the codebase.
 
 ```
 const apiRoutes = {
