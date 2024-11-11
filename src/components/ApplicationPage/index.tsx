@@ -35,7 +35,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 
 	const { data, error, isLoading, isFetching, refetch, isRefetching } = useQuery({
 		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, lastId, companyNameFilter, statusFilter],
-		queryFn: () => fetchApplicationData(userId, lastId, companyNameFilter, statusFilter as ApplicationStatus),
+		queryFn: () => fetchApplicationData(lastId, companyNameFilter, statusFilter as ApplicationStatus),
 		enabled: !!userId,
 		staleTime: 1000 * 60 * 5, // 5 minutes
 	});
