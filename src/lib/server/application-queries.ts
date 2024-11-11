@@ -1,10 +1,11 @@
-import { ApplicationStatus } from '@/components/ApplicationForm/utility';
+import { ApplicationStatus, JobApplicationFormData } from '@/components/ApplicationForm/utility';
 import { config } from '@/config/config';
 import { JobApplicationData, Response } from '@/types/apiResponseTypes';
+import { apiRoutes } from '@/utils/constants';
 
 export const applicationDataQueries = {
 	getAll: async (lastId?: string, query?: string, statusFilter?: ApplicationStatus) => {
-		const url = new URL(`${origin}/api/applications/get`);
+		const url = new URL(`${origin}${apiRoutes.applications.getAll}`);
 
 		if (lastId) url.searchParams.append('lastId', lastId);
 		if (query) url.searchParams.append('searchQuery', query);
@@ -28,7 +29,7 @@ export const applicationDataQueries = {
 		}
 	},
 	getOne: async (documentId: string) => {
-		const url = new URL(`${origin}/api/applications/getOne?documentId=${documentId}`);
+		const url = new URL(`${origin}${apiRoutes.applications.getOne}?documentId=${documentId}`);
 
 		try {
 			const response = await fetch(url);
@@ -42,6 +43,40 @@ export const applicationDataQueries = {
 		} catch (error) {
 			console.error(error);
 			throw new Error('Failed to fetch application data');
+		}
+	},
+	create: async (data: JobApplicationFormData) => {
+		try {
+			const response = await fetch(apiRoutes.applications.create, {
+				method: 'POST',
+				body: JSON.stringify(data),
+			});
+
+			if (response.ok) {
+				return response.status;
+			} else {
+				throw new Error(`Error creating application: ${response.statusText} | ${response.status}`);
+			}
+		} catch (error) {
+			console.error(error);
+			throw new Error(`Error creating application: ${error}`);
+		}
+	},
+	update: async (data: JobApplicationFormData, documentId: string) => {
+		try {
+			const response = await fetch(`${apiRoutes.applications.update}?documentId=${documentId}`, {
+				method: 'PUT',
+				body: JSON.stringify(data),
+			});
+
+			if (response.ok) {
+				return response.status;
+			} else {
+				throw new Error(`Error updating application: ${response.statusText} | ${response.status}`);
+			}
+		} catch (error) {
+			console.error(error);
+			throw new Error(`Error updating application: ${error}`);
 		}
 	},
 };

@@ -29,39 +29,6 @@ export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	}
 };
 
-export const addDocument = async (data: JobApplicationFormData) => {
-	const documentId = ID.unique();
-	try {
-		const response = await database.createDocument(
-			appwriteDbConfig.applicationDb,
-			appwriteDbConfig.applicationDbCollectionId,
-			documentId,
-			data,
-		);
-
-		return response;
-	} catch (error) {
-		console.error(error);
-		return {} as InterviewQuestionsData;
-	}
-};
-
-export const updateDocument = async (data: JobApplicationFormData, documentId: string) => {
-	try {
-		const response = await database.updateDocument(
-			appwriteDbConfig.applicationDb,
-			appwriteDbConfig.applicationDbCollectionId,
-			documentId,
-			data,
-		);
-
-		return response;
-	} catch (error) {
-		console.error(error);
-		return {} as InterviewQuestionsData;
-	}
-};
-
 export const addLinks = async (links: string, applicationDocumentId: string, userId: string) => {
 	if (links) {
 		const documentId = applicationDocumentId;

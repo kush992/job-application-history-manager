@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
 			query,
 		)) as Response<JobApplicationData>;
 
-		console.log('response', response);
+		// console.log('response', response);
 
 		if (response.documents && response.total) {
 			return NextResponse.json(response, { status: 200, statusText: 'ok' });

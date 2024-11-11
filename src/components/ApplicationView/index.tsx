@@ -152,7 +152,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 								<Separator className="my-3" />
 							</div>
 						)}
-						{data?.feedbackFromCompany && (
+						{/* {data?.feedbackFromCompany && (
 							<div id="additionalDetails">
 								<h2 className="text-lg font-semibold !mt-3">Additional details after applying</h2>
 								<div
@@ -163,7 +163,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 								/>
 								<Separator className="my-3" />
 							</div>
-						)}
+						)} */}
 						<div id="applicationData">
 							<h2 className="text-lg font-semibold !m-0">Application Data</h2>
 							<div

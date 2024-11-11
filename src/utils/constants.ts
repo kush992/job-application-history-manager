@@ -26,9 +26,9 @@ export enum QueryKeys {
 
 export const apiRoutes = {
 	applications: {
-		get: '/api/applications/get',
+		getAll: '/api/applications/getAll',
 		getOne: '/api/applications/getOne',
-		add: '/api/applications/add',
+		create: '/api/applications/create',
 		update: '/api/applications/update',
 		delete: '/api/applications/delete',
 	},
