@@ -29,24 +29,6 @@ export const fetchQnAData = async (userId: string, showType: QnAShowType) => {
 	}
 };
 
-// export const fetchApplicationDataById = async (documentId: string): Promise<JobApplicationData> => {
-// 	const url = new URL(`${origin}/api/applications/getOne?documentId=${documentId}`);
-
-// 	try {
-// 		const response = await fetch(url);
-
-// 		if (response.ok) {
-// 			console.log('response', response);
-// 			return (await response.json()) as JobApplicationData;
-// 		} else {
-// 			throw new Error('Failed to fetch application data');
-// 		}
-// 	} catch (error) {
-// 		console.error(error);
-// 		throw new Error('Failed to fetch application data');
-// 	}
-// };
-
 export const addDocument = async (data: JobApplicationFormData) => {
 	const documentId = ID.unique();
 	try {
