@@ -16,7 +16,7 @@ import { appRoutes, QueryKeys } from '@/utils/constants';
 import React, { useState } from 'react';
 import { QnAShowType } from './utility';
 import { useQuery } from '@tanstack/react-query';
-import { fetchQnAData } from '@/lib/server/appwrite-queries';
+import { interviewQuestionsQueries } from '@/lib/server/interview-questions-queries';
 
 type Props = {
 	userId: string;
@@ -27,7 +27,8 @@ const QnAPage: React.FC<Props> = ({ userId }) => {
 
 	const { data, error, isFetching, isLoading, refetch, isRefetching } = useQuery({
 		queryKey: [QueryKeys.QUESTIONS_AND_ANSWERS_PAGE, userId, curQnAType],
-		queryFn: () => fetchQnAData(userId, curQnAType),
+		queryFn: () => interviewQuestionsQueries.getAll(curQnAType),
+		staleTime: 1000 * 60 * 2,
 	});
 
 	function handleTabChange(type: QnAShowType) {
@@ -75,9 +76,9 @@ const QnAPage: React.FC<Props> = ({ userId }) => {
 			</Tabs>
 
 			{isLoading && <div>Loading...</div>}
-			{error && <div>Something went wrong</div>}
+			{error && <div>{error.message}</div>}
 			{(isFetching || isRefetching) && <div>Fetching...</div>}
-			{!isFetching && !isRefetching && !isLoading && (
+			{!isFetching && !isRefetching && !isLoading && !error && (
 				<div className="border p-4 rounded-md bg-background">
 					<QnAAccordion
 						questionsAndAnswers={data?.documents?.map((d) => d.questionsAndAnswers).flat() || []}
