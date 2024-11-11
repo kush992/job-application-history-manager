@@ -35,36 +35,27 @@ export const fetchApplicationData = async (
 	query?: string,
 	statusFilter?: ApplicationStatus,
 ) => {
-	const queries = [
-		Query.limit(config.dataFetchingLimitForAppwrite),
-		Query.equal('isSoftDelete', false),
-		Query.equal('userId', userId),
-		Query.orderDesc('$createdAt'),
-	];
+	const url = new URL(`${origin}/api/applications/get`);
 
-	// if (lastId) {
-	// 	queries.push(Query.cursorAfter(lastId));
-	// }
+	if (lastId) url.searchParams.append('lastId', lastId);
+	if (query) url.searchParams.append('searchQuery', query);
+	if (statusFilter) url.searchParams.append('statusFilter', statusFilter);
 
-	if (query) {
-		queries.push(Query.contains('companyName', query));
-	}
-
-	if (statusFilter) {
-		queries.push(Query.contains('applicationStatus', statusFilter));
-	}
+	url.searchParams.append('limit', config.dataFetchingLimitForAppwrite.toString());
 
 	try {
-		const response = (await database.listDocuments(
-			appwriteDbConfig.applicationDb,
-			appwriteDbConfig.applicationDbCollectionId,
-			queries,
-		)) as Response<JobApplicationData>;
+		const response = await fetch(url.toString(), {
+			method: 'GET',
+		});
 
-		return response;
+		if (response.ok) {
+			return (await response.json()) as Response<JobApplicationData>;
+		} else {
+			throw new Error('Failed to fetch application data');
+		}
 	} catch (error) {
 		console.error(error);
-		return {} as Response<JobApplicationData>;
+		throw new Error('Failed to fetch application data');
 	}
 };
 

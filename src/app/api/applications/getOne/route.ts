@@ -1,9 +1,14 @@
 import { appwriteDbConfig, database } from '@/appwrite/config';
 import { JobApplicationData } from '@/types/apiResponseTypes';
+import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
 	try {
+		if (!cookies().get('session')) {
+			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+		}
+
 		const documentId = req.nextUrl.searchParams.get('documentId');
 
 		if (!documentId) {
