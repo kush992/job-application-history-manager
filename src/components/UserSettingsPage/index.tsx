@@ -42,13 +42,13 @@ export default function UserSettingsPage({ user }: Props) {
 		onSuccess: () => {
 			toast({
 				title: 'success',
-				description: 'Application deleted successfully',
+				description: 'Preferences updated successfully',
 			});
 		},
 		onError: (error) => {
 			toast({
 				title: 'Error',
-				description: 'Failed to delete application',
+				description: 'Failed to update preferences',
 			});
 			console.error(error);
 		},
