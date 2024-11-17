@@ -17,11 +17,10 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '../ui/breadcrumb';
-import { InterviewQuestionsData, JobApplicationData } from '@/types/apiResponseTypes';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import QuestionAndAnswerForm from './Form';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { interviewQuestionsQueries } from '@/lib/server/interview-questions-queries';
 
 type Props = {
@@ -35,21 +34,52 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	const router = useRouter();
 	const { toast } = useToast();
 
-	const {
-		data: interviewQAData,
-		error,
-		isLoading,
-		isFetching,
-	} = useQuery({
+	const { data, error, isLoading } = useQuery({
 		queryKey: ['interviewQuestions', documentId],
 		queryFn: () => interviewQuestionsQueries.getOne(String(documentId)),
 		enabled: !!documentId,
 	});
 
+	const addDocMutation = useMutation({
+		mutationFn: (formData: QnAFormData) => interviewQuestionsQueries.add(formData),
+		onSuccess: () => {
+			toast({
+				title: 'Success',
+				description: 'QnA added successfully',
+			});
+			router.push(appRoutes.application);
+		},
+		onError: (error) => {
+			toast({
+				title: 'Error',
+				description: error?.message,
+			});
+			console.error(error);
+		},
+	});
+
+	const updateDocMutation = useMutation({
+		mutationFn: (formData: QnAFormData) => interviewQuestionsQueries.update(formData, String(documentId)),
+		onSuccess: () => {
+			toast({
+				title: 'Success',
+				description: 'QnA updated successfully',
+			});
+			router.push(appRoutes.application);
+		},
+		onError: (error) => {
+			toast({
+				title: 'Error',
+				description: error?.message,
+			});
+			console.error(error);
+		},
+	});
+
 	const initialFormData: QnAFormData = {
-		userId: interviewQAData?.userId || userId,
-		isPrivate: interviewQAData?.isPrivate,
-		questionsAndAnswers: normaliseQuestionsAndAnswers(interviewQAData?.questionsAndAnswers ?? []) || [],
+		userId: data?.userId || userId,
+		isPrivate: data?.isPrivate,
+		questionsAndAnswers: normaliseQuestionsAndAnswers(data?.questionsAndAnswers ?? []) || [],
 	};
 
 	const form = useForm<QnAFormData>({
@@ -60,66 +90,10 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 
 	async function onSubmit(data: QnAFormData) {
 		if (!isUpdateForm) {
-			addDocument(data);
+			addDocMutation.mutate(data);
 		} else {
-			updateDocument(data);
+			updateDocMutation.mutate(data);
 		}
-	}
-
-	function updateDocument(data: QnAFormData) {
-		database
-			.updateDocument(
-				appwriteDbConfig.applicationDb,
-				appwriteDbConfig.applicationDbInterviewQuestionsCollectionId,
-				String(documentId),
-				{
-					...data,
-					questionsAndAnswers: denormaliseQuestionsAndAnswers(data.questionsAndAnswers),
-				},
-			)
-			.then((response) => {
-				toast({
-					title: 'Success',
-					description: 'Application updated successfully',
-				});
-				router.push(appRoutes.application);
-			})
-			.catch((error) => {
-				console.error(error);
-
-				toast({
-					title: 'Error',
-					description: 'Error updating application',
-				});
-			});
-	}
-
-	function addDocument(data: QnAFormData) {
-		const documentId = ID.unique();
-		database
-			.createDocument(
-				appwriteDbConfig.applicationDb,
-				appwriteDbConfig.applicationDbInterviewQuestionsCollectionId,
-				documentId,
-				{
-					...data,
-					questionsAndAnswers: denormaliseQuestionsAndAnswers(data.questionsAndAnswers),
-				},
-			)
-			.then((response) => {
-				toast({
-					title: 'Success',
-					description: 'Application added successfully',
-				});
-				router.push(appRoutes.application);
-			})
-			.catch((error) => {
-				toast({
-					title: 'Error',
-					description: error?.message,
-				});
-				console.error(error);
-			});
 	}
 
 	return (

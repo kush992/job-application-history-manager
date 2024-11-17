@@ -1,11 +1,9 @@
-import Loader from '@/components/Loader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { ChevronRight, MoveRight } from 'lucide-react';
 import Link from 'next/link';
-import { Suspense } from 'react';
 import { featureData } from './utility';
 
 export default function HomePage() {
