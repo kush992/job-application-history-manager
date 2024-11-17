@@ -6,8 +6,8 @@ import { redirect } from 'next/navigation';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import QnAPage from '@/components/QnAPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { fetchQnAData } from '@/lib/server/appwrite-queries';
 import { QnAShowType } from '@/components/QnAPage/utility';
+import { interviewQuestionsQueries } from '@/lib/server/interview-questions-queries';
 
 const QuestionsAndAnswersPage = async () => {
 	const user = await getLoggedInUser();
@@ -17,7 +17,7 @@ const QuestionsAndAnswersPage = async () => {
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
 		queryKey: [QueryKeys.QUESTIONS_AND_ANSWERS_PAGE, user.$id, QnAShowType.PUBLIC],
-		queryFn: () => fetchQnAData(user.$id, QnAShowType.PUBLIC),
+		queryFn: () => interviewQuestionsQueries.getAll(QnAShowType.PUBLIC),
 	});
 
 	return (

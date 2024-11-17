@@ -51,6 +51,49 @@ Easily sort and review applications by status, prioritize tasks, and stay organi
 
 ```
 
+## API routes
+
+In this project, API routes are centralized in an apiRoutes object to improve organization and maintainability. This structure provides several advantages:
+
+-   **Centralized Management:** All API endpoints are stored in one object (apiRoutes), making them easy to locate, update, and manage across the application.
+
+-   **Consistency and Readability:** Each route follows a clear naming convention, using actions like getAll, getOne, add, update, and delete, which improves readability and consistency.
+
+-   **Modular Structure:** Routes are organized by feature or module (e.g., applications, interviewQuestions), which keeps related routes together and simplifies maintenance.
+
+-   **Scalability:** This structure is designed to support the addition of new API routes and functionalities without cluttering the codebase.
+
+```
+const apiRoutes = {
+	applications: {
+		getAll: '/api/applications/getAll',
+		getOne: '/api/applications/getOne',
+		add: '/api/applications/add',
+		update: '/api/applications/update',
+		delete: '/api/applications/delete',
+	},
+	applicationDocuments: {
+		add: '/api/application-documents/add',
+		update: '/api/application-documents/update',
+	},
+	interviewQuestions: {
+		getAll: '/api/interview-questions/getAll',
+		getOne: '/api/interview-questions/getOne',
+		add: '/api/interview-questions/add',
+		update: '/api/interview-questions/update',
+		delete: '/api/interview-questions/delete',
+	},
+	files: {
+		upload: '/api/files/upload',
+		delete: '/api/files/delete',
+	},
+	usersPrefs: {
+		update: '/api/user/prefs/update',
+	},
+};
+
+```
+
 ## Environment variables
 
 To get run the application locally, creat a file named `.env.local` and copy the below variables or from `.env.example`

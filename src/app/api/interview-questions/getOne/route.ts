@@ -1,5 +1,5 @@
 import { appwriteDbConfig, database } from '@/appwrite/config';
-import { JobApplicationData } from '@/types/apiResponseTypes';
+import { InterviewQuestionsData } from '@/types/apiResponseTypes';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -15,13 +15,13 @@ export async function GET(req: NextRequest) {
 			return NextResponse.json({ error: 'Document ID is required' }, { status: 400 });
 		}
 
-		const response: JobApplicationData = await database.getDocument(
+		const response: InterviewQuestionsData = await database.getDocument(
 			appwriteDbConfig.applicationDb,
-			appwriteDbConfig.applicationDbCollectionId,
-			documentId,
+			appwriteDbConfig.applicationDbInterviewQuestionsCollectionId,
+			String(documentId),
 		);
 
-		if (response.documents) {
+		if (response.$id) {
 			return NextResponse.json(response, { status: 200, statusText: 'ok' });
 		} else {
 			return NextResponse.json({ error: 'Document not found' }, { status: 404 });

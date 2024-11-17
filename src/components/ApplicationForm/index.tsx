@@ -19,8 +19,9 @@ import {
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import ApplicationDataForm from './Form';
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import { addDocument, addLinks, fetchApplicationDataById, updateDocument } from '@/lib/server/appwrite-queries';
+import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { applicationDataQueries } from '@/lib/server/application-queries';
+import { addLinks } from '@/lib/server/application-docs-queries';
 
 type Props = {
 	documentId?: string;
@@ -33,13 +34,14 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	const router = useRouter();
 	const { toast } = useToast();
 
-	const { data: applicationData, isLoading } = useSuspenseQuery({
+	const { data: applicationData, isLoading } = useQuery({
 		queryKey: [QueryKeys.APPLICATION_BY_ID, documentId, userId],
-		queryFn: () => fetchApplicationDataById(String(documentId), userId),
+		queryFn: () => applicationDataQueries.getOne(String(documentId)),
+		enabled: !!documentId,
 	});
 
 	const addLinksMutation = useMutation({
-		mutationFn: (links: string) => addLinks(links, applicationData.documents[0].$id, userId),
+		mutationFn: (links: string) => addLinks(links, String(applicationData?.documents[0]?.$id)),
 		onSuccess: () => {
 			toast({
 				title: 'success',
@@ -57,7 +59,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			if (data.links) {
 				addLinksMutation.mutate(data.links);
 			}
-			return addDocument(data);
+			return applicationDataQueries.add(data);
 		},
 		onSuccess: () => {
 			toast({
@@ -77,10 +79,11 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			if (data.links) {
 				addLinksMutation.mutate(data.links);
 			}
-			console.log(documentId);
-			return updateDocument(data, String(documentId));
+
+			return applicationDataQueries.update(data, String(documentId));
 		},
 		onSuccess: () => {
+			console.log('here');
 			toast({
 				title: 'success',
 				description: 'Application updated successfully',
@@ -95,11 +98,11 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 
 	const initialFormData: JobApplicationFormData = {
 		userId: applicationData?.userId || userId,
-		jobTitle: applicationData.jobTitle,
-		notes: applicationData.notes,
-		companyName: applicationData?.companyName,
+		jobTitle: String(applicationData?.jobTitle),
+		notes: applicationData?.notes,
+		companyName: String(applicationData?.companyName),
 		companyDomain: applicationData?.companyDomain || undefined,
-		feedbackFromCompany: applicationData?.feedbackFromCompany,
+		feedbackFromCompany: String(applicationData?.feedbackFromCompany),
 		applicationStatus: applicationData?.applicationStatus,
 		salary: applicationData?.salary || undefined,
 		salaryCurrency: applicationData?.salaryCurrency,

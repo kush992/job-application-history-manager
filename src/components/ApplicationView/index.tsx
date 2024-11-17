@@ -22,8 +22,8 @@ import { Badge } from '../ui/badge';
 import { getFileName } from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
 import { useQuery } from '@tanstack/react-query';
-import { fetchApplicationDataById } from '@/lib/server/appwrite-queries';
-import { Briefcase, ExternalLink, Link2, LinkIcon, MapPin } from 'lucide-react';
+import { applicationDataQueries } from '@/lib/server/application-queries';
+import { ExternalLink } from 'lucide-react';
 
 type Props = {
 	documentId: string;
@@ -33,7 +33,7 @@ type Props = {
 const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 	const { data, error, isLoading, isFetching } = useQuery({
 		queryKey: [QueryKeys.APPLICATION_BY_ID, documentId, userId],
-		queryFn: () => fetchApplicationDataById(documentId, userId),
+		queryFn: () => applicationDataQueries.getOne(documentId),
 		enabled: !!userId,
 		staleTime: 1000 * 60 * 5, // 5 minutes
 	});
@@ -152,7 +152,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 								<Separator className="my-3" />
 							</div>
 						)}
-						{data?.feedbackFromCompany && (
+						{/* {data?.feedbackFromCompany && (
 							<div id="additionalDetails">
 								<h2 className="text-lg font-semibold !mt-3">Additional details after applying</h2>
 								<div
@@ -163,7 +163,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 								/>
 								<Separator className="my-3" />
 							</div>
-						)}
+						)} */}
 						<div id="applicationData">
 							<h2 className="text-lg font-semibold !m-0">Application Data</h2>
 							<div

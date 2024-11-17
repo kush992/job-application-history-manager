@@ -6,7 +6,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { fetchApplicationDataById } from '@/lib/server/appwrite-queries';
+import { applicationDataQueries } from '@/lib/server/application-queries';
 
 type Params = {
 	documentId: string;
@@ -20,7 +20,7 @@ export default async function ViewApplication({ params }: { params: Params }) {
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
 		queryKey: [QueryKeys.APPLICATION_BY_ID, params.documentId, user.$id],
-		queryFn: () => fetchApplicationDataById(params.documentId, user.$id),
+		queryFn: () => applicationDataQueries.getOne(params.documentId),
 	});
 
 	return (
