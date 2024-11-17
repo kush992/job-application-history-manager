@@ -1,7 +1,7 @@
 import ApplicationForm from '@/components/ApplicationForm';
 import Loader from '@/components/Loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
-import { fetchApplicationDataById } from '@/lib/server/appwrite-queries';
+import { applicationDataQueries } from '@/lib/server/application-queries';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/next';
@@ -20,7 +20,7 @@ export default async function UpdateApplication({ params }: { params: Params }) 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
 		queryKey: [QueryKeys.APPLICATION_BY_ID, params.documentId, user.$id],
-		queryFn: () => fetchApplicationDataById(params.documentId, user.$id),
+		queryFn: () => applicationDataQueries.getOne(params.documentId),
 	});
 
 	return (

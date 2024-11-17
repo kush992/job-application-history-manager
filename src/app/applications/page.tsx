@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import ApplicationPage from '@/components/ApplicationPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { fetchApplicationData } from '@/lib/server/appwrite-queries';
+import { applicationDataQueries } from '@/lib/server/application-queries';
 
 const ApplicationsPage = async () => {
 	const user = await getLoggedInUser();
@@ -16,7 +16,7 @@ const ApplicationsPage = async () => {
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
 		queryKey: [QueryKeys.APPLICATIONS_PAGE, user.$id],
-		queryFn: () => fetchApplicationData(user.$id, undefined, undefined, undefined),
+		queryFn: () => applicationDataQueries.getAll(undefined, undefined, undefined),
 	});
 
 	return (
