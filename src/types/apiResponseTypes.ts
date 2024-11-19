@@ -1,3 +1,5 @@
+import { ApplicationStatus } from '@/components/ApplicationForm/utility';
+
 export type JobApplicationData = {
 	userId: string;
 	jobTitle: string;
@@ -77,4 +79,10 @@ export type InterviewQuestionsData = {
 export type Response<T> = {
 	total: number;
 	documents: T[];
+};
+
+export type ApplicationDataFilterType = {
+	statusFilter: ApplicationStatus;
+	workModeFilter: WorkMode;
+	contractTypeFilter: ContractType;
 };

@@ -4,41 +4,33 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import * as XLSX from 'xlsx';
+import { JobApplicationData } from '@/types/apiResponseTypes';
 
-type JobApplicationData = {
-	jobTitle: string;
-	notes: string;
-	salary: string;
-	salaryType: string;
-	applicationStatus: null | string;
-	salaryCurrency: string;
-	companyName: string;
-	companyDomain: string;
-	interviewDate: null | Date;
-	links: null | string;
-	$id: string;
-	$createdAt: string;
-	$updatedAt: string;
-	location?: string;
-	jobLink?: string;
-	jobPostedOn?: string;
-	workMode?: string;
-	contractType?: string;
-};
+type ApplicationData = Omit<
+	JobApplicationData,
+	| '$permissions'
+	| 'deletedAt'
+	| 'isSoftDeleted'
+	| 'userId'
+	| 'feedbackFromCompany'
+	| '$tenant'
+	| '$databaseId'
+	| '$collectionId'
+>;
 
-interface ExcelDownloadProps {
-	data: JobApplicationData[];
+interface Props {
+	data: ApplicationData[];
 	fileName?: string;
 }
 
-export default function ExcelDownload({ data, fileName = 'job_applications.xlsx' }: ExcelDownloadProps) {
+export default function ExcelDownload({ data, fileName = 'job_applications.xlsx' }: Props) {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const downloadExcel = async () => {
 		setIsLoading(true);
 		try {
 			// Convert data to worksheet
-			const worksheet = XLSX.utils.json_to_sheet(data as JobApplicationData[]);
+			const worksheet = XLSX.utils.json_to_sheet(data as ApplicationData[]);
 
 			// Create workbook and add the worksheet
 			const workbook = XLSX.utils.book_new();

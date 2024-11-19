@@ -1,15 +1,18 @@
 import { ApplicationStatus, JobApplicationFormData } from '@/components/ApplicationForm/utility';
 import { config } from '@/config/config';
-import { JobApplicationData, Response } from '@/types/apiResponseTypes';
+import { ApplicationDataFilterType, JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { apiRoutes } from '@/utils/constants';
 
 export const applicationDataQueries = {
-	getAll: async (lastId?: string, query?: string, statusFilter?: ApplicationStatus) => {
+	getAll: async (lastId?: string, query?: string, filters?: ApplicationDataFilterType) => {
 		const url = new URL(`${origin}${apiRoutes.applications.getAll}`);
 
 		if (lastId) url.searchParams.append('lastId', lastId);
 		if (query) url.searchParams.append('searchQuery', query);
-		if (statusFilter) url.searchParams.append('statusFilter', statusFilter);
+
+		if (filters?.statusFilter) url.searchParams.append('statusFilter', filters.statusFilter);
+		if (filters?.workModeFilter) url.searchParams.append('workMode', filters.workModeFilter);
+		if (filters?.contractTypeFilter) url.searchParams.append('contractType', filters.contractTypeFilter);
 
 		url.searchParams.append('limit', config.dataFetchingLimitForAppwrite.toString());
 
