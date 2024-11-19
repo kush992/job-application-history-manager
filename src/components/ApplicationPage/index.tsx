@@ -22,7 +22,9 @@ import { useToast } from '@/hooks/use-toast';
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import ExcelDownload from '../ExcelDownload';
 import { applicationDataQueries } from '@/lib/server/application-queries';
+import { ContractType, WorkMode } from '@/types/apiResponseTypes';
 
 type Props = {
 	userId: string;
@@ -31,11 +33,18 @@ type Props = {
 const ApplicationPage: React.FC<Props> = ({ userId }) => {
 	const [companyNameFilter, setCompanyNameFilter] = useState<string | undefined>(undefined);
 	const [statusFilter, setStatusFilter] = useState<ApplicationStatus | undefined>(undefined);
+	const [workModeFilter, setWorkModeFilter] = useState<WorkMode | undefined>(undefined);
+	const [contractTypeFilter, setContractTypeFilter] = useState<ContractType | undefined>(undefined);
 	const [lastId, setLastId] = useState<string | undefined>(undefined);
 
 	const { data, error, isLoading, isFetching, refetch, isRefetching } = useQuery({
 		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, lastId, companyNameFilter, statusFilter],
-		queryFn: () => applicationDataQueries.getAll(lastId, companyNameFilter, statusFilter as ApplicationStatus),
+		queryFn: () =>
+			applicationDataQueries.getAll(lastId, companyNameFilter, {
+				statusFilter: statusFilter as ApplicationStatus,
+				workModeFilter: workModeFilter as WorkMode,
+				contractTypeFilter: contractTypeFilter as ContractType,
+			}),
 		enabled: !!userId,
 		staleTime: 1000 * 60 * 5, // 5 minutes
 	});
@@ -64,7 +73,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 			debounce(() => {
 				console.log('debounced fetching');
 				refetch();
-			}, 5000),
+			}, 400),
 		[refetch],
 	);
 
@@ -83,9 +92,21 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 		debouncedFetching();
 	};
 
+	const filterByWorkMode = (value: WorkMode) => {
+		setWorkModeFilter(value);
+		debouncedFetching();
+	};
+
+	const filterByContractType = (value: ContractType) => {
+		setContractTypeFilter(value);
+		debouncedFetching();
+	};
+
 	const clearAllFilters = () => {
 		setCompanyNameFilter(undefined);
 		setStatusFilter(undefined);
+		setWorkModeFilter(undefined);
+		setContractTypeFilter(undefined);
 		debouncedFetching();
 	};
 
@@ -106,9 +127,11 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 					<PageTitle title="Applied jobs" />
 					<PageDescription description="This is a collection of all the jobs you have applied for." />
 				</div>
-				<Button variant="outline">
-					<Link href={appRoutes.addApplication}>Add new</Link>
-				</Button>
+				<div>
+					<Button variant="outline">
+						<Link href={appRoutes.addApplication}>Add new</Link>
+					</Button>
+				</div>
 			</div>
 
 			<div className="flex flex-col items-center gap-2 w-full">
@@ -119,6 +142,8 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 				<ApplicationFilter
 					onInputChange={onInputChange}
 					filterByStatus={filterByStatus}
+					filterByContractType={filterByContractType}
+					filterByWorkMode={filterByWorkMode}
 					clearAllFilters={clearAllFilters}
 				/>
 
