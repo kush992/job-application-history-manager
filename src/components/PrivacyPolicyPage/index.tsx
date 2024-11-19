@@ -5,7 +5,7 @@ export default function PrivacyPolicyPage() {
 	const lastUpdated = 'November 4, 2023'; // Replace with your actual last updated date
 
 	return (
-		<div className="mx-auto py-8">
+		<div className="mx-auto py-8 motion-preset-slide-down">
 			<Card className="w-full max-w-3xl mx-auto">
 				<CardHeader>
 					<CardTitle className="text-3xl font-bold text-center">Privacy Policy</CardTitle>

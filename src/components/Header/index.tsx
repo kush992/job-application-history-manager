@@ -68,8 +68,8 @@ const Header: React.FC<Props> = ({ user }) => {
 									navBarLink.href === appRoutes.addApplication ? (
 										<li className="list-none" key={navBarLink.href}>
 											<Link href={appRoutes.addApplication}>
-												<Button variant="outline" size="icon">
-													<Plus className="text-lightGreenAccent" />
+												<Button variant="outline" size="icon" className="bg-secondary">
+													<Plus className="text-primary" />
 												</Button>
 											</Link>
 										</li>
@@ -77,9 +77,13 @@ const Header: React.FC<Props> = ({ user }) => {
 										<li className="list-none" key={navBarLink.href}>
 											<Link
 												href={navBarLink.href}
-												className={cn('text-secondary-foreground', {
-													'bg-muted p-2 rounded-md': isActive(navBarLink.href),
-												})}
+												className={cn(
+													'p-2 rounded-md text-secondary-foreground relative hover:bg-secondary',
+													{
+														'after:absolute after:bg-primary after:bottom-[-9px] after:w-full after:h-[2px] after:left-0':
+															isActive(navBarLink.href),
+													},
+												)}
 											>
 												{navBarLink.page}
 											</Link>

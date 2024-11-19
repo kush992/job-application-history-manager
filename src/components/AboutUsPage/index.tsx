@@ -3,7 +3,7 @@ import { aboutUsContent } from './utility';
 
 const AboutUsPage: React.FC = () => {
 	return (
-		<div className="md:text-center flex flex-col gap-4 md:gap-8">
+		<div className="md:text-center flex flex-col gap-4 md:gap-8 motion-preset-slide-down">
 			<div>
 				<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
 					{aboutUsContent.title}

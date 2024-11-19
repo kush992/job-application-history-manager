@@ -13,19 +13,19 @@ export default function HomePage() {
 				<div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
 					<Link
 						href={appRoutes.pricing}
-						className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm bg-lightGreenAccent rounded-full text-darkGreenAccent"
+						className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm bg-lightGreenAccent rounded-full text-darkGreenAccent motion-preset-compress "
 					>
 						<span className="text-xs bg-darkGreenAccent rounded-full text-white px-4 py-1.5 me-3">New</span>
 						<span className="text-sm font-medium">Available now - Premium plan</span>
 						<ChevronRight className="text-darkGreenAccent" />
 					</Link>
-					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl motion-preset-slide-up">
 						Welcome to JobJourney – Your Job Application Tracker
 					</h1>
-					<p className="leading-7 [&:not(:first-child)]:mt-6 text-muted-foreground">
+					<p className="leading-7 [&:not(:first-child)]:mt-6 text-muted-foreground motion-preset-slide-up">
 						Streamline Your Job Search with Precision and Ease
 					</p>
-					<div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center my-6">
+					<div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center my-6 motion-preset-slide-up">
 						<Link href={appRoutes.signUp}>
 							<Button size="lg" className="flex items-center gap-2">
 								Get started <MoveRight />
@@ -42,7 +42,7 @@ export default function HomePage() {
 			</section>
 
 			<section>
-				<div className="py-4 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative">
+				<div className="py-4 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative motion-preset-slide-down">
 					<h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
 						Tired of spreadsheets for tracking job applications?
 					</h2>
@@ -56,7 +56,7 @@ export default function HomePage() {
 			</section>
 
 			<section>
-				<div className="py-4 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative">
+				<div className="py-4 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative motion-preset-slide-up">
 					<h2 className="mt-10 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
 						How JobJourney Works
 					</h2>
