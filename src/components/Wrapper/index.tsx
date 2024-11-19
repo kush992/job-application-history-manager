@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/components/Header';
-import { Models } from 'appwrite';
+import { Models } from 'node-appwrite';
 import { jsonParseString } from '@/utils/utility';
 import { ThemeProvider } from '../ThemeProvider';
 import { Toaster } from '../ui/toaster';

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import { formatDate } from '@/utils/date';
 import Loader from '../Loader';
-import { DollarCircleOutlined, EditOutlined } from '@ant-design/icons';
 import { Separator } from '@/components/ui/separator';
 import DOMPurify from 'dompurify';
 import { FILES_SEPARATOR } from '../ApplicationForm/utility';
@@ -23,7 +22,7 @@ import { getFileName } from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
 import { useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
-import { ExternalLink } from 'lucide-react';
+import { CircleDollarSign, ExternalLink, Pencil } from 'lucide-react';
 
 type Props = {
 	documentId: string;
@@ -98,7 +97,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 							<div>
 								<Link href={`${appRoutes.updateApplication}/${documentId}`} className="underline">
 									<Button size="icon">
-										<EditOutlined />
+										<Pencil />
 									</Button>
 								</Link>
 							</div>
@@ -122,7 +121,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 							</div>
 							{salaryDetail && (
 								<p className="text-sm text-muted-foreground">
-									<DollarCircleOutlined /> {salaryDetail}
+									<CircleDollarSign /> {salaryDetail}
 								</p>
 							)}
 						</div>

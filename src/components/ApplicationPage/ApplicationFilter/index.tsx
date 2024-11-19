@@ -2,7 +2,7 @@ import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { DeleteFilled } from '@ant-design/icons';
+import { Trash2 } from 'lucide-react';
 import React from 'react';
 
 type Props = {
@@ -36,7 +36,7 @@ const ApplicationFilter: React.FC<Props> = ({ onInputChange, filterByStatus, cle
 				</Select>
 
 				<Button type="reset" onClick={clearAllFilters} variant="outline" className="flex items-center gap-1">
-					<DeleteFilled />
+					<Trash2 />
 					<span>Clear filters</span>
 				</Button>
 			</div>

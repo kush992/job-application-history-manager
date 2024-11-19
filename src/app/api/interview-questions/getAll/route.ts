@@ -2,7 +2,7 @@ import { appwriteDbConfig, database } from '@/appwrite/config';
 import { QnAShowType } from '@/components/QnAPage/utility';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { Response, InterviewQuestionsData } from '@/types/apiResponseTypes';
-import { Query } from 'appwrite';
+import { Query } from 'node-appwrite';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {

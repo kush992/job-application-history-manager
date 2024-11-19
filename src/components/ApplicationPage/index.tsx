@@ -4,7 +4,6 @@ import React, { useCallback, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import ApplicationList from './ApplicationList';
-import { InfoCircleFilled } from '@ant-design/icons';
 import ApplicationFilter from './ApplicationFilter';
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { Separator } from '@/components/ui/separator';
@@ -23,6 +22,7 @@ import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
+import { Info } from 'lucide-react';
 
 type Props = {
 	userId: string;
@@ -113,7 +113,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 
 			<div className="flex flex-col items-center gap-2 w-full">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
-					<InfoCircleFilled />
+					<Info />
 					<span>Total: {data?.total}</span>
 				</p>
 				<ApplicationFilter

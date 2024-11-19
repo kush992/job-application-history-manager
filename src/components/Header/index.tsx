@@ -5,11 +5,10 @@ import cn from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { PlusCircleFilled } from '@ant-design/icons';
-import { Models } from 'appwrite';
+import { Models } from 'node-appwrite';
 import { Button } from '@/components/ui/button';
 import { UserMenu } from '../UserMenu';
-import { CircleX, Info, X } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { navBarLinks } from './utility';
 
 type Props = {
@@ -70,11 +69,7 @@ const Header: React.FC<Props> = ({ user }) => {
 										<li className="list-none" key={navBarLink.href}>
 											<Link href={appRoutes.addApplication}>
 												<Button variant="outline" size="icon">
-													<PlusCircleFilled
-														className="text-secondary-foreground"
-														height="40px"
-														width="40px"
-													/>
+													<Plus className="text-lightGreenAccent" />
 												</Button>
 											</Link>
 										</li>
