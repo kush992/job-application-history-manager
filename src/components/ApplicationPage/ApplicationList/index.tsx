@@ -38,7 +38,7 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 			<Link href={`${appRoutes.viewApplication}/${data.$id}`}>
 				<div className="grid sm:grid-cols-3 sm:gap-4 w-full items-start">
 					<div>
-						<h3 className="text-base font-[500] !pb-0 !my-0 text-primary">{data.jobTitle}</h3>
+						<h3 className="text-base font-[500] !pb-0 !my-0 text-secondary-foreground">{data.jobTitle}</h3>
 						<p className="!my-0 text-muted-foreground">{data.companyName}</p>
 					</div>
 					<p className="text-muted-foreground text-xs md:hidden">{transformDate(data.$createdAt)}</p>
