@@ -29,7 +29,7 @@ const ApplicationFilter: React.FC<Props> = ({
 				className="md:!w-[70%]"
 			/>
 
-			<div className="flex items-center flex-wrap w-full gap-2">
+			<div className="flex items-center flex-wrap md:flex-nowrap w-full gap-2">
 				<Select onValueChange={filterByStatus} defaultValue="">
 					<SelectTrigger>
 						<SelectValue defaultValue="" placeholder="Filter by status" />
