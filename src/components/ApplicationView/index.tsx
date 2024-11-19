@@ -57,7 +57,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 			{(isFetching || isLoading) && <Loader />}
 			{!isFetching && !isLoading && data?.$id && (
 				<>
-					<div className="flex flex-col gap-4 rounded-md border p-4 bg-background">
+					<div className="flex flex-col gap-4 rounded-md border p-4 bg-background motion-preset-focus ">
 						<div className="flex justify-between items-start">
 							<div>
 								<p className="text-sm">{data?.companyName}</p>
@@ -127,7 +127,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 						</div>
 					</div>
 
-					<div className="border p-4 rounded-md bg-background">
+					<div className="border p-4 rounded-md bg-background motion-preset-focus-sm overflow-hidden ">
 						{data?.links && (
 							<div id="documentsData">
 								<h2 className="text-lg font-semibold !mt-3">Documents Added</h2>
@@ -166,7 +166,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 						<div id="applicationData">
 							<h2 className="text-lg font-semibold !m-0">Application Data</h2>
 							<div
-								className="rounded-md prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
+								className="rounded-md text-wrap break-words prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
 								dangerouslySetInnerHTML={{
 									__html: DOMPurify.sanitize(data?.notes),
 								}}
