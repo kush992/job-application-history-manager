@@ -5,11 +5,10 @@ import cn from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { PlusCircleFilled } from '@ant-design/icons';
-import { Models } from 'appwrite';
+import { Models } from 'node-appwrite';
 import { Button } from '@/components/ui/button';
 import { UserMenu } from '../UserMenu';
-import { CircleX, Info, X } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { navBarLinks } from './utility';
 
 type Props = {
@@ -17,101 +16,69 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ user }) => {
-	const [isHidden, setIsHidden] = useState<boolean>(true);
 	const pathname = usePathname();
 
 	const isActive = (route: string) => {
 		return pathname === route;
 	};
 
-	const hideTestingInfo = () => {
-		const isHidden = localStorage.getItem('isHidden');
-		if (isHidden === 'true') {
-			setIsHidden(true);
-		}
-
-		localStorage.setItem('isHidden', 'true');
-		setIsHidden(true);
-	};
-
-	useEffect(() => {
-		const isHidden = localStorage.getItem('isHidden');
-		if (isHidden === 'true') {
-			setIsHidden(true);
-		} else {
-			setIsHidden(false);
-		}
-	}, []);
-
 	return (
-		<>
-			{!isHidden && (
-				<div className="bg-background text-muted-foreground text-xs py-2 text-center border-b flex gap-2 items-center justify-center">
-					Currently on testing stage
-					<Button size="icon" variant="ghost" className="w-7 h-7" onClick={hideTestingInfo}>
-						<X className="cursor-pointer w-5 h-5" />
-					</Button>
+		<header className="border-b border-muted z-50 sticky top-0 backdrop-blur duration-200 bg-background">
+			<div className="max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4">
+				<div>
+					<Link href={appRoutes.home} className="flex flex-col">
+						<span className="text-lg font-bold text-secondary-foreground tracking-tighter">JobJourney</span>
+					</Link>
 				</div>
-			)}
-			<header className="border-b border-muted z-50 sticky top-0 backdrop-blur duration-200 bg-background">
-				<div className="max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4">
-					<div>
-						<Link href={appRoutes.home} className="flex flex-col">
-							<span className="text-lg font-bold text-secondary-foreground tracking-tighter">
-								JobJourney
-							</span>
-						</Link>
-					</div>
-					<nav className="hidden md:flex justify-center items-center gap-4">
-						{user?.$id && (
-							<ul className="flex justify-between items-center m-0 gap-4">
-								{navBarLinks.map((navBarLink) =>
-									navBarLink.href === appRoutes.addApplication ? (
-										<li className="list-none" key={navBarLink.href}>
-											<Link href={appRoutes.addApplication}>
-												<Button variant="outline" size="icon">
-													<PlusCircleFilled
-														className="text-secondary-foreground"
-														height="40px"
-														width="40px"
-													/>
-												</Button>
-											</Link>
-										</li>
-									) : (
-										<li className="list-none" key={navBarLink.href}>
-											<Link
-												href={navBarLink.href}
-												className={cn('text-secondary-foreground', {
-													'bg-muted p-2 rounded-md': isActive(navBarLink.href),
-												})}
-											>
-												{navBarLink.page}
-											</Link>
-										</li>
-									),
-								)}
+				<nav className="hidden md:flex justify-center items-center gap-4">
+					{user?.$id && (
+						<ul className="flex justify-between items-center m-0 gap-4">
+							{navBarLinks.map((navBarLink) =>
+								navBarLink.href === appRoutes.addApplication ? (
+									<li className="list-none" key={navBarLink.href}>
+										<Link href={appRoutes.addApplication}>
+											<Button variant="outline" size="icon" className="bg-secondary">
+												<Plus className="text-primary" />
+											</Button>
+										</Link>
+									</li>
+								) : (
+									<li className="list-none" key={navBarLink.href}>
+										<Link
+											href={navBarLink.href}
+											className={cn(
+												'p-2 rounded-md text-secondary-foreground relative hover:bg-secondary',
+												{
+													'after:absolute after:bg-primary after:bottom-[-9px] after:w-full after:h-[2px] after:left-0':
+														isActive(navBarLink.href),
+												},
+											)}
+										>
+											{navBarLink.page}
+										</Link>
+									</li>
+								),
+							)}
 
-								<UserMenu user={user} />
-							</ul>
-						)}
-						{!user?.$id && (
-							<Link href={appRoutes.signUp}>
-								<Button>SignIn</Button>
-							</Link>
-						)}
-					</nav>
-					<div className="md:hidden flex items-center gap-2">
-						{user?.$id && <UserMenu user={user} />}
-						{!user?.$id && (
-							<Link href={appRoutes.signUp}>
-								<Button>SignIn</Button>
-							</Link>
-						)}
-					</div>
+							<UserMenu user={user} />
+						</ul>
+					)}
+					{!user?.$id && (
+						<Link href={appRoutes.signUp}>
+							<Button>SignIn</Button>
+						</Link>
+					)}
+				</nav>
+				<div className="md:hidden flex items-center gap-2">
+					{user?.$id && <UserMenu user={user} />}
+					{!user?.$id && (
+						<Link href={appRoutes.signUp}>
+							<Button>SignIn</Button>
+						</Link>
+					)}
 				</div>
-			</header>
-		</>
+			</div>
+		</header>
 	);
 };
 

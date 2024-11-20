@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import { formatDate } from '@/utils/date';
 import Loader from '../Loader';
-import { DollarCircleOutlined, EditOutlined } from '@ant-design/icons';
 import { Separator } from '@/components/ui/separator';
 import DOMPurify from 'dompurify';
 import { FILES_SEPARATOR } from '../ApplicationForm/utility';
@@ -23,7 +22,7 @@ import { getFileName } from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
 import { useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
-import { ExternalLink } from 'lucide-react';
+import { CircleDollarSign, ExternalLink, Pencil } from 'lucide-react';
 
 type Props = {
 	documentId: string;
@@ -58,7 +57,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 			{(isFetching || isLoading) && <Loader />}
 			{!isFetching && !isLoading && data?.$id && (
 				<>
-					<div className="flex flex-col gap-4 rounded-md border p-4 bg-background">
+					<div className="flex flex-col gap-4 rounded-md border p-4 bg-background motion-preset-focus ">
 						<div className="flex justify-between items-start">
 							<div>
 								<p className="text-sm">{data?.companyName}</p>
@@ -98,7 +97,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 							<div>
 								<Link href={`${appRoutes.updateApplication}/${documentId}`} className="underline">
 									<Button size="icon">
-										<EditOutlined />
+										<Pencil />
 									</Button>
 								</Link>
 							</div>
@@ -122,13 +121,13 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 							</div>
 							{salaryDetail && (
 								<p className="text-sm text-muted-foreground">
-									<DollarCircleOutlined /> {salaryDetail}
+									<CircleDollarSign /> {salaryDetail}
 								</p>
 							)}
 						</div>
 					</div>
 
-					<div className="border p-4 rounded-md bg-background">
+					<div className="border p-4 rounded-md bg-background motion-preset-focus-sm overflow-hidden ">
 						{data?.links && (
 							<div id="documentsData">
 								<h2 className="text-lg font-semibold !mt-3">Documents Added</h2>
@@ -152,22 +151,11 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 								<Separator className="my-3" />
 							</div>
 						)}
-						{/* {data?.feedbackFromCompany && (
-							<div id="additionalDetails">
-								<h2 className="text-lg font-semibold !mt-3">Additional details after applying</h2>
-								<div
-									className="rounded-md prose !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
-									dangerouslySetInnerHTML={{
-										__html: DOMPurify.sanitize(data?.feedbackFromCompany),
-									}}
-								/>
-								<Separator className="my-3" />
-							</div>
-						)} */}
+
 						<div id="applicationData">
 							<h2 className="text-lg font-semibold !m-0">Application Data</h2>
 							<div
-								className="rounded-md prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
+								className="rounded-md text-wrap break-words prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
 								dangerouslySetInnerHTML={{
 									__html: DOMPurify.sanitize(data?.notes),
 								}}

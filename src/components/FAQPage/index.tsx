@@ -30,7 +30,7 @@ const FAQPage = () => {
 	};
 
 	return (
-		<section className="flex flex-col items-center gap-10 w-full">
+		<section className="flex flex-col items-center gap-10 w-full motion-preset-slide-down">
 			<div className="pt-4 text-center">
 				<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{faqData.title}</h1>
 				<p className="leading-7 [&:not(:first-child)]:mt-6">{faqData.description}</p>

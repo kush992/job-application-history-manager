@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/components/Header';
-import { Models } from 'appwrite';
+import { Models } from 'node-appwrite';
 import { jsonParseString } from '@/utils/utility';
 import { ThemeProvider } from '../ThemeProvider';
 import { Toaster } from '../ui/toaster';
@@ -31,7 +31,10 @@ export default function Wrapper({
 				<ReactQueryDevtools initialIsOpen={false} />
 				<Toaster />
 				<Header user={jsonParseString(user)} />
-				<div className="min-h-screen">{children}</div>
+				<div className="min-h-screen">
+					<div className="bg-gradient-to-b from-secondary to-transparent dark:from-background w-full h-full absolute top-0 left-0 -z-10"></div>
+					{children}
+				</div>
 				<Footer />
 			</QueryClientProvider>
 		</ThemeProvider>

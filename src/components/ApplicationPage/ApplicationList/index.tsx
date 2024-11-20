@@ -2,13 +2,12 @@ import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { JobApplicationData } from '@/types/apiResponseTypes';
 import { appRoutes } from '@/utils/constants';
 import { transformDate } from '@/utils/date';
-import { DeleteFilled, DollarCircleFilled, EditFilled } from '@ant-design/icons';
 import Link from 'next/link';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal } from 'lucide-react';
+import { CircleDollarSign, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
 import { AlertDialogCustom } from '@/components/AlertDialogCustom';
 
 type Props = {
@@ -39,7 +38,7 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 			<Link href={`${appRoutes.viewApplication}/${data.$id}`}>
 				<div className="grid sm:grid-cols-3 sm:gap-4 w-full items-start">
 					<div>
-						<h3 className="text-base font-[500] !pb-0 !my-0 text-primary">{data.jobTitle}</h3>
+						<h3 className="text-base font-[500] !pb-0 !my-0 text-secondary-foreground">{data.jobTitle}</h3>
 						<p className="!my-0 text-muted-foreground">{data.companyName}</p>
 					</div>
 					<p className="text-muted-foreground text-xs md:hidden">{transformDate(data.$createdAt)}</p>
@@ -49,7 +48,7 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 								{data.applicationStatus}
 							</Badge>
 						)}
-						{data.salary && <DollarCircleFilled className="!text-primary" />}
+						{data.salary && <CircleDollarSign className="!text-primary" />}
 					</div>
 					<p className="hidden md:block md:!my-0 text-muted-foreground text-xs md:text-sm">
 						{transformDate(data.$createdAt)}
@@ -67,13 +66,13 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 				<DropdownMenuContent align="end">
 					<Link href={`${appRoutes.updateApplication}/${data.$id}`}>
 						<Button variant="ghost" className="flex gap-1 items-center w-full justify-start">
-							<EditFilled /> Edit
+							<Pencil /> Edit
 						</Button>
 					</Link>
 
 					<AlertDialogCustom
 						buttonName="Delete"
-						icon={<DeleteFilled />}
+						icon={<Trash2 />}
 						onClickContinue={() => onClickDelete(data.$id)}
 					/>
 				</DropdownMenuContent>

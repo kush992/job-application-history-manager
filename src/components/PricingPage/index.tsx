@@ -7,7 +7,7 @@ import { appRoutes } from '@/utils/constants';
 const PricingPage = () => {
 	return (
 		<section>
-			<div className="py-8 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+			<div className="py-8 mx-auto max-w-screen-xl lg:py-16 lg:px-6 motion-preset-slide-down">
 				<div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
 					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
 						Designed for candidates like you
