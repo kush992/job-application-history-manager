@@ -106,7 +106,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 					<PageTitle title="Applied jobs" />
 					<PageDescription description="This is a collection of all the jobs you have applied for." />
 				</div>
-				<Button variant="outline">
+				<Button variant="defaultGradient">
 					<Link href={appRoutes.addApplication}>Add new</Link>
 				</Button>
 			</div>

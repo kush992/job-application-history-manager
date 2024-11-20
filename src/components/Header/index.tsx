@@ -23,8 +23,8 @@ const Header: React.FC<Props> = ({ user }) => {
 	};
 
 	return (
-		<header className="border-b border-muted z-50 sticky top-0 backdrop-blur duration-200 bg-background">
-			<div className="max-w-6xl mx-auto flex justify-between items-center h-[50px] px-4">
+		<header className="border-b border-muted z-50 sticky top-0 backdrop-blur duration-200 bg-background shadow-md">
+			<div className="max-w-6xl mx-auto flex justify-between items-center h-[65px] px-4">
 				<div>
 					<Link href={appRoutes.home} className="flex flex-col">
 						<span className="text-lg font-bold text-secondary-foreground tracking-tighter">JobJourney</span>
@@ -49,7 +49,7 @@ const Header: React.FC<Props> = ({ user }) => {
 											className={cn(
 												'p-2 rounded-md text-secondary-foreground relative hover:bg-secondary',
 												{
-													'after:absolute after:bg-primary after:bottom-[-9px] after:w-full after:h-[2px] after:left-0':
+													'after:absolute after:bg-primary after:bottom-[-17px] after:w-full after:h-[2px] after:left-0':
 														isActive(navBarLink.href),
 												},
 											)}
