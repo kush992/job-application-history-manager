@@ -151,18 +151,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 								<Separator className="my-3" />
 							</div>
 						)}
-						{/* {data?.feedbackFromCompany && (
-							<div id="additionalDetails">
-								<h2 className="text-lg font-semibold !mt-3">Additional details after applying</h2>
-								<div
-									className="rounded-md prose !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
-									dangerouslySetInnerHTML={{
-										__html: DOMPurify.sanitize(data?.feedbackFromCompany),
-									}}
-								/>
-								<Separator className="my-3" />
-							</div>
-						)} */}
+
 						<div id="applicationData">
 							<h2 className="text-lg font-semibold !m-0">Application Data</h2>
 							<div
