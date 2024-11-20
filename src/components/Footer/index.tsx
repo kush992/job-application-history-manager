@@ -9,7 +9,7 @@ const Footer = () => {
 		<footer className="p-4 sm:p-6 bg-background">
 			<div className="mx-auto max-w-5xl flex flex-col items-center gap-4">
 				<div>
-					<a href="https://flowbite.com" className="flex items-center">
+					<a href="https://career.kushbhalodi.com" className="flex items-center">
 						<span className="self-center text-2xl font-semibold whitespace-nowrap tracking-tighter">
 							JobJourney
 						</span>
