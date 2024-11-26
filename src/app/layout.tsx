@@ -17,13 +17,14 @@ export const metadata: Metadata = {
 		locale: 'en_US',
 		url: 'https://job-application-manager.vercel.app',
 		siteName: 'JobJourney',
+		images: '/favicon.ico',
 	},
 	twitter: {
 		site: '@kushbhalodi',
 		card: 'summary_large_image',
 		title: 'JobJourney',
 		description: 'Created by kushbhalodi.com',
-		images: 'https://img.kushbhalodi.com/images/kush-bhalodi-logo.png',
+		images: '/favicon.ico',
 	},
 	robots: {
 		googleBot: 'index, follow',
