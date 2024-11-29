@@ -97,7 +97,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 							<div>
 								<Link href={`${appRoutes.updateApplication}/${documentId}`} className="underline">
 									<Button size="icon">
-										<Pencil />
+										<Pencil className="w-4 h-4" />
 									</Button>
 								</Link>
 							</div>
@@ -121,7 +121,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 							</div>
 							{salaryDetail && (
 								<p className="text-sm text-muted-foreground">
-									<CircleDollarSign /> {salaryDetail}
+									<CircleDollarSign className="w-4 h-4" /> {salaryDetail}
 								</p>
 							)}
 						</div>

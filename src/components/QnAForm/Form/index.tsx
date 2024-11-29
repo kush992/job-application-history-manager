@@ -57,7 +57,7 @@ const QuestionAndAnswerForm: React.FC<Props> = ({ form, onSubmit }) => {
 									)}
 								/>
 								<Button type="button" variant="outline" onClick={() => remove(index)} className="mt-2">
-									<X /> Remove
+									<X className="w-4 h-4" /> Remove
 								</Button>
 							</div>
 						</div>
@@ -69,7 +69,7 @@ const QuestionAndAnswerForm: React.FC<Props> = ({ form, onSubmit }) => {
 						className="mt-4"
 						variant="secondary"
 					>
-						<Plus /> Add Question and Answer
+						<Plus className="w-4 h-4" /> Add Question and Answer
 					</Button>
 
 					<FormField

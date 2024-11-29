@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CircleCheck, CircleX, LoaderCircle } from 'lucide-react';
+import { CircleCheck, CircleX, Loader } from 'lucide-react';
 
 type Props = {
 	file?: File;
@@ -28,9 +28,9 @@ const DocumentInfoCard: React.FC<Props> = ({
 				<CardTitle className="text-base flex items-center my-0 py-0">
 					{file?.name || fileName} &nbsp;
 					<div>
-						{file && isLoading && <LoaderCircle />}
-						{file && !isLoading && isSuccess && <CircleCheck className="!text-successColor" />}
-						{file && !isLoading && !isSuccess && <CircleX className="!text-destructive" />}
+						{file && isLoading && <Loader className="w-4 h-4" />}
+						{file && !isLoading && isSuccess && <CircleCheck className="!text-successColor w-4 h-4" />}
+						{file && !isLoading && !isSuccess && <CircleX className="!text-destructive w-4 h-4" />}
 					</div>
 				</CardTitle>
 				{error && <CardDescription className="text-destructive">{error}</CardDescription>}

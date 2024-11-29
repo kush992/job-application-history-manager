@@ -24,15 +24,15 @@ const PricingPage = () => {
 							<p className="mr-2 text-3xl font-extrabold text-center mb-8">Free</p>
 							<ul role="list" className="space-y-4 text-left !m-0">
 								<li className="flex items-center space-x-3">
-									<Check className="text-successColor" />
+									<Check className="text-successColor w-4 h-4" />
 									<span>Add up to 20 job applications</span>
 								</li>
 								<li className="flex items-center space-x-3">
-									<Check className="text-successColor" />
+									<Check className="text-successColor w-4 h-4" />
 									<span>Upload documents for each application</span>
 								</li>
 								<li className="flex items-center space-x-3">
-									<Check className="text-successColor" />
+									<Check className="text-successColor w-4 h-4" />
 									<span>Add up to 20 interview questions to the public community page</span>
 								</li>
 							</ul>
@@ -40,7 +40,7 @@ const PricingPage = () => {
 						<CardFooter>
 							<a href={appRoutes.signUp} className="w-full">
 								<Button className="w-full gap-2" variant="secondary">
-									Get started <MoveRightIcon />
+									Get started <MoveRightIcon className="w-4 h-4" />
 								</Button>
 							</a>
 						</CardFooter>

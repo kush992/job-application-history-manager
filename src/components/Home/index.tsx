@@ -17,7 +17,7 @@ export default function HomePage() {
 					>
 						<span className="text-xs bg-darkGreenAccent rounded-full text-white px-4 py-1.5 me-3">New</span>
 						<span className="text-sm font-medium">Available now - Premium plan</span>
-						<ChevronRight className="text-darkGreenAccent" />
+						<ChevronRight className="text-darkGreenAccent w-4 h-4" />
 					</Link>
 					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl motion-preset-slide-up">
 						Welcome to JobJourney – Your Job Application Tracker
@@ -28,7 +28,7 @@ export default function HomePage() {
 					<div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center my-6 motion-preset-slide-up">
 						<Link href={appRoutes.signUp}>
 							<Button size="lg" className="flex items-center gap-2">
-								Get started <MoveRight />
+								Get started <MoveRight className="w-4 h-4" />
 							</Button>
 						</Link>
 						<Link href={appRoutes.aboutUs}>
