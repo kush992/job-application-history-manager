@@ -36,7 +36,7 @@ const ApplicationFilter: React.FC<Props> = ({ onInputChange, filterByStatus, cle
 				</Select>
 
 				<Button type="reset" onClick={clearAllFilters} variant="outline" className="flex items-center gap-1">
-					<Trash2 />
+					<Trash2 className="w-4 h-4" />
 					<span>Clear filters</span>
 				</Button>
 			</div>

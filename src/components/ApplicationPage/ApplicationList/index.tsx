@@ -48,7 +48,7 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 								{data.applicationStatus}
 							</Badge>
 						)}
-						{data.salary && <CircleDollarSign className="!text-primary" />}
+						{data.salary && <CircleDollarSign className="!text-primary w-4 h-4" />}
 					</div>
 					<p className="hidden md:block md:!my-0 text-muted-foreground text-xs md:text-sm">
 						{transformDate(data.$createdAt)}
@@ -59,20 +59,20 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button variant="outline" size="icon">
-						<MoreHorizontal className="cursor-pointer" />
+						<MoreHorizontal className="cursor-pointer w-4 h-4" />
 					</Button>
 				</DropdownMenuTrigger>
 
 				<DropdownMenuContent align="end">
 					<Link href={`${appRoutes.updateApplication}/${data.$id}`}>
 						<Button variant="ghost" className="flex gap-1 items-center w-full justify-start">
-							<Pencil /> Edit
+							<Pencil className="w-4 h-4" /> Edit
 						</Button>
 					</Link>
 
 					<AlertDialogCustom
 						buttonName="Delete"
-						icon={<Trash2 />}
+						icon={<Trash2 className="w-4 h-4" />}
 						onClickContinue={() => onClickDelete(data.$id)}
 					/>
 				</DropdownMenuContent>

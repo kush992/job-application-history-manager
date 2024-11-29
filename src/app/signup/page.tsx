@@ -28,7 +28,7 @@ const SignupPage: React.FC = async () => {
 						</form>
 					</CardContent>
 					<CardFooter className="text-xs bg-secondary pt-6 w-full justify-center gap-1 items-center">
-						<Lock size={15} />
+						<Lock className="w-4 h-4" />
 						Secured by <span className="font-semibold">Appwrite</span>
 					</CardFooter>
 				</Card>

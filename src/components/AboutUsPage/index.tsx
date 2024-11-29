@@ -94,7 +94,7 @@ const AboutUsPage: React.FC = () => {
 							<Card>
 								<CardHeader>
 									<CardTitle className="flex items-center">
-										<Briefcase className="mr-2" />
+										<Briefcase className="mr-2 w-4 h-4" />
 										Personalized Job Tracking
 									</CardTitle>
 								</CardHeader>
@@ -108,7 +108,7 @@ const AboutUsPage: React.FC = () => {
 							<Card>
 								<CardHeader>
 									<CardTitle className="flex items-center">
-										<FileText className="mr-2" />
+										<FileText className="mr-2 w-4 h-4" />
 										Document Storage
 									</CardTitle>
 								</CardHeader>
@@ -122,7 +122,7 @@ const AboutUsPage: React.FC = () => {
 							<Card>
 								<CardHeader>
 									<CardTitle className="flex items-center">
-										<MessageCircle className="mr-2" />
+										<MessageCircle className="mr-2 w-4 h-4" />
 										Interview Insights
 									</CardTitle>
 								</CardHeader>
@@ -136,7 +136,7 @@ const AboutUsPage: React.FC = () => {
 							<Card>
 								<CardHeader>
 									<CardTitle className="flex items-center">
-										<Users className="mr-2" />
+										<Users className="mr-2 w-4 h-4" />
 										Community-Oriented Design
 									</CardTitle>
 								</CardHeader>
@@ -199,7 +199,7 @@ const AboutUsPage: React.FC = () => {
 												{[...Array(5)].map((_, i) => (
 													<Star
 														key={i}
-														className={`w-5 h-5 ${i < testimonial.rating ? 'fill-primary text-primary' : 'fill-muted text-muted-foreground'}`}
+														className={`w-4 h-4 ${i < testimonial.rating ? 'fill-primary text-primary' : 'fill-muted text-muted-foreground'}`}
 													/>
 												))}
 											</div>

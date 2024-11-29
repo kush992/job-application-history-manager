@@ -113,7 +113,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 
 			<div className="flex flex-col items-center gap-2 w-full">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
-					<Info />
+					<Info className="w-4 h-4" />
 					<span>Total: {data?.total}</span>
 				</p>
 				<ApplicationFilter

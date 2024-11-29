@@ -25,18 +25,18 @@ const Footer = () => {
 					))}
 				</ul>
 
-				<div className="flex items-center gap-1 w-full justify-center">
+				<div className="flex items-center gap-2 w-full justify-center">
 					<a href="https://www.linkedin.com/in/kush-bhalodi-b11991184/" target="_blank" rel="noreferrer">
-						<Linkedin className="w-5 h-5" />
+						<Linkedin className="w-4 h-4" />
 					</a>
 					<a target="_blank" href="mailto:kushbhalodi.project@gmail.com" className="underline italic">
-						<Mail className="w-5 h-5" />
+						<Mail className="w-4 h-4" />
 					</a>
 					<a target="_blank" href="https://github.com/kush992" rel="noreferrer">
-						<Github className="w-5 h-5" />
+						<Github className="w-4 h-4" />
 					</a>
 					<a target="_blank" href="https://kushbhalodi.com">
-						<Globe className="w-5 h-5" />
+						<Globe className="w-4 h-4" />
 					</a>
 				</div>
 			</div>
