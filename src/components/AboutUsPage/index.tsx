@@ -114,7 +114,7 @@ const AboutUsPage: React.FC = () => {
 								</CardHeader>
 								<CardContent>
 									<p className="leading-7 [&:not(:first-child)]:mt-6 text-muted-foreground">
-										Keep all your files in one place, whether it's your resume, cover letters, or
+										Keep all your files in one place, whether {"it's"} your resume, cover letters, or
 										interview feedback.
 									</p>
 								</CardContent>
@@ -214,7 +214,7 @@ const AboutUsPage: React.FC = () => {
 				<section className="text-center max-w-6xl mx-auto px-4">
 					<h2 className="text-3xl font-bold mb-6">Join Us on the Journey</h2>
 					<p className="leading-7 [&:not(:first-child)]:mt-6">
-						JobJourney is more than a tool; it's a partner in your career advancement. Join us on this
+						JobJourney is more than a tool; {"it's"} a partner in your career advancement. Join us on this
 						journey toward a smarter, more organized job search experience.
 					</p>
 					<Button size="lg">Get Started with JobJourney</Button>
