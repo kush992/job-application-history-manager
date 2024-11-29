@@ -50,17 +50,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					)}
 				/>
 
-				<FormItem>
-					<FormLabel>Notes</FormLabel>
-					<TinyEditor
-						initialData={form.getValues('notes') ?? ''}
-						onChange={(data: string) => form.setValue('notes', data)}
-						textareaName="notes"
-					/>
-					<FormMessage />
-				</FormItem>
-
-				<div className="md:grid grid-cols-2 items-center gap-2">
+				<div className="grid md:grid-cols-2 items-center gap-6 md:gap-2">
 					<FormField
 						control={form.control}
 						name="companyName"
@@ -89,7 +79,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					/>
 				</div>
 
-				<div className="md:grid grid-cols-2 items-center gap-2">
+				<div className="grid md:grid-cols-2 items-center gap-6 md:gap-2">
 					<FormField
 						control={form.control}
 						name="salary"
@@ -126,7 +116,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					/>
 				</div>
 
-				<div className="md:grid grid-cols-2 items-center gap-2">
+				<div className="grid md:grid-cols-2 items-center gap-6 md:gap-2">
 					<FormField
 						control={form.control}
 						name="salaryCurrency"
@@ -182,7 +172,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					/>
 				</div>
 
-				<div className="md:grid grid-cols-2 items-center gap-2">
+				<div className="grid md:grid-cols-2 items-center gap-6 md:gap-2">
 					<FormField
 						control={form.control}
 						name="location"
@@ -203,7 +193,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						name="interviewDate"
 						render={({ field }) => (
 							<FormItem className="flex flex-col">
-								<FormLabel>Interview Date {typeof field.value}</FormLabel>
+								<FormLabel>Interview Date</FormLabel>
 
 								<FormControl>
 									<DateTimePicker
@@ -217,7 +207,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					/>
 				</div>
 
-				<div className="md:grid grid-cols-2 items-center gap-2">
+				<div className="grid md:grid-cols-2 items-center gap-6 md:gap-2">
 					<FormField
 						control={form.control}
 						name="jobLink"
@@ -256,7 +246,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					/>
 				</div>
 
-				<div className="md:grid grid-cols-2 items-center gap-2">
+				<div className="grid md:grid-cols-2 items-center gap-6 md:gap-2">
 					<FormField
 						control={form.control}
 						name="workMode"
@@ -304,6 +294,16 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						)}
 					/>
 				</div>
+
+				<FormItem>
+					<FormLabel>Notes</FormLabel>
+					<TinyEditor
+						initialData={form.getValues('notes') ?? ''}
+						onChange={(data: string) => form.setValue('notes', data)}
+						textareaName="notes"
+					/>
+					<FormMessage />
+				</FormItem>
 
 				{/* TODO: resolve me and add security */}
 				{config.uiShowUploader === '1' && (
