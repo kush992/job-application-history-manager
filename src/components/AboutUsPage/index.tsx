@@ -114,8 +114,8 @@ const AboutUsPage: React.FC = () => {
 								</CardHeader>
 								<CardContent>
 									<p className="leading-7 [&:not(:first-child)]:mt-6 text-muted-foreground">
-										Keep all your files in one place, whether {"it's"} your resume, cover letters, or
-										interview feedback.
+										Keep all your files in one place, whether {"it's"} your resume, cover letters,
+										or interview feedback.
 									</p>
 								</CardContent>
 							</Card>
