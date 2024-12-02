@@ -4,6 +4,7 @@ import { z } from 'zod';
 export enum SalaryType {
 	MONTHLY = 'MONTHLY',
 	PER_ANUM = 'PER_ANUM',
+	HOURLY = 'HOURLY',
 }
 
 export enum SalaryCurrency {

@@ -22,6 +22,8 @@ import ApplicationDataForm from './Form';
 import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
 import { addLinks } from '@/lib/server/application-docs-queries';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { Separator } from '../ui/separator';
 
 type Props = {
 	documentId?: string;
@@ -163,7 +165,15 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 				<PageDescription description="Fill up all the details that are available" />
 			</div>
 
-			{isLoading ? <Loader /> : <ApplicationDataForm form={form} onSubmit={onSubmit} />}
+			{isLoading ? (
+				<Loader />
+			) : (
+				<Card className="bg-background rounded-none border-[0px] md:rounded-xl md:border mb-6">
+					<CardContent className="pt-6">
+						<ApplicationDataForm form={form} onSubmit={onSubmit} />
+					</CardContent>
+				</Card>
+			)}
 		</div>
 	);
 };
