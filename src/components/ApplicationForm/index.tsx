@@ -168,7 +168,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			{isLoading ? (
 				<Loader />
 			) : (
-				<Card className="bg-background">
+				<Card className="bg-background rounded-none border-[0px] md:rounded-xl md:border mb-6">
 					<CardContent className="pt-6">
 						<ApplicationDataForm form={form} onSubmit={onSubmit} />
 					</CardContent>

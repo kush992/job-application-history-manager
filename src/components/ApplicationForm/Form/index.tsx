@@ -11,7 +11,8 @@ import { config } from '@/config/config';
 import { useUploadFile } from '@/hooks/useUploadFile';
 import DocumentInfoCard from '@/components/DocumentInfoCard';
 import { getFileName } from '@/utils/utility';
-import { Briefcase, Building2, CalendarIcon } from 'lucide-react';
+import { Briefcase, Building2, CalendarIcon, Loader } from 'lucide-react';
+import { JobSites } from '@/types/apiResponseTypes';
 
 type Props = {
 	form: UseFormReturn<JobApplicationFormData>;
@@ -70,7 +71,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Select work mode" />
+													<SelectValue placeholder="Work mode" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
@@ -93,7 +94,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Select contract type" />
+													<SelectValue placeholder="Contract type" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
@@ -134,7 +135,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Select currency type" />
+													<SelectValue placeholder="Currency type" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
@@ -159,10 +160,11 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
 											<FormControl>
 												<SelectTrigger>
-													<SelectValue placeholder="Select type of salary" />
+													<SelectValue placeholder="Salary type" />
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
+												<SelectItem value={SalaryType.HOURLY}>Hourly</SelectItem>
 												<SelectItem value={SalaryType.MONTHLY}>Monthly</SelectItem>
 												<SelectItem value={SalaryType.PER_ANUM}>Yearly</SelectItem>
 											</SelectContent>
@@ -224,10 +226,13 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Application Status</FormLabel>
-									<Select onValueChange={field.onChange} value={field.value ?? undefined}>
+									<Select
+										onValueChange={field.onChange}
+										value={field.value ?? ApplicationStatus.APPLIED}
+									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select status of the application" />
+												<SelectValue placeholder="Application status" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -287,10 +292,13 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Job Posted On</FormLabel>
-									<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+									<Select
+										onValueChange={field.onChange}
+										defaultValue={field.value ?? JobSites.LINKEDIN}
+									>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue placeholder="Select job site" />
+												<SelectValue placeholder="Job board" />
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
@@ -311,7 +319,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								<FormItem>
 									<FormLabel>Location</FormLabel>
 									<FormControl>
-										<Input placeholder="Location" {...field} />
+										<Input placeholder="Location of role" {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -394,7 +402,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 				</div>
 
 				<Button type="submit" disabled={form.formState.isSubmitting}>
-					Submit
+					{form.formState.isSubmitting ? <Loader className="animate-spin" /> : 'Submit'}
 				</Button>
 			</form>
 		</Form>
