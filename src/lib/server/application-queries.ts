@@ -7,7 +7,7 @@ export const applicationDataQueries = {
 	getAll: async (lastId?: string, query?: string, statusFilter?: ApplicationStatus) => {
 		const url = new URL(`${origin}${apiRoutes.applications.getAll}`);
 
-		if (lastId) url.searchParams.append('lastId', lastId);
+		if (lastId && lastId !== 'undefined') url.searchParams.append('lastId', lastId);
 		if (query) url.searchParams.append('searchQuery', query);
 		if (statusFilter) url.searchParams.append('statusFilter', statusFilter);
 

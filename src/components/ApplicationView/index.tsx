@@ -64,23 +64,14 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 								<h1 className="text-2xl font-semibold !mt-0 !mb-2">{data?.jobTitle}</h1>
 								<div className="flex items-center gap-1 my-2">
 									<Badge variant="secondary">{data?.applicationStatus}</Badge>
-									{data.contractType && (
-										<>
-											{' '}
-											· <Badge variant="secondary">{data?.contractType}</Badge>
-										</>
-									)}
+									{data.contractType && <Badge variant="secondary">{data?.contractType}</Badge>}
 									{data.workMode && (
-										<>
-											{' '}
-											·{' '}
-											<Badge
-												variant="secondary"
-												className="bg-successColor text-lightGreenAccent hover:bg-successColor"
-											>
-												{data?.workMode}
-											</Badge>
-										</>
+										<Badge
+											variant="secondary"
+											className="bg-successColor text-lightGreenAccent hover:bg-successColor"
+										>
+											{data?.workMode}
+										</Badge>
 									)}
 								</div>
 								{data.location && <p className="text-muted-foreground">{data?.location}</p>}
