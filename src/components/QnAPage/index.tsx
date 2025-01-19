@@ -29,6 +29,7 @@ const QnAPage: React.FC<Props> = ({ userId }) => {
 		queryKey: [QueryKeys.QUESTIONS_AND_ANSWERS_PAGE, userId, curQnAType],
 		queryFn: () => interviewQuestionsQueries.getAll(curQnAType),
 		staleTime: 1000 * 60 * 2,
+		retry: 0,
 	});
 
 	function handleTabChange(type: QnAShowType) {

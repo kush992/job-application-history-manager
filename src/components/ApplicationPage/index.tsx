@@ -19,7 +19,7 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { JobApplicationData } from '@/types/apiResponseTypes';
+import { JobApplicationData, Response } from '@/types/apiResponseTypes';
 import { Separator } from '../ui/separator';
 import { Info, Loader } from 'lucide-react';
 import PageDescription from '../ui/page-description';
@@ -33,9 +33,9 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 	const [companyNameFilter, setCompanyNameFilter] = useState<string | undefined>(undefined);
 	const [statusFilter, setStatusFilter] = useState<ApplicationStatus | undefined>(undefined);
 
-	const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery<{
-		documents: JobApplicationData[];
-	}>({
+	const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery<
+		Response<JobApplicationData>
+	>({
 		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyNameFilter, statusFilter],
 		queryFn: ({ pageParam = undefined }) =>
 			applicationDataQueries.getAll(String(pageParam), companyNameFilter, statusFilter),
@@ -45,6 +45,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 			}
 			return undefined;
 		},
+		retry: 0,
 		staleTime: 1000 * 60 * 5,
 		initialPageParam: undefined,
 	});
