@@ -1,14 +1,16 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import debounce from 'lodash/debounce';
-import { appRoutes, QueryKeys } from '@/utils/constants';
+import Link from 'next/link';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { applicationDataQueries } from '@/lib/server/application-queries';
+import { ApplicationStatus } from '@/components/ApplicationForm/utility';
+import { useToast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
 import ApplicationList from './ApplicationList';
 import ApplicationFilter from './ApplicationFilter';
-import { ApplicationStatus } from '@/components/ApplicationForm/utility';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { appRoutes, QueryKeys } from '@/utils/constants';
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -17,12 +19,11 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { useToast } from '@/hooks/use-toast';
-import PageTitle from '@/components/ui/page-title';
-import PageDescription from '@/components/ui/page-description';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { applicationDataQueries } from '@/lib/server/application-queries';
-import { Info } from 'lucide-react';
+import { JobApplicationData } from '@/types/apiResponseTypes';
+import { Separator } from '../ui/separator';
+import { Info, Loader } from 'lucide-react';
+import PageDescription from '../ui/page-description';
+import PageTitle from '../ui/page-title';
 
 type Props = {
 	userId: string;
@@ -31,13 +32,21 @@ type Props = {
 const ApplicationPage: React.FC<Props> = ({ userId }) => {
 	const [companyNameFilter, setCompanyNameFilter] = useState<string | undefined>(undefined);
 	const [statusFilter, setStatusFilter] = useState<ApplicationStatus | undefined>(undefined);
-	const [lastId, setLastId] = useState<string | undefined>(undefined);
 
-	const { data, error, isLoading, isFetching, refetch, isRefetching } = useQuery({
-		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, lastId, companyNameFilter, statusFilter],
-		queryFn: () => applicationDataQueries.getAll(lastId, companyNameFilter, statusFilter as ApplicationStatus),
-		enabled: !!userId,
-		staleTime: 1000 * 60 * 5, // 5 minutes
+	const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery<{
+		documents: JobApplicationData[];
+	}>({
+		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyNameFilter, statusFilter],
+		queryFn: ({ pageParam = undefined }) =>
+			applicationDataQueries.getAll(String(pageParam), companyNameFilter, statusFilter),
+		getNextPageParam: (lastPage) => {
+			if (lastPage.documents.length === 20) {
+				return lastPage.documents[lastPage.documents.length - 1].$id;
+			}
+			return undefined;
+		},
+		staleTime: 1000 * 60 * 5,
+		initialPageParam: undefined,
 	});
 
 	const { toast } = useToast();
@@ -46,7 +55,7 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 		mutationFn: (documentId: string) => applicationDataQueries.delete(documentId, refetch),
 		onSuccess: () => {
 			toast({
-				title: 'success',
+				title: 'Success',
 				description: 'Application deleted successfully',
 			});
 		},
@@ -59,38 +68,38 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 		},
 	});
 
-	const debouncedFetching = useCallback(
-		() =>
-			debounce(() => {
-				console.log('debounced fetching');
-				refetch();
-			}, 5000),
-		[refetch],
-	);
-
-	// const onShowMore = async (lastId: string) => {
-	// 	setLastId(lastId);
-	// 	await debouncedFetching();
-	// };
+	const debouncedRefetch = debounce(refetch, 500);
 
 	const onInputChange = (value: string) => {
 		setCompanyNameFilter(value);
-		debouncedFetching();
+		debouncedRefetch();
 	};
 
 	const filterByStatus = (value: ApplicationStatus) => {
 		setStatusFilter(value);
-		debouncedFetching();
+		debouncedRefetch();
 	};
 
 	const clearAllFilters = () => {
 		setCompanyNameFilter(undefined);
 		setStatusFilter(undefined);
-		debouncedFetching();
+		debouncedRefetch();
 	};
 
+	const jobRecords = data?.pages?.map((page) => page?.documents)?.flat();
+
+	console.log(data, jobRecords);
+
+	// if (isLoading) {
+	// 	return <div>Loading...</div>;
+	// }
+
+	if (error) {
+		return <div>Error: {error.message}</div>;
+	}
+
 	return (
-		<div className="rounded-md">
+		<div className="rounded-md flex flex-col gap-4">
 			<Breadcrumb className="mb-2">
 				<BreadcrumbList>
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
@@ -114,41 +123,37 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 			<div className="flex flex-col items-center gap-2 w-full">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
 					<Info className="w-4 h-4" />
-					<span>Total: {data?.total}</span>
+					<span>Total: {data?.pages[0]?.total}</span>
 				</p>
 				<ApplicationFilter
 					onInputChange={onInputChange}
 					filterByStatus={filterByStatus}
 					clearAllFilters={clearAllFilters}
 				/>
+			</div>
 
-				{error && <p className="text-base my-10">Something went wrong</p>}
-				{(isFetching || isRefetching || isLoading) && <p className="text-base my-10">Fetching...</p>}
+			{!isLoading && !error && data && (
+				<div className="flex flex-col border rounded-md overflow-hidden w-full">
+					{jobRecords?.map((dataa) => (
+						<React.Fragment key={dataa.$id}>
+							<ApplicationList data={dataa} onClickDelete={() => mutation.mutate(dataa.$id)} />
+							<Separator />
+						</React.Fragment>
+					))}
+				</div>
+			)}
 
-				{!isLoading && !isFetching && !isRefetching && !error && data && data?.documents?.length > 0 && (
-					<div className="flex flex-col border rounded-md overflow-hidden w-full">
-						{data?.documents?.map((data) => (
-							<div key={data.$id}>
-								<ApplicationList data={data} onClickDelete={() => mutation.mutate(data.$id)} />
-								<Separator />
-							</div>
-						))}
-					</div>
-				)}
-
-				{data?.total === 0 && <p className="text-base my-10">No data to show.</p>}
-
-				{/* <Button
+			{hasNextPage && (
+				<Button
 					variant="outline"
-					onClick={() => onShowMore(String(data?.documents[data?.documents.length - 1].$id))}
-					disabled={isLoading || isFetching || isRefetching}
+					onClick={() => fetchNextPage()}
+					disabled={isLoading || isFetchingNextPage}
 					className="w-full flex gap-1 items-center mt-2"
 					size="lg"
 				>
-					{isLoading || isFetching || (isRefetching && <LoadingOutlined />)}
-					<span>{isLoading || isFetching || isRefetching ? 'Loading...' : 'Next page'}</span>
-				</Button> */}
-			</div>
+					{isLoading || isFetchingNextPage ? <Loader className="animate-spin" /> : 'Fetch More'}
+				</Button>
+			)}
 		</div>
 	);
 };

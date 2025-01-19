@@ -23,6 +23,8 @@ export async function POST(req: NextRequest) {
 			ID.unique(),
 			{
 				...formData,
+				// TODO: add jobApplications document ID here to link the QnA to the job application
+				// jobApplications: '673f33e3000d16d0fa2b',
 				questionsAndAnswers: denormaliseQuestionsAndAnswers(formData.questionsAndAnswers),
 			},
 		);
