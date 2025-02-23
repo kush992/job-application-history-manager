@@ -74,11 +74,11 @@ const config: Config = {
 				darkGreenAccent: 'hsl(var(--dark-violet-accent))',
 				lightGreenAccent: 'hsl(var(--light-violet-accent))',
 				status: {
-					default: "hsl(var(--status-default))",
-					inProgress: "hsl(var(--status-in-progress))",
-					success: "hsl(var(--status-success))",
-					failure: "hsl(var(--status-failure))",
-				  },
+					default: 'hsl(var(--status-default))',
+					inProgress: 'hsl(var(--status-in-progress))',
+					success: 'hsl(var(--status-success))',
+					failure: 'hsl(var(--status-failure))',
+				},
 			},
 			keyframes: {
 				'accordion-down': {

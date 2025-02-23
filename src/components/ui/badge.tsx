@@ -19,8 +19,8 @@ const badgeVariants = cva(
 				'status-failure': 'border-transparent bg-status-failure text-white',
 			},
 			size: {
-				'sm': 'px-2 py-0.5 !text-lg',
-			}
+				sm: 'px-2 py-0.5 !text-lg',
+			},
 		},
 		defaultVariants: {
 			variant: 'default',
