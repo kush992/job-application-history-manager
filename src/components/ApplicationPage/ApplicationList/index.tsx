@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { CircleDollarSign, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
 import { AlertDialogCustom } from '@/components/AlertDialogCustom';
+import { getApplicationStatusColor } from '@/utils/utility';
 
 type Props = {
 	data: JobApplicationData;
@@ -16,23 +17,6 @@ type Props = {
 };
 
 const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
-	function getApplicationStatusColor(applicationStatus: ApplicationStatus) {
-		switch (applicationStatus) {
-			case ApplicationStatus.APPLIED:
-				return 'default';
-			case ApplicationStatus.IN_PROGRESS:
-				return 'processing';
-			case ApplicationStatus.NO_REPLY:
-				return 'error';
-			case ApplicationStatus.SUCCESS:
-				return 'success';
-			case ApplicationStatus.REJECTED_NO_FEEDBACK:
-				return 'error';
-			case ApplicationStatus.REJECTED_WITH_FEEDBACK:
-				return 'error';
-		}
-	}
-
 	return (
 		<div className="bg-background p-4 grid grid-cols-[1fr_auto] gap-2">
 			<Link href={`${appRoutes.viewApplication}/${data.$id}`}>
@@ -44,7 +28,13 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 					<p className="text-muted-foreground text-xs md:hidden">{transformDate(data.$createdAt)}</p>
 					<div className="flex items-center my-2 gap-2 md:my-0">
 						{data.applicationStatus && (
-							<Badge variant={'secondary'} title={data.applicationStatus} className="">
+							<Badge
+								variant={
+									getApplicationStatusColor(data.applicationStatus as ApplicationStatus) || 'default'
+								}
+								title={data.applicationStatus}
+								className="!text-xs"
+							>
 								{data.applicationStatus}
 							</Badge>
 						)}

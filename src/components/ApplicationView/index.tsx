@@ -7,7 +7,7 @@ import { formatDate } from '@/utils/date';
 import Loader from '../Loader';
 import { Separator } from '@/components/ui/separator';
 import DOMPurify from 'dompurify';
-import { FILES_SEPARATOR } from '../ApplicationForm/utility';
+import { ApplicationStatus, FILES_SEPARATOR } from '../ApplicationForm/utility';
 import { Button } from '../ui/button';
 import {
 	Breadcrumb,
@@ -18,7 +18,7 @@ import {
 	BreadcrumbSeparator,
 } from '../ui/breadcrumb';
 import { Badge } from '../ui/badge';
-import { getFileName } from '@/utils/utility';
+import { getApplicationStatusColor, getFileName, getWorkModeColor } from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
 import { useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
@@ -62,19 +62,20 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 							<div>
 								<p className="text-sm">{data?.companyName}</p>
 								<h1 className="text-2xl font-semibold !mt-0 !mb-2">{data?.jobTitle}</h1>
-								<div className="flex items-center gap-1 my-2">
-									<Badge variant="secondary">{data?.applicationStatus}</Badge>
+								<div className="flex items-center gap-1 my-4">
+									<Badge
+										variant={getApplicationStatusColor(
+											data?.applicationStatus as ApplicationStatus,
+										)}
+									>
+										{data?.applicationStatus}
+									</Badge>
 									{data.contractType && <Badge variant="secondary">{data?.contractType}</Badge>}
 									{data.workMode && (
-										<Badge
-											variant="secondary"
-											className="bg-successColor text-lightGreenAccent hover:bg-successColor"
-										>
-											{data?.workMode}
-										</Badge>
+										<Badge variant={getWorkModeColor(data?.workMode)}>{data?.workMode}</Badge>
 									)}
 								</div>
-								{data.location && <p className="text-muted-foreground">{data?.location}</p>}
+								{data.location && <p className="text-muted-foreground text-xs">{data?.location}</p>}
 								{data.jobLink && (
 									<a
 										href={data.jobLink}
@@ -111,7 +112,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 								</p>
 							</div>
 							{salaryDetail && (
-								<p className="text-sm text-muted-foreground">
+								<p className="text-sm text-muted-foreground flex items-center gap-1">
 									<CircleDollarSign className="w-4 h-4" /> {salaryDetail}
 								</p>
 							)}

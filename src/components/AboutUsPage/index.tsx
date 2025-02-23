@@ -37,7 +37,7 @@ const testimonials = [
 
 const AboutUsPage: React.FC = () => {
 	return (
-		<div className="min-h-screen font-poppins">
+		<div className="min-h-screen">
 			<section className="py-20 motion-preset-slide-up">
 				<div className="container mx-auto text-center">
 					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">About JobJourney</h1>

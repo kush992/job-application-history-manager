@@ -1,3 +1,7 @@
+import { ApplicationStatus } from '@/components/ApplicationForm/utility';
+import { BadgeProps, badgeVariants } from '@/components/ui/badge';
+import { WorkMode } from '@/types/apiResponseTypes';
+
 export const baseUrl = () => {
 	if (process.env.VERCEL_URL) {
 		return `https://${process.env.VERCEL_URL}`;
@@ -29,4 +33,34 @@ export const purifyFileName = (fileName: string) => {
 
 export const getFileName = (link: string) => {
 	return link.split('/')?.slice(-1)?.toString();
+};
+
+export const getApplicationStatusColor = (status: ApplicationStatus): BadgeProps['variant'] => {
+	switch (status) {
+		case ApplicationStatus.IN_PROGRESS:
+			return 'status-in-progress';
+		case ApplicationStatus.SUCCESS:
+			return 'status-success';
+		case ApplicationStatus.REJECTED_NO_FEEDBACK:
+			return 'status-failure';
+		case ApplicationStatus.REJECTED_WITH_FEEDBACK:
+			return 'status-failure';
+		case ApplicationStatus.NO_REPLY:
+			return 'status-failure';
+		case ApplicationStatus.APPLIED:
+			return 'status-default';
+	}
+};
+
+export const getWorkModeColor = (workMode: WorkMode): BadgeProps['variant'] => {
+	switch (workMode) {
+		case WorkMode.REMOTE:
+			return 'status-success';
+		case WorkMode.HYBRID:
+			return 'status-in-progress';
+		case WorkMode.ON_SITE:
+			return 'status-default';
+		default:
+			return 'status-default';
+	}
 };

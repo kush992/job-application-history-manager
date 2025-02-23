@@ -18,7 +18,6 @@ const config: Config = {
 		extend: {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
-				poppins: ['Poppins', 'sans-serif'],
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -72,9 +71,14 @@ const config: Config = {
 					'5': 'hsl(var(--chart-5))',
 				},
 				successColor: 'hsl(var(--success-color))',
-				warningColor: 'hsl(var(--warning-color))',
-				darkGreenAccent: 'hsl(var(--dark-green-accent))',
-				lightGreenAccent: 'hsl(var(--light-green-accent))',
+				darkGreenAccent: 'hsl(var(--dark-violet-accent))',
+				lightGreenAccent: 'hsl(var(--light-violet-accent))',
+				status: {
+					default: "hsl(var(--status-default))",
+					inProgress: "hsl(var(--status-in-progress))",
+					success: "hsl(var(--status-success))",
+					failure: "hsl(var(--status-failure))",
+				  },
 			},
 			keyframes: {
 				'accordion-down': {
