@@ -13,11 +13,11 @@ export default function HomePage() {
 				<div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
 					<Link
 						href={appRoutes.pricing}
-						className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm bg-lightGreenAccent rounded-full text-darkGreenAccent motion-preset-compress "
+						className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm bg-lightVioletAccent rounded-full text-darkVioletAccent motion-preset-compress "
 					>
-						<span className="text-xs bg-darkGreenAccent rounded-full text-white px-4 py-1.5 me-3">New</span>
+						<span className="text-xs bg-darkVioletAccent rounded-full text-white px-4 py-1.5 me-3">New</span>
 						<span className="text-sm font-medium">Available now - Premium plan</span>
-						<ChevronRight className="text-darkGreenAccent w-4 h-4" />
+						<ChevronRight className="text-darkVioletAccent w-4 h-4" />
 					</Link>
 					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl motion-preset-slide-up">
 						Welcome to JobJourney – Your Job Application Tracker
@@ -65,7 +65,7 @@ export default function HomePage() {
 							<Card key={data.tag}>
 								<CardHeader className="text-center">
 									<CardDescription>
-										<p className="bg-lightGreenAccent text-darkGreenAccent text-xs font-medium inline-flex items-center text-center px-2.5 py-0.5 rounded-md w-fit mb-2">
+										<p className="bg-lightVioletAccent text-darkVioletAccent text-xs font-medium inline-flex items-center text-center px-2.5 py-0.5 rounded-md w-fit mb-2">
 											{data.tag}
 										</p>
 									</CardDescription>
