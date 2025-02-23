@@ -50,13 +50,13 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 	return (
 		<div className="flex flex-col gap-6 p-4">
 			<Breadcrumb>
-				<BreadcrumbList>
+				<BreadcrumbList className="overflow-x-scroll flex-nowrap no-scrollbar">
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 					<BreadcrumbSeparator />
 					<BreadcrumbLink href={appRoutes.application}>Applications</BreadcrumbLink>
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
-						<BreadcrumbPage>{data?.jobTitle}</BreadcrumbPage>
+						<BreadcrumbPage className="whitespace-nowrap">{data?.jobTitle}</BreadcrumbPage>
 					</BreadcrumbItem>
 				</BreadcrumbList>
 			</Breadcrumb>
