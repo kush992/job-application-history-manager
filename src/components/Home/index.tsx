@@ -15,7 +15,9 @@ export default function HomePage() {
 						href={appRoutes.pricing}
 						className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm bg-lightVioletAccent rounded-full text-darkVioletAccent motion-preset-compress "
 					>
-						<span className="text-xs bg-darkVioletAccent rounded-full text-white px-4 py-1.5 me-3">New</span>
+						<span className="text-xs bg-darkVioletAccent rounded-full text-white px-4 py-1.5 me-3">
+							New
+						</span>
 						<span className="text-sm font-medium">Available now - Premium plan</span>
 						<ChevronRight className="text-darkVioletAccent w-4 h-4" />
 					</Link>
