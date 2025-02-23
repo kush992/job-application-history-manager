@@ -1,6 +1,6 @@
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { BadgeProps, badgeVariants } from '@/components/ui/badge';
-import { WorkMode } from '@/types/apiResponseTypes';
+import { ContractType, WorkMode } from '@/types/apiResponseTypes';
 
 export const baseUrl = () => {
 	if (process.env.VERCEL_URL) {
@@ -52,6 +52,15 @@ export const getApplicationStatusColor = (status: ApplicationStatus): BadgeProps
 	}
 };
 
+export const applicationStatusMapping = {
+	[ApplicationStatus.IN_PROGRESS]: 'In Progress',
+	[ApplicationStatus.SUCCESS]: 'Success',
+	[ApplicationStatus.REJECTED_NO_FEEDBACK]: 'Rejected (No Feedback)',
+	[ApplicationStatus.REJECTED_WITH_FEEDBACK]: 'Rejected (With Feedback)',
+	[ApplicationStatus.NO_REPLY]: 'No Reply',
+	[ApplicationStatus.APPLIED]: 'Applied',
+};
+
 export const getWorkModeColor = (workMode: WorkMode): BadgeProps['variant'] => {
 	switch (workMode) {
 		case WorkMode.REMOTE:
@@ -64,3 +73,17 @@ export const getWorkModeColor = (workMode: WorkMode): BadgeProps['variant'] => {
 			return 'status-default';
 	}
 };
+
+export const workModeMapping = {
+	[WorkMode.REMOTE]: 'Remote',
+	[WorkMode.HYBRID]: 'Hybrid',
+	[WorkMode.ON_SITE]: 'On Site',
+};
+
+export const contractTypeMapping = {
+	[ContractType.FULL_TIME]: 'Full Time',
+	[ContractType.PART_TIME]: 'Part Time',
+	[ContractType.CONTRACT]: 'Contract',
+	[ContractType.INTERNSHIP]: 'Internship',
+	[ContractType.FREELANCE]: 'Freelance',
+}

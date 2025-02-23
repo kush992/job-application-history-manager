@@ -18,7 +18,14 @@ import {
 	BreadcrumbSeparator,
 } from '../ui/breadcrumb';
 import { Badge } from '../ui/badge';
-import { getApplicationStatusColor, getFileName, getWorkModeColor } from '@/utils/utility';
+import {
+	applicationStatusMapping,
+	contractTypeMapping,
+	getApplicationStatusColor,
+	getFileName,
+	getWorkModeColor,
+	workModeMapping,
+} from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
 import { useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
@@ -68,11 +75,15 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 											data?.applicationStatus as ApplicationStatus,
 										)}
 									>
-										{data?.applicationStatus}
+										{applicationStatusMapping[data.applicationStatus as ApplicationStatus]}
 									</Badge>
-									{data.contractType && <Badge variant="secondary">{data?.contractType}</Badge>}
+									{data.contractType && (
+										<Badge variant="secondary">{contractTypeMapping[data.contractType]}</Badge>
+									)}
 									{data.workMode && (
-										<Badge variant={getWorkModeColor(data?.workMode)}>{data?.workMode}</Badge>
+										<Badge variant={getWorkModeColor(data?.workMode)}>
+											{workModeMapping[data.workMode]}
+										</Badge>
 									)}
 								</div>
 								{data.location && <p className="text-muted-foreground text-xs">{data?.location}</p>}

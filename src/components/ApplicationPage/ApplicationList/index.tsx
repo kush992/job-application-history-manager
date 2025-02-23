@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { CircleDollarSign, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
 import { AlertDialogCustom } from '@/components/AlertDialogCustom';
-import { getApplicationStatusColor } from '@/utils/utility';
+import { applicationStatusMapping, getApplicationStatusColor } from '@/utils/utility';
 
 type Props = {
 	data: JobApplicationData;
@@ -35,7 +35,7 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 								title={data.applicationStatus}
 								className="!text-xs"
 							>
-								{data.applicationStatus}
+								{applicationStatusMapping[data.applicationStatus as ApplicationStatus]}
 							</Badge>
 						)}
 						{data.salary && <CircleDollarSign className="!text-primary w-4 h-4" />}
