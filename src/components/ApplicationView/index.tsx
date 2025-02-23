@@ -69,7 +69,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 							<div>
 								<p className="text-sm">{data?.companyName}</p>
 								<h1 className="text-2xl font-semibold !mt-0 !mb-2">{data?.jobTitle}</h1>
-								<div className="flex items-center gap-1 my-4">
+								<div className="flex items-center gap-1 my-4 flex-wrap">
 									<Badge
 										variant={getApplicationStatusColor(
 											data?.applicationStatus as ApplicationStatus,
