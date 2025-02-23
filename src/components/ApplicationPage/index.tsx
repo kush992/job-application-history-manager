@@ -89,12 +89,6 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 
 	const jobRecords = data?.pages?.map((page) => page?.documents)?.flat();
 
-	console.log(data, jobRecords);
-
-	// if (isLoading) {
-	// 	return <div>Loading...</div>;
-	// }
-
 	if (error) {
 		return <div>Error: {error.message}</div>;
 	}
