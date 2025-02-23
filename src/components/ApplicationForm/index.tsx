@@ -68,7 +68,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 				title: 'success',
 				description: 'Application added successfully',
 			});
-			router.push(appRoutes.application);
+			router.back();
 		},
 		onError: (error) => {
 			toast({ title: 'Error', description: error?.message });
@@ -90,7 +90,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 				title: 'success',
 				description: 'Application updated successfully',
 			});
-			router.push(appRoutes.application);
+			router.back();
 		},
 		onError: (error) => {
 			toast({ title: 'Error', description: error?.message });

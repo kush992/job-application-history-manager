@@ -71,8 +71,8 @@ const config: Config = {
 					'5': 'hsl(var(--chart-5))',
 				},
 				successColor: 'hsl(var(--success-color))',
-				darkGreenAccent: 'hsl(var(--dark-violet-accent))',
-				lightGreenAccent: 'hsl(var(--light-violet-accent))',
+				darkVioletAccent: 'hsl(var(--dark-violet-accent))',
+				lightVioletAccent: 'hsl(var(--light-violet-accent))',
 				status: {
 					default: 'hsl(var(--status-default))',
 					inProgress: 'hsl(var(--status-in-progress))',

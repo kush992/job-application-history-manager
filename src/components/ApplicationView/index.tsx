@@ -18,7 +18,14 @@ import {
 	BreadcrumbSeparator,
 } from '../ui/breadcrumb';
 import { Badge } from '../ui/badge';
-import { getApplicationStatusColor, getFileName, getWorkModeColor } from '@/utils/utility';
+import {
+	applicationStatusMapping,
+	contractTypeMapping,
+	getApplicationStatusColor,
+	getFileName,
+	getWorkModeColor,
+	workModeMapping,
+} from '@/utils/utility';
 import { QnAAccordion } from '../QnAAccordion';
 import { useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
@@ -43,13 +50,13 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 	return (
 		<div className="flex flex-col gap-6 p-4">
 			<Breadcrumb>
-				<BreadcrumbList>
+				<BreadcrumbList className="overflow-x-scroll flex-nowrap no-scrollbar">
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 					<BreadcrumbSeparator />
 					<BreadcrumbLink href={appRoutes.application}>Applications</BreadcrumbLink>
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
-						<BreadcrumbPage>{data?.jobTitle}</BreadcrumbPage>
+						<BreadcrumbPage className="whitespace-nowrap">{data?.jobTitle}</BreadcrumbPage>
 					</BreadcrumbItem>
 				</BreadcrumbList>
 			</Breadcrumb>
@@ -62,17 +69,21 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 							<div>
 								<p className="text-sm">{data?.companyName}</p>
 								<h1 className="text-2xl font-semibold !mt-0 !mb-2">{data?.jobTitle}</h1>
-								<div className="flex items-center gap-1 my-4">
+								<div className="flex items-center gap-1 my-4 flex-wrap">
 									<Badge
 										variant={getApplicationStatusColor(
 											data?.applicationStatus as ApplicationStatus,
 										)}
 									>
-										{data?.applicationStatus}
+										{applicationStatusMapping[data.applicationStatus as ApplicationStatus]}
 									</Badge>
-									{data.contractType && <Badge variant="secondary">{data?.contractType}</Badge>}
+									{data.contractType && (
+										<Badge variant="secondary">{contractTypeMapping[data.contractType]}</Badge>
+									)}
 									{data.workMode && (
-										<Badge variant={getWorkModeColor(data?.workMode)}>{data?.workMode}</Badge>
+										<Badge variant={getWorkModeColor(data?.workMode)}>
+											{workModeMapping[data.workMode]}
+										</Badge>
 									)}
 								</div>
 								{data.location && <p className="text-muted-foreground text-xs">{data?.location}</p>}

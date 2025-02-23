@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 const Error = ({ error, reset }: { error: Error; reset: () => void }) => {
 	return (
 		<div className="flex flex-col items-center justify-center h-screen">
-			<h1 className="text-4xl font-bold text-darkGreenAccent dark:text-lightGreenAccent">
+			<h1 className="text-4xl font-bold text-darkVioletAccent dark:text-lightVioletAccent">
 				500 - Internal Server Error
 			</h1>
 			<p className="mt-4">Sorry, something went wrong.</p>
