@@ -1,15 +1,23 @@
 import { ApplicationStatus, JobApplicationFormData } from '@/components/ApplicationForm/utility';
 import { config } from '@/config/config';
-import { JobApplicationData, Response } from '@/types/apiResponseTypes';
+import { ContractType, JobApplicationData, Response, WorkMode } from '@/types/apiResponseTypes';
 import { apiRoutes } from '@/utils/constants';
 
 export const applicationDataQueries = {
-	getAll: async (lastId?: string, query?: string, statusFilter?: ApplicationStatus) => {
+	getAll: async (
+		lastId?: string,
+		query?: string,
+		statusFilter?: ApplicationStatus,
+		workModeFilter?: WorkMode,
+		contractTypeFilter?: ContractType,
+	) => {
 		const url = new URL(`${origin}${apiRoutes.applications.getAll}`);
 
 		if (lastId && lastId !== 'undefined') url.searchParams.append('lastId', lastId);
 		if (query) url.searchParams.append('searchQuery', query);
 		if (statusFilter) url.searchParams.append('statusFilter', statusFilter);
+		if (workModeFilter) url.searchParams.append('workModeFilter', workModeFilter);
+		if (contractTypeFilter) url.searchParams.append('contractTypeFilter', contractTypeFilter);
 
 		url.searchParams.append('limit', config.dataFetchingLimitForAppwrite.toString());
 
@@ -28,23 +36,7 @@ export const applicationDataQueries = {
 			throw new Error('Failed to fetch application data');
 		}
 	},
-	getOne: async (documentId: string) => {
-		const url = new URL(`${origin}${apiRoutes.applications.getOne}?documentId=${documentId}`);
-
-		try {
-			const response = await fetch(url);
-
-			if (response.ok) {
-				console.log('response', response);
-				return (await response.json()) as JobApplicationData;
-			} else {
-				throw new Error('Failed to fetch application data');
-			}
-		} catch (error) {
-			console.error(error);
-			throw new Error('Failed to fetch application data');
-		}
-	},
+	getOne: async (documentId: string) => {},
 	add: async (data: JobApplicationFormData) => {
 		try {
 			const response = await fetch(apiRoutes.applications.add, {

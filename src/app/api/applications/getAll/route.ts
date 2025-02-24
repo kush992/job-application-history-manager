@@ -18,6 +18,8 @@ export async function GET(req: NextRequest) {
 		const limit = searchParams.get('limit');
 		const searchQuery = searchParams.get('searchQuery');
 		const statusFilter = searchParams.get('statusFilter');
+		const workModeFilter = searchParams.get('workModeFilter');
+		const contractTypeFilter = searchParams.get('contractTypeFilter');
 
 		const query = [
 			Query.equal('isSoftDelete', false),
@@ -39,6 +41,13 @@ export async function GET(req: NextRequest) {
 
 		if (statusFilter) {
 			query.push(Query.contains('applicationStatus', statusFilter));
+		}
+
+		if (contractTypeFilter) {
+			query.push(Query.contains('contractType', contractTypeFilter));
+		}
+		if (workModeFilter) {
+			query.push(Query.contains('workMode', workModeFilter));
 		}
 
 		const response = (await database.listDocuments(

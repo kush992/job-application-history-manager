@@ -19,7 +19,7 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { JobApplicationData, Response } from '@/types/apiResponseTypes';
+import { ContractType, JobApplicationData, Response, WorkMode } from '@/types/apiResponseTypes';
 import { Separator } from '../ui/separator';
 import { Info, Loader } from 'lucide-react';
 import PageDescription from '../ui/page-description';
@@ -32,13 +32,28 @@ type Props = {
 const ApplicationPage: React.FC<Props> = ({ userId }) => {
 	const [companyNameFilter, setCompanyNameFilter] = useState<string | undefined>(undefined);
 	const [statusFilter, setStatusFilter] = useState<ApplicationStatus | undefined>(undefined);
+	const [contractTypeFilter, setContractTypeFilter] = useState<ContractType | undefined>(undefined);
+	const [workModeFilter, setWorkModeFilter] = useState<WorkMode | undefined>(undefined);
 
 	const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery<
 		Response<JobApplicationData>
 	>({
-		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyNameFilter, statusFilter],
+		queryKey: [
+			QueryKeys.APPLICATIONS_PAGE,
+			userId,
+			companyNameFilter,
+			statusFilter,
+			workModeFilter,
+			contractTypeFilter,
+		],
 		queryFn: ({ pageParam = undefined }) =>
-			applicationDataQueries.getAll(String(pageParam), companyNameFilter, statusFilter),
+			applicationDataQueries.getAll(
+				String(pageParam),
+				companyNameFilter,
+				statusFilter,
+				workModeFilter,
+				contractTypeFilter,
+			),
 		getNextPageParam: (lastPage) => {
 			if (lastPage.documents.length === 20) {
 				return lastPage.documents[lastPage.documents.length - 1].$id;
@@ -73,17 +88,29 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 
 	const onInputChange = (value: string) => {
 		setCompanyNameFilter(value);
-		debouncedRefetch();
 	};
 
 	const filterByStatus = (value: ApplicationStatus) => {
 		setStatusFilter(value);
-		debouncedRefetch();
+	};
+
+	const filterByWorkMode = (value: WorkMode) => {
+		setWorkModeFilter(value);
+	};
+	const filterByContractType = (value: ContractType) => {
+		setContractTypeFilter(value);
 	};
 
 	const clearAllFilters = () => {
 		setCompanyNameFilter(undefined);
 		setStatusFilter(undefined);
+		setContractTypeFilter(undefined);
+		setWorkModeFilter(undefined);
+		debouncedRefetch();
+	};
+
+	const onSubmitFilters = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		debouncedRefetch();
 	};
 
@@ -123,6 +150,9 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 				<ApplicationFilter
 					onInputChange={onInputChange}
 					filterByStatus={filterByStatus}
+					filterByWorkMode={filterByWorkMode}
+					filterByContractType={filterByContractType}
+					onSubmit={onSubmitFilters}
 					clearAllFilters={clearAllFilters}
 				/>
 			</div>
