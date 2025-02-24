@@ -36,23 +36,7 @@ export const applicationDataQueries = {
 			throw new Error('Failed to fetch application data');
 		}
 	},
-	getOne: async (documentId: string) => {
-		const url = new URL(`${origin}${apiRoutes.applications.getOne}?documentId=${documentId}`);
-
-		try {
-			const response = await fetch(url);
-
-			if (response.ok) {
-				console.log('response', response);
-				return (await response.json()) as JobApplicationData;
-			} else {
-				throw new Error('Failed to fetch application data');
-			}
-		} catch (error) {
-			console.error(error);
-			throw new Error('Failed to fetch application data');
-		}
-	},
+	getOne: async (documentId: string) => {},
 	add: async (data: JobApplicationFormData) => {
 		try {
 			const response = await fetch(apiRoutes.applications.add, {
