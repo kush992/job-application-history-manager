@@ -13,7 +13,7 @@ export default async function AddInterviewQuestions() {
 
 	return (
 		<Suspense fallback={<Loader />}>
-			<main className="flex min-h-screen flex-col gap-8 max-w-6xl mx-auto ">
+			<main className="flex min-h-screen flex-col gap-8 container mx-auto ">
 				<Analytics />
 				<QnAForm userId={user.$id} />
 			</main>

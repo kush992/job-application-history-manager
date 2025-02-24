@@ -48,7 +48,7 @@ const AboutUsPage: React.FC = () => {
 			</section>
 
 			<main className="mx-auto py-12">
-				<section className="mb-16 max-w-6xl mx-auto motion-preset-slide-up delay-150 px-4">
+				<section className="mb-16 container mx-auto motion-preset-slide-up delay-150 px-4">
 					<Card>
 						<CardHeader>
 							<CardTitle className="text-center mt-10 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
@@ -67,7 +67,7 @@ const AboutUsPage: React.FC = () => {
 					</Card>
 				</section>
 
-				<section className="mb-16 max-w-6xl mx-auto motion-preset-slide-up delay-300 px-4">
+				<section className="mb-16 container mx-auto motion-preset-slide-up delay-300 px-4">
 					<Card className="shadow-xl">
 						<CardHeader>
 							<CardTitle className="text-center mt-10 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
@@ -88,7 +88,7 @@ const AboutUsPage: React.FC = () => {
 				</section>
 
 				<section className="mb-16 bg-muted py-12">
-					<div className="max-w-6xl mx-auto px-4">
+					<div className="container mx-auto px-4">
 						<h2 className="text-3xl font-bold mb-6 text-center">What We Offer</h2>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 							<Card>
@@ -151,7 +151,7 @@ const AboutUsPage: React.FC = () => {
 					</div>
 				</section>
 
-				<section className="mb-16 max-w-6xl mx-auto px-4">
+				<section className="mb-16 container mx-auto px-4">
 					<h2 className="text-3xl font-bold mb-6 text-center">Our Commitment</h2>
 					<Card>
 						<CardContent className="pt-6">
@@ -165,7 +165,7 @@ const AboutUsPage: React.FC = () => {
 					</Card>
 				</section>
 
-				{/* <section className="mb-16 max-w-6xl mx-auto px-4">
+				{/* <section className="mb-16 container mx-auto px-4">
 					<h2 className="text-3xl font-bold mb-6 text-center">
 						Our Founder
 					</h2>
@@ -183,7 +183,7 @@ const AboutUsPage: React.FC = () => {
 				</section> */}
 
 				<section className="mb-16 bg-accent px-4">
-					<div className="max-w-6xl mx-auto py-12">
+					<div className="container mx-auto py-12">
 						<h2 className="text-3xl font-bold mb-6 text-center">What Our Users Say</h2>
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 							{testimonials.map((testimonial, index) => (
@@ -211,7 +211,7 @@ const AboutUsPage: React.FC = () => {
 					</div>
 				</section>
 
-				<section className="text-center max-w-6xl mx-auto px-4">
+				<section className="text-center container mx-auto px-4">
 					<h2 className="text-3xl font-bold mb-6">Join Us on the Journey</h2>
 					<p className="leading-7 [&:not(:first-child)]:mt-6">
 						JobJourney is more than a tool; {"it's"} a partner in your career advancement. Join us on this

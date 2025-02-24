@@ -48,8 +48,8 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 		data?.salary && `${data?.salary} ${data?.salaryCurrency?.toLowerCase()} / ${data?.salaryType?.toLowerCase()}`;
 
 	return (
-		<div className="flex flex-col gap-6 p-4">
-			<Breadcrumb>
+		<div className="flex flex-col gap-6 mb-4 md:container">
+			<Breadcrumb className="py-4 px-4 md:px-0">
 				<BreadcrumbList className="overflow-x-scroll flex-nowrap no-scrollbar">
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 					<BreadcrumbSeparator />
@@ -64,7 +64,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 			{(isFetching || isLoading) && <Loader />}
 			{!isFetching && !isLoading && data?.$id && (
 				<>
-					<div className="flex flex-col gap-4 rounded-md border p-4 bg-background motion-preset-focus ">
+					<div className="flex flex-col gap-4 md:rounded-md md:border p-4 bg-background motion-preset-focus">
 						<div className="flex justify-between items-start">
 							<div>
 								<p className="text-sm">{data?.companyName}</p>
@@ -130,7 +130,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 						</div>
 					</div>
 
-					<div className="border p-4 rounded-md bg-background motion-preset-focus-sm overflow-hidden ">
+					<div className="md:border p-4 md:rounded-md bg-background motion-preset-focus-sm overflow-hidden ">
 						{data?.links && (
 							<div id="documentsData">
 								<h2 className="text-lg font-semibold !mt-3">Documents Added</h2>

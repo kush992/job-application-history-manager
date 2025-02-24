@@ -24,7 +24,7 @@ const Header: React.FC<Props> = ({ user }) => {
 
 	return (
 		<header className="border-b border-muted z-50 sticky top-0 backdrop-blur duration-200 bg-background shadow-md">
-			<div className="max-w-6xl mx-auto flex justify-between items-center h-[65px] px-4">
+			<div className="container mx-auto flex justify-between items-center h-[65px]">
 				<div>
 					<Link href={appRoutes.home} className="flex flex-col">
 						<span className="text-lg font-bold text-secondary-foreground tracking-tighter">JobJourney</span>
