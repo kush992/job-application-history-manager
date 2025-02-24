@@ -148,8 +148,8 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	}
 
 	return (
-		<div className="flex flex-col gap-6">
-			<div className="px-4 pt-4">
+		<div className="flex flex-col gap-6 md:container">
+			<div className="px-4 md:px-0 pt-4">
 				<Breadcrumb className="mb-4">
 					<BreadcrumbList>
 						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
@@ -169,7 +169,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 				<Loader />
 			) : (
 				<Card className="bg-background rounded-none border-[0px] md:rounded-xl md:border mb-6">
-					<CardContent className="pt-6">
+					<CardContent className="pt-6 px-4 md:px-6">
 						<ApplicationDataForm form={form} onSubmit={onSubmit} />
 					</CardContent>
 				</Card>
