@@ -1,7 +1,7 @@
 import { appwriteDbConfig, database } from '@/appwrite/config';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { Response, JobApplicationData } from '@/types/apiResponseTypes';
-import { Query } from 'node-appwrite';
+import { AppwriteException, Models, Query } from 'node-appwrite';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -40,29 +40,30 @@ export async function GET(req: NextRequest) {
 		}
 
 		if (statusFilter) {
-			query.push(Query.contains('applicationStatus', statusFilter));
+			query.push(Query.contains('applicationStatus', statusFilter.split(',')));
 		}
 
 		if (contractTypeFilter) {
-			query.push(Query.contains('contractType', contractTypeFilter));
+			query.push(Query.contains('contractType', contractTypeFilter.split(',')));
 		}
 		if (workModeFilter) {
-			query.push(Query.contains('workMode', workModeFilter));
+			query.push(Query.contains('workMode', workModeFilter.split(',')));
 		}
 
 		const response = (await database.listDocuments(
 			appwriteDbConfig.applicationDb,
 			appwriteDbConfig.applicationDbCollectionId,
 			query,
-		)) as Response<JobApplicationData>;
+		)) as Models.DocumentList<JobApplicationData>;
 
-		if (response.documents && response.total) {
-			return NextResponse.json(response, { status: 200, statusText: 'ok' });
-		} else {
-			return NextResponse.json({ error: 'No documents found' }, { status: 404 });
-		}
+		return NextResponse.json(response, { status: 200, statusText: 'ok' });
 	} catch (error) {
 		console.error(error);
+
+		if (error instanceof AppwriteException) {
+			return NextResponse.json(error, { status: error.code });
+		}
+
 		return NextResponse.json({ error }, { status: 500 });
 	}
 }
