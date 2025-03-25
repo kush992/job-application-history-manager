@@ -30,7 +30,7 @@ const ApplicationFilter: React.FC<Props> = ({ filterForm, onSubmit, clearAllFilt
 					<Filter className="w-4 h-4" /> Filter
 				</Button>
 			</DialogTrigger>
-			<DialogContent>
+			<DialogContent onOpenAutoFocus={(e) => e.preventDefault()}>
 				<DialogHeader>
 					<DialogTitle>Filter Options</DialogTitle>
 				</DialogHeader>
@@ -47,7 +47,7 @@ const ApplicationFilter: React.FC<Props> = ({ filterForm, onSubmit, clearAllFilt
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Company Name</FormLabel>
-										<FormControl>
+										<FormControl autoFocus={false}>
 											<Input placeholder="Search for company name" {...field} />
 										</FormControl>
 									</FormItem>
@@ -166,7 +166,9 @@ const ApplicationFilter: React.FC<Props> = ({ filterForm, onSubmit, clearAllFilt
 									<span>Clear filters</span>
 								</Button>
 							</DialogClose>
-							<Button type="submit">Apply Filters</Button>
+							<DialogClose asChild>
+								<Button type="submit">Apply Filters</Button>
+							</DialogClose>
 						</DialogFooter>
 					</form>
 				</Form>
