@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import debounce from 'lodash/debounce';
 import Link from 'next/link';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
@@ -24,35 +24,38 @@ import { Separator } from '../ui/separator';
 import { Info, Loader } from 'lucide-react';
 import PageDescription from '../ui/page-description';
 import PageTitle from '../ui/page-title';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { FilterFormValues, filterSchema } from './ApplicationFilter/utility';
 
 type Props = {
 	userId: string;
 };
 
 const ApplicationPage: React.FC<Props> = ({ userId }) => {
-	const [companyNameFilter, setCompanyNameFilter] = useState<string | undefined>(undefined);
-	const [statusFilter, setStatusFilter] = useState<ApplicationStatus | undefined>(undefined);
-	const [contractTypeFilter, setContractTypeFilter] = useState<ContractType | undefined>(undefined);
-	const [workModeFilter, setWorkModeFilter] = useState<WorkMode | undefined>(undefined);
+	const filterForm = useForm<FilterFormValues>({
+		resolver: zodResolver(filterSchema),
+		defaultValues: {
+			companyName: '',
+			status: [],
+			contractType: [],
+			workMode: [],
+		},
+	});
+
+	const { companyName, status, contractType, workMode } = filterForm.getValues();
 
 	const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery<
 		Response<JobApplicationData>
 	>({
-		queryKey: [
-			QueryKeys.APPLICATIONS_PAGE,
-			userId,
-			companyNameFilter,
-			statusFilter,
-			workModeFilter,
-			contractTypeFilter,
-		],
+		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyName, status, workMode, contractType],
 		queryFn: ({ pageParam = undefined }) =>
 			applicationDataQueries.getAll(
 				String(pageParam),
-				companyNameFilter,
-				statusFilter,
-				workModeFilter,
-				contractTypeFilter,
+				companyName,
+				status?.join(',') as ApplicationStatus,
+				workMode?.join(',') as WorkMode,
+				contractType?.join(',') as ContractType,
 			),
 		getNextPageParam: (lastPage) => {
 			if (lastPage.documents.length === 20) {
@@ -86,38 +89,22 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 
 	const debouncedRefetch = debounce(refetch, 500);
 
-	const onInputChange = (value: string) => {
-		setCompanyNameFilter(value);
-	};
-
-	const filterByStatus = (value: ApplicationStatus) => {
-		setStatusFilter(value);
-	};
-
-	const filterByWorkMode = (value: WorkMode) => {
-		setWorkModeFilter(value);
-	};
-	const filterByContractType = (value: ContractType) => {
-		setContractTypeFilter(value);
-	};
-
 	const clearAllFilters = () => {
-		setCompanyNameFilter(undefined);
-		setStatusFilter(undefined);
-		setContractTypeFilter(undefined);
-		setWorkModeFilter(undefined);
-		debouncedRefetch();
+		filterForm.reset();
 	};
 
-	const onSubmitFilters = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const onSubmitFilters = () => {
 		debouncedRefetch();
 	};
 
 	const jobRecords = data?.pages?.map((page) => page?.documents)?.flat();
 
 	if (error) {
-		return <div>Error: {error.message}</div>;
+		return (
+			<pre>
+				<code>{JSON.stringify(error, null, 2)}</code>
+			</pre>
+		);
 	}
 
 	return (
@@ -142,20 +129,23 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 				</Button>
 			</div>
 
-			<div className="flex flex-col items-center gap-2 w-full">
+			<div className="flex flex-col items-center gap-2 w-full sticky top-8">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
 					<Info className="w-4 h-4" />
 					<span>Total: {data?.pages[0]?.total}</span>
 				</p>
 				<ApplicationFilter
-					onInputChange={onInputChange}
-					filterByStatus={filterByStatus}
-					filterByWorkMode={filterByWorkMode}
-					filterByContractType={filterByContractType}
 					onSubmit={onSubmitFilters}
+					filterForm={filterForm}
 					clearAllFilters={clearAllFilters}
 				/>
 			</div>
+
+			{!isLoading && !error && jobRecords && jobRecords?.length < 1 && (
+				<div className="flex items-center justify-center w-full h-96">
+					<p className="text-lg text-muted-foreground">No applications found</p>
+				</div>
+			)}
 
 			{!isLoading && !error && data && (
 				<div className="flex flex-col border rounded-md overflow-hidden w-full">
@@ -176,7 +166,14 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 					className="w-full flex gap-1 items-center mt-2"
 					size="lg"
 				>
-					{isLoading || isFetchingNextPage ? <Loader className="animate-spin" /> : 'Fetch More'}
+					{isLoading || isFetchingNextPage ? (
+						<>
+							Fetching
+							<Loader className="animate-spin" />
+						</>
+					) : (
+						'Fetch More'
+					)}
 				</Button>
 			)}
 		</div>
