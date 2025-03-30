@@ -4,7 +4,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 import { appRoutes, QueryKeys } from '@/utils/constants';
-import ApplicationPage from '@/components/ApplicationPage';
+import ApplicationsListPage from '@/components/ApplicationsListPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
 
@@ -24,7 +24,7 @@ const ApplicationsPage = async () => {
 			<main className="flex min-h-screen flex-col gap-8 container mx-auto p-4 ">
 				<Analytics />
 				<HydrationBoundary state={dehydrate(queryClient)}>
-					<ApplicationPage userId={user.$id} />
+					<ApplicationsListPage userId={user.$id} />
 				</HydrationBoundary>
 			</main>
 		</Suspense>

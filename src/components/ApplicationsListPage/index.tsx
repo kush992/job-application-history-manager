@@ -8,7 +8,7 @@ import { applicationDataQueries } from '@/lib/server/application-queries';
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
-import ApplicationList from './ApplicationList';
+import ApplicationListItem from './ApplicationListItem';
 import ApplicationFilter from './ApplicationFilter';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import {
@@ -27,12 +27,13 @@ import PageTitle from '../ui/page-title';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { FilterFormValues, filterSchema } from './ApplicationFilter/utility';
+import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
 
 type Props = {
 	userId: string;
 };
 
-const ApplicationPage: React.FC<Props> = ({ userId }) => {
+const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 	const filterForm = useForm<FilterFormValues>({
 		resolver: zodResolver(filterSchema),
 		defaultValues: {
@@ -124,9 +125,6 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 					<PageTitle title="Applied jobs" />
 					<PageDescription description="This is a collection of all the jobs you have applied for." />
 				</div>
-				<Button variant="primaryViolet">
-					<Link href={appRoutes.addApplication}>Add new</Link>
-				</Button>
 			</div>
 
 			<div className="flex flex-col items-center gap-2 w-full sticky top-8">
@@ -134,11 +132,17 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 					<Info className="w-4 h-4" />
 					<span>Total: {data?.pages[0]?.total}</span>
 				</p>
-				<ApplicationFilter
-					onSubmit={onSubmitFilters}
-					filterForm={filterForm}
-					clearAllFilters={clearAllFilters}
-				/>
+
+				<div className="flex justify-between gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
+					<ApplicationFilter
+						onSubmit={onSubmitFilters}
+						filterForm={filterForm}
+						clearAllFilters={clearAllFilters}
+					/>
+					<Button variant="primaryViolet" className="w-full">
+						<Link href={appRoutes.addApplication}>Add new</Link>
+					</Button>
+				</div>
 			</div>
 
 			{!isLoading && !error && jobRecords && jobRecords?.length < 1 && (
@@ -147,11 +151,22 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 				</div>
 			)}
 
+			{isLoading && (
+				<div className="flex flex-col border rounded-md overflow-hidden w-full">
+					{Array.from({ length: 10 }).map((_, index) => (
+						<React.Fragment key={index}>
+							<ApplicationListItemSkeleton />
+							<Separator />
+						</React.Fragment>
+					))}
+				</div>
+			)}
+
 			{!isLoading && !error && data && (
 				<div className="flex flex-col border rounded-md overflow-hidden w-full">
 					{jobRecords?.map((dataa) => (
 						<React.Fragment key={dataa.$id}>
-							<ApplicationList data={dataa} onClickDelete={() => mutation.mutate(dataa.$id)} />
+							<ApplicationListItem data={dataa} onClickDelete={() => mutation.mutate(dataa.$id)} />
 							<Separator />
 						</React.Fragment>
 					))}
@@ -180,4 +195,4 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 	);
 };
 
-export default ApplicationPage;
+export default ApplicationsListPage;

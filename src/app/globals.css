@@ -93,6 +93,8 @@ h6 {
 		--dark-violet-accent: 261.2 72.6% 22.9%;
 		--light-violet-accent: 252.5 94.7% 85.1%;
 
+		--feature-purple: 270 95.2% 75.3%; /* purple-600 */
+
 		--status-default: 215 16% 47%;
 		--status-in-progress: 217 91% 60%;
 		--status-success: 142 76% 36%;
@@ -104,6 +106,7 @@ h6 {
 		--warning-color: 28.4 72.5% 25.7%;
 		--app-background: 240 5.9% 10%;
 		--yellow-bg: 28.4 72.5% 25.7%;
+		--feature-purple: 272.9 67.2% 39.4%; /* purple-800 */
 
 		--status-default: 217 19% 27%;
 		--status-in-progress: 217 91% 60%;
