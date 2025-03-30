@@ -125,9 +125,6 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 					<PageTitle title="Applied jobs" />
 					<PageDescription description="This is a collection of all the jobs you have applied for." />
 				</div>
-				<Button variant="primaryViolet">
-					<Link href={appRoutes.addApplication}>Add new</Link>
-				</Button>
 			</div>
 
 			<div className="flex flex-col items-center gap-2 w-full sticky top-8">
@@ -135,11 +132,17 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 					<Info className="w-4 h-4" />
 					<span>Total: {data?.pages[0]?.total}</span>
 				</p>
-				<ApplicationFilter
-					onSubmit={onSubmitFilters}
-					filterForm={filterForm}
-					clearAllFilters={clearAllFilters}
-				/>
+
+				<div className="flex justify-between gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
+					<ApplicationFilter
+						onSubmit={onSubmitFilters}
+						filterForm={filterForm}
+						clearAllFilters={clearAllFilters}
+					/>
+					<Button variant="primaryViolet" className='w-full'>
+						<Link href={appRoutes.addApplication}>Add new</Link>
+					</Button>
+				</div>
 			</div>
 
 			{!isLoading && !error && jobRecords && jobRecords?.length < 1 && (
