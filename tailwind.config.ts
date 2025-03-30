@@ -83,7 +83,7 @@ const config: Config = {
 				},
 				feature: {
 					purple: 'hsl(var(--feature-purple))',
-				}
+				},
 			},
 			keyframes: {
 				'accordion-down': {

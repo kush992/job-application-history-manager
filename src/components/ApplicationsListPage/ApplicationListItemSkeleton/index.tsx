@@ -28,4 +28,3 @@ const ApplicationListItemSkeleton: React.FC = () => {
 };
 
 export default ApplicationListItemSkeleton;
- 

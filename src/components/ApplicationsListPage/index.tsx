@@ -139,7 +139,7 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 						filterForm={filterForm}
 						clearAllFilters={clearAllFilters}
 					/>
-					<Button variant="primaryViolet" className='w-full'>
+					<Button variant="primaryViolet" className="w-full">
 						<Link href={appRoutes.addApplication}>Add new</Link>
 					</Button>
 				</div>
