@@ -8,7 +8,7 @@ import { applicationDataQueries } from '@/lib/server/application-queries';
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
-import ApplicationList from './ApplicationList';
+import ApplicationListItem from './ApplicationListItem';
 import ApplicationFilter from './ApplicationFilter';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import {
@@ -27,12 +27,13 @@ import PageTitle from '../ui/page-title';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { FilterFormValues, filterSchema } from './ApplicationFilter/utility';
+import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
 
 type Props = {
 	userId: string;
 };
 
-const ApplicationPage: React.FC<Props> = ({ userId }) => {
+const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 	const filterForm = useForm<FilterFormValues>({
 		resolver: zodResolver(filterSchema),
 		defaultValues: {
@@ -147,11 +148,22 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 				</div>
 			)}
 
+			{isLoading && (
+				<div className="flex flex-col border rounded-md overflow-hidden w-full">
+					{Array.from({ length: 10 }).map((_, index) => (
+						<React.Fragment key={index}>
+							<ApplicationListItemSkeleton />
+							<Separator />
+						</React.Fragment>
+					))}
+				</div>
+			)}
+
 			{!isLoading && !error && data && (
 				<div className="flex flex-col border rounded-md overflow-hidden w-full">
 					{jobRecords?.map((dataa) => (
 						<React.Fragment key={dataa.$id}>
-							<ApplicationList data={dataa} onClickDelete={() => mutation.mutate(dataa.$id)} />
+							<ApplicationListItem data={dataa} onClickDelete={() => mutation.mutate(dataa.$id)} />
 							<Separator />
 						</React.Fragment>
 					))}
@@ -180,4 +192,4 @@ const ApplicationPage: React.FC<Props> = ({ userId }) => {
 	);
 };
 
-export default ApplicationPage;
+export default ApplicationsListPage;

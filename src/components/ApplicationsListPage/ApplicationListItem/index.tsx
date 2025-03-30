@@ -16,7 +16,7 @@ type Props = {
 	onClickDelete: (id: string) => void;
 };
 
-const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
+const ApplicationListItem: React.FC<Props> = ({ data, onClickDelete }) => {
 	return (
 		<div className="bg-background p-4 grid grid-cols-[1fr_auto] gap-2">
 			<Link href={`${appRoutes.viewApplication}/${data.$id}`}>
@@ -71,4 +71,4 @@ const ApplicationList: React.FC<Props> = ({ data, onClickDelete }) => {
 	);
 };
 
-export default ApplicationList;
+export default ApplicationListItem;
