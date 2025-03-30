@@ -78,7 +78,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 										{applicationStatusMapping[data.applicationStatus as ApplicationStatus]}
 									</Badge>
 									{data.contractType && (
-										<Badge variant="secondary">{contractTypeMapping[data.contractType]}</Badge>
+										<Badge variant="feature">{contractTypeMapping[data.contractType]}</Badge>
 									)}
 									{data.workMode && (
 										<Badge variant={getWorkModeColor(data?.workMode)}>

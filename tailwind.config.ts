@@ -81,6 +81,9 @@ const config: Config = {
 					success: 'hsl(var(--status-success))',
 					failure: 'hsl(var(--status-failure))',
 				},
+				feature: {
+					purple: 'hsl(var(--feature-purple))',
+				}
 			},
 			keyframes: {
 				'accordion-down': {

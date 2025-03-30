@@ -17,6 +17,7 @@ const badgeVariants = cva(
 				'status-in-progress': 'border-transparent bg-status-inProgress text-white',
 				'status-success': 'border-transparent bg-status-success text-white',
 				'status-failure': 'border-transparent bg-status-failure text-white',
+				feature: 'border-transparent bg-feature-purple text-white',
 			},
 			size: {
 				sm: 'px-2 py-0.5 !text-lg',
