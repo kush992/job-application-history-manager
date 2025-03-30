@@ -30,7 +30,7 @@ const ApplicationFilter: React.FC<Props> = ({ filterForm, onSubmit, clearAllFilt
 					<Filter className="w-4 h-4" /> Filter
 				</Button>
 			</DialogTrigger>
-			<DialogContent onOpenAutoFocus={(e) => e.preventDefault()}>
+			<DialogContent onOpenAutoFocus={(e) => e.preventDefault()} className="overflow-scroll h-[90%]">
 				<DialogHeader>
 					<DialogTitle>Filter Options</DialogTitle>
 				</DialogHeader>
