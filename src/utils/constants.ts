@@ -16,6 +16,7 @@ export const appRoutes = {
 	privacyPolicy: '/privacy-policy',
 	termsOfService: '/terms-of-service',
 	userSettings: '/user/settings',
+	userDashboard: '/user/dashboard',
 };
 
 // For react-query

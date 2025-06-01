@@ -83,6 +83,61 @@ const config: Config = {
 				},
 				feature: {
 					purple: 'hsl(var(--feature-purple))',
+					violet: 'hsl(var(--feature-violet))',
+				},
+				badge: {
+					purple: {
+						bg: 'var(--badge-purple-bg)',
+						text: 'var(--badge-purple-text)',
+					},
+					violet: {
+						bg: 'var(--badge-violet-bg)',
+						text: 'var(--badge-violet-text)',
+					},
+					indigo: {
+						bg: 'var(--badge-indigo-bg)',
+						text: 'var(--badge-indigo-text)',
+					},
+					fuchsia: {
+						bg: 'var(--badge-fuchsia-bg)',
+						text: 'var(--badge-fuchsia-text)',
+					},
+					pink: {
+						bg: 'var(--badge-pink-bg)',
+						text: 'var(--badge-pink-text)',
+					},
+					rose: {
+						bg: 'var(--badge-rose-bg)',
+						text: 'var(--badge-rose-text)',
+					},
+					sky: {
+						bg: 'var(--badge-sky-bg)',
+						text: 'var(--badge-sky-text)',
+					},
+					cyan: {
+						bg: 'var(--badge-cyan-bg)',
+						text: 'var(--badge-cyan-text)',
+					},
+					teal: {
+						bg: 'var(--badge-teal-bg)',
+						text: 'var(--badge-teal-text)',
+					},
+					emerald: {
+						bg: 'var(--badge-emerald-bg)',
+						text: 'var(--badge-emerald-text)',
+					},
+					lime: {
+						bg: 'var(--badge-lime-bg)',
+						text: 'var(--badge-lime-text)',
+					},
+					amber: {
+						bg: 'var(--badge-amber-bg)',
+						text: 'var(--badge-amber-text)',
+					},
+					orange: {
+						bg: 'var(--badge-orange-bg)',
+						text: 'var(--badge-orange-text)',
+					},
 				},
 			},
 			keyframes: {

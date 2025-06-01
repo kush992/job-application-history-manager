@@ -90,15 +90,53 @@ h6 {
 		--success-color: 142.1 76.2% 36.3%;
 		--warning-color: 45.4 93.4% 47.5%;
 		--app-background: 220 14.3% 95.9%;
-		--dark-violet-accent: 261.2 72.6% 22.9%;
-		--light-violet-accent: 252.5 94.7% 85.1%;
 
+		--feature-violet: 252.5 94.7% 85.1%;
 		--feature-purple: 270 95.2% 75.3%; /* purple-600 */
 
 		--status-default: 215 16% 47%;
 		--status-in-progress: 217 91% 60%;
 		--status-success: 142 76% 36%;
 		--status-failure: 0 84% 60%;
+
+		--badge-purple-bg: #d8b4fe;
+		--badge-purple-text: #6b21a8;
+
+		--badge-violet-bg: #c4b5fd;
+		--badge-violet-text: #5b21b6;
+
+		--badge-indigo-bg: #a5b4fc;
+		--badge-indigo-text: #4338ca;
+
+		--badge-fuchsia-bg: #f5d0fe;
+		--badge-fuchsia-text: #a21caf;
+
+		--badge-pink-bg: #fbcfe8;
+		--badge-pink-text: #be185d;
+
+		--badge-rose-bg: #fecdd3;
+		--badge-rose-text: #be123c;
+
+		--badge-sky-bg: #bae6fd;
+		--badge-sky-text: #0369a1;
+
+		--badge-cyan-bg: #a5f3fc;
+		--badge-cyan-text: #0e7490;
+
+		--badge-teal-bg: #99f6e4;
+		--badge-teal-text: #0f766e;
+
+		--badge-emerald-bg: #a7f3d0;
+		--badge-emerald-text: #047857;
+
+		--badge-lime-bg: #d9f99d;
+		--badge-lime-text: #3f6212;
+
+		--badge-amber-bg: #fde68a;
+		--badge-amber-text: #92400e;
+
+		--badge-orange-bg: #fed7aa;
+		--badge-orange-text: #c2410c;
 	}
 
 	.dark {
@@ -107,11 +145,51 @@ h6 {
 		--app-background: 240 5.9% 10%;
 		--yellow-bg: 28.4 72.5% 25.7%;
 		--feature-purple: 272.9 67.2% 39.4%; /* purple-800 */
+		--feature-violet: 261.2 72.6% 22.9%;
 
 		--status-default: 217 19% 27%;
 		--status-in-progress: 217 91% 60%;
 		--status-success: 142 71% 45%;
 		--status-failure: 0 84% 60%;
+
+		--badge-purple-bg: #7e22ce33;
+		--badge-purple-text: #d8b4fe;
+
+		--badge-violet-bg: #6d28d933;
+		--badge-violet-text: #c4b5fd;
+
+		--badge-indigo-bg: #4f46e533;
+		--badge-indigo-text: #a5b4fc;
+
+		--badge-fuchsia-bg: #c026d333;
+		--badge-fuchsia-text: #f5d0fe;
+
+		--badge-pink-bg: #db277933;
+		--badge-pink-text: #fbcfe8;
+
+		--badge-rose-bg: #e1133333;
+		--badge-rose-text: #fecdd3;
+
+		--badge-sky-bg: #0284c733;
+		--badge-sky-text: #bae6fd;
+
+		--badge-cyan-bg: #06b6d433;
+		--badge-cyan-text: #a5f3fc;
+
+		--badge-teal-bg: #0d948833;
+		--badge-teal-text: #99f6e4;
+
+		--badge-emerald-bg: #05966933;
+		--badge-emerald-text: #a7f3d0;
+
+		--badge-lime-bg: #65a30d33;
+		--badge-lime-text: #d9f99d;
+
+		--badge-amber-bg: #d9770633;
+		--badge-amber-text: #fde68a;
+
+		--badge-orange-bg: #ea580c33;
+		--badge-orange-text: #fed7aa;
 	}
 }
 

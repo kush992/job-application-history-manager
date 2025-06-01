@@ -1,17 +1,19 @@
 import React, { Suspense } from 'react';
-import Loader from '@/components/Loader';
-import { Analytics } from '@vercel/analytics/next';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
+import Loader from '@/components/Loader';
 import { appRoutes, QueryKeys } from '@/utils/constants';
-import ApplicationsListPage from '@/components/ApplicationsListPage';
+import { JobApplicationDashboard } from '@/components/Dashboard';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
+import { DashboardSkeleton } from '@/components/Dashboard/dashboard-skeleton';
 
-const ApplicationsPage = async () => {
+const DashboardPage: React.FC = async () => {
 	const user = await getLoggedInUser();
 
-	if (!user) redirect(appRoutes.signUp);
+	if (!user) {
+		redirect(appRoutes.signUp);
+	}
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
@@ -20,15 +22,14 @@ const ApplicationsPage = async () => {
 	});
 
 	return (
-		<Suspense fallback={<Loader />}>
-			<main className="flex min-h-screen flex-col gap-8 container mx-auto p-4">
-				<Analytics />
+		<Suspense fallback={<DashboardSkeleton />}>
+			<div className="flex min-h-screen flex-col gap-8 container mx-auto p-4">
 				<HydrationBoundary state={dehydrate(queryClient)}>
-					<ApplicationsListPage userId={user.$id} />
+					<JobApplicationDashboard userId={user.$id} />
 				</HydrationBoundary>
-			</main>
+			</div>
 		</Suspense>
 	);
 };
 
-export default ApplicationsPage;
+export default DashboardPage;

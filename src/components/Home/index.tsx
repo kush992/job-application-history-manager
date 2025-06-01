@@ -13,9 +13,9 @@ export default function HomePage() {
 				<div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
 					<Link
 						href={appRoutes.pricing}
-						className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm bg-lightVioletAccent rounded-full text-darkVioletAccent motion-preset-compress "
+						className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm bg-feature-violet rounded-full motion-preset-compress "
 					>
-						<span className="text-xs bg-darkVioletAccent rounded-full text-white px-4 py-1.5 me-3">
+						<span className="text-xs bg-feature-violet rounded-full px-4 py-1.5 me-3">
 							New
 						</span>
 						<span className="text-sm font-medium">Available now - Premium plan</span>
@@ -67,7 +67,7 @@ export default function HomePage() {
 							<Card key={data.tag}>
 								<CardHeader className="text-center">
 									<CardDescription>
-										<p className="bg-lightVioletAccent text-darkVioletAccent text-xs font-medium inline-flex items-center text-center px-2.5 py-0.5 rounded-md w-fit mb-2">
+										<p className="bg-feature-violet text-darkVioletAccent text-xs font-medium inline-flex items-center text-center px-2.5 py-0.5 rounded-md w-fit mb-2">
 											{data.tag}
 										</p>
 									</CardDescription>
