@@ -12,7 +12,7 @@ export const appRoutes = {
 	faq: '/faq',
 	pricing: '/pricing',
 	aboutUs: '/about-us',
-	contactUs: '/contact-us',
+	contactUs: '/contact',
 	privacyPolicy: '/privacy-policy',
 	termsOfService: '/terms-of-service',
 	userSettings: '/user/settings',
