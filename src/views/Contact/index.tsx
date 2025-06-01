@@ -17,7 +17,7 @@ export default function ContactView() {
 
 					{/* <div className="bg-accent flex flex-1 flex-col items-center justify-center px-6 py-6 h-full md:py-24"></div> */}
 					<Card>
-						<CardContent className='pt-6'>
+						<CardContent className="pt-6">
 							<ContactForm />
 						</CardContent>
 					</Card>
