@@ -104,15 +104,11 @@ export default function ContactForm() {
 					name="name"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className="text-white text-base font-medium">Name</FormLabel>
+							<FormLabel>Name</FormLabel>
 							<FormControl>
-								<Input
-									{...field}
-									placeholder="Name"
-									className="bg-gray-900 border-gray-700 text-white placeholder:text-gray-500 h-12 rounded-lg focus:border-gray-600 focus:ring-0"
-								/>
+								<Input {...field} placeholder="Name" />
 							</FormControl>
-							<FormMessage className="text-red-400" />
+							<FormMessage className="text-destructive" />
 						</FormItem>
 					)}
 				/>
@@ -122,16 +118,11 @@ export default function ContactForm() {
 					name="email"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className="text-white text-base font-medium">Email</FormLabel>
+							<FormLabel>Email</FormLabel>
 							<FormControl>
-								<Input
-									{...field}
-									type="email"
-									placeholder="Email"
-									className="bg-gray-900 border-gray-700 text-white placeholder:text-gray-500 h-12 rounded-lg focus:border-gray-600 focus:ring-0"
-								/>
+								<Input {...field} type="email" placeholder="Email" />
 							</FormControl>
-							<FormMessage className="text-red-400" />
+							<FormMessage className="text-destructive" />
 						</FormItem>
 					)}
 				/>
@@ -141,15 +132,15 @@ export default function ContactForm() {
 					name="message"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className="text-white text-base font-medium">Message</FormLabel>
+							<FormLabel>Message</FormLabel>
 							<FormControl>
 								<Textarea
 									{...field}
 									placeholder="Type your message"
-									className="bg-gray-900 border-gray-700 text-white placeholder:text-gray-500 min-h-[120px] rounded-lg resize-none focus:border-gray-600 focus:ring-0"
+									className="min-h-[120px] max-h-[240px]"
 								/>
 							</FormControl>
-							<FormMessage className="text-red-400" />
+							<FormMessage className="text-destructive" />
 						</FormItem>
 					)}
 				/>
@@ -169,12 +160,12 @@ export default function ContactForm() {
 							<div className="space-y-1 leading-none">
 								<FormLabel className="text-gray-400 text-sm font-normal cursor-pointer">
 									By selecting this you agree to our{' '}
-									<a href="/privacy-policy" className="text-white underline hover:no-underline">
+									<a href="/privacy-policy" className=" underline hover:no-underline">
 										Privacy Policy
 									</a>
 									.
 								</FormLabel>
-								<FormMessage className="text-red-400" />
+								<FormMessage className="text-destructive" />
 							</div>
 						</FormItem>
 					)}

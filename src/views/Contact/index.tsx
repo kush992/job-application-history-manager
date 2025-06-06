@@ -12,11 +12,11 @@ export default function ContactView() {
 	return (
 		<main>
 			<div className="container mx-auto px-6 py-16 mt-[70px] min-h-screen h-full flex flex-col justify-center">
-				<div className="grid md:grid-cols-2 gap-16 mx-auto h-full">
+				<div className="grid md:grid-cols-2 gap-16 mx-auto h-full ">
 					<ContactInfo />
 
 					{/* <div className="bg-accent flex flex-1 flex-col items-center justify-center px-6 py-6 h-full md:py-24"></div> */}
-					<Card>
+					<Card className='motion-preset-slide-up'>
 						<CardContent className="pt-6">
 							<ContactForm />
 						</CardContent>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function ContactInfo() {
 	return (
-		<div className="space-y-12 p-4">
+		<div className="space-y-12 p-4 motion-preset-slide-down">
 			{/* Visit our offices */}
 			<section className="space-y-6">
 				<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">Get in touch</h1>
