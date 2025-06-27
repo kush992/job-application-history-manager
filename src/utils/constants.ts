@@ -1,7 +1,7 @@
 export const appRoutes = {
 	home: '/',
-	login: '/login',
-	signUp: '/signup',
+	signIn: '/auth/signin',
+	signUp: '/auth/signup',
 	application: '/applications',
 	addApplication: '/applications/add',
 	updateApplication: '/applications/update',
@@ -16,6 +16,9 @@ export const appRoutes = {
 	privacyPolicy: '/privacy-policy',
 	termsOfService: '/terms-of-service',
 	userSettings: '/user/settings',
+	authCallback: '/auth/callback',
+	authCodeError: '/auth/auth-code-error',
+	authConfirm: '/auth/confirm',
 };
 
 // For react-query

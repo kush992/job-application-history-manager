@@ -1,6 +1,7 @@
-import { ApplicationStatus, JobApplicationFormData } from '@/components/ApplicationForm/utility';
+import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { config } from '@/config/config';
 import { ContractType, JobApplicationData, Response, WorkMode } from '@/types/apiResponseTypes';
+import { JobApplication } from '@/types/schema';
 import { apiRoutes } from '@/utils/constants';
 
 export const applicationDataQueries = {
@@ -44,7 +45,7 @@ export const applicationDataQueries = {
 
 			if (response.ok) {
 				console.log('response', response);
-				return (await response.json()) as JobApplicationData;
+				return (await response.json()) as JobApplication;
 			} else {
 				throw new Error('Failed to fetch application data');
 			}
@@ -53,7 +54,7 @@ export const applicationDataQueries = {
 			throw new Error('Failed to fetch application data');
 		}
 	},
-	add: async (data: JobApplicationFormData) => {
+	add: async (data: JobApplication) => {
 		try {
 			const response = await fetch(apiRoutes.applications.add, {
 				method: 'POST',
@@ -70,7 +71,7 @@ export const applicationDataQueries = {
 			throw new Error(`Error creating application: ${error}`);
 		}
 	},
-	update: async (data: JobApplicationFormData, documentId: string) => {
+	update: async (data: JobApplication, documentId: string) => {
 		try {
 			const response = await fetch(`${apiRoutes.applications.update}?documentId=${documentId}`, {
 				method: 'PUT',

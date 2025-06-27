@@ -1,7 +1,6 @@
 'use client';
 
 import Header from '@/components/Header';
-import { Models } from 'node-appwrite';
 import { jsonParseString } from '@/utils/utility';
 import { ThemeProvider } from '../ThemeProvider';
 import { Toaster } from '../ui/toaster';
@@ -9,13 +8,14 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import Footer from '../Footer';
+import { Profile } from '@/types/profiles';
 
 export default function Wrapper({
 	children,
 	user,
 }: Readonly<{
 	children: React.ReactNode;
-	user: Models.User<Models.Preferences> | null;
+	user: Profile;
 }>) {
 	const [queryClient] = React.useState(() => new QueryClient());
 
@@ -23,7 +23,7 @@ export default function Wrapper({
 		<ThemeProvider
 			attribute="class"
 			themes={['dark', 'light', 'system']}
-			defaultTheme={user?.prefs?.theme || 'system'}
+			defaultTheme={'system'}
 			enableColorScheme
 			disableTransitionOnChange
 		>
@@ -31,7 +31,7 @@ export default function Wrapper({
 				<ReactQueryDevtools initialIsOpen={false} />
 				<Toaster />
 				<Header user={jsonParseString(user)} />
-				<div className="min-h-screen">
+				<div className="md:min-h-screen h-full">
 					<div className="bg-gradient-to-b from-secondary to-transparent dark:from-background w-full h-full absolute top-0 left-0 -z-10"></div>
 					{children}
 				</div>

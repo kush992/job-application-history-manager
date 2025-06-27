@@ -18,36 +18,46 @@ import { signOut } from '@/lib/server/appwrite';
 import { Models } from 'node-appwrite';
 import React from 'react';
 import { useTheme } from 'next-themes';
+import { Profile } from '@/types/profiles';
+import { UserCircle2Icon } from 'lucide-react';
 
 type Props = {
-	user: Models.User<Models.Preferences> | null;
+	user: Profile | null;
 };
 
 export function UserMenu({ user }: Props) {
-	const userInitials = user?.name
+	const userInitials = user?.full_name
 		?.split(' ')
 		.map((name) => name[0])
 		.join('');
 
+		console.log('UserMenu rendered with user:', user);
 	const { setTheme } = useTheme();
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Avatar className="cursor-pointer h-8 w-8">
-					<AvatarImage src="https://img.kushbhalodi.com/images/avatar.png" alt="profile-image" />
+					<AvatarImage
+						src={user?.avatar_url || 'https://img.kushbhalodi.com/images/avatar.png'}
+						alt="profile-image"
+					/>
 					<AvatarFallback>{userInitials}</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
 
 			<DropdownMenuContent align="end" className="mr-2 md:mr-0" slot="left">
 				<DropdownMenuLabel className="flex gap-2 items-center">
-					<Avatar className="cursor-pointer">
-						<AvatarImage src="https://img.kushbhalodi.com/images/avatar.png" alt="profile-image" />
+					{/* <Avatar className="cursor-pointer">
+						<AvatarImage
+							src={user?.avatar_url || 'https://img.kushbhalodi.com/images/avatar.png'}
+							alt="profile-image"
+						/>
 						<AvatarFallback>{userInitials}</AvatarFallback>
-					</Avatar>
+					</Avatar> */}
+					<UserCircle2Icon className="h-8 w-8 text-secondary-foreground" />
 					<div>
-						<p>{user?.name}</p>
+						<p>{user?.full_name}</p>
 						<p className="text-xs text-muted-foreground">{user?.email}</p>
 					</div>
 				</DropdownMenuLabel>

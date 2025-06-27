@@ -10,9 +10,10 @@ import { Button } from '@/components/ui/button';
 import { UserMenu } from '../UserMenu';
 import { Plus, X } from 'lucide-react';
 import { navBarLinks } from './utility';
+import { Profile } from '@/types/profiles';
 
 type Props = {
-	user: Models.User<Models.Preferences> | null;
+	user: Profile | null;
 };
 
 const Header: React.FC<Props> = ({ user }) => {
@@ -31,7 +32,7 @@ const Header: React.FC<Props> = ({ user }) => {
 					</Link>
 				</div>
 				<nav className="hidden md:flex justify-center items-center gap-4">
-					{user?.$id && (
+					{user?.id && (
 						<ul className="flex justify-between items-center m-0 gap-4">
 							{navBarLinks.map((navBarLink) =>
 								navBarLink.href === appRoutes.addApplication ? (
@@ -63,15 +64,15 @@ const Header: React.FC<Props> = ({ user }) => {
 							<UserMenu user={user} />
 						</ul>
 					)}
-					{!user?.$id && (
+					{!user?.id && (
 						<Link href={appRoutes.signUp}>
 							<Button>SignIn</Button>
 						</Link>
 					)}
 				</nav>
 				<div className="md:hidden flex items-center gap-2">
-					{user?.$id && <UserMenu user={user} />}
-					{!user?.$id && (
+					{user?.id && <UserMenu user={user} />}
+					{!user?.id && (
 						<Link href={appRoutes.signUp}>
 							<Button>SignIn</Button>
 						</Link>

@@ -24,6 +24,7 @@ import { applicationDataQueries } from '@/lib/server/application-queries';
 import { addLinks } from '@/lib/server/application-docs-queries';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Separator } from '../ui/separator';
+import { JobApplication } from '@/types/schema';
 
 type Props = {
 	documentId?: string;
@@ -43,7 +44,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	});
 
 	const addLinksMutation = useMutation({
-		mutationFn: (links: string) => addLinks(links, String(applicationData?.documents[0]?.$id)),
+		mutationFn: (links: string) => addLinks(links, String(applicationData?.id)),
 		onSuccess: () => {
 			toast({
 				title: 'success',
@@ -57,7 +58,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	});
 
 	const createDocMutation = useMutation({
-		mutationFn: (data: JobApplicationFormData) => {
+		mutationFn: (data: JobApplication) => {
 			if (data.links) {
 				addLinksMutation.mutate(data.links);
 			}
@@ -77,7 +78,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	});
 
 	const updateDocMutation = useMutation({
-		mutationFn: (data: JobApplicationFormData) => {
+		mutationFn: (data: JobApplication) => {
 			if (data.links) {
 				addLinksMutation.mutate(data.links);
 			}
@@ -98,47 +99,50 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 		},
 	});
 
-	const initialFormData: JobApplicationFormData = {
-		userId: applicationData?.userId || userId,
-		jobTitle: applicationData?.jobTitle || '',
-		notes: applicationData?.notes,
-		companyName: applicationData?.companyName || '',
-		companyDomain: applicationData?.companyDomain || undefined,
-		applicationStatus: applicationData?.applicationStatus,
+	const initialFormData: JobApplication = {
+		user_id: applicationData?.user_id || userId,
+		job_title: applicationData?.job_title || '',
+		notes: applicationData?.notes || '',
+		company_name: applicationData?.company_name || '',
+		company_domain: applicationData?.company_domain || undefined,
+		application_status: applicationData?.application_status,
 		salary: applicationData?.salary || undefined,
-		salaryCurrency: applicationData?.salaryCurrency,
-		salaryType: applicationData?.salaryType,
-		interviewDate: applicationData?.interviewDate || undefined,
+		salary_currency: applicationData?.salary_currency,
+		salary_type: applicationData?.salary_type,
+		interview_date: applicationData?.interview_date,
 		links: applicationData?.links || undefined,
 		location: applicationData?.location || undefined,
-		jobLink: applicationData?.jobLink || undefined,
-		jobPostedOn: applicationData?.jobPostedOn,
-		workMode: applicationData?.workMode,
-		contractType: applicationData?.contractType,
+		job_link: applicationData?.job_link || undefined,
+		job_posted_on: applicationData?.job_posted_on,
+		work_mode: applicationData?.work_mode,
+		contract_type: applicationData?.contract_type,
+		journey_id: '',
 	};
 
-	const form = useForm<JobApplicationFormData>({
+	const form = useForm<JobApplication>({
 		resolver: zodResolver(formSchema),
 		defaultValues: { ...initialFormData },
 		values: { ...initialFormData },
 	});
 
-	async function onSubmit(data: JobApplicationFormData) {
-		if (!data.applicationStatus) {
-			delete data.applicationStatus;
+	async function onSubmit(data: JobApplication) {
+		if (!data.application_status) {
+			delete data.application_status;
 		}
 
-		if (!data.salaryCurrency) {
-			delete data.salaryCurrency;
+		if (!data.salary_currency) {
+			delete data.salary_currency;
 		}
 
-		if (!data.salaryType) {
-			delete data.salaryType;
+		if (!data.salary_type) {
+			delete data.salary_type;
 		}
 
-		if (data.interviewDate) {
-			data.interviewDate = new Date(data.interviewDate);
+		if (data.interview_date) {
+			data.interview_date = new Date(data.interview_date);
 		}
+
+		data.journey_id = '';
 
 		if (!isUpdateForm) {
 			createDocMutation.mutate(data);

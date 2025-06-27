@@ -1,7 +1,7 @@
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { ApplicationStatus, FILES_SEPARATOR, JobApplicationFormData, SalaryCurrency, SalaryType } from '../utility';
+import { ApplicationStatus, FILES_SEPARATOR, SalaryCurrency, SalaryType } from '../utility';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -13,10 +13,11 @@ import DocumentInfoCard from '@/components/DocumentInfoCard';
 import { getFileName } from '@/utils/utility';
 import { Briefcase, Building2, CalendarIcon, Loader } from 'lucide-react';
 import { JobSites } from '@/types/apiResponseTypes';
+import { JobApplication } from '@/types/schema';
 
 type Props = {
-	form: UseFormReturn<JobApplicationFormData>;
-	onSubmit: (data: JobApplicationFormData) => Promise<void>;
+	form: UseFormReturn<JobApplication>;
+	onSubmit: (data: JobApplication) => Promise<void>;
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
@@ -49,7 +50,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 						<FormField
 							control={form.control}
-							name="jobTitle"
+							name="job_title"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Job Title *</FormLabel>
@@ -64,7 +65,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						<div className="grid grid-cols-2 gap-4">
 							<FormField
 								control={form.control}
-								name="workMode"
+								name="work_mode"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Work Mode</FormLabel>
@@ -87,7 +88,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 							<FormField
 								control={form.control}
-								name="contractType"
+								name="contract_type"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Contract Type</FormLabel>
@@ -128,7 +129,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 							<FormField
 								control={form.control}
-								name="salaryCurrency"
+								name="salary_currency"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Salary Currency</FormLabel>
@@ -153,7 +154,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 							<FormField
 								control={form.control}
-								name="salaryType"
+								name="salary_type"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Salary Type</FormLabel>
@@ -185,7 +186,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 						<FormField
 							control={form.control}
-							name="companyName"
+							name="company_name"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Company Name *</FormLabel>
@@ -198,7 +199,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="companyDomain"
+							name="company_domain"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Company Domain</FormLabel>
@@ -222,7 +223,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<FormField
 							control={form.control}
-							name="applicationStatus"
+							name="application_status"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Application Status</FormLabel>
@@ -255,15 +256,15 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 						<FormField
 							control={form.control}
-							name="interviewDate"
+							name="interview_date"
 							render={({ field }) => (
 								<FormItem className="">
 									<FormLabel>Interview Date</FormLabel>
 
 									<FormControl>
 										<DateTimePicker
-											value={field.value && new Date(field?.value)}
-											onChange={(data) => data && form.setValue('interviewDate', new Date(data))}
+											value={(field.value && new Date(field?.value)) ?? new Date()}
+											onChange={(data) => data && form.setValue('interview_date', new Date(data))}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -275,7 +276,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<FormField
 							control={form.control}
-							name="jobLink"
+							name="job_link"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Job Link</FormLabel>
@@ -288,7 +289,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="jobPostedOn"
+							name="job_posted_on"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Job Posted On</FormLabel>
