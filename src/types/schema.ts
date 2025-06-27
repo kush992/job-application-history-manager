@@ -1,3 +1,6 @@
+import { journeySchema } from '@/lib/supabase/schema';
+import { z } from 'zod';
+
 export enum SalaryType {
 	HOURLY = 'HOURLY',
 	DAILY = 'DAILY',
@@ -58,7 +61,10 @@ export interface Journey {
 	is_active: boolean;
 	created_at: string;
 	updated_at: string;
+	applications_count?: number;
 }
+
+export type JourneyFormData = z.infer<typeof journeySchema>;
 
 export interface JobApplication {
 	id: string;

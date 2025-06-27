@@ -4,7 +4,7 @@ import { SalaryType, SalaryCurrency, ApplicationStatus, JobSites, WorkMode, Cont
 export const journeySchema = z.object({
 	title: z.string().nonempty('Journey title is required'),
 	description: z.string().optional().nullable(),
-	start_date: z.date().default(() => new Date()),
+	start_date: z.string(),
 	end_date: z.date().optional().nullable(),
 	is_active: z.boolean().default(true),
 });

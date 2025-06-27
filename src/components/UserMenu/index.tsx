@@ -31,7 +31,6 @@ export function UserMenu({ user }: Props) {
 		.map((name) => name[0])
 		.join('');
 
-		console.log('UserMenu rendered with user:', user);
 	const { setTheme } = useTheme();
 
 	return (

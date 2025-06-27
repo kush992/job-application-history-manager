@@ -7,8 +7,6 @@ export const getLoggedInUser = async (): Promise<Partial<Profile> | null> => {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	console.info('Logged in user:', user);
-
 	if (!user) {
 		return null;
 	}
