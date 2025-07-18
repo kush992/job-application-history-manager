@@ -70,7 +70,7 @@ export default function SignUpForm() {
 						<Mail className="h-6 w-6 text-blue-600" />
 					</div>
 					<CardTitle className="text-2xl font-bold">Check Your Email</CardTitle>
-					<CardDescription>We've sent you a confirmation link</CardDescription>
+					<CardDescription>{"We've"} sent you a confirmation link</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<Alert className="border-blue-200 bg-blue-50">
@@ -94,7 +94,7 @@ export default function SignUpForm() {
 								setMessage(null);
 							}}
 						>
-							Didn't receive email? Try again
+							{"Didn't"} receive email? Try again
 						</Button>
 					</div>
 				</CardContent>

@@ -132,8 +132,10 @@ export function JourneysView() {
 									<div>
 										<h4 className="font-medium text-gray-900">Create a Journey</h4>
 										<p className="text-sm text-gray-600">
-											Set up a journey for a specific job search campaign, like "Software Engineer
-											2024" or "Career Change to Data Science"
+											Set up a journey for a specific job search campaign, like{' '}
+											{`"Software Engineer
+											2024"`}{' '}
+											or {`"Career Change to Data Science"`}
 										</p>
 									</div>
 								</div>
@@ -226,7 +228,7 @@ export function JourneysView() {
 								</div>
 
 								<div className="flex gap-2 mt-6">
-									<Link href={`${appRoutes.application}?journey=${journey.id}`} className="flex-1">
+									<Link href={appRoutes.application} className="flex-1">
 										<Button variant="outline" size="sm" className="w-full bg-transparent">
 											<Eye className="h-4 w-4 mr-2" />
 											View

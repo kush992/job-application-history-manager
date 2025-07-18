@@ -17,9 +17,8 @@ export default function AddJourneyPage() {
 		const result = await createJourney(data);
 		if (result) {
 			setMessage({ type: 'success', text: 'Journey created successfully!' });
-			setTimeout(() => {
-				router.push(appRoutes.journeys);
-			}, 1500);
+
+			router.push(appRoutes.journeys);
 		} else {
 			setMessage({ type: 'error', text: 'Failed to create journey. Please try again.' });
 		}

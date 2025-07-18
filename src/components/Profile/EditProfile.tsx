@@ -61,9 +61,7 @@ export function EditProfileForm({ profile, userId }: EditProfileFormProps) {
 					setMessage({ type: 'error', text: result.error });
 				} else {
 					setMessage({ type: 'success', text: 'Profile updated successfully!' });
-					setTimeout(() => {
-						router.push(appRoutes.application);
-					}, 1500);
+					router.push(appRoutes.application);
 				}
 			} catch (error) {
 				setMessage({ type: 'error', text: 'An unexpected error occurred. Please try again.' });

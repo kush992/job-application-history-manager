@@ -10,7 +10,6 @@ export const journeySchema = z.object({
 });
 
 export const jobApplicationSchema = z.object({
-	journey_id: z.string().uuid('Invalid journey ID'),
 	job_title: z.string().nonempty('Job title is a required field'),
 	notes: z.string().optional().nullable(),
 	salary: z.string().optional().nullable(),
@@ -26,7 +25,7 @@ export const jobApplicationSchema = z.object({
 	job_posted_on: z.nativeEnum(JobSites).default(JobSites.LINKEDIN).optional().nullable(),
 	work_mode: z.nativeEnum(WorkMode).default(WorkMode.REMOTE).optional().nullable(),
 	contract_type: z.nativeEnum(ContractType).default(ContractType.FULL_TIME).optional().nullable(),
-	applied_at: z.date().default(() => new Date()),
+	applied_at: z.string().default(() => new Date().toISOString()),
 });
 
 export const profileSchema = z.object({

@@ -1,4 +1,4 @@
-import { ContractType, JobSites, WorkMode } from '@/types/apiResponseTypes';
+import { ContractType, JobSites, WorkMode } from '@/types/schema';
 import { z } from 'zod';
 
 export enum SalaryType {

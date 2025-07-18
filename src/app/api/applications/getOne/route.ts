@@ -28,16 +28,16 @@ export async function GET(request: NextRequest) {
 			.from('job_applications')
 			.select(
 				`
-        *,
-        journeys:journey_id (
-          id,
-          title,
-          description,
-          start_date,
-          end_date,
-          is_active
-        )
-      `,
+					*,
+					journeys:journey_id (
+					id,
+					title,
+					description,
+					start_date,
+					end_date,
+					is_active
+					)
+				`,
 			)
 			.eq('id', documentId)
 			.eq('user_id', user.id) // Ensure user can only access their own applications
@@ -63,12 +63,7 @@ export async function GET(request: NextRequest) {
 			return NextResponse.json({ error: 'Document not found' }, { status: 404 });
 		}
 
-		return NextResponse.json(
-			{
-				documents: application,
-			},
-			{ status: 200 },
-		);
+		return NextResponse.json(application, { status: 200 });
 	} catch (error) {
 		console.error('Application fetch error:', error);
 		return NextResponse.json(

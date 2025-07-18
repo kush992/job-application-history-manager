@@ -12,12 +12,11 @@ import { useUploadFile } from '@/hooks/useUploadFile';
 import DocumentInfoCard from '@/components/DocumentInfoCard';
 import { getFileName } from '@/utils/utility';
 import { Briefcase, Building2, CalendarIcon, Loader } from 'lucide-react';
-import { JobSites } from '@/types/apiResponseTypes';
-import { JobApplication } from '@/types/schema';
+import { JobApplication, JobApplicationFormData, JobSites } from '@/types/schema';
 
 type Props = {
-	form: UseFormReturn<JobApplication>;
-	onSubmit: (data: JobApplication) => Promise<void>;
+	form: UseFormReturn<JobApplicationFormData>;
+	onSubmit: (data: JobApplicationFormData) => Promise<void>;
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
@@ -120,7 +119,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 									<FormItem className="col-span-1">
 										<FormLabel>Salary</FormLabel>
 										<FormControl>
-											<Input placeholder="50000" {...field} />
+											<Input placeholder="50000" {...field} value={field.value ?? ''} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -204,7 +203,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								<FormItem>
 									<FormLabel>Company Domain</FormLabel>
 									<FormControl>
-										<Input placeholder="Company domain" {...field} />
+										<Input placeholder="Company domain" {...field} value={field.value ?? ''} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -320,7 +319,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								<FormItem>
 									<FormLabel>Location</FormLabel>
 									<FormControl>
-										<Input placeholder="Location of role" {...field} />
+										<Input placeholder="Location of role" {...field} value={field.value ?? ''} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>

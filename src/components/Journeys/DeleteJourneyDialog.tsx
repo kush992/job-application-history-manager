@@ -31,7 +31,7 @@ export function DeleteJourneyDialog({ open, onOpenChange, journey, onConfirm, is
 					<AlertDialogTitle>Delete Journey</AlertDialogTitle>
 					<AlertDialogDescription className="space-y-2">
 						<p>
-							Are you sure you want to delete the journey <strong>"{journey.title}"</strong>?
+							Are you sure you want to delete the journey <strong>{`"${journey.title}"`}</strong>?
 						</p>
 						<p className="text-red-600 font-medium">
 							This action will permanently delete the journey and all job applications associated with it.

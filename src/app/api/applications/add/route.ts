@@ -18,6 +18,30 @@ export async function POST(request: NextRequest) {
 			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 		}
 
+		const { data: journey, error: journeryFetchError } = await supabase
+			.from('journeys')
+			.select('id')
+			.eq('is_active', true)
+			.single();
+
+		if (journeryFetchError) {
+			console.error('Supabase error:', journeryFetchError);
+			return NextResponse.json(
+				{
+					error: 'Failed to fetch active journey',
+					details: journeryFetchError.code + journeryFetchError.message + journeryFetchError.details,
+				},
+				{ status: 500 },
+			);
+		}
+
+		if (!journey) {
+			return NextResponse.json(
+				{ error: 'No active journey found - A journey is required for adding an application' },
+				{ status: 400, statusText: 'Bad Request' },
+			);
+		}
+
 		// Parse and validate request body
 		const body = await request.json();
 		const validatedData = jobApplicationSchema.parse(body);
@@ -25,10 +49,10 @@ export async function POST(request: NextRequest) {
 		// Convert dates to ISO strings for database storage
 		const applicationData = {
 			...validatedData,
-			journey_id: 1234,
 			user_id: user.id,
+			journey_id: journey.id,
 			interview_date: validatedData.interview_date?.toISOString() || null,
-			applied_at: validatedData.applied_at?.toISOString() || new Date().toISOString(),
+			applied_at: validatedData.applied_at || new Date().toISOString(),
 		};
 
 		// Insert the job application into the database

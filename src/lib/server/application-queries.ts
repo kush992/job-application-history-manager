@@ -1,12 +1,11 @@
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { config } from '@/config/config';
-import { ContractType, JobApplicationData, Response, WorkMode } from '@/types/apiResponseTypes';
-import { JobApplication } from '@/types/schema';
+import { ContractType, JobApplication, JobApplicationFormData, WorkMode } from '@/types/schema';
 import { apiRoutes } from '@/utils/constants';
 
 export const applicationDataQueries = {
 	getAll: async (
-		lastId?: string,
+		journey_id: string,
 		query?: string,
 		statusFilter?: ApplicationStatus,
 		workModeFilter?: WorkMode,
@@ -14,13 +13,12 @@ export const applicationDataQueries = {
 	) => {
 		const url = new URL(`${origin}${apiRoutes.applications.getAll}`);
 
-		if (lastId && lastId !== 'undefined') url.searchParams.append('lastId', lastId);
 		if (query) url.searchParams.append('searchQuery', query);
 		if (statusFilter) url.searchParams.append('statusFilter', statusFilter);
 		if (workModeFilter) url.searchParams.append('workModeFilter', workModeFilter);
 		if (contractTypeFilter) url.searchParams.append('contractTypeFilter', contractTypeFilter);
 
-		url.searchParams.append('limit', config.dataFetchingLimitForAppwrite.toString());
+		url.searchParams.append('journey_id', journey_id);
 
 		try {
 			const response = await fetch(url.toString(), {
@@ -28,7 +26,7 @@ export const applicationDataQueries = {
 			});
 
 			if (response.ok) {
-				return (await response.json()) as Response<JobApplicationData>;
+				return (await response.json()) as JobApplication[];
 			} else {
 				throw new Error('Failed to fetch application data');
 			}
@@ -54,7 +52,7 @@ export const applicationDataQueries = {
 			throw new Error('Failed to fetch application data');
 		}
 	},
-	add: async (data: JobApplication) => {
+	add: async (data: JobApplicationFormData) => {
 		try {
 			const response = await fetch(apiRoutes.applications.add, {
 				method: 'POST',
@@ -71,7 +69,7 @@ export const applicationDataQueries = {
 			throw new Error(`Error creating application: ${error}`);
 		}
 	},
-	update: async (data: JobApplication, documentId: string) => {
+	update: async (data: JobApplicationFormData, documentId: string) => {
 		try {
 			const response = await fetch(`${apiRoutes.applications.update}?documentId=${documentId}`, {
 				method: 'PUT',

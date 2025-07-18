@@ -1,4 +1,4 @@
-import { journeySchema } from '@/lib/supabase/schema';
+import { jobApplicationSchema, journeySchema } from '@/lib/supabase/schema';
 import { z } from 'zod';
 
 export enum SalaryType {
@@ -90,6 +90,7 @@ export interface JobApplication {
 	updated_at: string;
 }
 
+export type JobApplicationFormData = z.infer<typeof jobApplicationSchema>;
 export interface Statistics {
 	id: string;
 	user_id: string;

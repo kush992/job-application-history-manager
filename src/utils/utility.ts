@@ -1,6 +1,7 @@
-import { ApplicationStatus } from '@/components/ApplicationForm/utility';
+// import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { BadgeProps, badgeVariants } from '@/components/ui/badge';
-import { ContractType, WorkMode } from '@/types/apiResponseTypes';
+import { ApplicationStatus, ContractType, WorkMode } from '@/types/schema';
+// import { ContractType, WorkMode } from '@/types/apiResponseTypes';
 
 export const baseUrl = () => {
 	if (process.env.VERCEL_URL) {
@@ -37,15 +38,15 @@ export const getFileName = (link: string) => {
 
 export const getApplicationStatusColor = (status: ApplicationStatus): BadgeProps['variant'] => {
 	switch (status) {
-		case ApplicationStatus.IN_PROGRESS:
+		case ApplicationStatus.INTERVIEW:
 			return 'status-in-progress';
-		case ApplicationStatus.SUCCESS:
+		case ApplicationStatus.OFFER:
 			return 'status-success';
-		case ApplicationStatus.REJECTED_NO_FEEDBACK:
+		case ApplicationStatus.REJECTED:
 			return 'status-failure';
-		case ApplicationStatus.REJECTED_WITH_FEEDBACK:
-			return 'status-failure';
-		case ApplicationStatus.NO_REPLY:
+		// case ApplicationStatus.REJECTED_WITH_FEEDBACK:
+		// 	return 'status-failure';
+		case ApplicationStatus.WITHDRAWN:
 			return 'status-failure';
 		case ApplicationStatus.APPLIED:
 			return 'status-default';
@@ -53,11 +54,13 @@ export const getApplicationStatusColor = (status: ApplicationStatus): BadgeProps
 };
 
 export const applicationStatusMapping = {
-	[ApplicationStatus.IN_PROGRESS]: 'In Progress',
-	[ApplicationStatus.SUCCESS]: 'Success',
-	[ApplicationStatus.REJECTED_NO_FEEDBACK]: 'Rejected (No Feedback)',
-	[ApplicationStatus.REJECTED_WITH_FEEDBACK]: 'Rejected (With Feedback)',
-	[ApplicationStatus.NO_REPLY]: 'No Reply',
+	[ApplicationStatus.INTERVIEW]: 'In Progress',
+	[ApplicationStatus.OFFER]: 'Success',
+	// [ApplicationStatus.REJECTED_NO_FEEDBACK]: 'Rejected (No Feedback)',
+	// [ApplicationStatus.REJECTED_WITH_FEEDBACK]: 'Rejected (With Feedback)',
+	// [ApplicationStatus.NO_REPLY]: 'No Reply',
+	[ApplicationStatus.REJECTED]: 'Rejected',
+	[ApplicationStatus.WITHDRAWN]: 'Withdrawn',
 	[ApplicationStatus.APPLIED]: 'Applied',
 };
 
@@ -67,7 +70,7 @@ export const getWorkModeColor = (workMode: WorkMode): BadgeProps['variant'] => {
 			return 'status-success';
 		case WorkMode.HYBRID:
 			return 'status-in-progress';
-		case WorkMode.ON_SITE:
+		case WorkMode.ONSITE:
 			return 'status-default';
 		default:
 			return 'status-default';
@@ -77,7 +80,7 @@ export const getWorkModeColor = (workMode: WorkMode): BadgeProps['variant'] => {
 export const workModeMapping = {
 	[WorkMode.REMOTE]: 'Remote',
 	[WorkMode.HYBRID]: 'Hybrid',
-	[WorkMode.ON_SITE]: 'On Site',
+	[WorkMode.ONSITE]: 'On Site',
 };
 
 export const contractTypeMapping = {

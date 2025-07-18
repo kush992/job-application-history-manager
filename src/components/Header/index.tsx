@@ -34,32 +34,22 @@ const Header: React.FC<Props> = ({ user }) => {
 				<nav className="hidden md:flex justify-center items-center gap-4">
 					{user?.id && (
 						<ul className="flex justify-between items-center m-0 gap-4">
-							{navBarLinks.map((navBarLink) =>
-								navBarLink.href === appRoutes.addApplication ? (
-									<li className="list-none" key={navBarLink.href}>
-										<Link href={appRoutes.addApplication}>
-											<Button variant="outline" size="icon" className="bg-secondary">
-												<Plus className="text-primary" />
-											</Button>
-										</Link>
-									</li>
-								) : (
-									<li className="list-none" key={navBarLink.href}>
-										<Link
-											href={navBarLink.href}
-											className={cn(
-												'p-2 rounded-md text-secondary-foreground relative hover:bg-secondary',
-												{
-													'after:absolute after:bg-primary after:bottom-[-17px] after:w-full after:h-[2px] after:left-0':
-														isActive(navBarLink.href),
-												},
-											)}
-										>
-											{navBarLink.page}
-										</Link>
-									</li>
-								),
-							)}
+							{navBarLinks.map((navBarLink) => (
+								<li className="list-none" key={navBarLink.href}>
+									<Link
+										href={navBarLink.href}
+										className={cn(
+											'p-2 rounded-md text-secondary-foreground relative hover:bg-secondary',
+											{
+												'after:absolute after:bg-primary after:bottom-[-17px] after:w-full after:h-[2px] after:left-0':
+													isActive(navBarLink.href),
+											},
+										)}
+									>
+										{navBarLink.page}
+									</Link>
+								</li>
+							))}
 
 							<UserMenu user={user} />
 						</ul>

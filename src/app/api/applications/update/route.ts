@@ -35,23 +35,11 @@ export async function PUT(request: NextRequest) {
 
 		const validatedData = updateSchema.parse(body);
 
-		// Check if the application exists and belongs to the user
-		const { data: existingApplication, error: fetchError } = await supabase
-			.from('job_applications')
-			.select('id, user_id')
-			.eq('id', documentId)
-			.eq('user_id', user.id)
-			.single();
-
-		if (fetchError || !existingApplication) {
-			return NextResponse.json({ error: 'Application not found' }, { status: 404 });
-		}
-
 		// Convert dates to ISO strings for database storage
 		const updateData = {
 			...validatedData,
 			interview_date: validatedData.interview_date?.toISOString() || null,
-			applied_at: validatedData.applied_at?.toISOString(),
+			applied_at: validatedData.applied_at,
 			updated_at: new Date().toISOString(),
 		};
 

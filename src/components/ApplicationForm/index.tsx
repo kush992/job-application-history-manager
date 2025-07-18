@@ -2,7 +2,6 @@
 
 import { FC } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { formSchema, JobApplicationFormData } from './utility';
 import { useRouter } from 'next/navigation';
 import Loader from '../Loader';
 import { appRoutes, QueryKeys } from '@/utils/constants';
@@ -19,12 +18,12 @@ import {
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import ApplicationDataForm from './Form';
-import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
 import { addLinks } from '@/lib/server/application-docs-queries';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { Separator } from '../ui/separator';
-import { JobApplication } from '@/types/schema';
+import { Card, CardContent } from '../ui/card';
+import { JobApplicationFormData } from '@/types/schema';
+import { jobApplicationSchema } from '@/lib/supabase/schema';
 
 type Props = {
 	documentId?: string;
@@ -58,7 +57,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	});
 
 	const createDocMutation = useMutation({
-		mutationFn: (data: JobApplication) => {
+		mutationFn: (data: JobApplicationFormData) => {
 			if (data.links) {
 				addLinksMutation.mutate(data.links);
 			}
@@ -78,7 +77,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	});
 
 	const updateDocMutation = useMutation({
-		mutationFn: (data: JobApplication) => {
+		mutationFn: (data: JobApplicationFormData) => {
 			if (data.links) {
 				addLinksMutation.mutate(data.links);
 			}
@@ -99,8 +98,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 		},
 	});
 
-	const initialFormData: JobApplication = {
-		user_id: applicationData?.user_id || userId,
+	const initialFormData: JobApplicationFormData = {
 		job_title: applicationData?.job_title || '',
 		notes: applicationData?.notes || '',
 		company_name: applicationData?.company_name || '',
@@ -109,23 +107,25 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 		salary: applicationData?.salary || undefined,
 		salary_currency: applicationData?.salary_currency,
 		salary_type: applicationData?.salary_type,
-		interview_date: applicationData?.interview_date,
+		interview_date: applicationData?.interview_date ? new Date(applicationData.interview_date) : undefined,
 		links: applicationData?.links || undefined,
 		location: applicationData?.location || undefined,
 		job_link: applicationData?.job_link || undefined,
 		job_posted_on: applicationData?.job_posted_on,
 		work_mode: applicationData?.work_mode,
 		contract_type: applicationData?.contract_type,
-		journey_id: '',
+		applied_at: applicationData?.applied_at
+			? new Date(applicationData.applied_at).toISOString()
+			: new Date().toISOString(),
 	};
 
-	const form = useForm<JobApplication>({
-		resolver: zodResolver(formSchema),
+	const form = useForm<JobApplicationFormData>({
+		resolver: zodResolver(jobApplicationSchema),
 		defaultValues: { ...initialFormData },
-		values: { ...initialFormData },
+		values: { ...initialFormData } as JobApplicationFormData,
 	});
 
-	async function onSubmit(data: JobApplication) {
+	async function onSubmit(data: JobApplicationFormData) {
 		if (!data.application_status) {
 			delete data.application_status;
 		}
@@ -141,8 +141,6 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 		if (data.interview_date) {
 			data.interview_date = new Date(data.interview_date);
 		}
-
-		data.journey_id = '';
 
 		if (!isUpdateForm) {
 			createDocMutation.mutate(data);

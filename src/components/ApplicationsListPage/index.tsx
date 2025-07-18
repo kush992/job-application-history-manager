@@ -3,7 +3,7 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
 import Link from 'next/link';
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { useToast } from '@/hooks/use-toast';
@@ -19,9 +19,8 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { ContractType, JobApplicationData, Response, WorkMode } from '@/types/apiResponseTypes';
 import { Separator } from '../ui/separator';
-import { Info, Loader } from 'lucide-react';
+import { Info } from 'lucide-react';
 import PageDescription from '../ui/page-description';
 import PageTitle from '../ui/page-title';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -31,9 +30,10 @@ import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
 
 type Props = {
 	userId: string;
+	journey_id: string;
 };
 
-const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
+const ApplicationsListPage: React.FC<Props> = ({ userId, journey_id }) => {
 	const filterForm = useForm<FilterFormValues>({
 		resolver: zodResolver(filterSchema),
 		defaultValues: {
@@ -46,27 +46,32 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 
 	const { companyName, status, contractType, workMode } = filterForm.getValues();
 
-	const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery<
-		Response<JobApplicationData>
-	>({
+	// const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
+	// 	queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyName, status, workMode, contractType],
+	// 	queryFn: ({ pageParam = undefined }) =>
+	// 		applicationDataQueries.getAll(
+	// 			String(pageParam),
+	// 			companyName,
+	// 			status?.join(',') as ApplicationStatus,
+	// 			workMode?.join(',') as WorkMode,
+	// 			contractType?.join(',') as ContractType,
+	// 		),
+	// 	getNextPageParam: (lastPage) => {
+	// 		if (lastPage.documents.length === 20) {
+	// 			return lastPage.documents[lastPage.documents.length - 1].$id;
+	// 		}
+	// 		return undefined;
+	// 	},
+	// 	retry: 0,
+	// 	staleTime: 1000 * 60 * 5,
+	// 	initialPageParam: undefined,
+	// });
+
+	const { data, error, isLoading, refetch } = useQuery({
 		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyName, status, workMode, contractType],
-		queryFn: ({ pageParam = undefined }) =>
-			applicationDataQueries.getAll(
-				String(pageParam),
-				companyName,
-				status?.join(',') as ApplicationStatus,
-				workMode?.join(',') as WorkMode,
-				contractType?.join(',') as ContractType,
-			),
-		getNextPageParam: (lastPage) => {
-			if (lastPage.documents.length === 20) {
-				return lastPage.documents[lastPage.documents.length - 1].$id;
-			}
-			return undefined;
-		},
+		queryFn: () => applicationDataQueries.getAll(journey_id),
 		retry: 0,
 		staleTime: 1000 * 60 * 5,
-		initialPageParam: undefined,
 	});
 
 	const { toast } = useToast();
@@ -98,7 +103,9 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 		debouncedRefetch();
 	};
 
-	const jobRecords = data?.pages?.map((page) => page?.documents)?.flat();
+	console.log('data', data);
+
+	// const jobRecords = data?.pages?.map((page) => page?.documents)?.flat();
 
 	if (error) {
 		return (
@@ -130,7 +137,7 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 			<div className="flex flex-col items-center gap-2 w-full sticky top-8">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
 					<Info className="w-4 h-4" />
-					<span>Total: {data?.pages[0]?.total}</span>
+					<span>Total: {data?.length}</span>
 				</p>
 
 				<div className="flex justify-between gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
@@ -145,7 +152,7 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 				</div>
 			</div>
 
-			{!isLoading && !error && jobRecords && jobRecords?.length < 1 && (
+			{!isLoading && !error && data && data?.length < 1 && (
 				<div className="flex items-center justify-center w-full h-96">
 					<p className="text-lg text-muted-foreground">No applications found</p>
 				</div>
@@ -164,16 +171,19 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 
 			{!isLoading && !error && data && (
 				<div className="flex flex-col border rounded-md overflow-hidden w-full">
-					{jobRecords?.map((dataa) => (
-						<React.Fragment key={dataa.$id}>
-							<ApplicationListItem data={dataa} onClickDelete={() => mutation.mutate(dataa.$id)} />
+					{data?.map((application) => (
+						<React.Fragment key={application.id}>
+							<ApplicationListItem
+								data={application}
+								onClickDelete={() => mutation.mutate(application.id)}
+							/>
 							<Separator />
 						</React.Fragment>
 					))}
 				</div>
 			)}
 
-			{hasNextPage && (
+			{/* {hasNextPage && (
 				<Button
 					variant="outline"
 					onClick={() => fetchNextPage()}
@@ -190,7 +200,7 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 						'Fetch More'
 					)}
 				</Button>
-			)}
+			)} */}
 		</div>
 	);
 };

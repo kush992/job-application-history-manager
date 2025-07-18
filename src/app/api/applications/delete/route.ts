@@ -31,22 +31,11 @@ export async function DELETE(request: NextRequest) {
 			.eq('user_id', user.id)
 			.single();
 
+		// We can treat this as a successful deletion if the application does not exist,
+		// meaning it has already been deleted or never existed.
 		if (fetchError || !existingApplication) {
-			return NextResponse.json({ error: 'Application not found' }, { status: 404 });
+			return NextResponse.json({ error: 'Application deleted successfully' }, { status: 200 });
 		}
-
-		// Perform soft delete by updating the record
-		const { data: deletedApplication, error } = await supabase
-			.from('job_applications')
-			.update({
-				// Add soft delete fields to your schema if you want to keep this functionality
-				// For now, we'll actually delete the record
-				updated_at: new Date().toISOString(),
-			})
-			.eq('id', documentId)
-			.eq('user_id', user.id)
-			.select()
-			.single();
 
 		// If you want to actually delete the record instead of soft delete:
 		const { error: deleteError } = await supabase

@@ -1,10 +1,10 @@
 import { appRoutes } from '@/utils/constants';
 
 export const navBarLinks = [
-	{
-		page: 'Add',
-		href: appRoutes.addApplication,
-	},
+	// {
+	// 	page: 'Add',
+	// 	href: appRoutes.addApplication,
+	// },
 	{
 		page: 'Applications',
 		href: appRoutes.application,
