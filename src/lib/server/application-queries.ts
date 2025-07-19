@@ -5,7 +5,6 @@ import { apiRoutes } from '@/utils/constants';
 
 export const applicationDataQueries = {
 	getAll: async (
-		journey_id: string,
 		query?: string,
 		statusFilter?: ApplicationStatus,
 		workModeFilter?: WorkMode,
@@ -18,14 +17,17 @@ export const applicationDataQueries = {
 		if (workModeFilter) url.searchParams.append('workModeFilter', workModeFilter);
 		if (contractTypeFilter) url.searchParams.append('contractTypeFilter', contractTypeFilter);
 
-		url.searchParams.append('journey_id', journey_id);
-
 		try {
 			const response = await fetch(url.toString(), {
 				method: 'GET',
 			});
 
 			if (response.ok) {
+				if (response.redirected) {
+					// Handle redirection if necessary
+					window.location.href = response.url;
+				}
+
 				return (await response.json()) as JobApplication[];
 			} else {
 				throw new Error('Failed to fetch application data');

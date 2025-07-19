@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Plus, Calendar, MapPin, Briefcase, Trash2, Edit, Eye, RefreshCw } from 'lucide-react';
+import { Plus, Calendar, MapPin, Briefcase, Trash2, Edit, Eye, RefreshCw, RocketIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useJourneys } from '@/hooks/useJourneys';
 import { Journey } from '@/types/schema';
@@ -39,7 +39,7 @@ export function JourneysView() {
 	// Show loading skeleton while fetching initial data
 	if (isFetching && journeys.length === 0) {
 		return (
-			<div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+			<div className="min-h-screen bg-appBackground bg-gradient-to-r from-transparent to-primary-foreground py-12 px-4 sm:px-6 lg:px-8 ">
 				<div className="max-w-6xl mx-auto">
 					<div className="flex justify-between items-center mb-8">
 						<div>
@@ -78,14 +78,14 @@ export function JourneysView() {
 	// Show error state
 	if (error && !isFetching) {
 		return (
-			<div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+			<div className="min-h-screen bg-appBackground bg-gradient-to-r from-transparent to-primary-foreground py-12 px-4 sm:px-6 lg:px-8">
 				<div className="max-w-4xl mx-auto">
 					<div className="text-center">
 						<div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-red-100">
 							<RefreshCw className="h-12 w-12 text-red-600" />
 						</div>
-						<h1 className="mt-6 text-3xl font-bold text-gray-900">Error Loading Journeys</h1>
-						<p className="mt-4 text-lg text-gray-600">{error}</p>
+						<h1 className="mt-6 text-3xl font-bold text-primary">Error Loading Journeys</h1>
+						<p className="mt-4 text-lg text-secondary-foreground">{error}</p>
 						<div className="mt-8">
 							<Button onClick={refreshJourneys}>Try Again</Button>
 						</div>
@@ -98,14 +98,14 @@ export function JourneysView() {
 	// Show empty state
 	if (journeys.length === 0 && !isFetching) {
 		return (
-			<div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+			<div className="min-h-screen bg-appBackground bg-gradient-to-r from-transparent to-primary-foreground py-12 px-4 sm:px-6 lg:px-8">
 				<div className="max-w-4xl mx-auto">
 					<div className="text-center">
 						<div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-blue-100">
-							<MapPin className="h-12 w-12 text-blue-600" />
+							<RocketIcon className="h-12 w-12 text-primary" />
 						</div>
-						<h1 className="mt-6 text-3xl font-bold text-gray-900">Start Your Job Search Journey</h1>
-						<p className="mt-4 text-lg text-gray-600">
+						<h1 className="mt-6 text-3xl font-bold text-primary">Start Your Job Search Journey</h1>
+						<p className="mt-4 text-lg text-secondary-foreground">
 							Create your first journey to organize and track your job applications effectively.
 						</p>
 						<div className="mt-8">
@@ -127,11 +127,11 @@ export function JourneysView() {
 							<CardContent className="space-y-4">
 								<div className="flex items-start gap-3">
 									<div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-										<span className="text-sm font-semibold text-blue-600">1</span>
+										<span className="text-sm font-semibold text-primary">1</span>
 									</div>
 									<div>
-										<h4 className="font-medium text-gray-900">Create a Journey</h4>
-										<p className="text-sm text-gray-600">
+										<h4 className="font-medium text-primary">Create a Journey</h4>
+										<p className="text-sm text-secondary-foreground">
 											Set up a journey for a specific job search campaign, like{' '}
 											{`"Software Engineer
 											2024"`}{' '}
@@ -141,11 +141,11 @@ export function JourneysView() {
 								</div>
 								<div className="flex items-start gap-3">
 									<div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-										<span className="text-sm font-semibold text-blue-600">2</span>
+										<span className="text-sm font-semibold text-primary">2</span>
 									</div>
 									<div>
-										<h4 className="font-medium text-gray-900">Track Applications</h4>
-										<p className="text-sm text-gray-600">
+										<h4 className="font-medium text-primary">Track Applications</h4>
+										<p className="text-sm text-secondary-foreground">
 											Add job applications to your journey and track their progress from
 											application to offer
 										</p>
@@ -153,11 +153,11 @@ export function JourneysView() {
 								</div>
 								<div className="flex items-start gap-3">
 									<div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-										<span className="text-sm font-semibold text-blue-600">3</span>
+										<span className="text-sm font-semibold text-primary">3</span>
 									</div>
 									<div>
-										<h4 className="font-medium text-gray-900">Stay Organized</h4>
-										<p className="text-sm text-gray-600">
+										<h4 className="font-medium text-primary">Stay Organized</h4>
+										<p className="text-sm text-secondary-foreground">
 											Keep all related applications, notes, and progress in one organized place
 										</p>
 									</div>
@@ -172,12 +172,12 @@ export function JourneysView() {
 
 	// Show journeys list
 	return (
-		<div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+		<div className="min-h-screen bg-appBackground bg-gradient-to-r from-transparent to-primary-foreground py-12 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-5xl mx-auto">
 				<div className="md:flex justify-between items-center mb-8">
 					<div>
-						<h1 className="text-3xl font-bold text-gray-900">Your Job Search Journeys</h1>
-						<p className="mt-2 text-gray-600">Manage and track your job search campaigns</p>
+						<h1 className="text-3xl font-bold text-primary">Your Job Search Journeys</h1>
+						<p className="mt-2 text-secondary-foreground">Manage and track your job search campaigns</p>
 					</div>
 					<div className="flex gap-2">
 						<Button variant="outline" onClick={refreshJourneys} disabled={isFetching}>
@@ -211,17 +211,17 @@ export function JourneysView() {
 							</CardHeader>
 							<CardContent>
 								<div className="space-y-3">
-									<div className="flex items-center gap-2 text-sm text-gray-600">
+									<div className="flex items-center gap-2 text-sm text-secondary-foreground">
 										<Calendar className="h-4 w-4" />
 										<span>Started {formatDate(journey.start_date)}</span>
 									</div>
 									{journey.end_date && (
-										<div className="flex items-center gap-2 text-sm text-gray-600">
+										<div className="flex items-center gap-2 text-sm text-secondary-foreground">
 											<Calendar className="h-4 w-4" />
 											<span>Ends {formatDate(journey.end_date)}</span>
 										</div>
 									)}
-									<div className="flex items-center gap-2 text-sm text-gray-600">
+									<div className="flex items-center gap-2 text-sm text-secondary-foreground">
 										<Briefcase className="h-4 w-4" />
 										<span>{journey.applications_count || 0} applications</span>
 									</div>

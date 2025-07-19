@@ -13,7 +13,7 @@ export default function AuthCodeErrorPage() {
 						<div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
 							<AlertTriangle className="h-6 w-6 text-red-600" />
 						</div>
-						<CardTitle className="text-xl font-semibold text-gray-900">Authentication Error</CardTitle>
+						<CardTitle className="text-xl font-semibold text-primary">Authentication Error</CardTitle>
 						<CardDescription>There was a problem confirming your email address</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-4">

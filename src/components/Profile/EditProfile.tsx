@@ -106,7 +106,7 @@ export function EditProfileForm({ profile, userId }: EditProfileFormProps) {
 					</Avatar>
 					<div>
 						<h3 className="font-semibold text-lg">{form.watch('full_name') || 'Your Name'}</h3>
-						<p className="text-sm text-gray-600">{profile?.email}</p>
+						<p className="text-sm text-secondary-foreground">{profile?.email}</p>
 					</div>
 				</div>
 

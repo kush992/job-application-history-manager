@@ -37,9 +37,9 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 	});
 
 	return (
-		<Card className="w-full max-w-2xl mx-auto">
+		<Card className="w-full max-w-2xl mx-auto motion-preset-slide-down-md">
 			<CardHeader>
-				<div className="flex items-center gap-4">
+				<div className="flex flex-col items-start gap-4">
 					<Link href={appRoutes.journeys}>
 						<Button variant="outline" size="sm">
 							<ArrowLeft className="h-4 w-4 mr-2" />
@@ -67,7 +67,6 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 											{...field}
 										/>
 									</FormControl>
-									<FormDescription>Give your job search journey a descriptive title</FormDescription>
 									<FormMessage />
 								</FormItem>
 							)}
@@ -86,7 +85,6 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 											value={field.value || ''}
 										/>
 									</FormControl>
-									<FormDescription>Optional: Add details about your job search goals</FormDescription>
 									<FormMessage />
 								</FormItem>
 							)}
@@ -100,7 +98,13 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 									<FormItem>
 										<FormLabel>Start Date</FormLabel>
 										<FormControl>
-											<Input type="date" {...field} value={field.value ? new Date(field.value).toISOString().split('T')[0] : ''} />
+											<Input
+												type="date"
+												{...field}
+												value={
+													field.value ? new Date(field.value).toISOString().split('T')[0] : ''
+												}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -114,7 +118,15 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 									<FormItem>
 										<FormLabel>End Date (Optional)</FormLabel>
 										<FormControl>
-											<Input type="date" {...field} value={field.value instanceof Date ? field.value.toISOString().split('T')[0] : field.value || ''} />
+											<Input
+												type="date"
+												{...field}
+												value={
+													field.value instanceof Date
+														? field.value.toISOString().split('T')[0]
+														: field.value || ''
+												}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>

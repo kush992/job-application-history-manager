@@ -67,7 +67,7 @@ export default function SignUpForm() {
 			<Card className="w-full max-w-md mx-auto">
 				<CardHeader className="text-center">
 					<div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
-						<Mail className="h-6 w-6 text-blue-600" />
+						<Mail className="h-6 w-6 text-primary" />
 					</div>
 					<CardTitle className="text-2xl font-bold">Check Your Email</CardTitle>
 					<CardDescription>{"We've"} sent you a confirmation link</CardDescription>
@@ -162,9 +162,9 @@ export default function SignUpForm() {
 				</form>
 
 				<div className="mt-6 text-center">
-					<p className="text-sm text-gray-600">
+					<p className="text-sm text-secondary-foreground">
 						Already have an account?{' '}
-						<Link href="/auth/signin" className="font-medium text-blue-600 hover:text-blue-500">
+						<Link href="/auth/signin" className="font-medium text-primary hover:text-blue-500">
 							Sign in
 						</Link>
 					</p>

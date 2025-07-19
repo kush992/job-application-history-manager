@@ -1,5 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
+import { appRoutes } from '@/utils/constants';
 
 export async function GET(request: NextRequest) {
 	try {
@@ -24,6 +26,11 @@ export async function GET(request: NextRequest) {
 
 		if (journeryFetchError) {
 			console.error('Supabase error:', journeryFetchError);
+
+			if (journeryFetchError.code === 'PGRST116') {
+				return NextResponse.redirect(`${request.nextUrl.origin}${appRoutes.journeys}`); // Redirect to create journey if no active journey found
+			}
+
 			return NextResponse.json(
 				{
 					error: 'Failed to fetch active journey',

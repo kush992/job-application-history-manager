@@ -19,11 +19,11 @@ export default async function EditProfilePage() {
 	const profileResult = await getProfile(user.id);
 
 	return (
-		<div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+		<div className="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-2xl mx-auto">
 				<div className="text-center mb-8">
-					<h1 className="text-3xl font-bold text-gray-900">Edit Profile</h1>
-					<p className="mt-2 text-gray-600">Update your profile information</p>
+					<h1 className="text-3xl font-bold text-primary">Edit Profile</h1>
+					<p className="mt-2 text-secondary-foreground">Update your profile information</p>
 				</div>
 				<EditProfileForm profile={profileResult.profile} userId={user.id} />
 			</div>

@@ -30,10 +30,9 @@ import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
 
 type Props = {
 	userId: string;
-	journey_id: string;
 };
 
-const ApplicationsListPage: React.FC<Props> = ({ userId, journey_id }) => {
+const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 	const filterForm = useForm<FilterFormValues>({
 		resolver: zodResolver(filterSchema),
 		defaultValues: {
@@ -69,7 +68,7 @@ const ApplicationsListPage: React.FC<Props> = ({ userId, journey_id }) => {
 
 	const { data, error, isLoading, refetch } = useQuery({
 		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyName, status, workMode, contractType],
-		queryFn: () => applicationDataQueries.getAll(journey_id),
+		queryFn: () => applicationDataQueries.getAll(),
 		retry: 0,
 		staleTime: 1000 * 60 * 5,
 	});
@@ -106,14 +105,6 @@ const ApplicationsListPage: React.FC<Props> = ({ userId, journey_id }) => {
 	console.log('data', data);
 
 	// const jobRecords = data?.pages?.map((page) => page?.documents)?.flat();
-
-	if (error) {
-		return (
-			<pre>
-				<code>{JSON.stringify(error, null, 2)}</code>
-			</pre>
-		);
-	}
 
 	return (
 		<div className="rounded-md flex flex-col gap-4">
@@ -156,6 +147,12 @@ const ApplicationsListPage: React.FC<Props> = ({ userId, journey_id }) => {
 				<div className="flex items-center justify-center w-full h-96">
 					<p className="text-lg text-muted-foreground">No applications found</p>
 				</div>
+			)}
+
+			{error && (
+				<pre>
+					<code>{JSON.stringify(error, null, 2)}</code>
+				</pre>
 			)}
 
 			{isLoading && (
