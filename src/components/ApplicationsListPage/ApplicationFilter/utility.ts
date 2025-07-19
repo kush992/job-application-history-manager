@@ -1,5 +1,5 @@
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
-import { ContractType, WorkMode } from '@/types/apiResponseTypes';
+import { ContractType, WorkMode } from '@/types/schema';
 import { z } from 'zod';
 
 export const filterSchema = z.object({
