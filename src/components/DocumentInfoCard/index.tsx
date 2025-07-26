@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CircleCheck, CircleX, Loader } from 'lucide-react';
+import { CircleCheck, CircleX, Loader, Trash2Icon } from 'lucide-react';
+import { Separator } from '../ui/separator';
 
 type Props = {
 	file?: File;
@@ -22,21 +22,24 @@ const DocumentInfoCard: React.FC<Props> = ({
 	isShowRemoveBtn = true,
 	removeFile,
 }) => {
+	if (!file && !fileName) {
+		return null; // No file or fileName provided, nothing to display
+	}
+
 	return (
-		<Card className="flex items-center justify-between py-2">
-			<CardHeader className="py-0">
-				<CardTitle className="text-base flex items-center my-0 py-0">
-					{file?.name || fileName} &nbsp;
+		<>
+			<div className="flex items-center justify-between py-2 gap-6">
+				<div className="flex items-center gap-2 w-[70%]">
+					<p className="text-sm">{file?.name || fileName} &nbsp;</p>
 					<div>
-						{file && isLoading && <Loader className="w-4 h-4" />}
+						<Loader className="w-4 h-4 animate-spin" />
+						{file && isLoading && <Loader className="w-4 h-4 animate-spin" />}
 						{file && !isLoading && isSuccess && <CircleCheck className="!text-successColor w-4 h-4" />}
 						{file && !isLoading && !isSuccess && <CircleX className="!text-destructive w-4 h-4" />}
 					</div>
-				</CardTitle>
-				{error && <CardDescription className="text-destructive">{error}</CardDescription>}
-			</CardHeader>
-			{isShowRemoveBtn && (
-				<CardContent className="pb-0">
+				</div>
+				{error && <p className="text-destructive text-sm">{error}</p>}
+				{isShowRemoveBtn && (
 					<Button
 						type="button"
 						onClick={(e) => {
@@ -45,15 +48,16 @@ const DocumentInfoCard: React.FC<Props> = ({
 							fileName && removeFile?.(fileName);
 						}}
 						disabled={!fileName}
-						size="sm"
+						size="icon"
 						variant="destructive"
+						className="font-normal"
 					>
-						<CircleX className="mr-1" />
-						Remove file
+						<Trash2Icon className="h-4 w-4" />
 					</Button>
-				</CardContent>
-			)}
-		</Card>
+				)}
+			</div>
+			<Separator />
+		</>
 	);
 };
 

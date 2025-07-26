@@ -15,11 +15,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import Link from 'next/link';
 import { appRoutes } from '@/utils/constants';
 import { signOut } from '@/lib/server/appwrite';
-import { Models } from 'node-appwrite';
 import React from 'react';
 import { useTheme } from 'next-themes';
 import { Profile } from '@/types/profiles';
-import { UserCircle2Icon } from 'lucide-react';
 
 type Props = {
 	user: Profile | null;
@@ -47,14 +45,13 @@ export function UserMenu({ user }: Props) {
 
 			<DropdownMenuContent align="end" className="mr-2 md:mr-0" slot="left">
 				<DropdownMenuLabel className="flex gap-2 items-center">
-					{/* <Avatar className="cursor-pointer">
+					<Avatar className="cursor-pointer">
 						<AvatarImage
 							src={user?.avatar_url || 'https://img.kushbhalodi.com/images/avatar.png'}
 							alt="profile-image"
 						/>
 						<AvatarFallback>{userInitials}</AvatarFallback>
-					</Avatar> */}
-					<UserCircle2Icon className="h-8 w-8 text-secondary-foreground" />
+					</Avatar>
 					<div>
 						<p>{user?.full_name}</p>
 						<p className="text-xs text-muted-foreground">{user?.email}</p>
@@ -65,9 +62,12 @@ export function UserMenu({ user }: Props) {
 
 				{/* links */}
 				<DropdownMenuGroup>
-					{/* <Link href={appRoutes.addApplication}>
+					<Link href={appRoutes.journeys}>
+						<DropdownMenuItem>Your journeys</DropdownMenuItem>
+					</Link>
+					<Link href={appRoutes.addApplication}>
 						<DropdownMenuItem>Add application</DropdownMenuItem>
-					</Link> */}
+					</Link>
 					<Link href={appRoutes.application}>
 						<DropdownMenuItem>Your applications</DropdownMenuItem>
 					</Link>

@@ -30,5 +30,8 @@ export async function GET(req: NextRequest) {
 	// 	console.error(error);
 	// 	return NextResponse.json({ error: 'Error fetching data', reason: error }, { status: 500 });
 	// }
-	return NextResponse.json({ error: 'This endpoint is deprecated. Please use the new API endpoints.' }, { status: 410 });
+	return NextResponse.json(
+		{ error: 'This endpoint is deprecated. Please use the new API endpoints.' },
+		{ status: 410 },
+	);
 }

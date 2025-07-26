@@ -1,5 +1,4 @@
 import { ApplicationStatus } from '@/components/ApplicationForm/utility';
-import { config } from '@/config/config';
 import { ContractType, JobApplication, JobApplicationFormData, WorkMode } from '@/types/schema';
 import { apiRoutes } from '@/utils/constants';
 

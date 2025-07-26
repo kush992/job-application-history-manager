@@ -35,6 +35,7 @@ export enum JobSites {
 	COMPANY_WEBSITE = 'COMPANY_WEBSITE',
 	REFERRAL = 'REFERRAL',
 	OTHER = 'OTHER',
+	JUST_JOIN_IT = 'JUST_JOIN_IT',
 }
 
 export enum WorkMode {

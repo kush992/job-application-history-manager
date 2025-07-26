@@ -28,7 +28,7 @@ import {
 } from '@/utils/utility';
 import { useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
-import { CircleDollarSign, ExternalLink, Pencil } from 'lucide-react';
+import { CircleDollarSign, ExternalLink, ExternalLinkIcon, Pencil } from 'lucide-react';
 import { ApplicationStatus } from '@/types/schema';
 
 type Props = {
@@ -143,15 +143,15 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 										<a
 											key={index + 1}
 											href={link}
-											className="text-sm w-fit text-wrap"
+											className="text-sm w-fit text-wrap cursor-pointer"
 											target="__blank"
 											rel="noopener noreferrer"
 										>
 											<Button
 												variant="link"
-												className="over px-0 text-wrap h-full flex items-center justify-between text-left w-full"
+												className="px-0 text-wrap h-full flex items-center text-sm justify-start text-left w-fit gap-2 cursor-pointer"
 											>
-												{getFileName(link)}
+												<ExternalLinkIcon className='h-4 w-4' /> {getFileName(link)}
 											</Button>
 										</a>
 									))}

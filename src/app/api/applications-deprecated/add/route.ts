@@ -32,5 +32,8 @@ export async function POST(req: NextRequest) {
 	// 	console.error('Error:', error);
 	// 	return NextResponse.json({ error }, { status: 500 });
 	// }
-	return NextResponse.json({ error: 'This endpoint is deprecated. Please use the new API endpoints.' }, { status: 410 });
+	return NextResponse.json(
+		{ error: 'This endpoint is deprecated. Please use the new API endpoints.' },
+		{ status: 410 },
+	);
 }

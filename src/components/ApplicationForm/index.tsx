@@ -22,7 +22,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
 import { addLinks } from '@/lib/server/application-docs-queries';
 import { Card, CardContent } from '../ui/card';
-import { JobApplicationFormData } from '@/types/schema';
+import { JobApplicationFormData, WorkMode } from '@/types/schema';
 import { jobApplicationSchema } from '@/lib/supabase/schema';
 
 type Props = {
@@ -100,7 +100,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 
 	const initialFormData: JobApplicationFormData = {
 		job_title: applicationData?.job_title || '',
-		notes: applicationData?.notes || '',
+		notes: applicationData?.notes,
 		company_name: applicationData?.company_name || '',
 		company_domain: applicationData?.company_domain || undefined,
 		application_status: applicationData?.application_status,

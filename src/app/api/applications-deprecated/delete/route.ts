@@ -34,5 +34,8 @@ export async function DELETE(req: NextRequest) {
 	// 	console.error(error);
 	// 	return NextResponse.json({ error }, { status: 500 });
 	// }
-	return NextResponse.json({ error: 'This endpoint is deprecated. Please use the new API endpoints.' }, { status: 410 });
+	return NextResponse.json(
+		{ error: 'This endpoint is deprecated. Please use the new API endpoints.' },
+		{ status: 410 },
+	);
 }

@@ -180,7 +180,7 @@ export function JourneysView() {
 						<p className="mt-2 text-secondary-foreground">Manage and track your job search campaigns</p>
 					</div>
 					<div className="flex gap-2">
-						<Button variant="outline" onClick={refreshJourneys} disabled={isFetching}>
+						<Button variant="outline" size="lg" onClick={refreshJourneys} disabled={isFetching}>
 							<RefreshCw className={`h-4 w-4 mr-2 ${isFetching ? 'animate-spin' : ''}`} />
 							Refresh
 						</Button>
