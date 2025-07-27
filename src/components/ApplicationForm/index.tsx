@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import Loader from '../Loader';
@@ -98,51 +98,52 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 		},
 	});
 
-	const initialFormData: JobApplicationFormData = {
-		job_title: applicationData?.job_title || '',
-		notes: applicationData?.notes,
-		company_name: applicationData?.company_name || '',
-		company_domain: applicationData?.company_domain || undefined,
-		application_status: applicationData?.application_status,
-		salary: applicationData?.salary || undefined,
-		salary_currency: applicationData?.salary_currency,
-		salary_type: applicationData?.salary_type,
-		interview_date: applicationData?.interview_date ? new Date(applicationData.interview_date) : undefined,
-		links: applicationData?.links || undefined,
-		location: applicationData?.location || undefined,
-		job_link: applicationData?.job_link || undefined,
-		job_posted_on: applicationData?.job_posted_on,
-		work_mode: applicationData?.work_mode,
-		contract_type: applicationData?.contract_type,
-		applied_at: applicationData?.applied_at
-			? new Date(applicationData.applied_at).toISOString()
-			: new Date().toISOString(),
-	};
-
 	const form = useForm<JobApplicationFormData>({
 		resolver: zodResolver(jobApplicationSchema),
 		defaultValues: {
-			job_title: applicationData?.job_title || '',
-			notes: applicationData?.notes,
-			company_name: applicationData?.company_name || '',
-			company_domain: applicationData?.company_domain || undefined,
-			application_status: applicationData?.application_status,
-			salary: applicationData?.salary || undefined,
-			salary_currency: applicationData?.salary_currency,
-			salary_type: applicationData?.salary_type,
-			interview_date: applicationData?.interview_date ? new Date(applicationData.interview_date) : undefined,
-			links: applicationData?.links || undefined,
-			location: applicationData?.location || undefined,
-			job_link: applicationData?.job_link || undefined,
-			job_posted_on: applicationData?.job_posted_on,
-			work_mode: applicationData?.work_mode,
-			contract_type: applicationData?.contract_type,
-			applied_at: applicationData?.applied_at
-				? new Date(applicationData.applied_at).toISOString()
-				: new Date().toISOString(),
+			job_title: '',
+			notes: '',
+			company_name: '',
+			company_domain: undefined,
+			application_status: undefined,
+			salary: undefined,
+			salary_currency: undefined,
+			salary_type: undefined,
+			interview_date: undefined,
+			links: undefined,
+			location: undefined,
+			job_link: undefined,
+			job_posted_on: undefined,
+			work_mode: undefined,
+			contract_type: undefined,
+			applied_at: new Date().toISOString(),
 		},
-		// values: { ...initialFormData } as JobApplicationFormData,
 	});
+
+	useEffect(() => {
+		if (isUpdateForm && applicationData) {
+			form.reset({
+				job_title: applicationData.job_title || '',
+				notes: applicationData.notes || '',
+				company_name: applicationData.company_name || '',
+				company_domain: applicationData.company_domain || undefined,
+				application_status: applicationData.application_status || undefined,
+				salary: applicationData.salary || undefined,
+				salary_currency: applicationData.salary_currency || undefined,
+				salary_type: applicationData.salary_type || undefined,
+				interview_date: applicationData.interview_date ? new Date(applicationData.interview_date) : undefined,
+				links: applicationData.links || undefined,
+				location: applicationData.location || undefined,
+				job_link: applicationData.job_link || undefined,
+				job_posted_on: applicationData.job_posted_on || undefined,
+				work_mode: applicationData.work_mode || undefined,
+				contract_type: applicationData.contract_type || undefined,
+				applied_at: applicationData.applied_at
+					? new Date(applicationData.applied_at).toISOString()
+					: new Date().toISOString(),
+			});
+		}
+	}, [isUpdateForm, applicationData, form]);
 
 	async function onSubmit(data: JobApplicationFormData) {
 		if (!data.application_status) {
