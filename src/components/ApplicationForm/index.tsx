@@ -121,8 +121,27 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 
 	const form = useForm<JobApplicationFormData>({
 		resolver: zodResolver(jobApplicationSchema),
-		defaultValues: { ...initialFormData },
-		values: { ...initialFormData } as JobApplicationFormData,
+		defaultValues: {
+			job_title: applicationData?.job_title || '',
+			notes: applicationData?.notes,
+			company_name: applicationData?.company_name || '',
+			company_domain: applicationData?.company_domain || undefined,
+			application_status: applicationData?.application_status,
+			salary: applicationData?.salary || undefined,
+			salary_currency: applicationData?.salary_currency,
+			salary_type: applicationData?.salary_type,
+			interview_date: applicationData?.interview_date ? new Date(applicationData.interview_date) : undefined,
+			links: applicationData?.links || undefined,
+			location: applicationData?.location || undefined,
+			job_link: applicationData?.job_link || undefined,
+			job_posted_on: applicationData?.job_posted_on,
+			work_mode: applicationData?.work_mode,
+			contract_type: applicationData?.contract_type,
+			applied_at: applicationData?.applied_at
+				? new Date(applicationData.applied_at).toISOString()
+				: new Date().toISOString(),
+		},
+		// values: { ...initialFormData } as JobApplicationFormData,
 	});
 
 	async function onSubmit(data: JobApplicationFormData) {

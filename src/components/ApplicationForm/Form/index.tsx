@@ -23,7 +23,6 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 	const { uploadFiles, deleteFile, checkFileAlreadyUploaded, fileStatuses } = useUploadFile();
 
 	const isShowFileStatus = fileStatuses.some((status) => status.isLoading);
-	const initialLinks = form.getValues('links');
 
 	const removeFile = async (fileName: string) => {
 		const links = form.getValues('links')?.split(FILES_SEPARATOR);
@@ -95,7 +94,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								)}
 							/>
 
-							{/* <FormField
+							<FormField
 								control={form.control}
 								name="contract_type"
 								render={({ field }) => (
@@ -118,7 +117,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<FormMessage />
 									</FormItem>
 								)}
-							/> */}
+							/>
 						</div>
 
 						<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -136,7 +135,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								)}
 							/>
 
-							{/* <FormField
+							<FormField
 								control={form.control}
 								name="salary_currency"
 								render={({ field }) => (
@@ -159,9 +158,9 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<FormMessage />
 									</FormItem>
 								)}
-							/> */}
+							/>
 
-							{/* <FormField
+							<FormField
 								control={form.control}
 								name="salary_type"
 								render={({ field }) => (
@@ -182,7 +181,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<FormMessage />
 									</FormItem>
 								)}
-							/> */}
+							/>
 						</div>
 					</div>
 
@@ -230,7 +229,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-						{/* <FormField
+						<FormField
 							control={form.control}
 							name="application_status"
 							render={({ field }) => (
@@ -261,7 +260,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 									<FormMessage />
 								</FormItem>
 							)}
-						/> */}
+						/>
 
 						<FormField
 							control={form.control}
@@ -272,7 +271,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 									<FormControl>
 										<DateTimePicker
-											value={(field.value && new Date(field?.value)) ?? new Date()}
+											value={(field.value && new Date(field?.value)) ?? undefined}
 											onChange={(data) => data && form.setValue('interview_date', new Date(data))}
 										/>
 									</FormControl>
@@ -296,7 +295,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								</FormItem>
 							)}
 						/>
-						{/* <FormField
+						<FormField
 							control={form.control}
 							name="job_posted_on"
 							render={({ field }) => (
@@ -321,7 +320,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 									<FormMessage />
 								</FormItem>
 							)}
-						/> */}
+						/>
 						<FormField
 							control={form.control}
 							name="location"

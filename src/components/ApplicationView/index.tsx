@@ -151,7 +151,7 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 												variant="link"
 												className="px-0 text-wrap h-full flex items-center text-sm justify-start text-left w-fit gap-2 cursor-pointer"
 											>
-												<ExternalLinkIcon className='h-4 w-4' /> {getFileName(link)}
+												<ExternalLinkIcon className="h-4 w-4" /> {getFileName(link)}
 											</Button>
 										</a>
 									))}
