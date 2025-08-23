@@ -73,10 +73,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										<FormLabel>Work Mode</FormLabel>
 										<Select
 											value={field.value ?? undefined} // Controlled component
-											onValueChange={(value) => {
-												console.log('Value changed:', value); // Debug the value
-												field.onChange(value); // Update the form state
-											}}
+											onValueChange={field.onChange}
 										>
 											<FormControl>
 												<SelectTrigger>
@@ -100,7 +97,11 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Contract Type</FormLabel>
-										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+										<Select
+											value={field.value ?? undefined}
+											onValueChange={field.onChange}
+											defaultValue={field.value ?? undefined}
+										>
 											<FormControl>
 												<SelectTrigger>
 													<SelectValue placeholder="Contract type" />
@@ -141,7 +142,11 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Salary Currency</FormLabel>
-										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value ?? undefined}
+											value={field.value ?? undefined}
+										>
 											<FormControl>
 												<SelectTrigger>
 													<SelectValue placeholder="Currency type" />
@@ -166,7 +171,11 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Salary Type</FormLabel>
-										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+										<Select
+											value={field.value ?? undefined}
+											onValueChange={field.onChange}
+											defaultValue={field.value ?? undefined}
+										>
 											<FormControl>
 												<SelectTrigger>
 													<SelectValue placeholder="Salary type" />
@@ -304,6 +313,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 									<Select
 										onValueChange={field.onChange}
 										defaultValue={field.value ?? JobSites.LINKEDIN}
+										value={field.value ?? JobSites.LINKEDIN}
 									>
 										<FormControl>
 											<SelectTrigger>

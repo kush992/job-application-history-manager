@@ -6,6 +6,10 @@ export const navBarLinks = [
 	// 	href: appRoutes.addApplication,
 	// },
 	{
+		page: 'Journeys',
+		href: appRoutes.journeys,
+	},
+	{
 		page: 'Applications',
 		href: appRoutes.application,
 	},
