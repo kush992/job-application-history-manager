@@ -39,14 +39,21 @@ export const getFileName = (link: string) => {
 export const getApplicationStatusColor = (status: ApplicationStatus): BadgeProps['variant'] => {
 	switch (status) {
 		case ApplicationStatus.INTERVIEW:
+		case ApplicationStatus.IN_REVIEW:
+		case ApplicationStatus.APPTITUDE_INTERVIEW:
+		case ApplicationStatus.LIVE_CODING_INTERVIEW:
+		case ApplicationStatus.TECHNICAL_INTERVIEW:
+		case ApplicationStatus.SYSTEM_DESIGN_INTERVIEW:
+		case ApplicationStatus.MANAGER_INTERVIEW:
+		case ApplicationStatus.IN_PROGRESS:
 			return 'status-in-progress';
-		case ApplicationStatus.OFFER:
+		case ApplicationStatus.OFFER_ACCEPTED:
+		case ApplicationStatus.SUCCESS:
 			return 'status-success';
-		case ApplicationStatus.REJECTED:
-			return 'status-failure';
-		// case ApplicationStatus.REJECTED_WITH_FEEDBACK:
-		// 	return 'status-failure';
-		case ApplicationStatus.WITHDRAWN:
+		case ApplicationStatus.REJECTED_WITH_FEEDBACK:
+		case ApplicationStatus.REJECTED_NO_FEEDBACK:
+		case ApplicationStatus.NO_REPLY:
+		case ApplicationStatus.OFFER_REJECTED:
 			return 'status-failure';
 		case ApplicationStatus.APPLIED:
 			return 'status-default';
@@ -55,13 +62,20 @@ export const getApplicationStatusColor = (status: ApplicationStatus): BadgeProps
 
 export const applicationStatusMapping = {
 	[ApplicationStatus.INTERVIEW]: 'In Progress',
-	[ApplicationStatus.OFFER]: 'Success',
-	// [ApplicationStatus.REJECTED_NO_FEEDBACK]: 'Rejected (No Feedback)',
-	// [ApplicationStatus.REJECTED_WITH_FEEDBACK]: 'Rejected (With Feedback)',
-	// [ApplicationStatus.NO_REPLY]: 'No Reply',
-	[ApplicationStatus.REJECTED]: 'Rejected',
-	[ApplicationStatus.WITHDRAWN]: 'Withdrawn',
+	[ApplicationStatus.OFFER_ACCEPTED]: 'Offer Accepted',
+	[ApplicationStatus.OFFER_REJECTED]: 'Offer Rejected',
+	[ApplicationStatus.REJECTED_NO_FEEDBACK]: 'Rejected (No Feedback)',
+	[ApplicationStatus.REJECTED_WITH_FEEDBACK]: 'Rejected (With Feedback)',
+	[ApplicationStatus.NO_REPLY]: 'No Reply',
 	[ApplicationStatus.APPLIED]: 'Applied',
+	[ApplicationStatus.SUCCESS]: 'Success',
+	[ApplicationStatus.IN_REVIEW]: 'In Review',
+	[ApplicationStatus.APPTITUDE_INTERVIEW]: 'Aptitude Interview',
+	[ApplicationStatus.LIVE_CODING_INTERVIEW]: 'Live Coding Interview',
+	[ApplicationStatus.TECHNICAL_INTERVIEW]: 'Technical Interview',
+	[ApplicationStatus.SYSTEM_DESIGN_INTERVIEW]: 'System Design Interview',
+	[ApplicationStatus.MANAGER_INTERVIEW]: 'Manager Interview',
+	[ApplicationStatus.IN_PROGRESS]: 'In Progress',
 };
 
 export const getWorkModeColor = (workMode: WorkMode): BadgeProps['variant'] => {
