@@ -52,6 +52,7 @@
 		"react-day-picker": "^8.10.1",
 		"react-dom": "^18",
 		"react-hook-form": "^7.53.0",
+		"recharts": "^2.15.4",
 		"tailwind-merge": "^2.5.2",
 		"tailwindcss-animate": "^1.0.7",
 		"tailwindcss-motion": "^0.4.3-beta",

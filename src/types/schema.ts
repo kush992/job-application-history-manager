@@ -113,6 +113,28 @@ export interface Statistics {
 	rejections_count: number;
 	average_response_time: number | null;
 	created_at: string;
+	no_reply_count: number;
+	interview_count: number;
+	technical_interview_count: number;
+	system_design_interview_count: number;
+	manager_interview_count: number;
+	rejected_no_feedback_count: number;
+	rejected_with_feedback_count: number;
+	offer_rejected_count: number;
+	offer_accepted_count: number;
+	success_count: number;
+	avg_salary: string;
+	min_salary: string;
+	max_salary: string;
+	remote_count: number;
+	hybrid_count: number;
+	onsite_count: number;
+	full_time_count: number;
+	part_time_count: number;
+	contract_count: number;
+	freelance_count: number;
+	internship_count: number;
+	b2b_count: number;
 	updated_at: string;
 }
 

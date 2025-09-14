@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Plus, Calendar, MapPin, Briefcase, Trash2, Edit, Eye, RefreshCw, RocketIcon } from 'lucide-react';
+import { Plus, Calendar, Briefcase, Trash2, Edit, Eye, RefreshCw, RocketIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useJourneys } from '@/hooks/useJourneys';
 import { Journey } from '@/types/schema';
@@ -228,7 +228,7 @@ export function JourneysView() {
 								</div>
 
 								<div className="flex gap-2 mt-6">
-									<Link href={appRoutes.application} className="flex-1">
+									<Link href={`${appRoutes.journeys}/${journey.id}`} className="flex-1">
 										<Button variant="outline" size="sm" className="w-full bg-transparent">
 											<Eye className="h-4 w-4 mr-2" />
 											View
