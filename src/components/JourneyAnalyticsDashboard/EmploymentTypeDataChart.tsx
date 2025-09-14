@@ -1,8 +1,7 @@
-import React from 'react';
-import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { Cell, Pie, PieChart, ResponsiveContainer, Legend } from 'recharts';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
-import { Statistics } from '@/types/schema';
+import type { Statistics } from '@/types/schema';
 
 type Props = {
 	statistics: Statistics;
@@ -19,12 +18,12 @@ const EmploymentTypeDataChart = ({ statistics }: Props) => {
 	];
 
 	return (
-		<Card>
-			<CardHeader className="px-3 sm:px-6">
+		<Card className="h-[450px]">
+			<CardHeader className="px-3 sm:px-6 pb-2">
 				<CardTitle className="text-base sm:text-lg">Employment Types</CardTitle>
 				<CardDescription className="text-xs sm:text-sm">Types of positions applied for</CardDescription>
 			</CardHeader>
-			<CardContent className="px-3 sm:px-6">
+			<CardContent className="px-3 sm:px-6 h-[350px]">
 				<ChartContainer
 					config={{
 						fullTime: { label: 'Full-time', color: '#3b82f6' },
@@ -34,25 +33,21 @@ const EmploymentTypeDataChart = ({ statistics }: Props) => {
 						internship: { label: 'Internship', color: '#f59e0b' },
 						b2b: { label: 'B2B', color: '#ef4444' },
 					}}
-					className="h-[250px] sm:h-[300px] w-full"
+					className="h-full w-full"
 				>
 					<ResponsiveContainer width="100%" height="100%">
 						<PieChart>
-							<Pie
-								data={employmentTypeData}
-								cx="50%"
-								cy="50%"
-								outerRadius={80}
-								dataKey="value"
-								label={({ name, value, percent }) =>
-									value > 0 ? `${name}: ${value} (${(percent * 100).toFixed(1)}%)` : null
-								}
-								labelLine={false}
-							>
+							<Pie data={employmentTypeData} cx="50%" cy="35%" outerRadius={70} dataKey="value">
 								{employmentTypeData.map((entry, index) => (
 									<Cell key={`cell-${index}`} fill={entry.fill} />
 								))}
 							</Pie>
+							<Legend
+								verticalAlign="bottom"
+								height={100}
+								formatter={(value, entry) => `${value}: ${entry?.payload?.value ?? ''}`}
+								wrapperStyle={{ fontSize: '11px', paddingTop: '15px' }}
+							/>
 							<ChartTooltip content={<ChartTooltipContent />} />
 						</PieChart>
 					</ResponsiveContainer>

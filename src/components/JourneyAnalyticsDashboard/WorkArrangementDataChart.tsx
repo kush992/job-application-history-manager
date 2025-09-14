@@ -1,6 +1,5 @@
-import { Statistics } from '@/types/schema';
-import React from 'react';
-import { ResponsiveContainer, Pie, Cell, PieChart } from 'recharts';
+import type { Statistics } from '@/types/schema';
+import { ResponsiveContainer, Pie, Cell, PieChart, Legend } from 'recharts';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
 
@@ -15,38 +14,40 @@ const WorkArrangementDataChart = ({ statistics }: Props) => {
 		{ name: 'On-site', value: statistics.onsite_count, fill: '#f97316' }, // Orange
 	];
 	return (
-		<Card>
-			<CardHeader className="px-3 sm:px-6">
+		<Card className="h-[400px]">
+			<CardHeader className="px-3 sm:px-6 pb-2">
 				<CardTitle className="text-base sm:text-lg">Work Arrangement Preferences</CardTitle>
 				<CardDescription className="text-xs sm:text-sm">Distribution of work location types</CardDescription>
 			</CardHeader>
-			<CardContent className="px-3 sm:px-6">
+			<CardContent className="px-3 sm:px-6 h-[300px]">
 				<ChartContainer
 					config={{
 						remote: { label: 'Remote', color: '#8b5cf6' },
 						hybrid: { label: 'Hybrid', color: '#06b6d4' },
 						onsite: { label: 'On-site', color: '#f97316' },
 					}}
-					className="h-[250px] sm:h-[300px] w-full"
+					className="h-full w-full"
 				>
 					<ResponsiveContainer width="100%" height="100%">
 						<PieChart>
 							<Pie
 								data={workArrangementData}
 								cx="50%"
-								cy="50%"
-								innerRadius={60}
-								outerRadius={90}
+								cy="40%"
+								innerRadius={50}
+								outerRadius={80}
 								dataKey="value"
-								label={({ name, value, percent }) =>
-									`${name}: ${value} (${(percent * 100).toFixed(1)}%)`
-								}
-								labelLine={false}
 							>
 								{workArrangementData.map((entry, index) => (
 									<Cell key={`cell-${index}`} fill={entry.fill} />
 								))}
 							</Pie>
+							<Legend
+								verticalAlign="bottom"
+								height={60}
+								formatter={(value, entry) => `${value}: ${entry?.payload?.value ?? ''}`}
+								wrapperStyle={{ fontSize: '12px', paddingTop: '15px' }}
+							/>
 							<ChartTooltip content={<ChartTooltipContent />} />
 						</PieChart>
 					</ResponsiveContainer>

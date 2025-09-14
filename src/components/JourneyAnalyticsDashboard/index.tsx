@@ -68,22 +68,20 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 				<KeyMetrics statistics={statistics} replyRate={replyRate} successRate={successRate} />
 
 				{/* Summary Insights */}
-				<SummaryInsights statistics={statistics} replyRate={replyRate} />
+				<SummaryInsights statistics={statistics} replyRate={replyRate} successRate={successRate} />
 
 				{/* Charts Grid */}
+				{/* Application Funnel */}
+				<ApplicationFunnelDataChart statistics={statistics} />
 				<div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
-					{/* Application Funnel */}
-					<ApplicationFunnelDataChart statistics={statistics} />
-
 					{/* Work Arrangement */}
 					<WorkArrangementDataChart statistics={statistics} />
-
-					{/* Response Breakdown */}
-					<ApplicationResponseBreakdownDataChart statistics={statistics} />
 
 					{/* Employment Types */}
 					<EmploymentTypeDataChart statistics={statistics} />
 				</div>
+				{/* Response Breakdown */}
+				<ApplicationResponseBreakdownDataChart statistics={statistics} />
 			</div>
 		</div>
 	);
