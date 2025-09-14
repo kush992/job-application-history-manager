@@ -103,4 +103,5 @@ export const contractTypeMapping = {
 	[ContractType.CONTRACT]: 'Contract',
 	[ContractType.INTERNSHIP]: 'Internship',
 	[ContractType.FREELANCE]: 'Freelance',
+	[ContractType.B2B]: 'B2B',
 };

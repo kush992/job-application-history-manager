@@ -40,7 +40,9 @@ export default function Home() {
 						<div className="flex-1 flex justify-center">
 							<div className="relative w-full max-w-md">
 								<Image
-									src=""
+									src="https://storage.googleapis.com/job-application-manager/journey_analytics.png"
+									width={600}
+									height={400}
 									alt="JobJourney Dashboard"
 									className="rounded-xl shadow-lg border border-slate-200 hover:scale-105 transition-transform duration-300"
 								/>

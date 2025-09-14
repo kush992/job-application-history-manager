@@ -75,11 +75,11 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 					{/* Application Funnel */}
 					<ApplicationFunnelDataChart statistics={statistics} />
 
-					{/* Response Breakdown */}
-					<ApplicationResponseBreakdownDataChart statistics={statistics} />
-
 					{/* Work Arrangement */}
 					<WorkArrangementDataChart statistics={statistics} />
+
+					{/* Response Breakdown */}
+					<ApplicationResponseBreakdownDataChart statistics={statistics} />
 
 					{/* Employment Types */}
 					<EmploymentTypeDataChart statistics={statistics} />
