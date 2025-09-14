@@ -88,7 +88,7 @@ const SummaryInsights = ({ statistics, replyRate, successRate }: Props) => {
 				<div className="space-y-2">
 					<h4 className="font-semibold text-sm">📊 Application Volume Analysis</h4>
 					<p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-						You've submitted <strong>{statistics.applications_count} applications</strong> in total.
+						{"You've"} submitted <strong>{statistics.applications_count} applications</strong> in total.
 						{statistics.applications_count > 100
 							? ' This is a substantial volume showing strong commitment to your job search.'
 							: statistics.applications_count > 50
