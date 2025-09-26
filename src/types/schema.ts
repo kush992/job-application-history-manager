@@ -136,6 +136,27 @@ export interface Statistics {
 	internship_count: number;
 	b2b_count: number;
 	updated_at: string;
+
+	// Salary types
+	hourly_salary_count: 0;
+	daily_salary_count: 0;
+	weekly_salary_count: 0;
+	monthly_salary_count: 38;
+	yearly_salary_count: 10;
+	hourly_salary_sum: 0;
+	daily_salary_sum: 0;
+	weekly_salary_sum: 0;
+	monthly_salary_sum: 422500;
+	yearly_salary_sum: 75180;
+
+	// Currencies
+	usd_salary_count: 6;
+	eur_salary_count: 16;
+	pln_salary_count: 27;
+	inr_salary_count: 0;
+	gbp_salary_count: 1;
+	cad_salary_count: 0;
+	aud_salary_count: 0;
 }
 
 export interface JourneyStatistics {

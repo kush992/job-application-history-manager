@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
 
 		// Fetch the job application with journey information
 		const { data: statistics, error } = await supabase
-			.from('statistics').select().eq('user_id', user.id).eq('journey_id', journeyId).single();
+			.from('statistics_demo').select().eq('user_id', user.id).eq('journey_id', journeyId).single();
 
 		if (error) {
 			console.error('Supabase error:', error);

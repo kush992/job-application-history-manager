@@ -2,12 +2,14 @@
 
 import { useStatistics } from '@/hooks/useStatistics';
 import ApplicationFunnelDataChart from './ApplicationFunnelDataChart';
-import WorkArrangementDataChart from './WorkArrangementDataChart';
+import WorkModeChart from './WorkArrangementDataChart';
 import SummaryInsights from './SummaryInsights';
 import JourneyAnaluticsDashboardLoader from './Loading';
 import ApplicationResponseBreakdownDataChart from './ApplicationResponseBreakdownDataChart';
 import EmploymentTypeDataChart from './EmploymentTypeDataChart';
 import KeyMetrics from './KeyMetrics';
+import SalaryDistributionChart from './SalaryDistributionChart';
+import SalaryCurrencyTypeChart from './SalaryCurrencyTypeChart';
 
 type Props = {
 	journeyId: string;
@@ -75,7 +77,13 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 				<ApplicationFunnelDataChart statistics={statistics} />
 				<div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
 					{/* Work Arrangement */}
-					<WorkArrangementDataChart statistics={statistics} />
+					<WorkModeChart statistics={statistics} />
+
+					{/* Salary Distribution */}
+					<SalaryDistributionChart statistics={statistics} />
+					
+					{/* Salary Currency */}
+					<SalaryCurrencyTypeChart statistics={statistics} />
 
 					{/* Employment Types */}
 					<EmploymentTypeDataChart statistics={statistics} />

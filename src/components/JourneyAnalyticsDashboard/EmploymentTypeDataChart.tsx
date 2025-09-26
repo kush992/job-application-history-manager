@@ -18,7 +18,7 @@ const EmploymentTypeDataChart = ({ statistics }: Props) => {
 	];
 
 	return (
-		<Card className="h-[450px]">
+		<Card className="h-full">
 			<CardHeader className="px-3 sm:px-6 pb-2">
 				<CardTitle className="text-base sm:text-lg">Employment Types</CardTitle>
 				<CardDescription className="text-xs sm:text-sm">Types of positions applied for</CardDescription>
