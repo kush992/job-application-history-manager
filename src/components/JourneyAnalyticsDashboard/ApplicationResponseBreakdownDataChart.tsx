@@ -36,7 +36,14 @@ const ApplicationResponseBreakdownDataChart = ({ statistics }: Props) => {
 				>
 					<ResponsiveContainer width="100%" height="100%">
 						<PieChart>
-							<Pie data={responseData} cx="50%" cy="40%" innerRadius={40} outerRadius={70} dataKey="value">
+							<Pie
+								data={responseData}
+								cx="50%"
+								cy="40%"
+								innerRadius={40}
+								outerRadius={70}
+								dataKey="value"
+							>
 								{responseData.map((entry, index) => (
 									<Cell key={`cell-${index}`} fill={entry.fill} />
 								))}

@@ -70,5 +70,5 @@ export const apiRoutes = {
 		update: '/api/journeys/update',
 		delete: '/api/journeys/delete',
 	},
-	statistics: '/api/statistics'
+	statistics: '/api/statistics',
 };

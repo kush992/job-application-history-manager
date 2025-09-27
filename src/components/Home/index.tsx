@@ -53,43 +53,46 @@ const HomePage = () => {
 					</p>
 					<div className="grid md:grid-cols-3 gap-8 pt-8">
 						<Card>
-							<CardHeader className='pb-2'>
+							<CardHeader className="pb-2">
 								<Plus className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
 							</CardHeader>
-							<CardContent className='text-left'>
+							<CardContent className="text-left">
 								<h3 className="text-lg font-semibold mb-2">Easy Application Entry</h3>
 								<p className="text-sm text-muted-foreground">
-									Quickly add job applications with all relevant details including company, position, location, and status.
+									Quickly add job applications with all relevant details including company, position,
+									location, and status.
 								</p>
 							</CardContent>
 						</Card>
 						<Card>
-							<CardHeader className='pb-2'>
+							<CardHeader className="pb-2">
 								<Map className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
 							</CardHeader>
-							<CardContent className='text-left'>
+							<CardContent className="text-left">
 								<h3 className="text-lg font-semibold mb-2">Journey Tracking</h3>
 								<p className="text-sm text-muted-foreground">
-									Create and manage application journeys to group related opportunities and track progress.
+									Create and manage application journeys to group related opportunities and track
+									progress.
 								</p>
 							</CardContent>
 						</Card>
 						<Card>
-							<CardHeader className='pb-2'>
+							<CardHeader className="pb-2">
 								<ChartCandlestick className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
 							</CardHeader>
-							<CardContent className='text-left'>
+							<CardContent className="text-left">
 								<h3 className="text-lg font-semibold mb-2">Smart Analytics</h3>
 								<p className="text-sm text-muted-foreground">
-									Visualize your application data with charts and insights to optimize your job search strategy.
+									Visualize your application data with charts and insights to optimize your job search
+									strategy.
 								</p>
 							</CardContent>
 						</Card>
 						<Card>
-							<CardHeader className='pb-2'>
+							<CardHeader className="pb-2">
 								<Calendar className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
 							</CardHeader>
-							<CardContent className='text-left'>
+							<CardContent className="text-left">
 								<h3 className="text-lg font-semibold mb-2">Interview Management</h3>
 								<p className="text-sm text-muted-foreground">
 									Schedule interviews, store questions, and track your preparation progress.
@@ -97,10 +100,10 @@ const HomePage = () => {
 							</CardContent>
 						</Card>
 						<Card>
-							<CardHeader className='pb-2'>
+							<CardHeader className="pb-2">
 								<FileUp className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
 							</CardHeader>
-							<CardContent className='text-left'>
+							<CardContent className="text-left">
 								<h3 className="text-lg font-semibold mb-2">Document Storage</h3>
 								<p className="text-sm text-muted-foreground">
 									Upload and organize resumes, cover letters, and other application materials.
@@ -108,10 +111,10 @@ const HomePage = () => {
 							</CardContent>
 						</Card>
 						<Card>
-							<CardHeader className='pb-2'>
+							<CardHeader className="pb-2">
 								<Share2 className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
 							</CardHeader>
-							<CardContent className='text-left'>
+							<CardContent className="text-left">
 								<h3 className="text-lg font-semibold mb-2">Community Sharing</h3>
 								<p className="text-sm text-muted-foreground">
 									Share interview questions and insights with the community to help others succeed.

@@ -81,7 +81,7 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 
 					{/* Salary Distribution */}
 					<SalaryDistributionChart statistics={statistics} />
-					
+
 					{/* Salary Currency */}
 					<SalaryCurrencyTypeChart statistics={statistics} />
 
