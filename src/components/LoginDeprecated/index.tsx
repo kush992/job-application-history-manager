@@ -15,7 +15,7 @@ type Props = {
 	handleLogin?: (formData: FormData) => Promise<void>;
 };
 
-const LogIn: React.FC<Props> = ({ handleLogin }) => {
+const LogInDeprecated: React.FC<Props> = ({ handleLogin }) => {
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const form = useForm<{
@@ -86,4 +86,4 @@ const LogIn: React.FC<Props> = ({ handleLogin }) => {
 	);
 };
 
-export default LogIn;
+export default LogInDeprecated;

@@ -1,90 +1,168 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
-import { appRoutes } from '@/utils/constants';
-import { Analytics } from '@vercel/analytics/next';
-import { ChevronRight, MoveRight } from 'lucide-react';
-import Link from 'next/link';
-import { featureData } from './utility';
+import React from 'react';
+import Image from 'next/image';
+import { Button } from '../ui/button';
+import { Card, CardContent, CardHeader } from '../ui/card';
+import { Calendar, ChartCandlestick, FileUp, Map, Plus, Share2 } from 'lucide-react';
 
-export default function HomePage() {
+const HomePage = () => {
 	return (
 		<>
-			<section>
-				<div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
-					<Link
-						href={appRoutes.pricing}
-						className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm bg-lightVioletAccent rounded-full text-darkVioletAccent motion-preset-compress "
-					>
-						<span className="text-xs bg-darkVioletAccent rounded-full text-white px-4 py-1.5 me-3">
-							New
-						</span>
-						<span className="text-sm font-medium">Available now - Premium plan</span>
-						<ChevronRight className="text-darkVioletAccent w-4 h-4" />
-					</Link>
-					<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl motion-preset-slide-up">
-						Welcome to JobJourney – Your Job Application Tracker
-					</h1>
-					<p className="leading-7 [&:not(:first-child)]:mt-6 text-muted-foreground motion-preset-slide-up">
-						Streamline Your Job Search with Precision and Ease
-					</p>
-					<div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center my-6 motion-preset-slide-up">
-						<Link href={appRoutes.signUp}>
-							<Button size="lg" className="flex items-center gap-2">
-								Get started <MoveRight className="w-4 h-4" />
+			{/* Hero */}
+			<section className="bg-gradient-to-b from-primary to-secondary dark:to-black">
+				<div className="container mx-auto px-6 py-20 flex flex-col-reverse md:flex-row items-center gap-10">
+					<div className="flex-1 text-center md:text-left">
+						<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance md:text-6xl leading-tight text-white">
+							Track Every Job Application <br />
+							<span className="bg-gradient-to-r from-indigo-500 to-secondary-foreground bg-clip-text text-transparent">
+								Level Up Your Career
+							</span>
+						</h1>
+						<p className="leading-7 [&:not(:first-child)]:mt-6 text-secondary-foreground">
+							JobJourney helps you organize, analyze, and improve your job search with visual insights —
+							so you can focus on what works and land faster.
+						</p>
+						<div className="mt-8 flex gap-4 justify-center md:justify-start">
+							<Button size="lg">Get Started Free</Button>
+							<Button size="lg" variant="outline">
+								View Demo
 							</Button>
-						</Link>
-						<Link href={appRoutes.aboutUs}>
-							<Button size="lg" variant="outline" className="flex items-center gap-2">
-								Learn More
-							</Button>
-						</Link>
+						</div>
 					</div>
-				</div>
-				<div className="bg-gradient-to-b from-secondary to-transparent dark:from-background w-full h-full absolute top-0 left-0 z-0"></div>
-			</section>
-
-			<section>
-				<div className="py-4 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative motion-preset-slide-down">
-					<h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-						Tired of spreadsheets for tracking job applications?
-					</h2>
-					<p className="leading-7 [&:not(:first-child)]:mt-6 text-muted-foreground">
-						With JobJourney, effortlessly manage and track every application, from submissions to
-						interviews, in a single portal. Forget Excel – our tool is designed to organize all your
-						application data, including files, notes, and interview insights, all in one place for easy
-						access and analysis.{' '}
-					</p>
-				</div>
-			</section>
-
-			<section>
-				<div className="py-4 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative motion-preset-slide-up">
-					<h2 className="mt-10 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-						How JobJourney Works
-					</h2>
-					<div className="grid md:grid-cols-2 gap-8">
-						{featureData.map((data) => (
-							<Card key={data.tag}>
-								<CardHeader className="text-center">
-									<CardDescription>
-										<p className="bg-lightVioletAccent text-darkVioletAccent text-xs font-medium inline-flex items-center text-center px-2.5 py-0.5 rounded-md w-fit mb-2">
-											{data.tag}
-										</p>
-									</CardDescription>
-									<h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-										{data.title}
-									</h3>
-								</CardHeader>
-								<CardContent>
-									<p className="leading-7 text-muted-foreground">{data.description}</p>
-								</CardContent>
-							</Card>
-						))}
+					<div className="flex-1 flex justify-center">
+						<div className="relative w-full max-w-md">
+							<Image
+								src="https://storage.googleapis.com/job-application-manager/journey_analytics.png"
+								width={600}
+								height={400}
+								alt="JobJourney Dashboard"
+								className="rounded-xl shadow-lg border border-slate-200 hover:scale-105 transition-transform duration-300"
+							/>
+						</div>
 					</div>
 				</div>
 			</section>
 
-			<Analytics />
+			{/* Features */}
+			<section className="py-20">
+				<div className="container mx-auto px-6 text-center">
+					<h2 className="scroll-m-20 text-center pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+						Everything You Need to Win the Job
+					</h2>
+					<p className="leading-7 [&:not(:first-child)]:mt-6 text-secondary-foreground">
+						Comprehensive tools to manage your entire job search process
+					</p>
+					<div className="grid md:grid-cols-3 gap-8 pt-8">
+						<Card>
+							<CardHeader className="pb-2">
+								<Plus className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
+							</CardHeader>
+							<CardContent className="text-left">
+								<h3 className="text-lg font-semibold mb-2">Easy Application Entry</h3>
+								<p className="text-sm text-muted-foreground">
+									Quickly add job applications with all relevant details including company, position,
+									location, and status.
+								</p>
+							</CardContent>
+						</Card>
+						<Card>
+							<CardHeader className="pb-2">
+								<Map className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
+							</CardHeader>
+							<CardContent className="text-left">
+								<h3 className="text-lg font-semibold mb-2">Journey Tracking</h3>
+								<p className="text-sm text-muted-foreground">
+									Create and manage application journeys to group related opportunities and track
+									progress.
+								</p>
+							</CardContent>
+						</Card>
+						<Card>
+							<CardHeader className="pb-2">
+								<ChartCandlestick className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
+							</CardHeader>
+							<CardContent className="text-left">
+								<h3 className="text-lg font-semibold mb-2">Smart Analytics</h3>
+								<p className="text-sm text-muted-foreground">
+									Visualize your application data with charts and insights to optimize your job search
+									strategy.
+								</p>
+							</CardContent>
+						</Card>
+						<Card>
+							<CardHeader className="pb-2">
+								<Calendar className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
+							</CardHeader>
+							<CardContent className="text-left">
+								<h3 className="text-lg font-semibold mb-2">Interview Management</h3>
+								<p className="text-sm text-muted-foreground">
+									Schedule interviews, store questions, and track your preparation progress.
+								</p>
+							</CardContent>
+						</Card>
+						<Card>
+							<CardHeader className="pb-2">
+								<FileUp className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
+							</CardHeader>
+							<CardContent className="text-left">
+								<h3 className="text-lg font-semibold mb-2">Document Storage</h3>
+								<p className="text-sm text-muted-foreground">
+									Upload and organize resumes, cover letters, and other application materials.
+								</p>
+							</CardContent>
+						</Card>
+						<Card>
+							<CardHeader className="pb-2">
+								<Share2 className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
+							</CardHeader>
+							<CardContent className="text-left">
+								<h3 className="text-lg font-semibold mb-2">Community Sharing</h3>
+								<p className="text-sm text-muted-foreground">
+									Share interview questions and insights with the community to help others succeed.
+								</p>
+							</CardContent>
+						</Card>
+					</div>
+				</div>
+			</section>
+
+			<section>
+				<div className="bg-background py-24 sm:py-32">
+					<div className="mx-auto max-w-7xl px-6 lg:px-8">
+						<h2 className="scroll-m-20 text-center pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+							Trusted by applicants worldwide
+						</h2>
+						<dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+							<div className="mx-auto flex max-w-xs flex-col gap-y-4">
+								<dt className="text-base/7 text-secondary-foreground">New users annually</dt>
+								<dd className="order-first text-3xl font-semibold tracking-tight sm:text-5xl">≈70</dd>
+							</div>
+							<div className="mx-auto flex max-w-xs flex-col gap-y-4">
+								<dt className="text-base/7 text-secondary-foreground">Applications added</dt>
+								<dd className="order-first text-3xl font-semibold tracking-tight sm:text-5xl">400+</dd>
+							</div>
+							<div className="mx-auto flex max-w-xs flex-col gap-y-4">
+								<dt className="text-base/7 text-secondary-foreground">Journeys created</dt>
+								<dd className="order-first text-3xl font-semibold tracking-tight sm:text-5xl">20+</dd>
+							</div>
+						</dl>
+					</div>
+				</div>
+			</section>
+
+			{/* Final CTA */}
+			<section className="py-16 bg-gradient-to-t from-primary to-secondary dark:to-black text-center">
+				<div className="container ">
+					<h2 className="text-3xl font-bold">Start Tracking Smarter Today</h2>
+					<p className="mt-4 text-secondary-foreground">
+						Join candidates who already use JobJourney to get better results in less time.
+					</p>
+					<Button size="lg" variant="secondary" className="mt-6">
+						Get Started Free
+					</Button>
+				</div>
+			</section>
 		</>
 	);
-}
+};
+
+export default HomePage;

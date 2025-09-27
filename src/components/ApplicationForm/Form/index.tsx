@@ -1,7 +1,7 @@
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { ApplicationStatus, FILES_SEPARATOR, JobApplicationFormData, SalaryCurrency, SalaryType } from '../utility';
+import { ApplicationStatus, FILES_SEPARATOR, SalaryCurrency, SalaryType } from '../utility';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -12,7 +12,7 @@ import { useUploadFile } from '@/hooks/useUploadFile';
 import DocumentInfoCard from '@/components/DocumentInfoCard';
 import { getFileName } from '@/utils/utility';
 import { Briefcase, Building2, CalendarIcon, Loader } from 'lucide-react';
-import { JobSites } from '@/types/apiResponseTypes';
+import { JobApplication, JobApplicationFormData, JobSites } from '@/types/schema';
 
 type Props = {
 	form: UseFormReturn<JobApplicationFormData>;
@@ -20,17 +20,20 @@ type Props = {
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
-	const { uploadFiles, deleteFile, fileStatuses } = useUploadFile();
+	const { uploadFiles, deleteFile, checkFileAlreadyUploaded, fileStatuses } = useUploadFile();
 
 	const isShowFileStatus = fileStatuses.some((status) => status.isLoading);
-	const initialLinks = form.getValues('links');
 
-	const removeFile = (fileName: string) => {
+	const removeFile = async (fileName: string) => {
 		const links = form.getValues('links')?.split(FILES_SEPARATOR);
 		const newLinks = links?.filter((link) => !link.includes(fileName)).join(FILES_SEPARATOR);
-		form.setValue('links', newLinks);
-		deleteFile(fileName);
+		await deleteFile(fileName).then(() => form.setValue('links', newLinks));
 	};
+
+	useEffect(() => {
+		// debugger;
+		console.log('Form values:', form.getValues());
+	}, []);
 
 	return (
 		<Form {...form}>
@@ -49,7 +52,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 						<FormField
 							control={form.control}
-							name="jobTitle"
+							name="job_title"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Job Title *</FormLabel>
@@ -64,11 +67,14 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						<div className="grid grid-cols-2 gap-4">
 							<FormField
 								control={form.control}
-								name="workMode"
+								name="work_mode"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Work Mode</FormLabel>
-										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+										<Select
+											value={field.value ?? undefined} // Controlled component
+											onValueChange={field.onChange}
+										>
 											<FormControl>
 												<SelectTrigger>
 													<SelectValue placeholder="Work mode" />
@@ -87,11 +93,15 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 							<FormField
 								control={form.control}
-								name="contractType"
+								name="contract_type"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Contract Type</FormLabel>
-										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+										<Select
+											value={field.value ?? undefined}
+											onValueChange={field.onChange}
+											defaultValue={field.value ?? undefined}
+										>
 											<FormControl>
 												<SelectTrigger>
 													<SelectValue placeholder="Contract type" />
@@ -119,7 +129,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 									<FormItem className="col-span-1">
 										<FormLabel>Salary</FormLabel>
 										<FormControl>
-											<Input placeholder="50000" {...field} />
+											<Input placeholder="50000" {...field} value={field.value ?? ''} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -128,11 +138,15 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 							<FormField
 								control={form.control}
-								name="salaryCurrency"
+								name="salary_currency"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Salary Currency</FormLabel>
-										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value ?? undefined}
+											value={field.value ?? undefined}
+										>
 											<FormControl>
 												<SelectTrigger>
 													<SelectValue placeholder="Currency type" />
@@ -153,11 +167,15 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 							<FormField
 								control={form.control}
-								name="salaryType"
+								name="salary_type"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Salary Type</FormLabel>
-										<Select onValueChange={field.onChange} defaultValue={field.value ?? undefined}>
+										<Select
+											value={field.value ?? undefined}
+											onValueChange={field.onChange}
+											defaultValue={field.value ?? undefined}
+										>
 											<FormControl>
 												<SelectTrigger>
 													<SelectValue placeholder="Salary type" />
@@ -185,7 +203,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 						<FormField
 							control={form.control}
-							name="companyName"
+							name="company_name"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Company Name *</FormLabel>
@@ -198,12 +216,12 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="companyDomain"
+							name="company_domain"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Company Domain</FormLabel>
 									<FormControl>
-										<Input placeholder="Company domain" {...field} />
+										<Input placeholder="Company domain" {...field} value={field.value ?? ''} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -222,7 +240,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<FormField
 							control={form.control}
-							name="applicationStatus"
+							name="application_status"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Application Status</FormLabel>
@@ -255,15 +273,15 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 
 						<FormField
 							control={form.control}
-							name="interviewDate"
+							name="interview_date"
 							render={({ field }) => (
 								<FormItem className="">
 									<FormLabel>Interview Date</FormLabel>
 
 									<FormControl>
 										<DateTimePicker
-											value={field.value && new Date(field?.value)}
-											onChange={(data) => data && form.setValue('interviewDate', new Date(data))}
+											value={(field.value && new Date(field?.value)) ?? undefined}
+											onChange={(data) => data && form.setValue('interview_date', new Date(data))}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -275,7 +293,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<FormField
 							control={form.control}
-							name="jobLink"
+							name="job_link"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Job Link</FormLabel>
@@ -288,13 +306,14 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 						/>
 						<FormField
 							control={form.control}
-							name="jobPostedOn"
+							name="job_posted_on"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Job Posted On</FormLabel>
 									<Select
 										onValueChange={field.onChange}
 										defaultValue={field.value ?? JobSites.LINKEDIN}
+										value={field.value ?? JobSites.LINKEDIN}
 									>
 										<FormControl>
 											<SelectTrigger>
@@ -302,10 +321,10 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											<SelectItem value="LINKEDIN">LinkedIn</SelectItem>
-											<SelectItem value="GLASSDOOR">Glassdoor</SelectItem>
-											<SelectItem value="INDEED">Indeed</SelectItem>
-											<SelectItem value="JUST_JOIN_IT">Just Join IT</SelectItem>
+											<SelectItem value={JobSites.COMPANY_WEBSITE}>Company Website</SelectItem>
+											<SelectItem value={JobSites.GLASSDOOR}>Glassdoor</SelectItem>
+											<SelectItem value={JobSites.INDEED}>Indeed</SelectItem>
+											<SelectItem value={JobSites.JUST_JOIN_IT}>Just Join IT</SelectItem>
 										</SelectContent>
 									</Select>
 									<FormMessage />
@@ -319,7 +338,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 								<FormItem>
 									<FormLabel>Location</FormLabel>
 									<FormControl>
-										<Input placeholder="Location of role" {...field} />
+										<Input placeholder="Location of role" {...field} value={field.value ?? ''} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -355,10 +374,16 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 												const files = e.target.files;
 
 												if (files?.length) {
-													const uploadedFileUrls = await uploadFiles(Array.from(files));
+													// Check if the files are already uploaded
+													const newFiles = Array.from(files).filter(
+														(file) =>
+															!checkFileAlreadyUploaded(file, form.getValues('links')),
+													);
+
+													const uploadedFileUrls = await uploadFiles(Array.from(newFiles));
 
 													if (uploadedFileUrls) {
-														if (!initialLinks) {
+														if (!form.getValues('links')) {
 															form.setValue(
 																'links',
 																uploadedFileUrls.join(FILES_SEPARATOR),
@@ -367,7 +392,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 															const newLinks = uploadedFileUrls.join(FILES_SEPARATOR);
 															form.setValue(
 																'links',
-																initialLinks + FILES_SEPARATOR + newLinks,
+																form.getValues('links') + FILES_SEPARATOR + newLinks,
 															); // joining the recent with initial links
 														}
 													}
@@ -385,7 +410,8 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 										))}
 
 									{/* show all the files associated to this application */}
-									{initialLinks
+									{form
+										.getValues('links')
 										?.split(FILES_SEPARATOR)
 										.map((link, index) => (
 											<DocumentInfoCard

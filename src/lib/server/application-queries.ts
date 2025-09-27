@@ -1,11 +1,9 @@
-import { ApplicationStatus, JobApplicationFormData } from '@/components/ApplicationForm/utility';
-import { config } from '@/config/config';
-import { ContractType, JobApplicationData, Response, WorkMode } from '@/types/apiResponseTypes';
+import { ApplicationStatus } from '@/components/ApplicationForm/utility';
+import { ContractType, JobApplication, JobApplicationFormData, WorkMode } from '@/types/schema';
 import { apiRoutes } from '@/utils/constants';
 
 export const applicationDataQueries = {
 	getAll: async (
-		lastId?: string,
 		query?: string,
 		statusFilter?: ApplicationStatus,
 		workModeFilter?: WorkMode,
@@ -13,13 +11,10 @@ export const applicationDataQueries = {
 	) => {
 		const url = new URL(`${origin}${apiRoutes.applications.getAll}`);
 
-		if (lastId && lastId !== 'undefined') url.searchParams.append('lastId', lastId);
 		if (query) url.searchParams.append('searchQuery', query);
 		if (statusFilter) url.searchParams.append('statusFilter', statusFilter);
 		if (workModeFilter) url.searchParams.append('workModeFilter', workModeFilter);
 		if (contractTypeFilter) url.searchParams.append('contractTypeFilter', contractTypeFilter);
-
-		url.searchParams.append('limit', config.dataFetchingLimitForAppwrite.toString());
 
 		try {
 			const response = await fetch(url.toString(), {
@@ -27,7 +22,12 @@ export const applicationDataQueries = {
 			});
 
 			if (response.ok) {
-				return (await response.json()) as Response<JobApplicationData>;
+				if (response.redirected) {
+					// Handle redirection if necessary
+					window.location.href = response.url;
+				}
+
+				return (await response.json()) as JobApplication[];
 			} else {
 				throw new Error('Failed to fetch application data');
 			}
@@ -44,7 +44,7 @@ export const applicationDataQueries = {
 
 			if (response.ok) {
 				console.log('response', response);
-				return (await response.json()) as JobApplicationData;
+				return (await response.json()) as JobApplication;
 			} else {
 				throw new Error('Failed to fetch application data');
 			}

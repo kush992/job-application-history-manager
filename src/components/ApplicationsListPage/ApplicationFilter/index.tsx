@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { ContractType, WorkMode } from '@/types/apiResponseTypes';
 import { applicationStatusMapping, contractTypeMapping, workModeMapping } from '@/utils/utility';
 import { Filter, Trash2 } from 'lucide-react';
 import type { UseFormReturn } from 'react-hook-form';
@@ -11,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/
 import { FilterFormValues } from './utility';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { Separator } from '@/components/ui/separator';
+import { ContractType, WorkMode } from '@/types/schema';
 
 type Props = {
 	onSubmit: (data: FilterFormValues) => void;

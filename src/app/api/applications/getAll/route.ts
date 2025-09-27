@@ -1,69 +1,116 @@
-import { appwriteDbConfig, database } from '@/appwrite/config';
-import { getLoggedInUser } from '@/lib/server/appwrite';
-import { Response, JobApplicationData } from '@/types/apiResponseTypes';
-import { AppwriteException, Models, Query } from 'node-appwrite';
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
+import { appRoutes } from '@/utils/constants';
 
-export async function GET(req: NextRequest) {
+export async function GET(request: NextRequest) {
 	try {
-		const user = await getLoggedInUser();
+		// Create Supabase client
+		const supabase = createClient();
 
-		if (!user?.$id) {
+		// Check authentication
+		const {
+			data: { user },
+			error: authError,
+		} = await supabase.auth.getUser();
+
+		if (authError || !user) {
 			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 		}
 
-		const searchParams = req.nextUrl.searchParams;
+		const { data: journey, error: journeryFetchError } = await supabase
+			.from('journeys')
+			.select('id')
+			.eq('is_active', true)
+			.single();
 
-		const lastId = searchParams.get('lastId');
-		const limit = searchParams.get('limit');
-		const searchQuery = searchParams.get('searchQuery');
-		const statusFilter = searchParams.get('statusFilter');
-		const workModeFilter = searchParams.get('workModeFilter');
-		const contractTypeFilter = searchParams.get('contractTypeFilter');
+		if (journeryFetchError) {
+			console.error('Supabase error:', journeryFetchError);
 
-		const query = [
-			Query.equal('isSoftDelete', false),
-			Query.equal('userId', String(user?.$id)),
-			Query.orderDesc('$createdAt'),
-		];
+			if (journeryFetchError.code === 'PGRST116') {
+				return NextResponse.redirect(`${request.nextUrl.origin}${appRoutes.journeys}`); // Redirect to create journey if no active journey found
+			}
 
-		if (lastId) {
-			query.push(Query.cursorAfter(lastId));
+			return NextResponse.json(
+				{
+					error: 'Failed to fetch active journey',
+					details: journeryFetchError.code + journeryFetchError.message + journeryFetchError.details,
+				},
+				{ status: 500 },
+			);
 		}
 
-		if (limit) {
-			query.push(Query.limit(parseInt(limit)));
+		// Get search parameters
+		const searchParams = request.nextUrl.searchParams;
+		const limit = Number.parseInt(searchParams.get('limit') || '20');
+		const search_query = searchParams.get('search_query');
+		const status_filter = searchParams.get('status_filter');
+		const work_mode_filter = searchParams.get('work_mode_filter');
+		const contract_type_filter = searchParams.get('contract_type_filter');
+		const journey_id = searchParams.get('journey_id');
+
+		// Build the query
+		let query = supabase
+			.from('job_applications')
+			.select(
+				`
+				*,
+				journeys:journey_id (
+				id,
+				title,
+				description,
+				is_active
+				)
+			`,
+			)
+			.eq('user_id', user.id)
+			.order('created_at', { ascending: false })
+			.limit(limit);
+
+		// Add filters
+		if (search_query) {
+			query = query.or(`company_name.ilike.%${search_query}%,job_title.ilike.%${search_query}%`);
 		}
 
-		if (searchQuery) {
-			query.push(Query.contains('companyName', searchQuery));
+		if (status_filter) {
+			const statuses = status_filter.split(',');
+			query = query.in('application_status', statuses);
 		}
 
-		if (statusFilter) {
-			query.push(Query.contains('applicationStatus', statusFilter.split(',')));
+		if (work_mode_filter) {
+			const workModes = work_mode_filter.split(',');
+			query = query.in('work_mode', workModes);
 		}
 
-		if (contractTypeFilter) {
-			query.push(Query.contains('contractType', contractTypeFilter.split(',')));
-		}
-		if (workModeFilter) {
-			query.push(Query.contains('workMode', workModeFilter.split(',')));
+		if (contract_type_filter) {
+			const contractTypes = contract_type_filter.split(',');
+			query = query.in('contract_type', contractTypes);
 		}
 
-		const response = (await database.listDocuments(
-			appwriteDbConfig.applicationDb,
-			appwriteDbConfig.applicationDbCollectionId,
-			query,
-		)) as Models.DocumentList<JobApplicationData>;
+		query = query.eq('journey_id', journey?.id || journey_id);
 
-		return NextResponse.json(response, { status: 200, statusText: 'ok' });
+		// Execute the query
+		const { data: applications, error } = await query;
+
+		if (error) {
+			console.error('Supabase error:', error);
+			return NextResponse.json(
+				{
+					error: 'Failed to fetch applications',
+					details: error.code + error.message + error.details,
+				},
+				{ status: 500 },
+			);
+		}
+
+		return NextResponse.json(applications || [], { status: 200 });
 	} catch (error) {
-		console.error(error);
-
-		if (error instanceof AppwriteException) {
-			return NextResponse.json(error, { status: error.code });
-		}
-
-		return NextResponse.json({ error }, { status: 500 });
+		console.error('Applications fetch error:', error);
+		return NextResponse.json(
+			{
+				error: 'An unexpected error occurred',
+			},
+			{ status: 500 },
+		);
 	}
 }

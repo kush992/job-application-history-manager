@@ -1,5 +1,7 @@
 import { apiRoutes } from '@/utils/constants';
 import { useState, useCallback } from 'react';
+import { toast } from './use-toast';
+import { FILES_SEPARATOR } from '@/components/ApplicationForm/utility';
 
 type UploadFileStatus = {
 	file: File;
@@ -13,6 +15,7 @@ type UseFileUploadReturn = {
 	deleteFile: (fileName: string) => Promise<any>;
 	fileStatuses: UploadFileStatus[];
 	resetStatuses: () => void;
+	checkFileAlreadyUploaded: (file: File, uploadedFilesUrl?: string | null) => boolean;
 };
 
 export const useUploadFile = (): UseFileUploadReturn => {
@@ -22,6 +25,21 @@ export const useUploadFile = (): UseFileUploadReturn => {
 		setFileStatuses((prevStatuses) =>
 			prevStatuses.map((status) => (status.file === file ? { ...status, ...update } : status)),
 		);
+	};
+
+	const checkFileAlreadyUploaded = (file: File, uploadedFilesUrl?: string | null): boolean => {
+		const existingFileNames = uploadedFilesUrl?.split(FILES_SEPARATOR).map((url) => url.split('/').pop() || '');
+
+		const isUploaded = existingFileNames?.includes(file.name);
+
+		if (isUploaded) {
+			toast({
+				title: 'Info',
+				description: `File ${file.name} is already uploaded.`,
+				variant: 'default',
+			});
+		}
+		return !!isUploaded;
 	};
 
 	const uploadFiles = useCallback(async (files: File[]) => {
@@ -41,6 +59,11 @@ export const useUploadFile = (): UseFileUploadReturn => {
 					isLoading: false,
 					isSuccess: false,
 					error: 'File size should be less than 10MB',
+				});
+				toast({
+					title: 'Error',
+					description: `File ${file.name} exceeds the size limit of 10MB.`,
+					variant: 'destructive',
 				});
 				return;
 			}
@@ -76,6 +99,8 @@ export const useUploadFile = (): UseFileUploadReturn => {
 					},
 					body: file,
 				});
+
+				console.log('uploadRes', uploadRes);
 
 				if (!uploadRes.ok) {
 					throw new Error('Failed to upload the file');
@@ -125,6 +150,14 @@ export const useUploadFile = (): UseFileUploadReturn => {
 				throw new Error('An error occurred with remove file');
 			}
 
+			setFileStatuses((prevStatuses) => prevStatuses.filter((status) => status.file.name !== fileName));
+
+			toast({
+				title: 'Success',
+				description: `File ${fileName} has been successfully deleted.`,
+				variant: 'default',
+			});
+
 			return response;
 		} catch (err: any) {
 			console.error(`Upload error for file ${fileName}:`, err);
@@ -136,5 +169,6 @@ export const useUploadFile = (): UseFileUploadReturn => {
 		fileStatuses,
 		resetStatuses,
 		deleteFile,
+		checkFileAlreadyUploaded,
 	};
 };

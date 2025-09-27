@@ -1,8 +1,7 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { formSchema, JobApplicationFormData } from './utility';
 import { useRouter } from 'next/navigation';
 import Loader from '../Loader';
 import { appRoutes, QueryKeys } from '@/utils/constants';
@@ -19,11 +18,12 @@ import {
 import PageTitle from '@/components/ui/page-title';
 import PageDescription from '@/components/ui/page-description';
 import ApplicationDataForm from './Form';
-import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
 import { addLinks } from '@/lib/server/application-docs-queries';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { Separator } from '../ui/separator';
+import { Card, CardContent } from '../ui/card';
+import { JobApplicationFormData, WorkMode } from '@/types/schema';
+import { jobApplicationSchema } from '@/lib/supabase/schema';
 
 type Props = {
 	documentId?: string;
@@ -43,7 +43,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 	});
 
 	const addLinksMutation = useMutation({
-		mutationFn: (links: string) => addLinks(links, String(applicationData?.documents[0]?.$id)),
+		mutationFn: (links: string) => addLinks(links, String(applicationData?.id)),
 		onSuccess: () => {
 			toast({
 				title: 'success',
@@ -98,46 +98,68 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 		},
 	});
 
-	const initialFormData: JobApplicationFormData = {
-		userId: applicationData?.userId || userId,
-		jobTitle: applicationData?.jobTitle || '',
-		notes: applicationData?.notes,
-		companyName: applicationData?.companyName || '',
-		companyDomain: applicationData?.companyDomain || undefined,
-		applicationStatus: applicationData?.applicationStatus,
-		salary: applicationData?.salary || undefined,
-		salaryCurrency: applicationData?.salaryCurrency,
-		salaryType: applicationData?.salaryType,
-		interviewDate: applicationData?.interviewDate || undefined,
-		links: applicationData?.links || undefined,
-		location: applicationData?.location || undefined,
-		jobLink: applicationData?.jobLink || undefined,
-		jobPostedOn: applicationData?.jobPostedOn,
-		workMode: applicationData?.workMode,
-		contractType: applicationData?.contractType,
-	};
-
 	const form = useForm<JobApplicationFormData>({
-		resolver: zodResolver(formSchema),
-		defaultValues: { ...initialFormData },
-		values: { ...initialFormData },
+		resolver: zodResolver(jobApplicationSchema),
+		defaultValues: {
+			job_title: '',
+			notes: '',
+			company_name: '',
+			company_domain: undefined,
+			application_status: undefined,
+			salary: undefined,
+			salary_currency: undefined,
+			salary_type: undefined,
+			interview_date: undefined,
+			links: undefined,
+			location: undefined,
+			job_link: undefined,
+			job_posted_on: undefined,
+			work_mode: undefined,
+			contract_type: undefined,
+			applied_at: new Date().toISOString(),
+		},
 	});
 
+	useEffect(() => {
+		if (isUpdateForm && applicationData) {
+			form.reset({
+				job_title: applicationData.job_title || '',
+				notes: applicationData.notes || '',
+				company_name: applicationData.company_name || '',
+				company_domain: applicationData.company_domain || undefined,
+				application_status: applicationData.application_status || undefined,
+				salary: applicationData.salary || undefined,
+				salary_currency: applicationData.salary_currency || undefined,
+				salary_type: applicationData.salary_type || undefined,
+				interview_date: applicationData.interview_date ? new Date(applicationData.interview_date) : undefined,
+				links: applicationData.links || undefined,
+				location: applicationData.location || undefined,
+				job_link: applicationData.job_link || undefined,
+				job_posted_on: applicationData.job_posted_on || undefined,
+				work_mode: applicationData.work_mode || undefined,
+				contract_type: applicationData.contract_type || undefined,
+				applied_at: applicationData.applied_at
+					? new Date(applicationData.applied_at).toISOString()
+					: new Date().toISOString(),
+			});
+		}
+	}, [isUpdateForm, applicationData, form]);
+
 	async function onSubmit(data: JobApplicationFormData) {
-		if (!data.applicationStatus) {
-			delete data.applicationStatus;
+		if (!data.application_status) {
+			delete data.application_status;
 		}
 
-		if (!data.salaryCurrency) {
-			delete data.salaryCurrency;
+		if (!data.salary_currency) {
+			delete data.salary_currency;
 		}
 
-		if (!data.salaryType) {
-			delete data.salaryType;
+		if (!data.salary_type) {
+			delete data.salary_type;
 		}
 
-		if (data.interviewDate) {
-			data.interviewDate = new Date(data.interviewDate);
+		if (data.interview_date) {
+			data.interview_date = new Date(data.interview_date);
 		}
 
 		if (!isUpdateForm) {

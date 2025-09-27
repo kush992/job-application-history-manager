@@ -1,5 +1,5 @@
 import Loader from '@/components/Loader';
-import ContactView from '@/views/Contact';
+import ContactView from '@/views/ContactView';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 

@@ -15,16 +15,16 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import Link from 'next/link';
 import { appRoutes } from '@/utils/constants';
 import { signOut } from '@/lib/server/appwrite';
-import { Models } from 'node-appwrite';
 import React from 'react';
 import { useTheme } from 'next-themes';
+import { Profile } from '@/types/profiles';
 
 type Props = {
-	user: Models.User<Models.Preferences> | null;
+	user: Profile | null;
 };
 
 export function UserMenu({ user }: Props) {
-	const userInitials = user?.name
+	const userInitials = user?.full_name
 		?.split(' ')
 		.map((name) => name[0])
 		.join('');
@@ -35,7 +35,10 @@ export function UserMenu({ user }: Props) {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Avatar className="cursor-pointer h-8 w-8">
-					<AvatarImage src="https://img.kushbhalodi.com/images/avatar.png" alt="profile-image" />
+					<AvatarImage
+						src={user?.avatar_url || 'https://img.kushbhalodi.com/images/avatar.png'}
+						alt="profile-image"
+					/>
 					<AvatarFallback>{userInitials}</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
@@ -43,11 +46,14 @@ export function UserMenu({ user }: Props) {
 			<DropdownMenuContent align="end" className="mr-2 md:mr-0" slot="left">
 				<DropdownMenuLabel className="flex gap-2 items-center">
 					<Avatar className="cursor-pointer">
-						<AvatarImage src="https://img.kushbhalodi.com/images/avatar.png" alt="profile-image" />
+						<AvatarImage
+							src={user?.avatar_url || 'https://img.kushbhalodi.com/images/avatar.png'}
+							alt="profile-image"
+						/>
 						<AvatarFallback>{userInitials}</AvatarFallback>
 					</Avatar>
 					<div>
-						<p>{user?.name}</p>
+						<p>{user?.full_name}</p>
 						<p className="text-xs text-muted-foreground">{user?.email}</p>
 					</div>
 				</DropdownMenuLabel>
@@ -56,6 +62,9 @@ export function UserMenu({ user }: Props) {
 
 				{/* links */}
 				<DropdownMenuGroup>
+					<Link href={appRoutes.journeys}>
+						<DropdownMenuItem>Your journeys</DropdownMenuItem>
+					</Link>
 					<Link href={appRoutes.addApplication}>
 						<DropdownMenuItem>Add application</DropdownMenuItem>
 					</Link>

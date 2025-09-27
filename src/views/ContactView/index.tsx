@@ -16,7 +16,7 @@ export default function ContactView() {
 					<ContactInfo />
 
 					{/* <div className="bg-accent flex flex-1 flex-col items-center justify-center px-6 py-6 h-full md:py-24"></div> */}
-					<Card className='motion-preset-slide-up'>
+					<Card className="motion-preset-slide-up">
 						<CardContent className="pt-6">
 							<ContactForm />
 						</CardContent>
