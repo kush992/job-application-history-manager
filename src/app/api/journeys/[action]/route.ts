@@ -49,6 +49,24 @@ export async function POST(request: NextRequest, { params }: { params: { action:
 			);
 		}
 
+		const { data: activeJourney, error: activeJourneyError } = await supabase
+			.from('journeys')
+			.select('id')
+			.eq('user_id', user.id)
+			.eq('is_active', true)
+			.single();
+
+		if (activeJourneyError && activeJourneyError.code !== 'PGRST116') {
+			console.error('Error checking active journey:', activeJourneyError);
+			return NextResponse.json({ error: 'Failed to check active journey' }, { status: 500 });
+		}
+		if (activeJourney) {
+			return NextResponse.json(
+				{ error: 'An active journey already exists. Please deactivate it before creating a new one.' },
+				{ status: 400 },
+			);
+		}
+
 		const { data: journey, error } = await supabase
 			.from('journeys')
 			.insert({

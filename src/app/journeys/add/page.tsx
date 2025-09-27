@@ -10,7 +10,7 @@ import { FormMessage } from '@/components/ui/form-message';
 
 export default function AddJourneyPage() {
 	const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-	const { createJourney, isLoading } = useJourneys();
+	const { createJourney, isLoading, error } = useJourneys();
 	const router = useRouter();
 
 	const handleSubmit = async (data: JourneyFormData) => {
@@ -19,8 +19,8 @@ export default function AddJourneyPage() {
 			setMessage({ type: 'success', text: 'Journey created successfully!' });
 
 			router.push(appRoutes.journeys);
-		} else {
-			setMessage({ type: 'error', text: 'Failed to create journey. Please try again.' });
+		} else if (error) {
+			setMessage({ type: 'error', text: error });
 		}
 	};
 
