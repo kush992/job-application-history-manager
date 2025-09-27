@@ -10,7 +10,7 @@ type Props = {
 
 const KeyMetrics = ({ statistics, successRate, replyRate }: Props) => {
 	return (
-		<div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+		<div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
 			<Card>
 				<CardHeader className="pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
 					<CardTitle className="text-xs sm:text-sm font-medium">Total Applications</CardTitle>
@@ -35,7 +35,7 @@ const KeyMetrics = ({ statistics, successRate, replyRate }: Props) => {
 					<div className="text-lg sm:text-2xl font-bold">{successRate}%</div>
 				</CardContent>
 			</Card>
-			<Card>
+			{/* <Card>
 				<CardHeader className="pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
 					<CardTitle className="text-xs sm:text-sm font-medium">Average Salary</CardTitle>
 				</CardHeader>
@@ -44,7 +44,7 @@ const KeyMetrics = ({ statistics, successRate, replyRate }: Props) => {
 						${Math.round(Number.parseFloat(statistics.avg_salary)).toLocaleString()}
 					</div>
 				</CardContent>
-			</Card>
+			</Card> */}
 		</div>
 	);
 };

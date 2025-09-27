@@ -10,72 +10,6 @@ type Props = {
 
 const SummaryInsights = ({ statistics, replyRate, successRate }: Props) => {
 	return (
-		// <Card>
-		// 	<CardHeader className="px-3 sm:px-6">
-		// 		<CardTitle className="text-base sm:text-lg">Key Insights</CardTitle>
-		// 	</CardHeader>
-		// 	<CardContent className="space-y-3 px-3 sm:px-6">
-		// 		<p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-		// 			• Out of {statistics.applications_count} applications, you received{' '}
-		// 			{statistics.applications_count - statistics.no_reply_count} replies ({replyRate}% response rate)
-		// 		</p>
-		// 		<p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-		// 			• {statistics.no_reply_count} applications (
-		// 			{((statistics.no_reply_count / statistics.applications_count) * 100).toFixed(1)}%) received no
-		// 			response
-		// 		</p>
-		// 		<p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-		// 			• Remote work positions made up {statistics.remote_count} applications (
-		// 			{(
-		// 				(statistics.remote_count /
-		// 					(statistics.remote_count + statistics.hybrid_count + statistics.onsite_count)) *
-		// 				100
-		// 			).toFixed(1)}
-		// 			% of location-specified roles)
-		// 		</p>
-		// 		<p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-		// 			• Salary range spans from ${Number.parseInt(statistics.min_salary).toLocaleString()} to $
-		// 			{Number.parseInt(statistics.max_salary).toLocaleString()}, with an average of $
-		// 			{Math.round(Number.parseFloat(statistics.avg_salary)).toLocaleString()}
-		// 		</p>
-
-		// 		<div className="space-y-2">
-		// 			<h4 className="font-semibold text-sm">🚀 Recommendations</h4>
-		// 			<div className="text-xs sm:text-sm text-muted-foreground leading-relaxed space-y-1">
-		// 				{Number.parseFloat(replyRate) < 20 && (
-		// 					<p>
-		// 						• <strong>Improve response rate:</strong> Review and optimize your resume, cover letter,
-		// 						and application targeting.
-		// 					</p>
-		// 				)}
-		// 				{statistics.technical_interview_count / statistics.interview_count < 0.5 &&
-		// 					statistics.interview_count > 5 && (
-		// 						<p>
-		// 							• <strong>Interview performance:</strong> Focus on improving general interview
-		// 							skills to progress to technical rounds.
-		// 						</p>
-		// 					)}
-		// 				{statistics.success_count / statistics.technical_interview_count < 0.3 &&
-		// 					statistics.technical_interview_count > 3 && (
-		// 						<p>
-		// 							• <strong>Technical skills:</strong> Strengthen technical interview preparation and
-		// 							system design knowledge.
-		// 						</p>
-		// 					)}
-		// 				{statistics.no_reply_count / statistics.applications_count > 0.6 && (
-		// 					<p>
-		// 						• <strong>Application quality:</strong> Consider personalizing applications more and
-		// 						targeting roles that better match your profile.
-		// 					</p>
-		// 				)}
-		// 				<p>
-		// 					• <strong>Keep tracking:</strong> Continue monitoring these metrics to identify trends and
-		// 					improvement areas.
-		// 				</p>
-		// 			</div>
-		// 		</div>
-		// 	</CardContent>
-		// </Card>
 		<Card>
 			<CardHeader className="px-3 sm:px-6">
 				<CardTitle className="text-base sm:text-lg">Key Insights & Analysis</CardTitle>
@@ -102,27 +36,27 @@ const SummaryInsights = ({ statistics, replyRate, successRate }: Props) => {
 					<h4 className="font-semibold text-sm">📬 Response Rate Performance</h4>
 					<p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
 						Out of {statistics.applications_count} applications, you received{' '}
-						<strong>{statistics.applications_count - statistics.no_reply_count} replies</strong>(
-						{replyRate}% response rate).{' '}
+						<strong>{statistics.applications_count - statistics.no_reply_count} replies</strong>({replyRate}
+						% response rate).{' '}
 						{Number.parseFloat(replyRate) > 40
 							? 'This is an excellent response rate!'
 							: Number.parseFloat(replyRate) > 25
 								? 'This is above average - good job!'
 								: Number.parseFloat(replyRate) > 15
 									? 'This is around industry average.'
-									: 'This is below average - consider improving your application quality or targeting.'}
+									: 'This is below average - consider improving your application quality or targeting.'}{' '}
 						Industry average is typically 15-25%.
 					</p>
 					<p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
 						<strong>{statistics.no_reply_count} applications</strong> (
-						{((statistics.no_reply_count / statistics.applications_count) * 100).toFixed(1)}%) received
-						no response. This could indicate targeting misalignment or the need to improve your resume/cover
+						{((statistics.no_reply_count / statistics.applications_count) * 100).toFixed(1)}%) received no
+						response. This could indicate targeting misalignment or the need to improve your resume/cover
 						letter.
 					</p>
 				</div>
 
 				{/* Interview Conversion Analysis */}
-				<div className="space-y-2">
+				{/* <div className="space-y-2">
 					<h4 className="font-semibold text-sm">🎯 Interview Conversion Funnel</h4>
 					<p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
 						From replies to interviews: <strong>{statistics.interview_count} general interviews</strong>(
@@ -141,7 +75,7 @@ const SummaryInsights = ({ statistics, replyRate, successRate }: Props) => {
 						<strong>{statistics.system_design_interview_count} system design</strong> and
 						<strong> {statistics.manager_interview_count} manager interviews</strong>.
 					</p>
-				</div>
+				</div> */}
 
 				{/* Success Rate Analysis */}
 				<div className="space-y-2">
@@ -152,15 +86,15 @@ const SummaryInsights = ({ statistics, replyRate, successRate }: Props) => {
 						{Number.parseFloat(successRate) > 5
 							? 'This is an excellent conversion rate!'
 							: Number.parseFloat(successRate) > 2
-								? 'This is a solid success rate.'
-								: 'Focus on improving interview performance and targeting.'}
+								? ' This is a solid success rate.'
+								: ' Focus on improving interview performance and targeting.'}
 					</p>
 					<p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
 						Rejection breakdown:{' '}
 						<strong>{statistics.rejected_no_feedback_count} rejections without feedback</strong>,
 						<strong> {statistics.rejected_with_feedback_count} with feedback</strong>.
 						{statistics.rejected_with_feedback_count > 0
-							? 'Use the feedback to improve future applications.'
+							? ' Use the feedback to improve future applications.'
 							: ''}
 						{statistics.offer_rejected_count > 0
 							? ` You rejected ${statistics.offer_rejected_count} offer(s), showing you're selective about opportunities.`
@@ -221,7 +155,7 @@ const SummaryInsights = ({ statistics, replyRate, successRate }: Props) => {
 				</div>
 
 				{/* Salary Analysis */}
-				<div className="space-y-2">
+				{/* <div className="space-y-2">
 					<h4 className="font-semibold text-sm">💰 Salary Range Analysis</h4>
 					<p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
 						Salary expectations: Range from{' '}
@@ -240,10 +174,10 @@ const SummaryInsights = ({ statistics, replyRate, successRate }: Props) => {
 							? " indicating you're open to a wide salary range."
 							: ' showing focused salary expectations.'}
 					</p>
-				</div>
+				</div> */}
 
 				{/* Actionable Recommendations */}
-				<div className="space-y-2">
+				{/* <div className="space-y-2">
 					<h4 className="font-semibold text-sm">🚀 Recommendations</h4>
 					<div className="text-xs sm:text-sm text-muted-foreground leading-relaxed space-y-1">
 						{Number.parseFloat(replyRate) < 20 && (
@@ -277,7 +211,7 @@ const SummaryInsights = ({ statistics, replyRate, successRate }: Props) => {
 							improvement areas.
 						</p>
 					</div>
-				</div>
+				</div> */}
 			</CardContent>
 		</Card>
 	);
