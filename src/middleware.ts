@@ -5,7 +5,6 @@ import { appRoutes } from './utils/constants';
 // Define route patterns based on your appRoutes
 const publicRoutes = [
 	appRoutes.home,
-	appRoutes.signIn,
 	appRoutes.signUp,
 	appRoutes.faq,
 	appRoutes.pricing,
@@ -17,7 +16,7 @@ const publicRoutes = [
 	appRoutes.authConfirm,
 ];
 
-const authRoutes = [appRoutes.signIn, appRoutes.signUp];
+const authRoutes = [appRoutes.signUp];
 
 const protectedRoutes = [
 	appRoutes.application,
@@ -113,7 +112,7 @@ export async function middleware(request: NextRequest) {
 		// Check if user is authenticated
 		if (!user || authError) {
 			const url = request.nextUrl.clone();
-			url.pathname = appRoutes.signIn;
+			url.pathname = appRoutes.signUp;
 			url.searchParams.set('redirectTo', pathname + request.nextUrl.search);
 			return NextResponse.redirect(url);
 		}

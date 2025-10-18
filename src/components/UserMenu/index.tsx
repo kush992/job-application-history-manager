@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import Link from 'next/link';
+import Image from 'next/image';
 import { appRoutes } from '@/utils/constants';
 import { signOut } from '@/lib/server/appwrite';
 import React from 'react';
@@ -31,26 +32,34 @@ export function UserMenu({ user }: Props) {
 
 	const { setTheme } = useTheme();
 
+	console.log('UserMenu user:', user);
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Avatar className="cursor-pointer h-8 w-8">
-					<AvatarImage
+				<Avatar className="cursor-pointer">
+					<Image
 						src={user?.avatar_url || 'https://img.kushbhalodi.com/images/avatar.png'}
 						alt="profile-image"
+						width={32}
+						height={32}
+						className="rounded-full w-full h-full object-cover !max-h-14 !max-w-14"
 					/>
-					<AvatarFallback>{userInitials}</AvatarFallback>
+					{!user?.avatar_url && <AvatarFallback>{userInitials}</AvatarFallback>}
 				</Avatar>
 			</DropdownMenuTrigger>
 
 			<DropdownMenuContent align="end" className="mr-2 md:mr-0" slot="left">
 				<DropdownMenuLabel className="flex gap-2 items-center">
 					<Avatar className="cursor-pointer">
-						<AvatarImage
+						<Image
 							src={user?.avatar_url || 'https://img.kushbhalodi.com/images/avatar.png'}
 							alt="profile-image"
+							width={32}
+							height={32}
+							className="rounded-full w-full h-full object-cover !max-h-14 !max-w-14"
 						/>
-						<AvatarFallback>{userInitials}</AvatarFallback>
+						{!user?.avatar_url && <AvatarFallback>{userInitials}</AvatarFallback>}
 					</Avatar>
 					<div>
 						<p>{user?.full_name}</p>
@@ -63,27 +72,25 @@ export function UserMenu({ user }: Props) {
 				{/* links */}
 				<DropdownMenuGroup>
 					<Link href={appRoutes.journeys}>
-						<DropdownMenuItem>Your journeys</DropdownMenuItem>
+						<DropdownMenuItem>Journeys</DropdownMenuItem>
 					</Link>
 					<Link href={appRoutes.addApplication}>
 						<DropdownMenuItem>Add application</DropdownMenuItem>
 					</Link>
 					<Link href={appRoutes.application}>
-						<DropdownMenuItem>Your applications</DropdownMenuItem>
+						<DropdownMenuItem>Applications</DropdownMenuItem>
 					</Link>
-					<Link href={appRoutes.interviewQuestions}>
+					{/* <Link href={appRoutes.interviewQuestions}>
 						<DropdownMenuItem>Interview Questions</DropdownMenuItem>
-					</Link>
+					</Link> */}
 				</DropdownMenuGroup>
 
 				<DropdownMenuSeparator />
 
 				{/* settings */}
 				<DropdownMenuGroup>
-					<DropdownMenuItem disabled>Dashboard</DropdownMenuItem>
-					<DropdownMenuItem disabled>Profile</DropdownMenuItem>
-					<Link href={appRoutes.userSettings}>
-						<DropdownMenuItem>Settings</DropdownMenuItem>
+					<Link href={appRoutes.profileView}>
+						<DropdownMenuItem>Profile</DropdownMenuItem>
 					</Link>
 
 					<DropdownMenuSub>

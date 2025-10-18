@@ -11,7 +11,7 @@ export default async function JourneysPage() {
 	} = await supabase.auth.getUser();
 
 	if (error || !user) {
-		redirect(appRoutes.signIn);
+		redirect(appRoutes.signUp);
 	}
 
 	// No need to fetch initial data - React Query handles it

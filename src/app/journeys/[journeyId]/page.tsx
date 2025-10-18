@@ -17,7 +17,7 @@ export default async function JobAnalyticsDashboardPage({ params }: { params: Pa
 	} = await supabase.auth.getUser();
 
 	if (error || !user) {
-		redirect(appRoutes.signIn);
+		redirect(appRoutes.signUp);
 	}
 
 	console.log('journeyId', params);

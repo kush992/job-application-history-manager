@@ -16,6 +16,7 @@ export interface CreateProfileData {
 	id: string;
 	email: string;
 	full_name: string;
+	avatar_url?: string | null;
 }
 
 export interface UpdateProfileData {

@@ -3,6 +3,7 @@ import { Client, Account, ID } from 'node-appwrite';
 import { cookies } from 'next/headers';
 import { config } from '@/config/config';
 import { redirect } from 'next/navigation';
+import { createClient } from '../supabase/server';
 
 export async function createSessionClient() {
 	const client = new Client().setEndpoint(config.appwriteUrl).setProject(config.appwriteProjectId);
@@ -112,10 +113,9 @@ export async function loginWithEmail(formData: FormData) {
 }
 
 export async function signOut() {
-	const { account } = await createSessionClient();
+	const supabase = await createClient();
 
-	cookies().delete('session');
-	await account.deleteSession('current');
+	await supabase.auth.signOut();
 
 	redirect('/');
 }

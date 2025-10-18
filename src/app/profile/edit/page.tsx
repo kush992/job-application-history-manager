@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import { getProfile } from '@/lib/supabase/profiles';
 import { redirect } from 'next/navigation';
 import { EditProfileForm } from '@/components/Profile/EditProfile';
+import { appRoutes } from '@/utils/constants';
 
 export default async function EditProfilePage() {
 	const supabase = await createClient();
@@ -12,7 +13,7 @@ export default async function EditProfilePage() {
 	} = await supabase.auth.getUser();
 
 	if (error || !user) {
-		redirect('/auth/signin');
+		redirect(appRoutes.signUp);
 	}
 
 	// Fetch user profile

@@ -11,6 +11,7 @@ export async function createProfile(data: CreateProfileData): Promise<{ profile?
 				id: data.id,
 				email: data.email,
 				full_name: data.full_name,
+				avatar_url: data.avatar_url || null,
 			})
 			.select()
 			.single();
@@ -79,6 +80,7 @@ export async function getOrCreateProfile(
 	userId: string,
 	email: string,
 	fullName?: string,
+	avatarUrl?: string,
 ): Promise<{ profile?: Profile; error?: string }> {
 	try {
 		// First try to get existing profile
@@ -93,6 +95,7 @@ export async function getOrCreateProfile(
 			id: userId,
 			email,
 			full_name: fullName || '',
+			avatar_url: avatarUrl || null,
 		});
 
 		return newProfile;

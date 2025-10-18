@@ -1,6 +1,6 @@
 export const appRoutes = {
 	home: '/',
-	signIn: '/auth/signin',
+	// signIn: '/auth/signin',
 	signUp: '/auth/signup',
 	application: '/applications',
 	addApplication: '/applications/add',
@@ -24,6 +24,7 @@ export const appRoutes = {
 	addJourney: '/journeys/add',
 	editJourney: '/journeys/edit',
 	viewJourney: '/journeys/view',
+	profileView: '/profile',
 };
 
 // For react-query
