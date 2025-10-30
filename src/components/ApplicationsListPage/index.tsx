@@ -27,12 +27,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { FilterFormValues, filterSchema } from './ApplicationFilter/utility';
 import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
+import { useApplications } from '@/hooks/useApplications';
+import ErrorDisplay from '../ui/error-display';
 
 type Props = {
 	userId: string;
+	journeyId?: string;
 };
 
-const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
+const ApplicationsListPage: React.FC<Props> = ({ userId, journeyId }) => {
 	const filterForm = useForm<FilterFormValues>({
 		resolver: zodResolver(filterSchema),
 		defaultValues: {
@@ -66,33 +69,53 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 	// 	initialPageParam: undefined,
 	// });
 
-	const { data, error, isLoading, refetch } = useQuery({
-		queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyName, status, workMode, contractType],
-		queryFn: () => applicationDataQueries.getAll(),
-		retry: 0,
-		staleTime: 1000 * 60 * 5,
-	});
+	// const { data, error, isLoading, refetch } = useQuery({
+	// 	queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyName, status, workMode, contractType],
+	// 	queryFn: () =>
+	// 		applicationDataQueries.getAll(companyName, status?.[0], workMode?.[0], contractType?.[0], journeyId),
+	// 	retry: 0,
+	// 	staleTime: 1000 * 60 * 5,
+	// });
 
 	const { toast } = useToast();
 
-	const mutation = useMutation({
-		mutationFn: (documentId: string) => applicationDataQueries.delete(documentId, refetch),
-		onSuccess: () => {
-			toast({
-				title: 'Success',
-				description: 'Application deleted successfully',
-			});
-		},
-		onError: (error) => {
-			toast({
-				title: 'Error',
-				description: 'Failed to delete application',
-			});
-			console.error(error);
+	const {
+		applications,
+		isErrorApplications,
+		isLoadingApplications,
+		errorApplications,
+		refetchApplications,
+		deleteApplication,
+	} = useApplications({
+		filters: {
+			query: companyName,
+			statusFilter: status?.[0],
+			workModeFilter: workMode?.[0],
+			contractTypeFilter: contractType?.[0],
+			journeyId: journeyId,
 		},
 	});
 
-	const debouncedRefetch = debounce(refetch, 500);
+	// const { mutate, isSuccess } = useDeleteApplication();
+
+	// const mutation = useMutation({
+	// 	mutationFn: (documentId: string) => applicationDataQueries.delete(documentId, refetch),
+	// 	onSuccess: () => {
+	// 		toast({
+	// 			title: 'Success',
+	// 			description: 'Application deleted successfully',
+	// 		});
+	// 	},
+	// 	onError: (error) => {
+	// 		toast({
+	// 			title: 'Error',
+	// 			description: 'Failed to delete application',
+	// 		});
+	// 		console.error(error);
+	// 	},
+	// });
+
+	const debouncedRefetch = debounce(refetchApplications, 500);
 
 	const clearAllFilters = () => {
 		filterForm.reset();
@@ -102,9 +125,7 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 		debouncedRefetch();
 	};
 
-	console.log('data', data);
-
-	// const jobRecords = data?.pages?.map((page) => page?.documents)?.flat();
+	console.log('isError', isErrorApplications, errorApplications);
 
 	return (
 		<div className="rounded-md flex flex-col gap-4">
@@ -128,7 +149,7 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 			<div className="flex flex-col items-center gap-2 w-full sticky top-8">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
 					<Info className="w-4 h-4" />
-					<span>Total: {data?.length}</span>
+					<span>Total: {applications?.length}</span>
 				</p>
 
 				<div className="flex justify-between gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
@@ -143,19 +164,15 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 				</div>
 			</div>
 
-			{!isLoading && !error && data && data?.length < 1 && (
+			{!isLoadingApplications && !isErrorApplications && applications && applications?.length < 1 && (
 				<div className="flex items-center justify-center w-full h-96">
 					<p className="text-lg text-muted-foreground">No applications found</p>
 				</div>
 			)}
 
-			{error && (
-				<pre>
-					<code>{JSON.stringify(error, null, 2)}</code>
-				</pre>
-			)}
+			{isErrorApplications && <ErrorDisplay error={errorApplications} />}
 
-			{isLoading && (
+			{isLoadingApplications && (
 				<div className="flex flex-col border rounded-md overflow-hidden w-full">
 					{Array.from({ length: 10 }).map((_, index) => (
 						<React.Fragment key={index}>
@@ -166,13 +183,13 @@ const ApplicationsListPage: React.FC<Props> = ({ userId }) => {
 				</div>
 			)}
 
-			{!isLoading && !error && data && (
+			{!isLoadingApplications && !errorApplications && applications && (
 				<div className="flex flex-col border rounded-md overflow-hidden w-full">
-					{data?.map((application) => (
+					{applications?.map((application) => (
 						<React.Fragment key={application.id}>
 							<ApplicationListItem
 								data={application}
-								onClickDelete={() => mutation.mutate(application.id)}
+								onClickDelete={() => deleteApplication(application.id)}
 							/>
 							<Separator />
 						</React.Fragment>

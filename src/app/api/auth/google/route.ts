@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 
 		if (error) {
 			console.error('Google OAuth error:', error);
-			return NextResponse.json({ error: error.message }, { status: 400 });
+			return NextResponse.json({ error: error.message, details: JSON.stringify(error) }, { status: 400 });
 		}
 
 		console.info('Google OAuth URL generated successfully');
@@ -43,6 +43,7 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json(
 			{
 				error: 'Unable to initiate Google authentication. Please try again.',
+				details: JSON.stringify(error),
 			},
 			{ status: 500 },
 		);

@@ -15,28 +15,9 @@ export async function GET(request: NextRequest) {
 		} = await supabase.auth.getUser();
 
 		if (authError || !user) {
-			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-		}
-
-		const { data: journey, error: journeryFetchError } = await supabase
-			.from('journeys')
-			.select('id')
-			.eq('is_active', true)
-			.single();
-
-		if (journeryFetchError) {
-			console.error('Supabase error:', journeryFetchError);
-
-			if (journeryFetchError.code === 'PGRST116') {
-				return NextResponse.redirect(`${request.nextUrl.origin}${appRoutes.journeys}`); // Redirect to create journey if no active journey found
-			}
-
 			return NextResponse.json(
-				{
-					error: 'Failed to fetch active journey',
-					details: journeryFetchError.code + journeryFetchError.message + journeryFetchError.details,
-				},
-				{ status: 500 },
+				{ error: 'Unauthorized', details: authError ? JSON.stringify(authError) : 'User not found' },
+				{ status: 401 },
 			);
 		}
 
@@ -48,6 +29,37 @@ export async function GET(request: NextRequest) {
 		const work_mode_filter = searchParams.get('work_mode_filter');
 		const contract_type_filter = searchParams.get('contract_type_filter');
 		const journey_id = searchParams.get('journey_id');
+
+		// Fetch active journey to get all applications under it by default for applications list page.
+		// If journey_id is provided in search params, we need to use that instead as it can be a different page on UI.
+		let journeyId = journey_id;
+
+		if (!journeyId) {
+			const { data, error: journeryFetchError } = await supabase
+				.from('journeys')
+				.select('id')
+				.eq('is_active', true)
+				.single();
+
+			if (journeryFetchError) {
+				console.error('Supabase error:', journeryFetchError);
+
+				if (journeryFetchError.code === 'PGRST116') {
+					console.log('No active journey found, redirecting to create journey page.');
+					return NextResponse.redirect(`${request.nextUrl.origin}${appRoutes.journeys}`); // Redirect to create journey if no active journey found
+				}
+
+				return NextResponse.json(
+					{
+						error: 'Failed to fetch active journey',
+						details: JSON.stringify(journeryFetchError),
+					},
+					{ status: 500 },
+				);
+			}
+
+			journeyId = data.id;
+		}
 
 		// Build the query
 		let query = supabase
@@ -87,7 +99,7 @@ export async function GET(request: NextRequest) {
 			query = query.in('contract_type', contractTypes);
 		}
 
-		query = query.eq('journey_id', journey?.id || journey_id);
+		query = query.eq('journey_id', journeyId);
 
 		// Execute the query
 		const { data: applications, error } = await query;
@@ -97,7 +109,7 @@ export async function GET(request: NextRequest) {
 			return NextResponse.json(
 				{
 					error: 'Failed to fetch applications',
-					details: error.code + error.message + error.details,
+					details: JSON.stringify(error),
 				},
 				{ status: 500 },
 			);

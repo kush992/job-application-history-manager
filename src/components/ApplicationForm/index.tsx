@@ -24,6 +24,7 @@ import { addLinks } from '@/lib/server/application-docs-queries';
 import { Card, CardContent } from '../ui/card';
 import { JobApplicationFormData, WorkMode } from '@/types/schema';
 import { jobApplicationSchema } from '@/lib/supabase/schema';
+import ErrorDisplay from '../ui/error-display';
 
 type Props = {
 	documentId?: string;
@@ -51,7 +52,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			});
 		},
 		onError: (error) => {
-			toast({ title: 'Error', description: error?.message });
+			toast({ title: 'Error', description: <ErrorDisplay error={error} /> });
 			console.error(error);
 		},
 	});
@@ -71,7 +72,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			router.back();
 		},
 		onError: (error) => {
-			toast({ title: 'Error', description: error?.message });
+			toast({ title: 'Error', description: <ErrorDisplay error={error} /> });
 			console.error(error);
 		},
 	});
@@ -93,7 +94,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			router.back();
 		},
 		onError: (error) => {
-			toast({ title: 'Error', description: error?.message });
+			toast({ title: 'Error', description: <ErrorDisplay error={error} /> });
 			console.error(error);
 		},
 	});

@@ -2,6 +2,7 @@ import { apiRoutes } from '@/utils/constants';
 import { useState, useCallback } from 'react';
 import { toast } from './use-toast';
 import { FILES_SEPARATOR } from '@/components/ApplicationForm/utility';
+import { handleApiError } from '@/utils/utility';
 
 type UploadFileStatus = {
 	file: File;
@@ -82,7 +83,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 				});
 
 				if (!res.ok) {
-					throw new Error('Failed to get signed URL');
+					await handleApiError(res);
 				}
 
 				const { url, publicUrl } = await res.json();
@@ -103,7 +104,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 				console.log('uploadRes', uploadRes);
 
 				if (!uploadRes.ok) {
-					throw new Error('Failed to upload the file');
+					await handleApiError(uploadRes);
 				}
 
 				// Mark file as successfully uploaded
@@ -114,7 +115,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 				updateFileStatus(file, {
 					isLoading: false,
 					isSuccess: false,
-					error: err.message || 'An unexpected error occurred',
+					error: JSON.stringify(err) || 'An unexpected error occurred',
 				});
 			}
 		});
@@ -141,7 +142,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 			});
 
 			if (!res.ok) {
-				throw new Error('Failed to get signed URL');
+				await handleApiError(res);
 			}
 
 			const response = await res.json();
@@ -161,6 +162,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 			return response;
 		} catch (err: any) {
 			console.error(`Upload error for file ${fileName}:`, err);
+			await handleApiError(err);
 		}
 	}, []);
 

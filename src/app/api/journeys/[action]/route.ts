@@ -20,13 +20,16 @@ async function withAuth(request: NextRequest, handler: (supabase: any, user: any
 		} = await supabase.auth.getUser();
 
 		if (authError || !user) {
-			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+			return NextResponse.json(
+				{ error: 'Unauthorized', details: authError ? JSON.stringify(authError) : 'User not found' },
+				{ status: 401 },
+			);
 		}
 
 		return await handler(supabase, user);
 	} catch (error) {
 		console.error('API error:', error);
-		return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+		return NextResponse.json({ error: 'Internal server error', details: JSON.stringify(error) }, { status: 500 });
 	}
 }
 
@@ -58,7 +61,10 @@ export async function POST(request: NextRequest, { params }: { params: { action:
 
 		if (activeJourneyError && activeJourneyError.code !== 'PGRST116') {
 			console.error('Error checking active journey:', activeJourneyError);
-			return NextResponse.json({ error: 'Failed to check active journey' }, { status: 500 });
+			return NextResponse.json(
+				{ error: 'Failed to check active journey', details: JSON.stringify(activeJourney) },
+				{ status: 500 },
+			);
 		}
 		if (activeJourney) {
 			return NextResponse.json(
@@ -77,7 +83,10 @@ export async function POST(request: NextRequest, { params }: { params: { action:
 			.single();
 
 		if (error) {
-			return NextResponse.json({ error: 'Failed to create journey' }, { status: 500 });
+			return NextResponse.json(
+				{ error: 'Failed to create journey', details: JSON.stringify(error) },
+				{ status: 500 },
+			);
 		}
 
 		return NextResponse.json({ success: 'Journey created successfully', journey });
@@ -114,7 +123,10 @@ export async function PUT(request: NextRequest, { params }: { params: { action: 
 			.single();
 
 		if (error) {
-			return NextResponse.json({ error: 'Failed to update journey' }, { status: 500 });
+			return NextResponse.json(
+				{ error: 'Failed to update journey', details: JSON.stringify(error) },
+				{ status: 500 },
+			);
 		}
 
 		return NextResponse.json({ success: 'Journey updated successfully', journey });
@@ -150,7 +162,10 @@ export async function DELETE(request: NextRequest, { params }: { params: { actio
 			.single();
 
 		if (fetchError || !journey) {
-			return NextResponse.json({ error: 'Journey not found' }, { status: 404 });
+			return NextResponse.json(
+				{ error: 'Journey not found', details: JSON.stringify(fetchError) },
+				{ status: 404 },
+			);
 		}
 
 		const { error: deleteError } = await supabase
@@ -160,7 +175,10 @@ export async function DELETE(request: NextRequest, { params }: { params: { actio
 			.eq('user_id', user.id);
 
 		if (deleteError) {
-			return NextResponse.json({ error: 'Failed to delete journey' }, { status: 500 });
+			return NextResponse.json(
+				{ error: 'Failed to delete journey', details: JSON.stringify(deleteError) },
+				{ status: 500 },
+			);
 		}
 
 		return NextResponse.json({ success: 'Journey and all associated applications deleted successfully' });
@@ -187,7 +205,10 @@ export async function GET(request: NextRequest, { params }: { params: { action: 
 
 		if (error) {
 			console.error('Error fetching journeys:', error);
-			return NextResponse.json({ error: 'Failed to fetch journeys' }, { status: 500 });
+			return NextResponse.json(
+				{ error: 'Failed to fetch journeys', details: JSON.stringify(error) },
+				{ status: 500 },
+			);
 		}
 
 		const transformedJourneys = journeys?.map((journey: any) => ({

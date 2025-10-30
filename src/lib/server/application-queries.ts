@@ -8,6 +8,7 @@ export const applicationDataQueries = {
 		statusFilter?: ApplicationStatus,
 		workModeFilter?: WorkMode,
 		contractTypeFilter?: ContractType,
+		journeyId?: string
 	) => {
 		const url = new URL(`${origin}${apiRoutes.applications.getAll}`);
 
@@ -15,6 +16,7 @@ export const applicationDataQueries = {
 		if (statusFilter) url.searchParams.append('statusFilter', statusFilter);
 		if (workModeFilter) url.searchParams.append('workModeFilter', workModeFilter);
 		if (contractTypeFilter) url.searchParams.append('contractTypeFilter', contractTypeFilter);
+		if (journeyId) url.searchParams.append('journey_id', journeyId);
 
 		try {
 			const response = await fetch(url.toString(), {
@@ -29,11 +31,11 @@ export const applicationDataQueries = {
 
 				return (await response.json()) as JobApplication[];
 			} else {
-				throw new Error('Failed to fetch application data');
+				throw new Error(`Failed to fetch application data: ${JSON.stringify(response)}`);
 			}
 		} catch (error) {
 			console.error(error);
-			throw new Error('Failed to fetch application data');
+			throw new Error(`Failed to fetch application data : ${JSON.stringify(error)}`);
 		}
 	},
 	getOne: async (documentId: string) => {

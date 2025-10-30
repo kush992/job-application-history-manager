@@ -1,5 +1,6 @@
 import { Statistics } from '@/types/schema';
 import { apiRoutes, QueryKeys } from '@/utils/constants';
+import { handleApiError } from '@/utils/utility';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
@@ -8,7 +9,7 @@ async function fetchStatistics(journeyId: string): Promise<Statistics> {
 	const result = await response.json();
 
 	if (!response.ok) {
-		throw new Error(result.error || 'Failed to fetch journeys');
+		await handleApiError(response);
 	}
 
 	return result;
@@ -22,7 +23,7 @@ export function useStatistics(journeyId: string) {
 		error: queryError,
 		refetch,
 	} = useQuery({
-		queryKey: [QueryKeys.STATISTICS],
+		queryKey: [QueryKeys.STATISTICS, journeyId],
 		queryFn: () => fetchStatistics(journeyId),
 		staleTime: 5 * 60 * 1000, // 5 minutes
 		gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)

@@ -20,7 +20,10 @@ export async function POST(request: NextRequest) {
 		} = await supabase.auth.getUser();
 
 		if (authError || !user) {
-			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+			return NextResponse.json(
+				{ error: 'Unauthorized', details: authError ? JSON.stringify(authError) : 'User not found' },
+				{ status: 401 },
+			);
 		}
 
 		// Get all users from auth
@@ -147,7 +150,10 @@ export async function GET(request: NextRequest) {
 		} = await supabase.auth.getUser();
 
 		if (authError || !user) {
-			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+			return NextResponse.json(
+				{ error: 'Unauthorized', details: authError ? JSON.stringify(authError) : 'User not found' },
+				{ status: 401 },
+			);
 		}
 
 		// Get user count from auth
@@ -157,7 +163,10 @@ export async function GET(request: NextRequest) {
 		} = await supabase.auth.admin.listUsers();
 
 		if (usersError) {
-			return NextResponse.json({ error: usersError.message }, { status: 500 });
+			return NextResponse.json(
+				{ error: usersError.message, details: JSON.stringify(usersError) },
+				{ status: 500 },
+			);
 		}
 
 		// Get profile count
@@ -166,7 +175,10 @@ export async function GET(request: NextRequest) {
 			.select('id', { count: 'exact', head: true });
 
 		if (profileError) {
-			return NextResponse.json({ error: profileError.message }, { status: 500 });
+			return NextResponse.json(
+				{ error: profileError.message, details: JSON.stringify(profileError) },
+				{ status: 500 },
+			);
 		}
 
 		const totalUsers = users?.length || 0;
@@ -186,7 +198,7 @@ export async function GET(request: NextRequest) {
 		return NextResponse.json(
 			{
 				error: 'Status check failed',
-				details: String(error),
+				details: JSON.stringify(error),
 			},
 			{ status: 500 },
 		);

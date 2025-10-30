@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { ContactFormData, contactFormSchema } from './utility';
+import ErrorDisplay from '@/components/ui/error-display';
 
 interface ApiResponse {
 	success: boolean;
@@ -73,13 +74,13 @@ export default function ContactForm() {
 					});
 					toast({
 						title: 'Please check your inputs',
-						description: 'Some fields contain invalid data.',
+						description: <ErrorDisplay error={result} />,
 						variant: 'destructive',
 					});
 				} else {
 					toast({
 						title: 'Failed to send message',
-						description: result.error || 'Please try again later.',
+						description: <ErrorDisplay error={result} />,
 						variant: 'destructive',
 					});
 				}
@@ -88,7 +89,7 @@ export default function ContactForm() {
 			console.error('Network error:', error);
 			toast({
 				title: 'Network error',
-				description: 'Please check your connection and try again.',
+				description: <ErrorDisplay error={error} />,
 				variant: 'destructive',
 			});
 		} finally {

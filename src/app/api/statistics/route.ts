@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
 		} = await supabase.auth.getUser();
 
 		if (authError || !user) {
-			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+			return NextResponse.json({ error: 'Unauthorized', details: authError ? JSON.stringify(authError) : 'User not found', }, { status: 401 });
 		}
 
 		// Get document ID from search params
@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
 			return NextResponse.json(
 				{
 					error: 'Failed to fetch application',
-					details: error.message,
+					details: JSON.stringify(error),
 				},
 				{ status: 500 },
 			);
@@ -57,6 +57,7 @@ export async function GET(request: NextRequest) {
 		return NextResponse.json(
 			{
 				error: 'An unexpected error occurred',
+				details: JSON.stringify(error),
 			},
 			{ status: 500 },
 		);

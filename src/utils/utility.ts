@@ -1,5 +1,6 @@
 // import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { BadgeProps, badgeVariants } from '@/components/ui/badge';
+import { ApiError } from '@/types/apiError';
 import { ApplicationStatus, ContractType, WorkMode } from '@/types/schema';
 // import { ContractType, WorkMode } from '@/types/apiResponseTypes';
 
@@ -104,4 +105,27 @@ export const contractTypeMapping = {
 	[ContractType.INTERNSHIP]: 'Internship',
 	[ContractType.FREELANCE]: 'Freelance',
 	[ContractType.B2B]: 'B2B',
+};
+
+export const handleApiError = async (response: Response): Promise<never> => {
+	let errorData: ApiError;
+
+	try {
+		const json = await response.json();
+		errorData = {
+			error: json?.error || 'An error occurred',
+			details: JSON.parse(json?.details),
+			fieldErrors: JSON.parse(json?.fieldErrors),
+			status: response?.status,
+		};
+	} catch {
+		// If response body is not JSON, use status text
+		errorData = {
+			error: response.statusText || 'An error occurred',
+			details: JSON.stringify(response),
+			status: response.status,
+		};
+	}
+
+	throw errorData;
 };

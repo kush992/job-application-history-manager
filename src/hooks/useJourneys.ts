@@ -4,13 +4,14 @@ import { useState, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Journey, JourneyFormData } from '@/types/schema';
 import { apiRoutes, QueryKeys } from '@/utils/constants';
+import { handleApiError } from '@/utils/utility';
 
 async function fetchJourneys(): Promise<Journey[]> {
 	const response = await fetch(apiRoutes.journeys.getAll);
 	const result = await response.json();
 
 	if (!response.ok) {
-		throw new Error(result.error || 'Failed to fetch journeys');
+		await handleApiError(response);
 	}
 
 	return result.journeys || [];
@@ -21,7 +22,7 @@ async function fetchJourney(id: string): Promise<Journey> {
 	const result = await response.json();
 
 	if (!response.ok) {
-		throw new Error(result.error || 'Failed to fetch journeys');
+		await handleApiError(response);
 	}
 
 	return result.journeys || {};
@@ -37,7 +38,7 @@ async function createJourneyApi(data: JourneyFormData): Promise<Journey> {
 	const result = await response.json();
 
 	if (!response.ok) {
-		throw new Error(result.error || 'Failed to create journey');
+		await handleApiError(response);
 	}
 
 	return result.journey;
@@ -53,7 +54,7 @@ async function updateJourneyApi(journeyId: string, data: JourneyFormData): Promi
 	const result = await response.json();
 
 	if (!response.ok) {
-		throw new Error(result.error || 'Failed to update journey');
+		await handleApiError(response);
 	}
 
 	return result.journey;
@@ -69,7 +70,7 @@ async function deleteJourneyApi(journeyId: string): Promise<void> {
 	const result = await response.json();
 
 	if (!response.ok) {
-		throw new Error(result.error || 'Failed to delete journey');
+		await handleApiError(response);
 	}
 }
 

@@ -20,6 +20,7 @@ import PageDescription from '@/components/ui/page-description';
 import QuestionAndAnswerForm from './Form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { interviewQuestionsQueries } from '@/lib/server/interview-questions-queries';
+import ErrorDisplay from '../ui/error-display';
 
 type Props = {
 	documentId?: string;
@@ -50,7 +51,7 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 		onError: (error) => {
 			toast({
 				title: 'Error',
-				description: error?.message,
+				description: <ErrorDisplay error={error} />,
 			});
 			console.error(error);
 		},
@@ -68,7 +69,7 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 		onError: (error) => {
 			toast({
 				title: 'Error',
-				description: error?.message,
+				description: <ErrorDisplay error={error} />,
 			});
 			console.error(error);
 		},

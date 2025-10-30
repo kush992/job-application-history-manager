@@ -34,6 +34,7 @@ import { createClient } from '@/lib/supabase/server';
 import { getOrCreateProfile } from '@/lib/supabase/profiles';
 import { appRoutes } from '@/utils/constants';
 import { type NextRequest, NextResponse } from 'next/server';
+import { baseUrl } from '@/utils/utility';
 
 export async function GET(request: NextRequest) {
 	const { searchParams, origin } = new URL(request.url);
@@ -66,6 +67,8 @@ export async function GET(request: NextRequest) {
 
 			const forwardedHost = request.headers.get('x-forwarded-host');
 			const isLocalEnv = process.env.NODE_ENV === 'development';
+
+			// const appUrl = baseUrl();
 
 			if (isLocalEnv) {
 				return NextResponse.redirect(`${origin}${next}`);

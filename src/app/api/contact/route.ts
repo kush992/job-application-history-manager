@@ -80,6 +80,7 @@ export async function POST(request: NextRequest) {
 					success: false,
 					error: 'Failed to submit your message. Please try again.',
 					code: 'DATABASE_ERROR',
+					details: JSON.stringify(error),
 				},
 				{ status: 500 },
 			);
@@ -135,6 +136,7 @@ export async function POST(request: NextRequest) {
 					success: false,
 					error: 'Invalid JSON format.',
 					code: 'INVALID_JSON',
+					details: JSON.stringify(error),
 				},
 				{ status: 400 },
 			);
@@ -146,6 +148,7 @@ export async function POST(request: NextRequest) {
 				success: false,
 				error: 'An unexpected error occurred. Please try again later.',
 				code: 'INTERNAL_ERROR',
+				details: JSON.stringify(error),
 			},
 			{ status: 500 },
 		);
