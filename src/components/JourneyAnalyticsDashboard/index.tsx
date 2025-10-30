@@ -10,6 +10,9 @@ import EmploymentTypeDataChart from './EmploymentTypeDataChart';
 import KeyMetrics from './KeyMetrics';
 import SalaryDistributionChart from './SalaryDistributionChart';
 import SalaryCurrencyTypeChart from './SalaryCurrencyTypeChart';
+import ErrorDisplay from '../ui/error-display';
+import { Button } from '../ui/button';
+import Link from 'next/link';
 
 type Props = {
 	journeyId: string;
@@ -27,14 +30,7 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 	}
 
 	if (error) {
-		return (
-			<div className="min-h-screen bg-background p-3 sm:p-4 md:p-6 flex items-center justify-center">
-				<div className="text-center">
-					<h2 className="text-xl font-semibold mb-2 text-destructive">Error Loading Data</h2>
-					<p className="text-muted-foreground">{error}</p>
-				</div>
-			</div>
-		);
+		return <ErrorDisplay error={error} />;
 	}
 
 	if (!statistics || typeof statistics !== 'object') {
@@ -64,6 +60,12 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 					<p className="text-muted-foreground text-sm sm:text-base md:text-lg">
 						Comprehensive insights from your job search journey
 					</p>
+				</div>
+
+				<div className="text-center space-y-2">
+					<Link href={`/journeys/${journeyId}/applications`} target="_blank" rel="noopener noreferrer">
+						<Button>See all {statistics.applications_count} applications</Button>
+					</Link>
 				</div>
 
 				{/* Key Metrics */}
