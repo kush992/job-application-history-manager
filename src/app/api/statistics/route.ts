@@ -13,7 +13,10 @@ export async function GET(request: NextRequest) {
 		} = await supabase.auth.getUser();
 
 		if (authError || !user) {
-			return NextResponse.json({ error: 'Unauthorized', details: authError ? JSON.stringify(authError) : 'User not found', }, { status: 401 });
+			return NextResponse.json(
+				{ error: 'Unauthorized', details: authError ? JSON.stringify(authError) : 'User not found' },
+				{ status: 401 },
+			);
 		}
 
 		// Get document ID from search params

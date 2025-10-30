@@ -8,7 +8,7 @@ export const applicationDataQueries = {
 		statusFilter?: ApplicationStatus,
 		workModeFilter?: WorkMode,
 		contractTypeFilter?: ContractType,
-		journeyId?: string
+		journeyId?: string,
 	) => {
 		const url = new URL(`${origin}${apiRoutes.applications.getAll}`);
 
