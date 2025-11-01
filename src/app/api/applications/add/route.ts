@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
 			return NextResponse.json(
 				{
 					error: 'Failed to create application',
-					details: error.message,
+					details: JSON.stringify(error),
 				},
 				{ status: 500 },
 			);

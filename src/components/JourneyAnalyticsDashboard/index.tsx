@@ -13,6 +13,9 @@ import SalaryCurrencyTypeChart from './SalaryCurrencyTypeChart';
 import ErrorDisplay from '../ui/error-display';
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import { useGetJourneyInsights, usePostInsights } from '@/hooks/useJourneyInsights';
+import { Card, CardContent, CardDescription } from '../ui/card';
 
 type Props = {
 	journeyId: string;
@@ -20,6 +23,11 @@ type Props = {
 
 export default function JobAnalyticsDashboard({ journeyId }: Props) {
 	const { statistics, isFetching, isLoading, error } = useStatistics(journeyId);
+	const { insights, error: insightsError, mutate } = usePostInsights();
+	const { insights: journeyInsights, error: journeyInsightsError } = useGetJourneyInsights(statistics?.id);
+
+	console.log('insights', insights);
+	console.error('insightsError', insightsError);
 
 	if (isLoading || isFetching) {
 		return (
@@ -66,13 +74,29 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 					<Link href={`/journeys/${journeyId}/applications`} target="_blank" rel="noopener noreferrer">
 						<Button>See all {statistics.applications_count} applications</Button>
 					</Link>
+					<Button variant="outline" onClick={() => mutate(statistics)}>
+						Regenerate AI Insights
+					</Button>
 				</div>
+				{(insightsError || journeyInsightsError) && (
+					<ErrorDisplay error={insightsError || journeyInsightsError} />
+				)}
+
+				<Card>
+					<CardContent className="!p-6">
+						{insights ? (
+							<ReactMarkdown>{insights.data.insights}</ReactMarkdown>
+						) : (
+							<ReactMarkdown>{journeyInsights?.data?.insights}</ReactMarkdown>
+						)}
+					</CardContent>
+				</Card>
 
 				{/* Key Metrics */}
 				<KeyMetrics statistics={statistics} replyRate={replyRate} successRate={successRate} />
 
 				{/* Summary Insights */}
-				<SummaryInsights statistics={statistics} replyRate={replyRate} successRate={successRate} />
+				{/* <SummaryInsights statistics={statistics} replyRate={replyRate} successRate={successRate} /> */}
 
 				{/* Charts Grid */}
 				{/* Application Funnel */}
