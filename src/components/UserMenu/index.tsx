@@ -32,8 +32,6 @@ export function UserMenu({ user }: Props) {
 
 	const { setTheme } = useTheme();
 
-	console.log('UserMenu user:', user);
-
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>

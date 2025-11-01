@@ -35,6 +35,7 @@ export enum QueryKeys {
 	APPLICATION_BY_ID = 'APPLICATION_BY_ID',
 	QUESTIONS_AND_ANSWERS_PAGE = 'QUESTIONS_AND_ANSWERS_PAGE',
 	STATISTICS = 'STATISTICS',
+	INSIGHTS = 'INSIGHTS',
 }
 
 // API structure
@@ -72,4 +73,8 @@ export const apiRoutes = {
 		delete: '/api/journeys/delete',
 	},
 	statistics: '/api/statistics',
+	ai: {
+		generateInsight: '/api/ai/generate-insight',
+	},
+	journeyInsights: '/api/journey-insights',
 };

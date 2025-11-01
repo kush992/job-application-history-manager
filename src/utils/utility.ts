@@ -112,11 +112,13 @@ export const handleApiError = async (response: Response): Promise<never> => {
 
 	try {
 		const json = await response.json();
+		console.log('API Error Response JSON:', json);
 		errorData = {
 			error: json?.error || 'An error occurred',
 			details: JSON.parse(json?.details),
 			fieldErrors: JSON.parse(json?.fieldErrors),
 			status: response?.status,
+			endpoint: response.url,
 		};
 	} catch {
 		// If response body is not JSON, use status text
@@ -124,8 +126,11 @@ export const handleApiError = async (response: Response): Promise<never> => {
 			error: response.statusText || 'An error occurred',
 			details: JSON.stringify(response),
 			status: response.status,
+			endpoint: response.url,
 		};
 	}
+
+	console.log('Parsed API Error Data:', errorData);
 
 	throw errorData;
 };

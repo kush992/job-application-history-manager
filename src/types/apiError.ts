@@ -3,4 +3,5 @@ export interface ApiError {
 	details?: string;
 	fieldErrors?: Record<string, string> | Object | unknown | string;
 	status: number;
+	endpoint: string;
 }
