@@ -25,7 +25,7 @@ const JourneyApplicationsListPage = async ({ params }: { params: Params }) => {
 			<main className="flex min-h-screen flex-col gap-8 container mx-auto p-4 ">
 				<Analytics />
 				<HydrationBoundary state={dehydrate(queryClient)}>
-					<ApplicationsListPage userId={user?.id || ''} journeyId={params.journeyId} />
+					<ApplicationsListPage journeyId={params.journeyId} />
 				</HydrationBoundary>
 			</main>
 		</Suspense>

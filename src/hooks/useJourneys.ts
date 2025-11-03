@@ -18,14 +18,14 @@ async function fetchJourneys(): Promise<Journey[]> {
 }
 
 async function fetchJourney(id: string): Promise<Journey> {
-	const response = await fetch(apiRoutes.journeys.getOne);
+	const response = await fetch(`${apiRoutes.journeys.getOne}?journeyId=${id}`);
 	const result = await response.json();
 
 	if (!response.ok) {
 		await handleApiError(response);
 	}
 
-	return result.journeys || {};
+	return result || {};
 }
 
 async function createJourneyApi(data: JourneyFormData): Promise<Journey> {
@@ -92,7 +92,7 @@ export function useJourneys(id?: string) {
 	});
 
 	const {
-		data: journey = {},
+		data: journey,
 		isLoading: isSingleFetchReqLoading,
 		error: singleFetchReqError,
 		refetch: refetchSingleJourney,

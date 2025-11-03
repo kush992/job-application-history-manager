@@ -187,12 +187,12 @@ export async function DELETE(request: NextRequest, { params }: { params: { actio
 
 export async function GET(request: NextRequest, { params }: { params: { action: string } }) {
 	console.log('GET request for journeys with action:', params.action);
-	if (params.action !== 'getAll') {
+	if (['getAll', 'getOne'].includes(params.action) === false) {
 		return NextResponse.json({ error: 'Invalid action' }, { status: 404 });
 	}
 
 	return withAuth(request, async (supabase, user) => {
-		const { data: journeys, error } = await supabase
+		let query = supabase
 			.from('journeys')
 			.select(
 				`
@@ -203,12 +203,26 @@ export async function GET(request: NextRequest, { params }: { params: { action: 
 			.eq('user_id', user.id)
 			.order('created_at', { ascending: false });
 
+		if (params.action === 'getOne') {
+			const journeyId = request.nextUrl.searchParams.get('journeyId');
+			if (!journeyId) {
+				return NextResponse.json({ error: 'journeyId query parameter is required' }, { status: 400 });
+			}
+			query = query.eq('id', journeyId);
+		}
+
+		const { data: journeys, error } = await query;
+
 		if (error) {
 			console.error('Error fetching journeys:', error);
 			return NextResponse.json(
 				{ error: 'Failed to fetch journeys', details: JSON.stringify(error) },
 				{ status: 500 },
 			);
+		}
+
+		if (params.action === 'getOne' && journeys.length === 1) {
+			return NextResponse.json(journeys[0]);
 		}
 
 		const transformedJourneys = journeys?.map((journey: any) => ({

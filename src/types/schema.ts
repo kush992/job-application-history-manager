@@ -102,6 +102,11 @@ export interface JobApplication {
 	updated_at: string;
 }
 
+export interface JobApplicationsResponse {
+	data: JobApplication[];
+	journey: Journey;
+}
+
 export type JobApplicationFormData = z.infer<typeof jobApplicationSchema>;
 export interface Statistics {
 	id: string;

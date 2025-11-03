@@ -23,9 +23,9 @@ export const appRoutes = {
 	journeys: '/journeys',
 	addJourney: '/journeys/add',
 	editJourney: '/journeys/edit',
-	viewJourney: '/journeys/view',
+	viewJourney: '/journeys',
 	profileView: '/profile',
-	journeyApplications: (journeyId: string) => `/journeys/${journeyId}/application`,
+	journeyApplications: (journeyId: string) => `/journeys/${journeyId}/applications`,
 };
 
 // For react-query

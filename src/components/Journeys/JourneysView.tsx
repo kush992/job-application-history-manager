@@ -12,6 +12,15 @@ import EmptyJourney from './EmptyJourney';
 import ErrorDisplay from '../ui/error-display';
 import JourneyCard from './JourneyCard';
 import JourneyViewSkeleton from './JourneyViewSkeleton';
+import {
+	Breadcrumb,
+	BreadcrumbList,
+	BreadcrumbLink,
+	BreadcrumbSeparator,
+	BreadcrumbEllipsis,
+	BreadcrumbItem,
+	BreadcrumbPage,
+} from '../ui/breadcrumb';
 
 export function JourneysView() {
 	const { journeys, isFetching, isDeleting, deleteJourney, error, refreshJourneys } = useJourneys();
@@ -47,6 +56,15 @@ export function JourneysView() {
 	return (
 		<div className="min-h-screen bg-appBackground bg-gradient-to-r from-transparent to-primary-foreground py-12 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-5xl mx-auto">
+				<Breadcrumb className="mb-2">
+					<BreadcrumbList>
+						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
+						<BreadcrumbSeparator />
+						<BreadcrumbItem>
+							<BreadcrumbPage>Journeys</BreadcrumbPage>
+						</BreadcrumbItem>
+					</BreadcrumbList>
+				</Breadcrumb>
 				<div className="md:flex justify-between items-center mb-8">
 					<div>
 						<h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight">Your Job Search Journeys</h1>

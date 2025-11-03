@@ -3,16 +3,14 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
 import Link from 'next/link';
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
-import { applicationDataQueries } from '@/lib/server/application-queries';
-import { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import ApplicationListItem from './ApplicationListItem';
 import ApplicationFilter from './ApplicationFilter';
-import { appRoutes, QueryKeys } from '@/utils/constants';
+import { appRoutes } from '@/utils/constants';
 import {
 	Breadcrumb,
+	BreadcrumbEllipsis,
 	BreadcrumbItem,
 	BreadcrumbLink,
 	BreadcrumbList,
@@ -29,14 +27,12 @@ import { FilterFormValues, filterSchema } from './ApplicationFilter/utility';
 import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
 import { useApplications } from '@/hooks/useApplications';
 import ErrorDisplay from '../ui/error-display';
-import { useJourneys } from '@/hooks/useJourneys';
 
 type Props = {
-	userId: string;
 	journeyId?: string;
 };
 
-const ApplicationsListPage: React.FC<Props> = ({ userId, journeyId }) => {
+const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 	const filterForm = useForm<FilterFormValues>({
 		resolver: zodResolver(filterSchema),
 		defaultValues: {
@@ -134,6 +130,14 @@ const ApplicationsListPage: React.FC<Props> = ({ userId, journeyId }) => {
 				<BreadcrumbList>
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 					<BreadcrumbSeparator />
+					{isLoadingApplications ? (
+						<BreadcrumbEllipsis />
+					) : (
+						<BreadcrumbLink href={`${appRoutes.viewJourney}/${applications?.journey.id}`}>
+							{applications?.journey?.title}
+						</BreadcrumbLink>
+					)}
+					<BreadcrumbSeparator />
 					<BreadcrumbItem>
 						<BreadcrumbPage>Applications</BreadcrumbPage>
 					</BreadcrumbItem>
@@ -142,15 +146,21 @@ const ApplicationsListPage: React.FC<Props> = ({ userId, journeyId }) => {
 
 			<div className="flex justify-between items-center mb-6">
 				<div>
-					<PageTitle title="Applied jobs" />
-					<PageDescription description="This is a collection of all the jobs you have applied for." />
+					<PageTitle title={applications?.journey ? applications.journey.title : 'Applied jobs'} />
+					<PageDescription
+						description={
+							applications?.journey?.description
+								? applications.journey.description
+								: 'This is a collection of all the jobs you have applied for.'
+						}
+					/>
 				</div>
 			</div>
 
 			<div className="flex flex-col items-center gap-2 w-full sticky top-8">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
 					<Info className="w-4 h-4" />
-					<span>Total: {applications?.length}</span>
+					<span>Total: {applications?.data?.length}</span>
 				</p>
 
 				<div className="flex justify-between gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
@@ -167,7 +177,7 @@ const ApplicationsListPage: React.FC<Props> = ({ userId, journeyId }) => {
 				</div>
 			</div>
 
-			{!isLoadingApplications && !isErrorApplications && applications && applications?.length < 1 && (
+			{!isLoadingApplications && !isErrorApplications && applications && applications?.data?.length < 1 && (
 				<div className="flex items-center justify-center w-full h-96">
 					<p className="text-lg text-muted-foreground">No applications found</p>
 				</div>
@@ -188,7 +198,7 @@ const ApplicationsListPage: React.FC<Props> = ({ userId, journeyId }) => {
 
 			{!isLoadingApplications && !errorApplications && applications && (
 				<div className="flex flex-col border rounded-md overflow-hidden w-full">
-					{applications?.map((application) => (
+					{applications?.data?.map((application) => (
 						<React.Fragment key={application.id}>
 							<ApplicationListItem
 								data={application}

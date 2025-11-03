@@ -2,7 +2,13 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { ApplicationStatus } from '@/components/ApplicationForm/utility';
-import type { ContractType, JobApplication, JobApplicationFormData, WorkMode } from '@/types/schema';
+import type {
+	ContractType,
+	JobApplication,
+	JobApplicationFormData,
+	JobApplicationsResponse,
+	WorkMode,
+} from '@/types/schema';
 import { apiRoutes } from '@/utils/constants';
 import { handleApiError } from '@/utils/utility';
 import { ApiError } from '@/types/apiError';
@@ -26,7 +32,7 @@ export interface ApplicationFilters {
 }
 
 // API Functions
-const fetchApplications = async (filters: ApplicationFilters = {}): Promise<JobApplication[]> => {
+const fetchApplications = async (filters: ApplicationFilters = {}): Promise<JobApplicationsResponse> => {
 	const { query, statusFilter, workModeFilter, contractTypeFilter, journeyId } = filters;
 	const url = new URL(`${window.origin}${apiRoutes.applications.getAll}`);
 

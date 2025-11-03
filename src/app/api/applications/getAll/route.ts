@@ -32,33 +32,31 @@ export async function GET(request: NextRequest) {
 
 		// Fetch active journey to get all applications under it by default for applications list page.
 		// If journey_id is provided in search params, we need to use that instead as it can be a different page on UI.
-		let journeyId = journey_id;
+		let journeyQuery = supabase.from('journeys').select().eq('user_id', user.id);
 
-		if (!journeyId) {
-			const { data, error: journeryFetchError } = await supabase
-				.from('journeys')
-				.select('id')
-				.eq('is_active', true)
-				.single();
+		if (journey_id) {
+			journeyQuery = journeyQuery.eq('id', journey_id);
+		} else {
+			journeyQuery = journeyQuery.eq('is_active', true);
+		}
 
-			if (journeryFetchError) {
-				console.error('Supabase error:', journeryFetchError);
+		const { data: journeyData, error: journeryFetchError } = await journeyQuery.single();
 
-				if (journeryFetchError.code === 'PGRST116') {
-					console.log('No active journey found, redirecting to create journey page.');
-					return NextResponse.redirect(`${request.nextUrl.origin}${appRoutes.journeys}`); // Redirect to create journey if no active journey found
-				}
+		if (journeryFetchError) {
+			console.error('Supabase error:', journeryFetchError);
 
-				return NextResponse.json(
-					{
-						error: 'Failed to fetch active journey',
-						details: JSON.stringify(journeryFetchError),
-					},
-					{ status: 500 },
-				);
+			if (journeryFetchError.code === 'PGRST116') {
+				console.log('No active journey found, redirecting to create journey page.');
+				return NextResponse.redirect(`${request.nextUrl.origin}${appRoutes.journeys}`); // Redirect to create journey if no active journey found
 			}
 
-			journeyId = data.id;
+			return NextResponse.json(
+				{
+					error: 'Failed to fetch active journey',
+					details: JSON.stringify(journeryFetchError),
+				},
+				{ status: 500 },
+			);
 		}
 
 		// Build the query
@@ -99,7 +97,7 @@ export async function GET(request: NextRequest) {
 			query = query.in('contract_type', contractTypes);
 		}
 
-		query = query.eq('journey_id', journeyId);
+		query = query.eq('journey_id', journeyData.id);
 
 		// Execute the query
 		const { data: applications, error } = await query;
@@ -115,7 +113,7 @@ export async function GET(request: NextRequest) {
 			);
 		}
 
-		return NextResponse.json(applications || [], { status: 200 });
+		return NextResponse.json({ data: applications || [], journey: journeyData }, { status: 200 });
 	} catch (error) {
 		console.error('Applications fetch error:', error);
 		return NextResponse.json(

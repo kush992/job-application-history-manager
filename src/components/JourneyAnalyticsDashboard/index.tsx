@@ -17,6 +17,15 @@ import ReactMarkdown from 'react-markdown';
 import { useGetJourneyInsights, usePostInsights } from '@/hooks/useJourneyInsights';
 import { Card, CardContent, CardDescription } from '../ui/card';
 import { appRoutes } from '@/utils/constants';
+import { Eye } from 'lucide-react';
+import {
+	Breadcrumb,
+	BreadcrumbList,
+	BreadcrumbLink,
+	BreadcrumbSeparator,
+	BreadcrumbItem,
+	BreadcrumbPage,
+} from '../ui/breadcrumb';
 
 type Props = {
 	journeyId: string;
@@ -61,27 +70,38 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 	return (
 		<div className="min-h-screen bg-background p-3 sm:p-4 md:p-6">
 			<div className="max-w-5xl mx-auto space-y-4 sm:space-y-6">
-				<div className="text-center space-y-2">
-					<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-balance">
-						Job Application Analytics Dashboard
-					</h1>
-					<p className="text-muted-foreground text-sm sm:text-base md:text-lg">
-						Comprehensive insights from your job search journey
-					</p>
-				</div>
-
-				<div className="text-center flex flex-col md:flex-row md:justify-center md:items-center gap-4">
-					<Link
-						href={appRoutes.journeyApplications(journeyId)}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="m-0 p-0"
-					>
-						<Button className="w-full">See all {statistics.applications_count} applications</Button>
-					</Link>
-					<Button variant="outline" onClick={() => mutate(statistics)}>
-						Regenerate AI Insights
-					</Button>
+				<Breadcrumb className="mb-2">
+					<BreadcrumbList>
+						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
+						<BreadcrumbSeparator />
+						<BreadcrumbLink href={appRoutes.journeys}>Journeys</BreadcrumbLink>
+					</BreadcrumbList>
+				</Breadcrumb>
+				<div className="md:flex justify-between items-center mb-8">
+					<div>
+						<h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight">
+							Job Application Analytics Dashboard
+						</h1>
+						<p className="mt-2 text-secondary-foreground">
+							Comprehensive insights from your job search journey
+						</p>
+					</div>
+					<div className="flex gap-2 py-4">
+						<Link
+							href={appRoutes.journeyApplications(journeyId)}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="m-0 p-0"
+						>
+							<Button className="w-full flex gap-1 items-center">
+								<Eye className="h-4 w-4" />
+								{statistics.applications_count} applications
+							</Button>
+						</Link>
+						<Button variant="outline" onClick={() => mutate(statistics)}>
+							Regenerate AI Insights
+						</Button>
+					</div>
 				</div>
 
 				{insightsData && (

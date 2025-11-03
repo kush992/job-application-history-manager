@@ -21,7 +21,7 @@ const ApplicationsPage = async () => {
 			<main className="flex min-h-screen flex-col gap-8 container mx-auto p-4 ">
 				<Analytics />
 				<HydrationBoundary state={dehydrate(queryClient)}>
-					<ApplicationsListPage userId={user?.id || ''} />
+					<ApplicationsListPage />
 				</HydrationBoundary>
 			</main>
 		</Suspense>
