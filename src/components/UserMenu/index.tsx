@@ -75,6 +75,9 @@ export function UserMenu({ user }: Props) {
 					<Link href={appRoutes.addApplication}>
 						<DropdownMenuItem>Add application</DropdownMenuItem>
 					</Link>
+					<Link href={appRoutes.addWithAiApplication}>
+						<DropdownMenuItem>Add application with AI</DropdownMenuItem>
+					</Link>
 					<Link href={appRoutes.application}>
 						<DropdownMenuItem>Applications</DropdownMenuItem>
 					</Link>

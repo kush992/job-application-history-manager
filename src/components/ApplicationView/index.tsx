@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import { formatDate } from '@/utils/date';
 import Loader from '../Loader';
@@ -161,12 +162,13 @@ const ApplicationView: React.FC<Props> = ({ documentId, userId }) => {
 
 						<div id="applicationData">
 							<h2 className="text-lg font-semibold !m-0">Application Data</h2>
-							<div
+							{/* <div
 								className="rounded-md text-wrap break-words prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
 								dangerouslySetInnerHTML={{
 									__html: DOMPurify.sanitize(data?.notes || ''),
 								}}
-							/>
+							/> */}
+							<ReactMarkdown>{data?.notes}</ReactMarkdown>
 						</div>
 					</div>
 
