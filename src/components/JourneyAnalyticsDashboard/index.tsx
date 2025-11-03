@@ -77,7 +77,7 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 						rel="noopener noreferrer"
 						className="m-0 p-0"
 					>
-						<Button className='w-full'>See all {statistics.applications_count} applications</Button>
+						<Button className="w-full">See all {statistics.applications_count} applications</Button>
 					</Link>
 					<Button variant="outline" onClick={() => mutate(statistics)}>
 						Regenerate AI Insights

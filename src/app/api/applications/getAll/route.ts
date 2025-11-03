@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
 		// Build the query
 		let query = supabase
 			.from('job_applications')
-			.select(
+			.select
 			// 	`
 			// 	*,
 			// 	journeys:journey_id (
@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
 			// 	is_active
 			// 	)
 			// `,
-			)
+			()
 			.eq('user_id', user.id)
 			.order('created_at', { ascending: false })
 			.limit(limit);
