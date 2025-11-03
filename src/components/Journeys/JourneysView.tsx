@@ -71,7 +71,7 @@ export function JourneysView() {
 				{!error && journeys.length > 0 && (
 					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 						{journeys.map((journey) => (
-							<JourneyCard journey={journey} handleDeleteClick={handleDeleteClick} />
+							<JourneyCard key={journey.id} journey={journey} handleDeleteClick={handleDeleteClick} />
 						))}
 					</div>
 				)}

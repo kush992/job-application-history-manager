@@ -17,7 +17,7 @@ const JourneyCard = ({ journey, handleDeleteClick }: Props) => {
 		return new Date(dateString).toLocaleDateString();
 	};
 	return (
-		<Card key={journey.id} className="hover:shadow-lg transition-shadow">
+		<Card className="hover:shadow-lg transition-shadow">
 			<CardHeader>
 				<div className="flex items-start justify-between">
 					<div className="flex-1">
