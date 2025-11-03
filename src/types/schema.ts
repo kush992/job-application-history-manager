@@ -180,3 +180,13 @@ export interface Profile {
 	created_at: string;
 	updated_at: string;
 }
+
+export interface JourneyInsight {
+	id: string;
+	inserted_at: string;
+	insights: string;
+	journey_id: string;
+	statistics_demo_id: string;
+	updated_at: string;
+	user_id: string;
+}

@@ -25,6 +25,7 @@ export const appRoutes = {
 	editJourney: '/journeys/edit',
 	viewJourney: '/journeys/view',
 	profileView: '/profile',
+	journeyApplications: (journeyId: string) => `/journeys/${journeyId}/application`,
 };
 
 // For react-query
@@ -74,7 +75,7 @@ export const apiRoutes = {
 	},
 	statistics: '/api/statistics',
 	ai: {
-		generateInsight: '/api/ai/generate-insight',
+		generateJourneyInsight: '/api/ai/generate-insight',
 	},
 	journeyInsights: '/api/journey-insights',
 };

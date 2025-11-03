@@ -29,6 +29,7 @@ import { FilterFormValues, filterSchema } from './ApplicationFilter/utility';
 import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
 import { useApplications } from '@/hooks/useApplications';
 import ErrorDisplay from '../ui/error-display';
+import { useJourneys } from '@/hooks/useJourneys';
 
 type Props = {
 	userId: string;
@@ -158,9 +159,11 @@ const ApplicationsListPage: React.FC<Props> = ({ userId, journeyId }) => {
 						filterForm={filterForm}
 						clearAllFilters={clearAllFilters}
 					/>
-					<Button variant="primaryViolet" className="w-full">
-						<Link href={appRoutes.addApplication}>Add new</Link>
-					</Button>
+					<Link href={appRoutes.addApplication} className="w-full p-0 m-0">
+						<Button variant="primaryViolet" className="w-full">
+							Add new
+						</Button>
+					</Link>
 				</div>
 			</div>
 

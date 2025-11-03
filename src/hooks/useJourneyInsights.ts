@@ -1,10 +1,10 @@
-import { Statistics } from '@/types/schema';
+import { JourneyInsight, Statistics } from '@/types/schema';
 import { apiRoutes } from '@/utils/constants';
 import { handleApiError } from '@/utils/utility';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 async function postJourneyInsights(statistics: Statistics): Promise<any> {
-	const response = await fetch(apiRoutes.ai.generateInsight, {
+	const response = await fetch(apiRoutes.ai.generateJourneyInsight, {
 		body: JSON.stringify(statistics),
 		method: 'POST',
 	});
@@ -18,7 +18,7 @@ async function postJourneyInsights(statistics: Statistics): Promise<any> {
 	return result;
 }
 
-async function getJourneyInsights(statisticsId: string): Promise<any> {
+async function getJourneyInsights(statisticsId: string): Promise<JourneyInsight> {
 	const response = await fetch(`${apiRoutes.journeyInsights}?statistics_id=${statisticsId}`);
 	const result = await response.json();
 
@@ -31,7 +31,6 @@ async function getJourneyInsights(statisticsId: string): Promise<any> {
 }
 
 export function useGetJourneyInsights(statisticsId: string | undefined) {
-	// Fetch journeys with React Query
 	const {
 		data: insights,
 		error,
@@ -39,7 +38,7 @@ export function useGetJourneyInsights(statisticsId: string | undefined) {
 		isError,
 	} = useQuery({
 		queryKey: ['journey-insights'],
-		queryFn: ({ queryKey }) => getJourneyInsights(statisticsId as string),
+		queryFn: () => getJourneyInsights(statisticsId as string),
 		gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
 		retry: false,
 		enabled: !!statisticsId,

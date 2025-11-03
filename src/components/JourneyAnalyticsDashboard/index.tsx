@@ -16,6 +16,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { useGetJourneyInsights, usePostInsights } from '@/hooks/useJourneyInsights';
 import { Card, CardContent, CardDescription } from '../ui/card';
+import { appRoutes } from '@/utils/constants';
 
 type Props = {
 	journeyId: string;
@@ -37,9 +38,8 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 		);
 	}
 
-	if (error) {
-		return <ErrorDisplay error={error} />;
-	}
+	const errors = error || insightsError || journeyInsightsError;
+	const insightsData = insights ? insights : journeyInsights;
 
 	if (!statistics || typeof statistics !== 'object') {
 		return (
@@ -70,27 +70,29 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 					</p>
 				</div>
 
-				<div className="text-center space-y-2">
-					<Link href={`/journeys/${journeyId}/applications`} target="_blank" rel="noopener noreferrer">
-						<Button>See all {statistics.applications_count} applications</Button>
+				<div className="text-center flex flex-col md:flex-row md:justify-center md:items-center gap-4">
+					<Link
+						href={appRoutes.journeyApplications(journeyId)}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="m-0 p-0"
+					>
+						<Button className='w-full'>See all {statistics.applications_count} applications</Button>
 					</Link>
 					<Button variant="outline" onClick={() => mutate(statistics)}>
 						Regenerate AI Insights
 					</Button>
 				</div>
-				{(insightsError || journeyInsightsError) && (
-					<ErrorDisplay error={insightsError || journeyInsightsError} />
+
+				{insightsData && (
+					<Card>
+						<CardContent className="!p-6">
+							<ReactMarkdown>{insightsData.insights}</ReactMarkdown>
+						</CardContent>
+					</Card>
 				)}
 
-				<Card>
-					<CardContent className="!p-6">
-						{insights ? (
-							<ReactMarkdown>{insights.data.insights}</ReactMarkdown>
-						) : (
-							<ReactMarkdown>{journeyInsights?.data?.insights}</ReactMarkdown>
-						)}
-					</CardContent>
-				</Card>
+				{errors && <ErrorDisplay error={errors} />}
 
 				{/* Key Metrics */}
 				<KeyMetrics statistics={statistics} replyRate={replyRate} successRate={successRate} />

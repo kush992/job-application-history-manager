@@ -65,15 +65,15 @@ export async function GET(request: NextRequest) {
 		let query = supabase
 			.from('job_applications')
 			.select(
-				`
-				*,
-				journeys:journey_id (
-				id,
-				title,
-				description,
-				is_active
-				)
-			`,
+			// 	`
+			// 	*,
+			// 	journeys:journey_id (
+			// 	id,
+			// 	title,
+			// 	description,
+			// 	is_active
+			// 	)
+			// `,
 			)
 			.eq('user_id', user.id)
 			.order('created_at', { ascending: false })
