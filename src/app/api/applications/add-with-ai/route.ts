@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { jobApplicationSchema } from '@/lib/supabase/schema';
 import { createClient } from '@/lib/supabase/server';
+import z from 'zod';
 
 const genAI = new GoogleGenerativeAI(process.env.LLM_API_KEY!);
 
@@ -127,7 +128,7 @@ export async function POST(req: Request) {
 			return NextResponse.json(
 				{
 					error: 'Failed to create application',
-					details: JSON.stringify(error),
+					details: error,
 				},
 				{ status: 500 },
 			);
@@ -140,8 +141,29 @@ export async function POST(req: Request) {
 			},
 			{ status: 201 },
 		);
-	} catch (err: any) {
-		console.error(err);
-		return NextResponse.json({ error: 'Internal server error', details: JSON.stringify(err) }, { status: 500 });
+	} catch (error) {
+		console.error(error);
+		// return NextResponse.json({ error: 'Internal server error', details: JSON.stringify(err) }, { status: 500 });
+
+		if (error instanceof z.ZodError) {
+			return NextResponse.json(
+				{
+					error: 'Invalid form data',
+					details: error.errors.map((err) => ({
+						field: err.path.join('.'),
+						message: err.message,
+					})),
+				},
+				{ status: 400 },
+			);
+		}
+
+		return NextResponse.json(
+			{
+				error: error instanceof SyntaxError ? 'Invalid JSON format' : 'An unexpected error occurred',
+				details: JSON.stringify(error),
+			},
+			{ status: error instanceof SyntaxError ? 400 : 500 },
+		);
 	}
 }

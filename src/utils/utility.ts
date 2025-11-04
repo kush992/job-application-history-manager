@@ -107,7 +107,7 @@ export const contractTypeMapping = {
 	[ContractType.B2B]: 'B2B',
 };
 
-export const handleApiError = async (response: Response): Promise<never> => {
+export const handleApiError = async (response: Response) => {
 	let errorData: ApiError;
 
 	try {
@@ -116,7 +116,7 @@ export const handleApiError = async (response: Response): Promise<never> => {
 		errorData = {
 			error: json?.error || 'An error occurred',
 			details: JSON.parse(json?.details),
-			fieldErrors: JSON.parse(json?.fieldErrors),
+			fieldErrors: json?.fieldErrors ? JSON.parse(json?.fieldErrors) : null,
 			status: response?.status,
 			endpoint: response.url,
 		};

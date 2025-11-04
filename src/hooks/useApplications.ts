@@ -135,6 +135,7 @@ export const useApplications = (options?: {
 		queryKey: applicationKeys.detail(documentId || ''),
 		queryFn: () => fetchApplication(documentId!),
 		enabled: enableSingle && !!documentId,
+		retry: false,
 	});
 
 	// Mutation for adding an application
