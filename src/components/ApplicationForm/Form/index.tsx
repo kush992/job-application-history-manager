@@ -1,7 +1,6 @@
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import React, { useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { ApplicationStatus, FILES_SEPARATOR, SalaryCurrency, SalaryType } from '../utility';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/TinyEditor';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -12,7 +11,15 @@ import { useUploadFile } from '@/hooks/useUploadFile';
 import DocumentInfoCard from '@/components/DocumentInfoCard';
 import { getFileName } from '@/utils/utility';
 import { Briefcase, Building2, CalendarIcon, Loader } from 'lucide-react';
-import { JobApplication, JobApplicationFormData, JobSites } from '@/types/schema';
+import {
+	ApplicationStatus,
+	ContractType,
+	JobApplicationFormData,
+	JobSites,
+	SalaryCurrency,
+	SalaryType,
+} from '@/types/schema';
+import { FILES_SEPARATOR } from '../utility';
 
 type Props = {
 	form: UseFormReturn<JobApplicationFormData>;
@@ -81,9 +88,14 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="REMOTE">Remote</SelectItem>
-												<SelectItem value="HYBRID">Hybrid</SelectItem>
-												<SelectItem value="ON_SITE">On Site</SelectItem>
+												{Object.values(ContractType).map((type) => (
+													<SelectItem key={type} value={type}>
+														{type
+															.replace(/_/g, ' ')
+															.toLowerCase()
+															.replace(/\b\w/g, (c) => c.toUpperCase())}
+													</SelectItem>
+												))}
 											</SelectContent>
 										</Select>
 										<FormMessage />
@@ -108,11 +120,14 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value="FULL_TIME">Full Time</SelectItem>
-												<SelectItem value="PART_TIME">Part Time</SelectItem>
-												<SelectItem value="CONTRACT">Contract</SelectItem>
-												<SelectItem value="INTERNSHIP">Internship</SelectItem>
-												<SelectItem value="FREELANCE">Freelance</SelectItem>
+												{Object.values(ContractType).map((type) => (
+													<SelectItem key={type} value={type}>
+														{type
+															.replace(/_/g, ' ')
+															.toLowerCase()
+															.replace(/\b\w/g, (c) => c.toUpperCase())}
+													</SelectItem>
+												))}
 											</SelectContent>
 										</Select>
 										<FormMessage />
@@ -153,11 +168,11 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value={SalaryCurrency.PLN}>PLN</SelectItem>
-												<SelectItem value={SalaryCurrency.EUR}>EUR</SelectItem>
-												<SelectItem value={SalaryCurrency.GBP}>GBP</SelectItem>
-												<SelectItem value={SalaryCurrency.INR}>INR</SelectItem>
-												<SelectItem value={SalaryCurrency.USD}>USD</SelectItem>
+												{Object.values(SalaryCurrency).map((currency) => (
+													<SelectItem key={currency} value={currency}>
+														{currency}
+													</SelectItem>
+												))}
 											</SelectContent>
 										</Select>
 										<FormMessage />
@@ -182,9 +197,14 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												<SelectItem value={SalaryType.HOURLY}>Hourly</SelectItem>
-												<SelectItem value={SalaryType.MONTHLY}>Monthly</SelectItem>
-												<SelectItem value={SalaryType.PER_ANUM}>Yearly</SelectItem>
+												{Object.values(SalaryType).map((type) => (
+													<SelectItem key={type} value={type}>
+														{type
+															.replace(/_/g, ' ')
+															.toLowerCase()
+															.replace(/\b\w/g, (c) => c.toUpperCase())}
+													</SelectItem>
+												))}
 											</SelectContent>
 										</Select>
 										<FormMessage />
@@ -254,16 +274,14 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											<SelectItem value={ApplicationStatus.APPLIED}>Applied</SelectItem>
-											<SelectItem value={ApplicationStatus.IN_PROGRESS}>In progress</SelectItem>
-											<SelectItem value={ApplicationStatus.SUCCESS}>Success</SelectItem>
-											<SelectItem value={ApplicationStatus.NO_REPLY}>No reply</SelectItem>
-											<SelectItem value={ApplicationStatus.REJECTED_NO_FEEDBACK}>
-												Rejected no feedback
-											</SelectItem>
-											<SelectItem value={ApplicationStatus.REJECTED_WITH_FEEDBACK}>
-												Rejected with feedback
-											</SelectItem>
+											{Object.values(ApplicationStatus).map((status) => (
+												<SelectItem key={status} value={status}>
+													{status
+														.replace(/_/g, ' ')
+														.toLowerCase()
+														.replace(/\b\w/g, (c) => c.toUpperCase())}
+												</SelectItem>
+											))}
 										</SelectContent>
 									</Select>
 									<FormMessage />
@@ -321,10 +339,14 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											<SelectItem value={JobSites.COMPANY_WEBSITE}>Company Website</SelectItem>
-											<SelectItem value={JobSites.GLASSDOOR}>Glassdoor</SelectItem>
-											<SelectItem value={JobSites.INDEED}>Indeed</SelectItem>
-											<SelectItem value={JobSites.JUST_JOIN_IT}>Just Join IT</SelectItem>
+											{Object.values(JobSites).map((site) => (
+												<SelectItem key={site} value={site}>
+													{site
+														.replace(/_/g, ' ')
+														.toLowerCase()
+														.replace(/\b\w/g, (c) => c.toUpperCase())}
+												</SelectItem>
+											))}
 										</SelectContent>
 									</Select>
 									<FormMessage />

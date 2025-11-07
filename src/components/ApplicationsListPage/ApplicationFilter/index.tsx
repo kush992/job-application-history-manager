@@ -43,7 +43,7 @@ const ApplicationFilter: React.FC<Props> = ({ filterForm, onSubmit, clearAllFilt
 						<div className="flex flex-col gap-4">
 							<FormField
 								control={filterForm.control}
-								name="companyName"
+								name="searchQuery"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Company Name</FormLabel>

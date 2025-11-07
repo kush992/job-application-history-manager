@@ -36,7 +36,7 @@ const fetchApplications = async (filters: ApplicationFilters = {}): Promise<JobA
 	const { query, statusFilter, workModeFilter, contractTypeFilter, journeyId } = filters;
 	const url = new URL(`${window.origin}${apiRoutes.applications.getAll}`);
 
-	if (query) url.searchParams.append('searchQuery', query);
+	if (query) url.searchParams.append('search_query', query);
 	if (statusFilter) url.searchParams.append('statusFilter', statusFilter);
 	if (workModeFilter) url.searchParams.append('workModeFilter', workModeFilter);
 	if (contractTypeFilter) url.searchParams.append('contractTypeFilter', contractTypeFilter);

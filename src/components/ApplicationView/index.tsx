@@ -30,6 +30,7 @@ import { CircleDollarSign, ExternalLink, ExternalLinkIcon, Pencil } from 'lucide
 import { ApplicationStatus } from '@/types/schema';
 import { useApplications } from '@/hooks/useApplications';
 import ErrorDisplay from '../ui/error-display';
+import DOMPurify from 'dompurify';
 
 type Props = {
 	documentId: string;
@@ -42,11 +43,15 @@ const ApplicationView: React.FC<Props> = ({ documentId }) => {
 		enableSingle: true,
 	});
 
-	console.log('errorrrrr', errorApplication);
-
 	const salaryDetail =
 		application?.salary &&
 		`${application?.salary} ${application?.salary_currency?.toLowerCase()} / ${application?.salary_type?.toLowerCase()}`;
+
+	const isHtmlContent = (content: string) => {
+		return (
+			content.includes('<div') || content.includes('<p') || content.includes('<br') || content.includes('<span')
+		);
+	};
 
 	return (
 		<div className="flex flex-col gap-6 mb-4 md:container">
@@ -169,13 +174,16 @@ const ApplicationView: React.FC<Props> = ({ documentId }) => {
 
 						<div id="applicationData">
 							<h2 className="text-lg font-semibold !m-0">Application Data</h2>
-							{/* <div
-								className="rounded-md text-wrap break-words prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
-								dangerouslySetInnerHTML={{
-									__html: DOMPurify.sanitize(data?.notes || ''),
-								}}
-							/> */}
-							<ReactMarkdown>{application?.notes}</ReactMarkdown>
+							{isHtmlContent(application?.notes || '') ? (
+								<div
+									className="rounded-md text-wrap break-words prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
+									dangerouslySetInnerHTML={{
+										__html: DOMPurify.sanitize(application?.notes || ''),
+									}}
+								/>
+							) : (
+								<ReactMarkdown>{application?.notes}</ReactMarkdown>
+							)}
 						</div>
 					</div>
 

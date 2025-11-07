@@ -18,7 +18,7 @@ import {
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Separator } from '../ui/separator';
-import { Info } from 'lucide-react';
+import { Info, Search } from 'lucide-react';
 import PageDescription from '../ui/page-description';
 import PageTitle from '../ui/page-title';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -27,6 +27,7 @@ import { FilterFormValues, filterSchema } from './ApplicationFilter/utility';
 import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
 import { useApplications } from '@/hooks/useApplications';
 import ErrorDisplay from '../ui/error-display';
+import { Input } from '../ui/input';
 
 type Props = {
 	journeyId?: string;
@@ -36,14 +37,14 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 	const filterForm = useForm<FilterFormValues>({
 		resolver: zodResolver(filterSchema),
 		defaultValues: {
-			companyName: '',
+			searchQuery: '',
 			status: [],
 			contractType: [],
 			workMode: [],
 		},
 	});
 
-	const { companyName, status, contractType, workMode } = filterForm.getValues();
+	const { searchQuery, status, contractType, workMode } = filterForm.getValues();
 
 	// const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
 	// 	queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyName, status, workMode, contractType],
@@ -85,7 +86,7 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 		deleteApplication,
 	} = useApplications({
 		filters: {
-			query: companyName,
+			query: searchQuery,
 			statusFilter: status?.[0],
 			workModeFilter: workMode?.[0],
 			contractTypeFilter: contractType?.[0],
@@ -112,7 +113,7 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 	// 	},
 	// });
 
-	const debouncedRefetch = debounce(refetchApplications, 500);
+	const debouncedRefetch = debounce(refetchApplications, 900);
 
 	const clearAllFilters = () => {
 		filterForm.reset();
@@ -144,7 +145,7 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 				</BreadcrumbList>
 			</Breadcrumb>
 
-			<div className="flex justify-between items-center mb-6">
+			<div className="flex flex-col md:flex-row gap-4 justify-between md:items-center mb-6">
 				<div>
 					<PageTitle title={applications?.journey ? applications.journey.title : 'Applied jobs'} />
 					<PageDescription
@@ -155,6 +156,11 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 						}
 					/>
 				</div>
+				<Link href={appRoutes.addApplication} className="w-fit p-0 m-0">
+					<Button variant="primaryViolet" className="w-full">
+						Add new
+					</Button>
+				</Link>
 			</div>
 
 			<div className="flex flex-col items-center gap-2 w-full sticky top-8">
@@ -163,17 +169,20 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 					<span>Total: {applications?.data?.length}</span>
 				</p>
 
-				<div className="flex justify-between gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
-					<ApplicationFilter
-						onSubmit={onSubmitFilters}
-						filterForm={filterForm}
-						clearAllFilters={clearAllFilters}
-					/>
-					<Link href={appRoutes.addApplication} className="w-full p-0 m-0">
-						<Button variant="primaryViolet" className="w-full">
-							Add new
-						</Button>
-					</Link>
+				<div className="flex justify-between items-center gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
+					<form className="relative flex items-center w-full" onReset={clearAllFilters}>
+						<Search className="w-4 h-4 absolute left-3" />
+						<Input
+							type="text"
+							placeholder="Search by company name or job title"
+							className="pl-10"
+							{...filterForm.register('searchQuery', {
+								onChange: () => {
+									debouncedRefetch();
+								},
+							})}
+						/>
+					</form>
 				</div>
 			</div>
 
