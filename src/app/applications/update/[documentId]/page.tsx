@@ -1,5 +1,5 @@
-import ApplicationForm from '@/components/ApplicationForm';
-import Loader from '@/components/Loader';
+import ApplicationForm from '@/components/ApplicationsPages/ApplicationForm';
+import Loader from '@/components/ui/loader';
 import { applicationDataQueries } from '@/lib/server/application-queries';
 import { getLoggedInUser } from '@/lib/supabase/user';
 import { appRoutes, QueryKeys } from '@/utils/constants';

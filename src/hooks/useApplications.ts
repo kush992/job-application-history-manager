@@ -1,8 +1,8 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import type { ApplicationStatus } from '@/components/ApplicationForm/utility';
 import type {
+	ApplicationStatus,
 	ContractType,
 	JobApplication,
 	JobApplicationFormData,

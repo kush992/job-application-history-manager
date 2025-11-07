@@ -43,41 +43,40 @@ export enum QueryKeys {
 // API structure
 export const apiRoutes = {
 	applications: {
-		getAll: '/api/applications/getAll',
-		getOne: '/api/applications/getOne',
-		add: '/api/applications/add',
-		addWithAi: '/api/applications/add-with-ai',
-		update: '/api/applications/update',
-		delete: '/api/applications/delete',
+		getAll: '/api/v2/applications/getAll',
+		getOne: '/api/v2/applications/getOne',
+		add: '/api/v2/applications/add',
+		addWithAi: '/api/v2/applications/add-with-ai',
+		update: '/api/v2/applications/update',
+		delete: '/api/v2/applications/delete',
 	},
 	applicationDocuments: {
-		add: '/api/application-documents/add',
-		update: '/api/application-documents/update',
+		add: '/api/v1/application-documents/add',
+		update: '/api/v1/application-documents/update',
 	},
 	interviewQuestions: {
-		getAll: '/api/interview-questions/getAll',
-		getOne: '/api/interview-questions/getOne',
-		add: '/api/interview-questions/add',
-		update: '/api/interview-questions/update',
-		delete: '/api/interview-questions/delete',
+		getAll: '/api/v1/interview-questions/getAll',
+		getOne: '/api/v1/interview-questions/getOne',
+		add: '/api/v1/interview-questions/add',
+		update: '/api/v1/interview-questions/update',
+		delete: '/api/v1/interview-questions/delete',
 	},
 	files: {
-		upload: '/api/files/upload',
-		delete: '/api/files/delete',
-	},
-	usersPrefs: {
-		update: '/api/user/prefs/update',
+		upload: '/api/v2/files/upload',
+		delete: '/api/v2/files/delete',
 	},
 	journeys: {
-		getAll: '/api/journeys/getAll',
-		getOne: '/api/journeys/getOne',
-		add: '/api/journeys/add',
-		update: '/api/journeys/update',
-		delete: '/api/journeys/delete',
+		getAll: '/api/v2/journeys/getAll',
+		getOne: '/api/v2/journeys/getOne',
+		add: '/api/v2/journeys/add',
+		update: '/api/v2/journeys/update',
+		delete: '/api/v2/journeys/delete',
 	},
-	statistics: '/api/statistics',
+	statistics: '/api/v2/statistics',
 	ai: {
-		generateJourneyInsight: '/api/ai/generate-insight',
+		generateJourneyInsight: '/api/v2/ai/generate-insight',
 	},
-	journeyInsights: '/api/journey-insights',
+	journeyInsights: '/api/v2/journey-insights',
 };
+
+export const FILES_SEPARATOR = ',____,';

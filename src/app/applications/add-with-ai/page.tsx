@@ -1,10 +1,8 @@
-import ApplicationForm from '@/components/ApplicationForm';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
-import Loader from '@/components/Loader';
+import Loader from '@/components/ui/loader';
 import { getLoggedInUser } from '@/lib/supabase/user';
-import ErrorBoundary from '@/components/ErrorBoundary';
-import AddApplicationWithAi from '@/components/AddApplicationWithAi';
+import AddApplicationWithAi from '@/components/ApplicationsPages/AddApplicationWithAi';
 
 export default async function AddApplication() {
 	const user = await getLoggedInUser();

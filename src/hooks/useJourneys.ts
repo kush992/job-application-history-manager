@@ -8,24 +8,22 @@ import { handleApiError } from '@/utils/utility';
 
 async function fetchJourneys(): Promise<Journey[]> {
 	const response = await fetch(apiRoutes.journeys.getAll);
-	const result = await response.json();
 
 	if (!response.ok) {
 		await handleApiError(response);
 	}
 
-	return result.journeys || [];
+	return (await response.json()).journeys || [];
 }
 
 async function fetchJourney(id: string): Promise<Journey> {
 	const response = await fetch(`${apiRoutes.journeys.getOne}?journeyId=${id}`);
-	const result = await response.json();
 
 	if (!response.ok) {
 		await handleApiError(response);
 	}
 
-	return result || {};
+	return (await response.json()) || {};
 }
 
 async function createJourneyApi(data: JourneyFormData): Promise<Journey> {
@@ -35,13 +33,11 @@ async function createJourneyApi(data: JourneyFormData): Promise<Journey> {
 		body: JSON.stringify(data),
 	});
 
-	const result = await response.json();
-
 	if (!response.ok) {
 		await handleApiError(response);
 	}
 
-	return result.journey;
+	return (await response.json()).journey;
 }
 
 async function updateJourneyApi(journeyId: string, data: JourneyFormData): Promise<Journey> {
@@ -51,13 +47,11 @@ async function updateJourneyApi(journeyId: string, data: JourneyFormData): Promi
 		body: JSON.stringify({ journeyId, ...data }),
 	});
 
-	const result = await response.json();
-
 	if (!response.ok) {
 		await handleApiError(response);
 	}
 
-	return result.journey;
+	return (await response.json()).journey;
 }
 
 async function deleteJourneyApi(journeyId: string): Promise<void> {
@@ -66,8 +60,6 @@ async function deleteJourneyApi(journeyId: string): Promise<void> {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ journeyId }),
 	});
-
-	const result = await response.json();
 
 	if (!response.ok) {
 		await handleApiError(response);

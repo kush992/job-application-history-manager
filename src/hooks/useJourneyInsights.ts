@@ -8,26 +8,22 @@ async function postJourneyInsights(statistics: Statistics): Promise<any> {
 		body: JSON.stringify(statistics),
 		method: 'POST',
 	});
-	const result = await response.json();
-
+	
 	if (!response.ok) {
-		console.log('API error response:', result);
-		throw await handleApiError(response);
+		await handleApiError(response);
 	}
 
-	return result;
+	return await response.json();
 }
 
 async function getJourneyInsights(statisticsId: string): Promise<JourneyInsight> {
 	const response = await fetch(`${apiRoutes.journeyInsights}?statistics_id=${statisticsId}`);
-	const result = await response.json();
 
 	if (!response.ok) {
-		console.log('API error response:', result);
-		throw await handleApiError(response);
+		await handleApiError(response);
 	}
 
-	return result;
+	return await response.json();
 }
 
 export function useGetJourneyInsights(statisticsId: string | undefined) {

@@ -1,5 +1,5 @@
-import Loader from '@/components/Loader';
-import PrivacyPolicyPage from '@/components/PrivacyPolicyPage';
+import Loader from '@/components/ui/loader';
+import PrivacyPolicyPage from '@/components/StaticPages/PrivacyPolicyPage';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 

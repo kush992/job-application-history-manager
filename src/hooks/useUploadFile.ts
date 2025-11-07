@@ -1,7 +1,6 @@
-import { apiRoutes } from '@/utils/constants';
+import { apiRoutes, FILES_SEPARATOR } from '@/utils/constants';
 import { useState, useCallback } from 'react';
 import { toast } from './use-toast';
-import { FILES_SEPARATOR } from '@/components/ApplicationForm/utility';
 import { handleApiError } from '@/utils/utility';
 
 type UploadFileStatus = {

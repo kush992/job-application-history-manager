@@ -1,5 +1,4 @@
-import { ApplicationStatus } from '@/components/ApplicationForm/utility';
-import { ContractType, JobApplication, JobApplicationFormData, WorkMode } from '@/types/schema';
+import { ApplicationStatus, ContractType, JobApplication, JobApplicationFormData, WorkMode } from '@/types/schema';
 import { apiRoutes } from '@/utils/constants';
 
 export const applicationDataQueries = {

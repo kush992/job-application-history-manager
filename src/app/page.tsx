@@ -1,4 +1,4 @@
-import Loader from '@/components/Loader';
+import Loader from '@/components/ui/loader';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 import HomePage from '@/components/Home';

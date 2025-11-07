@@ -6,13 +6,12 @@ import { useCallback } from 'react';
 
 async function fetchStatistics(journeyId: string): Promise<Statistics> {
 	const response = await fetch(`${apiRoutes.statistics}?journeyId=${journeyId}`);
-	const result = await response.json();
 
 	if (!response.ok) {
 		await handleApiError(response);
 	}
 
-	return result;
+	return await response.json();
 }
 
 export function useStatistics(journeyId: string) {

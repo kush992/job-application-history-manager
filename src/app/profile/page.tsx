@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { getProfile } from '@/lib/supabase/profiles';
 import { redirect } from 'next/navigation';
-import { ProfileView } from '@/components/Profile/ProfileView';
+import { ProfileView } from '@/components/Profile';
 import { appRoutes } from '@/utils/constants';
 
 export default async function ProfilePage() {

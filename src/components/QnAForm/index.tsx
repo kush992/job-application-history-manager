@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formSchema, QnAFormData, normaliseQuestionsAndAnswers } from './utility';
 import { useRouter } from 'next/navigation';
-import Loader from '../Loader';
+import Loader from '../ui/loader';
 import { appRoutes } from '@/utils/constants';
 import { useForm } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';

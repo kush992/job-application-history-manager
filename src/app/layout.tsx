@@ -4,7 +4,7 @@ import './globals.css';
 import Wrapper from '@/components/Wrapper';
 import { jsonParseString } from '@/utils/utility';
 import { getLoggedInUser } from '@/lib/supabase/user';
-import Loader from '@/components/Loader';
+import Loader from '@/components/ui/loader';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -1,5 +1,5 @@
-import Loader from '@/components/Loader';
-import ApplicationView from '@/components/ApplicationView';
+import Loader from '@/components/ui/loader';
+import ApplicationView from '@/components/ApplicationsPages/ApplicationView';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { redirect } from 'next/navigation';

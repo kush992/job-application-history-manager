@@ -1,5 +1,5 @@
-import Loader from '@/components/Loader';
-import TermsOfServicePage from '@/components/TermsOfServicePage';
+import Loader from '@/components/ui/loader';
+import TermsOfServicePage from '@/components/StaticPages/TermsOfServicePage';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 

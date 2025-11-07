@@ -1,5 +1,5 @@
-import FAQPage from '@/components/FAQPage';
-import Loader from '@/components/Loader';
+import FAQPage from '@/components/StaticPages/FAQPage';
+import Loader from '@/components/ui/loader';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 

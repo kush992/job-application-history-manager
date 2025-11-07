@@ -1,8 +1,6 @@
-// import { ApplicationStatus } from '@/components/ApplicationForm/utility';
-import { BadgeProps, badgeVariants } from '@/components/ui/badge';
+import { BadgeProps } from '@/components/ui/badge';
 import { ApiError } from '@/types/apiError';
 import { ApplicationStatus, ContractType, WorkMode } from '@/types/schema';
-// import { ContractType, WorkMode } from '@/types/apiResponseTypes';
 
 export const baseUrl = () => {
 	if (process.env.VERCEL_URL) {
@@ -109,10 +107,8 @@ export const contractTypeMapping = {
 
 export const handleApiError = async (response: Response) => {
 	let errorData: ApiError;
-
 	try {
-		const json = await response.json();
-		console.log('API Error Response JSON:', json);
+		const json = await response?.json();
 		errorData = {
 			error: json?.error || 'An error occurred',
 			details: JSON.parse(json?.details),
@@ -120,7 +116,8 @@ export const handleApiError = async (response: Response) => {
 			status: response?.status,
 			endpoint: response.url,
 		};
-	} catch {
+	} catch (err) {
+		console.log('Error parsing API error response as JSON:', err);
 		// If response body is not JSON, use status text
 		errorData = {
 			error: response.statusText || 'An error occurred',

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from './server';
+import { User } from '@supabase/supabase-js';
 
-export async function withAuth(request: NextRequest, handler: (supabase: any, user: any) => Promise<NextResponse>) {
+export async function withAuth(request: NextRequest, handler: (supabase: any, user: User) => Promise<NextResponse>) {
 	try {
 		const supabase = await createClient();
 		const {
@@ -11,7 +12,10 @@ export async function withAuth(request: NextRequest, handler: (supabase: any, us
 
 		if (authError || !user) {
 			return NextResponse.json(
-				{ error: 'Unauthorized', details: authError ? JSON.stringify(authError) : 'User not found' },
+				{
+					error: 'Unauthorized',
+					details: authError ? JSON.stringify(authError) : 'User not logged in or user does not exists.',
+				},
 				{ status: 401 },
 			);
 		}

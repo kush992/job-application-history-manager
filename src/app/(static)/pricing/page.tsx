@@ -1,5 +1,5 @@
-import Loader from '@/components/Loader';
-import PricingPage from '@/components/PricingPage';
+import Loader from '@/components/ui/loader';
+import PricingPage from '@/components/StaticPages/PricingPage';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 

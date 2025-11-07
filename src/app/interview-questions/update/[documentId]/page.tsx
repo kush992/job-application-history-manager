@@ -1,4 +1,4 @@
-import Loader from '@/components/Loader';
+import Loader from '@/components/ui/loader';
 import QnAForm from '@/components/QnAForm';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { appRoutes } from '@/utils/constants';

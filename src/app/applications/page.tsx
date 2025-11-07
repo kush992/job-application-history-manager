@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
-import Loader from '@/components/Loader';
+import Loader from '@/components/ui/loader';
 import { Analytics } from '@vercel/analytics/next';
 import { QueryKeys } from '@/utils/constants';
-import ApplicationsListPage from '@/components/ApplicationsListPage';
+import ApplicationsListPage from '@/components/ApplicationsPages/ApplicationsListPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { applicationDataQueries } from '@/lib/server/application-queries';
 import { getLoggedInUser } from '@/lib/supabase/user';

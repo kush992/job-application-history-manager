@@ -1,5 +1,5 @@
 import JobAnalyticsDashboard from '@/components/JourneyAnalyticsDashboard';
-import Loader from '@/components/Loader';
+import Loader from '@/components/ui/loader';
 import { createClient } from '@/lib/supabase/server';
 import { appRoutes } from '@/utils/constants';
 import { redirect } from 'next/navigation';

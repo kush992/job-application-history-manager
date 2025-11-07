@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
-import Loader from '@/components/Loader';
+import Loader from '@/components/ui/loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 import { appRoutes } from '@/utils/constants';
