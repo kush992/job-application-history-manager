@@ -143,25 +143,25 @@ export interface Statistics {
 	updated_at: string;
 
 	// Salary types
-	hourly_salary_count: 0;
-	daily_salary_count: 0;
-	weekly_salary_count: 0;
-	monthly_salary_count: 38;
-	yearly_salary_count: 10;
-	hourly_salary_sum: 0;
-	daily_salary_sum: 0;
-	weekly_salary_sum: 0;
-	monthly_salary_sum: 422500;
-	yearly_salary_sum: 75180;
+	hourly_salary_count: number;
+	daily_salary_count: number;
+	weekly_salary_count: number;
+	monthly_salary_count: number;
+	yearly_salary_count: number;
+	hourly_salary_sum: number;
+	daily_salary_sum: number;
+	weekly_salary_sum: number;
+	monthly_salary_sum: number;
+	yearly_salary_sum: number;
 
 	// Currencies
-	usd_salary_count: 6;
-	eur_salary_count: 16;
-	pln_salary_count: 27;
-	inr_salary_count: 0;
-	gbp_salary_count: 1;
-	cad_salary_count: 0;
-	aud_salary_count: 0;
+	usd_salary_count: number;
+	eur_salary_count: number;
+	pln_salary_count: number;
+	inr_salary_count: number;
+	gbp_salary_count: number;
+	cad_salary_count: number;
+	aud_salary_count: number;
 }
 
 export interface JourneyStatistics {
@@ -188,7 +188,7 @@ export interface Profile {
 
 export interface JourneyInsight {
 	id: string;
-	inserted_at: string;
+	created_at: string;
 	insights: string;
 	journey_id: string;
 	statistics_demo_id: string;
