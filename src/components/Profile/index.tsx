@@ -11,6 +11,7 @@ import { useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { Profile } from '@/types/profiles';
 import { appRoutes } from '@/utils/constants';
+import { Breadcrumb, BreadcrumbList, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbItem, BreadcrumbPage } from '../ui/breadcrumb';
 
 interface ProfileViewProps {
 	user: User;
@@ -63,10 +64,18 @@ export function ProfileView({ user, profile }: ProfileViewProps) {
 
 	return (
 		<div className="max-w-4xl mx-auto space-y-6">
-			{/* Header */}
-			<div className="text-center">
-				<h1 className="text-3xl font-bold text-primary">Profile</h1>
-				<p className="mt-2 ">View and manage your account information</p>
+			<Breadcrumb className="mb-2">
+				<BreadcrumbList>
+					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
+					<BreadcrumbSeparator />
+					<BreadcrumbItem>
+						<BreadcrumbPage>Profile</BreadcrumbPage>
+					</BreadcrumbItem>
+				</BreadcrumbList>
+			</Breadcrumb>
+			<div>
+				<h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight">Profile</h1>
+				<p className="mt-2 text-secondary-foreground">View and manage your account information</p>
 			</div>
 
 			{/* Profile Card */}
