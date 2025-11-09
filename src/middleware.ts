@@ -26,7 +26,11 @@ const protectedRoutes = [
 	appRoutes.interviewQuestions,
 	appRoutes.addInterviewQuestions,
 	appRoutes.updateInterviewQuestions,
-	appRoutes.userSettings,
+	appRoutes.journeys,
+	appRoutes.journeyApplications,
+	appRoutes.addJourney,
+	appRoutes.editJourney,
+	appRoutes.viewJourney,
 ];
 
 // Helper function to check if path matches pattern
@@ -108,7 +112,12 @@ export async function middleware(request: NextRequest) {
 	}
 
 	// Handle protected routes
-	if (matchesPattern(pathname, protectedRoutes)) {
+	if (
+		matchesPattern(
+			pathname,
+			protectedRoutes.filter((route) => typeof route === 'string'),
+		)
+	) {
 		// Check if user is authenticated
 		if (!user || authError) {
 			const url = request.nextUrl.clone();

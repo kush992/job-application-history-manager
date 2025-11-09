@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
 				return NextResponse.json({ error: 'Supabase error', details: JSON.stringify(error) }, { status: 400 });
 			}
 
-			return NextResponse.json({ data }, { status: 201 });
+			return NextResponse.json(data, { status: 201 });
 		} else {
 			const { data, error } = await supabase
 				.from('journey_insights')
@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
 				return NextResponse.json({ error: 'Supabase error', details: JSON.stringify(error) }, { status: 400 });
 			}
 
-			return NextResponse.json({ data }, { status: 201 });
+			return NextResponse.json(data, { status: 201 });
 		}
 	} catch (error) {
 		console.error('Error generating insights:', error);

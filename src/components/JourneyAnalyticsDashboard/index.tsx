@@ -36,9 +36,6 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 	const { insights, error: insightsError, mutate } = usePostInsights();
 	const { insights: journeyInsights, error: journeyInsightsError } = useGetJourneyInsights(statistics?.id);
 
-	console.log('insights', insights);
-	console.error('insightsError', insightsError);
-
 	if (isLoading || isFetching) {
 		return (
 			<div className="min-h-screen bg-background p-3 sm:p-4 md:p-6 flex items-center justify-center">
@@ -48,7 +45,7 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 	}
 
 	const errors = error || insightsError || journeyInsightsError;
-	const insightsData = insights ? insights : journeyInsights;
+	const insightsData = !!insights ? insights : journeyInsights;
 
 	if (!statistics || typeof statistics !== 'object') {
 		return (
@@ -104,7 +101,7 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 					</div>
 				</div>
 
-				{insightsData && (
+				{insightsData && !errors && (
 					<Card>
 						<CardContent className="!p-6">
 							<ReactMarkdown>{insightsData.insights}</ReactMarkdown>
@@ -112,7 +109,7 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 					</Card>
 				)}
 
-				{errors && <ErrorDisplay error={errors} />}
+				{errors && !insightsData && <ErrorDisplay error={errors} />}
 
 				{/* Key Metrics */}
 				<KeyMetrics statistics={statistics} replyRate={replyRate} successRate={successRate} />

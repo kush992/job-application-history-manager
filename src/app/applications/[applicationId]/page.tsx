@@ -9,7 +9,7 @@ import { applicationDataQueries } from '@/lib/server/application-queries';
 import { getLoggedInUser } from '@/lib/supabase/user';
 
 type Params = {
-	documentId: string;
+	applicationId: string;
 };
 
 export default async function ViewApplication({ params }: { params: Params }) {
@@ -17,8 +17,8 @@ export default async function ViewApplication({ params }: { params: Params }) {
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
-		queryKey: [QueryKeys.APPLICATION_BY_ID, params.documentId, user?.id],
-		queryFn: () => applicationDataQueries.getOne(params.documentId),
+		queryKey: [QueryKeys.APPLICATION_BY_ID, params.applicationId, user?.id],
+		queryFn: () => applicationDataQueries.getOne(params.applicationId),
 	});
 
 	return (
@@ -26,7 +26,7 @@ export default async function ViewApplication({ params }: { params: Params }) {
 			<main className="flex min-h-screen flex-col gap-8 mx-auto">
 				<Analytics />
 				<HydrationBoundary state={dehydrate(queryClient)}>
-					<ApplicationView documentId={params.documentId} userId={String(user?.id)} />
+					<ApplicationView applicationId={params.applicationId} userId={String(user?.id)} />
 				</HydrationBoundary>
 			</main>
 		</Suspense>

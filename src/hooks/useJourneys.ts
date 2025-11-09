@@ -17,7 +17,7 @@ async function fetchJourneys(): Promise<Journey[]> {
 }
 
 async function fetchJourney(id: string): Promise<Journey> {
-	const response = await fetch(`${apiRoutes.journeys.getOne}?journeyId=${id}`);
+	const response = await fetch(`${apiRoutes.journeys}?journeyId=${id}`);
 
 	if (!response.ok) {
 		await handleApiError(response);
@@ -80,7 +80,8 @@ export function useJourneys(id?: string) {
 		queryKey: [QueryKeys.JOURNEYS_PAGE],
 		queryFn: fetchJourneys,
 		staleTime: 5 * 60 * 1000, // 5 minutes
-		gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
+		gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime),
+		retry: false,
 	});
 
 	const {

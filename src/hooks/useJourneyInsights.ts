@@ -3,12 +3,12 @@ import { apiRoutes } from '@/utils/constants';
 import { handleApiError } from '@/utils/utility';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-async function postJourneyInsights(statistics: Statistics): Promise<any> {
+async function postJourneyInsights(statistics: Statistics): Promise<JourneyInsight> {
 	const response = await fetch(apiRoutes.ai.generateJourneyInsight, {
 		body: JSON.stringify(statistics),
 		method: 'POST',
 	});
-	
+
 	if (!response.ok) {
 		await handleApiError(response);
 	}

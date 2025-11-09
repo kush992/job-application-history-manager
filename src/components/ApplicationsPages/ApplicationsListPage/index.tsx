@@ -28,7 +28,7 @@ import { Input } from '@/components/ui/input';
 import ErrorDisplay from '@/components/ui/error-display';
 import PageDescription from '@/components/ui/page-description';
 import PageTitle from '@/components/ui/page-title';
-import { Separator } from '@radix-ui/react-dropdown-menu';
+import { Separator } from '@/components/ui/separator';
 
 type Props = {
 	journeyId?: string;
@@ -47,37 +47,6 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 
 	const { searchQuery, status, contractType, workMode } = filterForm.getValues();
 
-	// const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
-	// 	queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyName, status, workMode, contractType],
-	// 	queryFn: ({ pageParam = undefined }) =>
-	// 		applicationDataQueries.getAll(
-	// 			String(pageParam),
-	// 			companyName,
-	// 			status?.join(',') as ApplicationStatus,
-	// 			workMode?.join(',') as WorkMode,
-	// 			contractType?.join(',') as ContractType,
-	// 		),
-	// 	getNextPageParam: (lastPage) => {
-	// 		if (lastPage.documents.length === 20) {
-	// 			return lastPage.documents[lastPage.documents.length - 1].$id;
-	// 		}
-	// 		return undefined;
-	// 	},
-	// 	retry: 0,
-	// 	staleTime: 1000 * 60 * 5,
-	// 	initialPageParam: undefined,
-	// });
-
-	// const { data, error, isLoading, refetch } = useQuery({
-	// 	queryKey: [QueryKeys.APPLICATIONS_PAGE, userId, companyName, status, workMode, contractType],
-	// 	queryFn: () =>
-	// 		applicationDataQueries.getAll(companyName, status?.[0], workMode?.[0], contractType?.[0], journeyId),
-	// 	retry: 0,
-	// 	staleTime: 1000 * 60 * 5,
-	// });
-
-	const { toast } = useToast();
-
 	const {
 		applications,
 		isErrorApplications,
@@ -95,36 +64,11 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 		},
 	});
 
-	// const { mutate, isSuccess } = useDeleteApplication();
-
-	// const mutation = useMutation({
-	// 	mutationFn: (documentId: string) => applicationDataQueries.delete(documentId, refetch),
-	// 	onSuccess: () => {
-	// 		toast({
-	// 			title: 'Success',
-	// 			description: 'Application deleted successfully',
-	// 		});
-	// 	},
-	// 	onError: (error) => {
-	// 		toast({
-	// 			title: 'Error',
-	// 			description: 'Failed to delete application',
-	// 		});
-	// 		console.error(error);
-	// 	},
-	// });
-
 	const debouncedRefetch = debounce(refetchApplications, 900);
 
 	const clearAllFilters = () => {
 		filterForm.reset();
 	};
-
-	const onSubmitFilters = () => {
-		debouncedRefetch();
-	};
-
-	console.log('isError', isErrorApplications, errorApplications);
 
 	return (
 		<div className="rounded-md flex flex-col gap-4">
@@ -132,14 +76,14 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 				<BreadcrumbList>
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 					<BreadcrumbSeparator />
-					{isLoadingApplications ? (
-						<BreadcrumbEllipsis />
-					) : (
-						<BreadcrumbLink href={`${appRoutes.viewJourney}/${applications?.journey.id}`}>
-							{applications?.journey?.title}
-						</BreadcrumbLink>
+					{!isLoadingApplications && (
+						<>
+							<BreadcrumbLink href={`${appRoutes.viewJourney}/${applications?.journey.id}`}>
+								{applications?.journey?.title}
+							</BreadcrumbLink>
+							<BreadcrumbSeparator />
+						</>
 					)}
-					<BreadcrumbSeparator />
 					<BreadcrumbItem>
 						<BreadcrumbPage>Applications</BreadcrumbPage>
 					</BreadcrumbItem>

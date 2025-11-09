@@ -32,13 +32,13 @@ import ErrorDisplay from '../../ui/error-display';
 import DOMPurify from 'dompurify';
 
 type Props = {
-	documentId: string;
+	applicationId: string;
 	userId: string;
 };
 
-const ApplicationView: React.FC<Props> = ({ documentId }) => {
+const ApplicationView: React.FC<Props> = ({ applicationId }) => {
 	const { application, errorApplication, isLoadingApplication, isFetchingApplication } = useApplications({
-		documentId,
+		applicationId,
 		enableSingle: true,
 	});
 
@@ -112,7 +112,7 @@ const ApplicationView: React.FC<Props> = ({ documentId }) => {
 								)}
 							</div>
 							<div>
-								<Link href={`${appRoutes.updateApplication}/${documentId}`} className="underline">
+								<Link href={appRoutes.updateApplication(applicationId)} className="underline">
 									<Button size="icon">
 										<Pencil className="w-4 h-4" />
 									</Button>

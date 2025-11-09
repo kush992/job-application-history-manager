@@ -11,7 +11,14 @@ import { useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { Profile } from '@/types/profiles';
 import { appRoutes } from '@/utils/constants';
-import { Breadcrumb, BreadcrumbList, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbItem, BreadcrumbPage } from '../ui/breadcrumb';
+import {
+	Breadcrumb,
+	BreadcrumbList,
+	BreadcrumbLink,
+	BreadcrumbSeparator,
+	BreadcrumbItem,
+	BreadcrumbPage,
+} from '../ui/breadcrumb';
 
 interface ProfileViewProps {
 	user: User;

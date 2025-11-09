@@ -17,8 +17,8 @@ type Props = {
 
 const ApplicationListItem: React.FC<Props> = ({ data, onClickDelete }) => {
 	return (
-		<div className="bg-background p-4 grid grid-cols-[1fr_auto] gap-2">
-			<Link href={`${appRoutes.viewApplication}/${data.id}`}>
+		<div className="bg-background p-4 grid grid-cols-[1fr_auto] gap-2 motion-preset-slide-down-lg">
+			<Link href={appRoutes.viewApplication(data.id)}>
 				<div className="grid sm:grid-cols-3 sm:gap-4 w-full items-start">
 					<div>
 						<h3 className="text-base font-[500] !pb-0 !my-0 text-secondary-foreground">{data.job_title}</h3>
@@ -54,7 +54,7 @@ const ApplicationListItem: React.FC<Props> = ({ data, onClickDelete }) => {
 				</DropdownMenuTrigger>
 
 				<DropdownMenuContent align="end">
-					<Link href={`${appRoutes.updateApplication}/${data.id}`}>
+					<Link href={appRoutes.updateApplication(data.id)}>
 						<Button variant="ghost" className="flex gap-1 items-center w-full justify-start">
 							<Pencil className="w-4 h-4" /> Edit
 						</Button>

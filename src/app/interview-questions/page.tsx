@@ -1,13 +1,13 @@
 import React, { Suspense } from 'react';
 import Loader from '@/components/ui/loader';
 import { Analytics } from '@vercel/analytics/next';
-import { getLoggedInUser } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 import { appRoutes, QueryKeys } from '@/utils/constants';
 import QnAPage from '@/components/QnAPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { QnAShowType } from '@/components/QnAPage/utility';
 import { interviewQuestionsQueries } from '@/lib/server/interview-questions-queries';
+import { getLoggedInUser } from '@/lib/supabase/user';
 
 const QuestionsAndAnswersPage = async () => {
 	const user = await getLoggedInUser();
@@ -16,7 +16,7 @@ const QuestionsAndAnswersPage = async () => {
 
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
-		queryKey: [QueryKeys.QUESTIONS_AND_ANSWERS_PAGE, user.$id, QnAShowType.PUBLIC],
+		queryKey: [QueryKeys.QUESTIONS_AND_ANSWERS_PAGE, user.id, QnAShowType.PUBLIC],
 		queryFn: () => interviewQuestionsQueries.getAll(QnAShowType.PUBLIC),
 	});
 
@@ -26,7 +26,7 @@ const QuestionsAndAnswersPage = async () => {
 				<Analytics />
 
 				<HydrationBoundary state={dehydrate(queryClient)}>
-					<QnAPage userId={user.$id} />
+					<QnAPage userId={user.id as string} />
 				</HydrationBoundary>
 			</main>
 		</Suspense>

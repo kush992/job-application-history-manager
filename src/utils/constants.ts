@@ -1,25 +1,32 @@
 export const appRoutes = {
 	home: '/',
-	// signIn: '/auth/signin',
-	signUp: '/auth/signup',
+
+	// Application routes
 	application: '/applications',
 	addApplication: '/applications/add',
 	addWithAiApplication: '/applications/add-with-ai',
-	updateApplication: '/applications/update',
-	viewApplication: '/applications/view',
+	updateApplication: (applicationId: string) => `/applications/${applicationId}/edit`,
+	viewApplication: (applicationId: string) => `/applications/${applicationId}`,
+
+	// Interview Questions routes
 	interviewQuestions: '/interview-questions',
 	addInterviewQuestions: '/interview-questions/add',
 	updateInterviewQuestions: '/interview-questions/update',
+
+	// Static routes
 	faq: '/faq',
 	pricing: '/pricing',
 	aboutUs: '/about-us',
 	contactUs: '/contact',
 	privacyPolicy: '/privacy-policy',
 	termsOfService: '/terms-of-service',
-	userSettings: '/user/settings',
+
+	// Auth routes
+	signUp: '/auth/signup',
 	authCallback: '/auth/callback',
 	authCodeError: '/auth/auth-code-error',
 	authConfirm: '/auth/confirm',
+
 	// Journey routes
 	journeys: '/journeys',
 	addJourney: '/journeys/add',
@@ -43,7 +50,7 @@ export enum QueryKeys {
 // API structure
 export const apiRoutes = {
 	applications: {
-		getAll: '/api/v2/applications/getAll',
+		getAll: '/api/v2/applications',
 		getOne: '/api/v2/applications/getOne',
 		add: '/api/v2/applications/add',
 		addWithAi: '/api/v2/applications/add-with-ai',

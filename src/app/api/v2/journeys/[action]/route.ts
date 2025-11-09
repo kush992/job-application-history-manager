@@ -187,9 +187,6 @@ export async function DELETE(request: NextRequest, { params }: { params: { actio
 
 export async function GET(request: NextRequest, { params }: { params: { action: string } }) {
 	console.log('GET request for journeys with action:', params.action);
-	if (['getAll', 'getOne'].includes(params.action) === false) {
-		return NextResponse.json({ error: 'Invalid action' }, { status: 404 });
-	}
 
 	return withAuth(request, async (supabase, user) => {
 		let query = supabase
@@ -208,7 +205,7 @@ export async function GET(request: NextRequest, { params }: { params: { action: 
 			if (!journeyId) {
 				return NextResponse.json({ error: 'journeyId query parameter is required' }, { status: 400 });
 			}
-			query = query.eq('id', journeyId);
+			query = query.eq('id', journeyId).single();
 		}
 
 		const { data: journeys, error } = await query;

@@ -12,6 +12,7 @@ import type {
 import { apiRoutes } from '@/utils/constants';
 import { handleApiError } from '@/utils/utility';
 import { ApiError } from '@/types/apiError';
+import { useToast } from './use-toast';
 
 // Query Keys
 export const applicationKeys = {
@@ -58,8 +59,8 @@ const fetchApplications = async (filters: ApplicationFilters = {}): Promise<JobA
 	return response.json();
 };
 
-const fetchApplication = async (documentId: string): Promise<JobApplication> => {
-	const url = new URL(`${window.origin}${apiRoutes.applications.getOne}?documentId=${documentId}`);
+const fetchApplication = async (applicationId: string): Promise<JobApplication> => {
+	const url = new URL(`${window.origin}${apiRoutes.applications.getOne}?applicationId=${applicationId}`);
 
 	const response = await fetch(url);
 
@@ -117,24 +118,26 @@ const deleteApplication = async (documentId: string): Promise<string> => {
 // Custom Hooks
 export const useApplications = (options?: {
 	filters?: ApplicationFilters;
-	documentId?: string;
+	applicationId?: string;
 	enableSingle?: boolean;
 }) => {
 	const queryClient = useQueryClient();
-	const { filters = {}, documentId, enableSingle = false } = options || {};
+	const { toast } = useToast();
+	const { filters = {}, applicationId, enableSingle = false } = options || {};
 
 	// Query for fetching all applications
 	const applicationsQuery = useQuery({
 		queryKey: applicationKeys.list(filters),
 		queryFn: () => fetchApplications(filters),
 		retry: false,
+		enabled: !enableSingle || !applicationId,
 	});
 
 	// Query for fetching a single application
 	const applicationQuery = useQuery({
-		queryKey: applicationKeys.detail(documentId || ''),
-		queryFn: () => fetchApplication(documentId!),
-		enabled: enableSingle && !!documentId,
+		queryKey: applicationKeys.detail(applicationId || ''),
+		queryFn: () => fetchApplication(applicationId!),
+		enabled: enableSingle && !!applicationId,
 		retry: false,
 	});
 
@@ -160,6 +163,17 @@ export const useApplications = (options?: {
 		mutationFn: deleteApplication,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: applicationKeys.lists() });
+			toast({
+				title: 'Success',
+				description: 'Application deleted successfully',
+			});
+		},
+		onError: (error) => {
+			toast({
+				title: 'Error',
+				description: 'Failed to delete application',
+			});
+			console.error(error);
 		},
 	});
 

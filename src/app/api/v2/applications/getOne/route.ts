@@ -20,29 +20,17 @@ export async function GET(request: NextRequest) {
 		}
 
 		// Get document ID from search params
-		const documentId = request.nextUrl.searchParams.get('documentId');
+		const applicationId = request.nextUrl.searchParams.get('applicationId');
 
-		if (!documentId) {
+		if (!applicationId) {
 			return NextResponse.json({ error: 'Document ID is required' }, { status: 400 });
 		}
 
 		// Fetch the job application with journey information
 		const { data: application, error } = await supabase
 			.from('job_applications')
-			.select(
-				`
-					*,
-					journeys:journey_id (
-					id,
-					title,
-					description,
-					start_date,
-					end_date,
-					is_active
-					)
-				`,
-			)
-			.eq('id', documentId)
+			.select()
+			.eq('id', applicationId)
 			.eq('user_id', user.id) // Ensure user can only access their own applications
 			.single();
 

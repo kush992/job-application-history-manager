@@ -27,20 +27,20 @@ import { jobApplicationSchema } from '@/lib/supabase/schema';
 import ErrorDisplay from '../../ui/error-display';
 
 type Props = {
-	documentId?: string;
+	applicationId?: string;
 	isUpdateForm?: boolean;
 	isViewOnlyForm?: boolean;
 	userId: string;
 };
 
-const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
+const ApplicationForm: FC<Props> = ({ applicationId, isUpdateForm, userId }) => {
 	const router = useRouter();
 	const { toast } = useToast();
 
 	const { data: applicationData, isLoading } = useQuery({
-		queryKey: [QueryKeys.APPLICATION_BY_ID, documentId, userId],
-		queryFn: () => applicationDataQueries.getOne(String(documentId)),
-		enabled: !!documentId,
+		queryKey: [QueryKeys.APPLICATION_BY_ID, applicationId, userId],
+		queryFn: () => applicationDataQueries.getOne(String(applicationId)),
+		enabled: !!applicationId,
 	});
 
 	const addLinksMutation = useMutation({
@@ -83,7 +83,7 @@ const ApplicationForm: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 				addLinksMutation.mutate(data.links);
 			}
 
-			return applicationDataQueries.update(data, String(documentId));
+			return applicationDataQueries.update(data, String(applicationId));
 		},
 		onSuccess: () => {
 			console.log('here');

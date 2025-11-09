@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from './server';
-import { User } from '@supabase/supabase-js';
+import { SupabaseClient, User } from '@supabase/supabase-js';
 
-export async function withAuth(request: NextRequest, handler: (supabase: any, user: User) => Promise<NextResponse>) {
+export async function withAuth(
+	request: NextRequest,
+	handler: (supabase: SupabaseClient, user: User) => Promise<NextResponse>,
+) {
 	try {
 		const supabase = await createClient();
 		const {
