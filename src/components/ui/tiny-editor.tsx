@@ -1,14 +1,16 @@
 import { config } from '@/config/config';
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import { cn } from '@/lib/utils';
 
 type Props = {
 	initialData: string;
 	textareaName: string;
 	onChange: (data: string) => void;
+	isError?: boolean;
 };
 
-const TinyEditor = ({ initialData, onChange, textareaName }: Props) => {
+const TinyEditor = ({ initialData, onChange, textareaName, isError }: Props) => {
 	const editorRef = useRef<any>(null);
 
 	const handleEditorChange = (value: any) => {
@@ -22,7 +24,7 @@ const TinyEditor = ({ initialData, onChange, textareaName }: Props) => {
 			<Editor
 				apiKey={config.tinymceApiKey}
 				onInit={(_evt: any, editor: any) => (editorRef.current = editor)}
-				initialValue={initialData}
+				value={initialData}
 				onEditorChange={(newValue) => handleEditorChange(newValue)}
 				textareaName={textareaName}
 				init={{

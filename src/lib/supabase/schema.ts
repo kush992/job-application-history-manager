@@ -28,6 +28,11 @@ export const jobApplicationSchema = z.object({
 	applied_at: z.string().default(() => new Date().toISOString()),
 });
 
+export const jobApplicationSchemaAddWithAi = z.object({
+	job_application_data: z.string().nonempty('Job Application data is required.'),
+	links: z.string().optional().nullable(),
+});
+
 export const profileSchema = z.object({
 	full_name: z.string().optional().nullable(),
 	avatar_url: z.string().url().optional().nullable(),

@@ -16,35 +16,35 @@ import { Card, CardContent } from '@/components/ui/card';
 import ErrorDisplay from '@/components/ui/error-display';
 import TinyEditor from '@/components/ui/tiny-editor';
 import { Button } from '@/components/ui/button';
+import { useForm } from 'react-hook-form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { jobApplicationSchemaAddWithAi } from '@/lib/supabase/schema';
+import { config } from '@/config/config';
+import FileUpload from '../FileUpload';
+import { useAddWithAi } from '@/hooks/useAddWithAi';
+import { LoaderIcon } from 'lucide-react';
 
-type Props = {
-	documentId?: string;
-	isUpdateForm?: boolean;
-	isViewOnlyForm?: boolean;
-	userId: string;
-};
+const AddApplicationWithAi: FC = () => {
+	const form = useForm({
+		resolver: zodResolver(jobApplicationSchemaAddWithAi),
+		defaultValues: {
+			links: undefined,
+			job_application_data: '',
+		},
+	});
 
-const AddApplicationWithAi: FC<Props> = ({ documentId, isUpdateForm, userId }) => {
-	const [initialData, setInitialData] = useState<string>('');
-	const [data, setData] = useState<any>({});
+	const { isLoading, data, error, addMutation } = useAddWithAi();
 
-	async function extractJobData(rawText: string) {
-		const response = await fetch(apiRoutes.applications.addWithAi, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ text: rawText }),
+	const onSubmit = () => {
+		addMutation({
+			endpoint: apiRoutes.applications.addWithAi,
+			rawText:
+				form.getValues('job_application_data') +
+				'uploaded files during this application are linked here for "links" attribute: ' +
+				form.getValues('links'),
 		});
-
-		if (!response.ok) {
-			const result = await response.json();
-			setData({ error: result });
-			return;
-		}
-
-		const result = await response.json();
-		setData(result);
-		return result;
-	}
+	};
 
 	return (
 		<div className="container">
@@ -55,42 +55,50 @@ const AddApplicationWithAi: FC<Props> = ({ documentId, isUpdateForm, userId }) =
 					<BreadcrumbLink href={appRoutes.application}>Applications</BreadcrumbLink>
 					<BreadcrumbSeparator />
 					<BreadcrumbItem>
-						<BreadcrumbPage>{isUpdateForm ? 'Update' : 'Add'}</BreadcrumbPage>
+						<BreadcrumbPage>Add with AI</BreadcrumbPage>
 					</BreadcrumbItem>
 				</BreadcrumbList>
 			</Breadcrumb>
 			<div className="mb-8 motion-preset-fade-md">
-				<PageTitle title={isUpdateForm ? 'Update' : 'Add latest applied'} />
+				<PageTitle title="Add latest applied" />
 				<PageDescription description="Fill up all the details that are available" />
 			</div>
-			<h1 className="">{isUpdateForm ? 'Update' : 'Add latest applied'}</h1>
-			<p className="">Fill up all the details that are available</p>
 
 			<Card className="bg-background rounded-none border-[0px] md:rounded-xl md:border mb-6">
 				<CardContent className="pt-6 px-4 md:px-6">
-					<form>
-						<TinyEditor
-							initialData={initialData ?? ''}
-							onChange={(e) => setInitialData(e)}
-							textareaName="job_application_data"
-						/>
-						<Button
-							type="button"
-							className="mt-4"
-							onClick={(e) => {
-								e.preventDefault();
-								extractJobData(initialData);
-							}}
-						>
-							Save
-						</Button>
-					</form>
+					<Form {...form}>
+						<form className="flex flex-col gap-6" onSubmit={form.handleSubmit(onSubmit)}>
+							<FormField
+								control={form.control}
+								name="job_application_data"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Job Application Data *</FormLabel>
+										<FormControl>
+											<TinyEditor
+												initialData={form.getValues('job_application_data')}
+												textareaName="job_application_data"
+												{...field}
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							{config.uiShowUploader === '1' && <FileUpload form={form} />}
+
+							<Button type="submit" disabled={isLoading}>
+								Save {isLoading && <LoaderIcon className="animate-spin h-6 w-6" />}
+							</Button>
+						</form>
+					</Form>
 				</CardContent>
 			</Card>
 
-			{data?.error ? (
-				<ErrorDisplay error={data?.error} />
-			) : (
+			{error && <ErrorDisplay error={error} />}
+
+			{data && (
 				<pre className="bg-background text-status-success text-sm rounded-md border p-4 overflow-x-auto">
 					<code>{JSON.stringify(data, null, 2)}</code>
 				</pre>

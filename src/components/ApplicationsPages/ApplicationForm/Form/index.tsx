@@ -1,5 +1,5 @@
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import React, { useEffect } from 'react';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import TinyEditor from '@/components/ui/tiny-editor';
@@ -7,9 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { DateTimePicker } from '@/components/ui/date-time-picker';
 import { config } from '@/config/config';
-import { useUploadFile } from '@/hooks/useUploadFile';
-import DocumentInfoCard from '@/components/DocumentInfoCard';
-import { getFileName } from '@/utils/utility';
 import { Briefcase, Building2, CalendarIcon, Loader } from 'lucide-react';
 import {
 	ApplicationStatus,
@@ -20,7 +17,7 @@ import {
 	SalaryType,
 	WorkMode,
 } from '@/types/schema';
-import { FILES_SEPARATOR } from '@/utils/constants';
+import FileUpload from '../../FileUpload';
 
 type Props = {
 	form: UseFormReturn<JobApplicationFormData>;
@@ -28,16 +25,6 @@ type Props = {
 };
 
 const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
-	const { uploadFiles, deleteFile, checkFileAlreadyUploaded, fileStatuses } = useUploadFile();
-
-	const isShowFileStatus = fileStatuses.some((status) => status.isLoading);
-
-	const removeFile = async (fileName: string) => {
-		const links = form.getValues('links')?.split(FILES_SEPARATOR);
-		const newLinks = links?.filter((link) => !link.includes(fileName)).join(FILES_SEPARATOR);
-		await deleteFile(fileName).then(() => form.setValue('links', newLinks));
-	};
-
 	return (
 		<Form {...form}>
 			<form
@@ -375,74 +362,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 					</FormItem>
 
 					{/* TODO: resolve me and add security */}
-					{config.uiShowUploader === '1' && (
-						<FormField
-							control={form.control}
-							name="links"
-							render={({ field }) => (
-								<FormItem className="flex flex-col">
-									<FormLabel>Upload Files</FormLabel>
-									<FormControl>
-										<Input
-											id="fileUploader"
-											type="file"
-											multiple
-											name="link"
-											onChange={async (e) => {
-												const files = e.target.files;
-
-												if (files?.length) {
-													// Check if the files are already uploaded
-													const newFiles = Array.from(files).filter(
-														(file) =>
-															!checkFileAlreadyUploaded(file, form.getValues('links')),
-													);
-
-													const uploadedFileUrls = await uploadFiles(Array.from(newFiles));
-
-													if (uploadedFileUrls) {
-														if (!form.getValues('links')) {
-															form.setValue(
-																'links',
-																uploadedFileUrls.join(FILES_SEPARATOR),
-															);
-														} else {
-															const newLinks = uploadedFileUrls.join(FILES_SEPARATOR);
-															form.setValue(
-																'links',
-																form.getValues('links') + FILES_SEPARATOR + newLinks,
-															); // joining the recent with initial links
-														}
-													}
-												}
-											}}
-										/>
-									</FormControl>
-
-									<FormDescription>File should be less than 10MB.</FormDescription>
-
-									{/* show current progress of files */}
-									{isShowFileStatus &&
-										fileStatuses.map((status) => (
-											<DocumentInfoCard key={status.file.name} {...status} />
-										))}
-
-									{/* show all the files associated to this application */}
-									{form
-										.getValues('links')
-										?.split(FILES_SEPARATOR)
-										.map((link, index) => (
-											<DocumentInfoCard
-												key={`${index + 1} - ${getFileName(link)}`}
-												fileName={getFileName(link)}
-												removeFile={removeFile}
-											/>
-										))}
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					)}
+					{config.uiShowUploader === '1' && <FileUpload form={form} />}
 				</div>
 
 				<Button type="submit" disabled={form.formState.isSubmitting}>

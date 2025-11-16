@@ -28,7 +28,7 @@ const tiers = [
 			'Unlimited file uploads',
 			'AI-powered application analysis with deep research',
 			'AI-powered goal insights',
-			'AI-powered adding applications'
+			'AI-powered adding applications',
 		],
 		featured: true,
 	},

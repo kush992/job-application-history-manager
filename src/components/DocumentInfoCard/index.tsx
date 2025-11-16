@@ -32,10 +32,9 @@ const DocumentInfoCard: React.FC<Props> = ({
 				<div className="flex items-center gap-2 w-[70%]">
 					<p className="text-sm">{file?.name || fileName} &nbsp;</p>
 					<div>
-						<Loader className="w-4 h-4 animate-spin" />
-						{file && isLoading && <Loader className="w-4 h-4 animate-spin" />}
-						{file && !isLoading && isSuccess && <CircleCheck className="!text-successColor w-4 h-4" />}
-						{file && !isLoading && !isSuccess && <CircleX className="!text-destructive w-4 h-4" />}
+						{(file || fileName) && isLoading && <Loader className="w-4 h-4 animate-spin" />}
+						{(file || fileName) && isSuccess && <CircleCheck className="!text-successColor w-4 h-4" />}
+						{(file || fileName) && error && <CircleX className="!text-destructive w-4 h-4" />}
 					</div>
 				</div>
 				{error && <p className="text-destructive text-sm">{error}</p>}

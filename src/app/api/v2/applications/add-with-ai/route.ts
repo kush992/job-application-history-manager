@@ -52,6 +52,26 @@ export async function POST(req: Request) {
 				"applied_at": string (ISO date)
 				}
 
+				validate your output with the below schema:
+				{
+					job_title: z.string().nonempty('Job title is a required field'),
+					notes: z.string().optional().nullable(),
+					salary: z.string().optional().nullable(),
+					salary_type: z.nativeEnum(SalaryType).default(SalaryType.MONTHLY).optional().nullable(),
+					salary_currency: z.nativeEnum(SalaryCurrency).default(SalaryCurrency.PLN).optional().nullable(),
+					application_status: z.nativeEnum(ApplicationStatus).default(ApplicationStatus.APPLIED).optional().nullable(),
+					company_name: z.string().nonempty('Company name is a required field'),
+					company_domain: z.string().optional().nullable(),
+					interview_date: z.date().optional().nullable(),
+					links: z.string().optional().nullable(),
+					location: z.string().optional().nullable(),
+					job_link: z.string().optional().nullable(),
+					job_posted_on: z.nativeEnum(JobSites).default(JobSites.LINKEDIN).optional().nullable(),
+					work_mode: z.nativeEnum(WorkMode).default(WorkMode.REMOTE).optional().nullable(),
+					contract_type: z.nativeEnum(ContractType).default(ContractType.FULL_TIME).optional().nullable(),
+					applied_at: z.string().default(() => new Date().toISOString()),
+				}
+
 				Rules:
 				- If salary is not mentioned → salary, salary_type, and salary_currency = null.
 				- “notes” must contain all available job details: company intro, company overview, company culture , job description, requirements, responsibilities, job poster, comparison between candidates, application education level, what we are looking for, nice to have, what we offer, compensation etc.
@@ -62,6 +82,11 @@ export async function POST(req: Request) {
 				- Sanitize all the HTML tags and transform them into markdown format in the "notes" field.
 				- Create table structures if necessary to preserve the data in notes field for small bits of data such as Job function, Industries, Employment Type, Job ID, Seniority level, etc.
 				- After every block of information in notes, add a line break for better readability.
+				- Do not put "undefined", "null" or any other such values to any of the schema attribute.
+				- job_title and company_name are required. If you cannot find this two, then return empty response.
+				- DO NOT PUT any PLACEHOLDER.
+				- If the JSON object generated does not match with the schema, then return error.
+				- If for eg: Salary: 7,000 - 8,000 USD per month is found in similar format, then it means it is part of "notes". User entered salary should be exact numbers so it won't be in any range.
 
 				Now, extract data from this text:
 				"""${text}"""

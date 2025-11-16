@@ -111,14 +111,14 @@ export const handleApiError = async (response: Response) => {
 		const json = await response?.json();
 		errorData = {
 			error: json?.error || 'An error occurred',
-			details: JSON.parse(json?.details),
-			fieldErrors: json?.fieldErrors ? JSON.parse(json?.fieldErrors) : null,
+			details: typeof json?.details === 'string' ? JSON.parse(json.details) : json.details,
+			fieldErrors:
+				typeof json?.fieldErrors === 'string' ? JSON.parse(json.fieldErrors) : (json.fieldErrors ?? null),
 			status: response?.status,
 			endpoint: response.url,
 		};
 	} catch (err) {
 		console.error('Error parsing API error response as JSON:', err);
-		// If response body is not JSON, use status text
 		errorData = {
 			error: response.statusText || 'An error occurred',
 			details: JSON.stringify(response),
