@@ -55,7 +55,7 @@ export function JourneysView() {
 	// Show journeys list
 	return (
 		<div className="min-h-screen bg-appBackground bg-gradient-to-r from-transparent to-primary-foreground py-12 px-4 sm:px-6 lg:px-8">
-			<div className="max-w-5xl mx-auto">
+			<div className="md:container">
 				<Breadcrumb className="mb-2">
 					<BreadcrumbList>
 						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>

@@ -30,8 +30,8 @@ export const appRoutes = {
 	// Journey routes
 	journeys: '/journeys',
 	addJourney: '/journeys/add',
-	editJourney: '/journeys/edit',
-	viewJourney: '/journeys',
+	editJourney: (journeyId: string) => `/journeys/${journeyId}/edit`,
+	viewJourney: (journeyId: string) => `/journeys/${journeyId}`,
 	profileView: '/profile',
 	journeyApplications: (journeyId: string) => `/journeys/${journeyId}/applications`,
 };

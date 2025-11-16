@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
 		}
 
 		// Log successful submission
-		console.log(`Contact form submitted successfully: ${insertData.id}`);
+		console.info(`Contact form submitted successfully: ${insertData.id}`);
 
 		return NextResponse.json(
 			{

@@ -71,7 +71,7 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 	};
 
 	return (
-		<div className="rounded-md flex flex-col gap-4">
+		<div className="container">
 			<Breadcrumb className="mb-2">
 				<BreadcrumbList>
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
@@ -114,7 +114,7 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 					<span>Total: {applications?.data?.length}</span>
 				</p>
 
-				<div className="flex justify-between items-center gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
+				<div className="flex justify-between items-center gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg mb-6">
 					<form className="relative flex items-center w-full" onReset={clearAllFilters}>
 						<Search className="w-4 h-4 absolute left-3" />
 						<Input

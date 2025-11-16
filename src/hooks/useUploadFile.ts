@@ -100,7 +100,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 					body: file,
 				});
 
-				console.log('uploadRes', uploadRes);
+				console.info('uploadRes', uploadRes);
 
 				if (!uploadRes.ok) {
 					await handleApiError(uploadRes);

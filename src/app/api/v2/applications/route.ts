@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
 			console.error('Supabase error:', journeryFetchError);
 
 			if (journeryFetchError.code === 'PGRST116') {
-				console.log('No active journey found, redirecting to create journey page.');
+				console.info('No active journey found, redirecting to create journey page.');
 				return NextResponse.redirect(`${request.nextUrl.origin}${appRoutes.journeys}`); // Redirect to create journey if no active journey found
 			}
 

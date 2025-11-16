@@ -14,7 +14,7 @@ export default async function UpdateApplication({ params }: { params: Params }) 
 
 	return (
 		<Suspense fallback={<Loader />}>
-			<main className="flex min-h-screen flex-col gap-8 mx-auto">
+			<main className="flex min-h-screen flex-col gap-8 mx-auto py-12">
 				<Analytics />
 				<HydrationBoundary>
 					<ApplicationForm applicationId={params.applicationId} isUpdateForm userId={String(user?.id)} />

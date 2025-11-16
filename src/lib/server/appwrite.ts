@@ -81,8 +81,6 @@ export async function signUpWithEmail(formData: FormData) {
 export async function loginWithEmail(formData: FormData) {
 	('use server');
 
-	console.log('formData', formData);
-
 	const email = formData?.get('email')?.toString();
 	const password = formData?.get('password')?.toString();
 

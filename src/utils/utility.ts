@@ -117,7 +117,7 @@ export const handleApiError = async (response: Response) => {
 			endpoint: response.url,
 		};
 	} catch (err) {
-		console.log('Error parsing API error response as JSON:', err);
+		console.error('Error parsing API error response as JSON:', err);
 		// If response body is not JSON, use status text
 		errorData = {
 			error: response.statusText || 'An error occurred',
@@ -126,8 +126,6 @@ export const handleApiError = async (response: Response) => {
 			endpoint: response.url,
 		};
 	}
-
-	console.log('Parsed API Error Data:', errorData);
 
 	throw errorData;
 };

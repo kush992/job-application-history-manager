@@ -17,7 +17,7 @@ async function fetchJourneys(): Promise<Journey[]> {
 }
 
 async function fetchJourney(id: string): Promise<Journey> {
-	const response = await fetch(`${apiRoutes.journeys}?journeyId=${id}`);
+	const response = await fetch(`${apiRoutes.journeys.getOne}?journeyId=${id}`);
 
 	if (!response.ok) {
 		await handleApiError(response);
@@ -82,6 +82,7 @@ export function useJourneys(id?: string) {
 		staleTime: 5 * 60 * 1000, // 5 minutes
 		gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime),
 		retry: false,
+		enabled: !id, // Only run this query if id is not provided
 	});
 
 	const {
@@ -93,6 +94,7 @@ export function useJourneys(id?: string) {
 		queryKey: [QueryKeys.JOURNEYS_PAGE, id],
 		queryFn: () => fetchJourney(id as string),
 		enabled: !!id, // Only run this query if id is available
+		retry: false,
 	});
 
 	// Create journey mutation

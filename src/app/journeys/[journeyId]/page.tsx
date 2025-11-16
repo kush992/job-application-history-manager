@@ -20,7 +20,6 @@ export default async function JobAnalyticsDashboardPage({ params }: { params: Pa
 		redirect(appRoutes.signUp);
 	}
 
-	console.log('journeyId', params);
 	return (
 		<Suspense fallback={<Loader />}>
 			<JobAnalyticsDashboard journeyId={params.journeyId} />

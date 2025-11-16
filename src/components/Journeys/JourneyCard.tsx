@@ -50,13 +50,13 @@ const JourneyCard = ({ journey, handleDeleteClick }: Props) => {
 				</div>
 
 				<div className="flex gap-2 mt-6">
-					<Link href={`${appRoutes.journeys}/${journey.id}`} className="flex-1">
+					<Link href={appRoutes.viewJourney(journey.id)} className="flex-1">
 						<Button variant="outline" size="sm" className="w-full bg-transparent">
 							<Eye className="h-4 w-4 mr-2" />
 							View
 						</Button>
 					</Link>
-					<Link href={`${appRoutes.editJourney}?id=${journey.id}`}>
+					<Link href={appRoutes.editJourney(journey.id)}>
 						<Button variant="outline" size="sm">
 							<Edit className="h-4 w-4" />
 						</Button>

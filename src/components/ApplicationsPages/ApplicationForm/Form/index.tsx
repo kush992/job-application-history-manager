@@ -38,11 +38,6 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 		await deleteFile(fileName).then(() => form.setValue('links', newLinks));
 	};
 
-	useEffect(() => {
-		// debugger;
-		console.log('Form values:', form.getValues());
-	}, []);
-
 	return (
 		<Form {...form}>
 			<form

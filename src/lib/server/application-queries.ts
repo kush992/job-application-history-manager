@@ -44,7 +44,7 @@ export const applicationDataQueries = {
 			const response = await fetch(url);
 
 			if (response.ok) {
-				console.log('response', response);
+				console.info('response', response);
 				return (await response.json()) as JobApplication;
 			} else {
 				throw new Error('Failed to fetch application data');

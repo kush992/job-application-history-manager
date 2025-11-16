@@ -5,7 +5,7 @@ type Props = {
 };
 
 const PageTitle: React.FC<Props> = ({ title }) => {
-	return <h1 className="mt-8 text-2xl font-semibold tracking-tight">{title}</h1>;
+	return <h1 className="text-4xl font-bold tracking-tight">{title}</h1>;
 };
 
 export default PageTitle;

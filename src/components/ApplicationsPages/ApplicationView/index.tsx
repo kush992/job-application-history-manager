@@ -54,7 +54,7 @@ const ApplicationView: React.FC<Props> = ({ applicationId }) => {
 
 	return (
 		<div className="flex flex-col gap-6 mb-4 md:container">
-			<Breadcrumb className="py-4 px-4 md:px-0">
+			<Breadcrumb className="px-4 md:px-0">
 				<BreadcrumbList className="overflow-x-scroll flex-nowrap no-scrollbar">
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 					<BreadcrumbSeparator />
@@ -78,7 +78,9 @@ const ApplicationView: React.FC<Props> = ({ applicationId }) => {
 						<div className="flex justify-between items-start">
 							<div>
 								<p className="text-sm">{application?.company_name}</p>
-								<h1 className="text-2xl font-semibold !mt-0 !mb-2">{application?.job_title}</h1>
+								<h1 className="text-2xl font-semibold !mt-0 !mb-2 tracking-tight">
+									{application?.job_title}
+								</h1>
 								<div className="flex items-center gap-1 my-4 flex-wrap">
 									<Badge
 										variant={getApplicationStatusColor(

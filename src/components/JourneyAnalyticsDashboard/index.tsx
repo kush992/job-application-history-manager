@@ -84,12 +84,7 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 						</p>
 					</div>
 					<div className="flex gap-2 py-4">
-						<Link
-							href={appRoutes.journeyApplications(journeyId)}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="m-0 p-0"
-						>
+						<Link href={appRoutes.journeyApplications(journeyId)} className="m-0 p-0">
 							<Button className="w-full flex gap-1 items-center">
 								<Eye className="h-4 w-4" />
 								{statistics.applications_count} applications

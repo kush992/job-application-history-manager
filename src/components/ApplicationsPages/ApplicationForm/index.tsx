@@ -178,19 +178,19 @@ const ApplicationForm: FC<Props> = ({ applicationId, isUpdateForm, userId }) => 
 	}
 
 	return (
-		<div className="flex flex-col gap-6 md:container">
-			<div className="px-4 md:px-0 pt-4">
-				<Breadcrumb className="mb-4">
-					<BreadcrumbList>
-						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
-						<BreadcrumbSeparator />
-						<BreadcrumbLink href={appRoutes.application}>Applications</BreadcrumbLink>
-						<BreadcrumbSeparator />
-						<BreadcrumbItem>
-							<BreadcrumbPage>{isUpdateForm ? 'Update' : 'Add'}</BreadcrumbPage>
-						</BreadcrumbItem>
-					</BreadcrumbList>
-				</Breadcrumb>
+		<div className="container">
+			<Breadcrumb className="mb-4">
+				<BreadcrumbList>
+					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
+					<BreadcrumbSeparator />
+					<BreadcrumbLink href={appRoutes.application}>Applications</BreadcrumbLink>
+					<BreadcrumbSeparator />
+					<BreadcrumbItem>
+						<BreadcrumbPage>{isUpdateForm ? 'Update' : 'Add'}</BreadcrumbPage>
+					</BreadcrumbItem>
+				</BreadcrumbList>
+			</Breadcrumb>
+			<div className="mb-6">
 				<PageTitle title={isUpdateForm ? 'Update' : 'Add latest applied'} />
 				<PageDescription description="Fill up all the details that are available" />
 			</div>

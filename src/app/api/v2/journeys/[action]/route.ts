@@ -102,6 +102,11 @@ export async function PUT(request: NextRequest, { params }: { params: { action: 
 		const body = await request.json();
 		const validatedFields = updateJourneySchema.safeParse(body);
 
+		const updateFields = {
+			...validatedFields.data,
+			end_date: validatedFields?.data?.end_date ? validatedFields.data.end_date.toISOString() : null,
+		};
+
 		if (!validatedFields.success) {
 			return NextResponse.json(
 				{
@@ -112,11 +117,11 @@ export async function PUT(request: NextRequest, { params }: { params: { action: 
 			);
 		}
 
-		const { journeyId, ...updateData } = validatedFields.data;
+		const { journeyId, ...fieldsToUpdate } = updateFields;
 
 		const { data: journey, error } = await supabase
 			.from('journeys')
-			.update(updateData)
+			.update(fieldsToUpdate)
 			.eq('id', journeyId)
 			.eq('user_id', user.id)
 			.select()
@@ -186,7 +191,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { actio
 }
 
 export async function GET(request: NextRequest, { params }: { params: { action: string } }) {
-	console.log('GET request for journeys with action:', params.action);
+	console.info('GET request for journeys with action:', params.action);
 
 	return withAuth(request, async (supabase, user) => {
 		let query = supabase
@@ -218,8 +223,8 @@ export async function GET(request: NextRequest, { params }: { params: { action: 
 			);
 		}
 
-		if (params.action === 'getOne' && journeys.length === 1) {
-			return NextResponse.json(journeys[0]);
+		if (params.action === 'getOne') {
+			return NextResponse.json(journeys);
 		}
 
 		const transformedJourneys = journeys?.map((journey: any) => ({

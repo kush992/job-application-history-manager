@@ -13,6 +13,7 @@ import { journeySchema } from '@/lib/supabase/schema';
 import { JourneyFormData } from '@/types/schema';
 import { appRoutes } from '@/utils/constants';
 import { Switch } from '../ui/switch';
+import { useEffect } from 'react';
 
 interface JourneyFormProps {
 	onSubmit: (data: JourneyFormData) => Promise<void>;
@@ -27,7 +28,7 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 	const form = useForm<JourneyFormData>({
 		resolver: zodResolver(journeySchema),
 		defaultValues: {
-			title: '',
+			title: defaultValues?.title || '',
 			description: '',
 			start_date: new Date().toISOString().split('T')[0],
 			end_date: null,
@@ -36,8 +37,20 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 		},
 	});
 
+	useEffect(() => {
+		if (defaultValues && defaultValues.title) {
+			form.reset({
+				title: defaultValues?.title,
+				description: defaultValues.description,
+				start_date: new Date().toISOString().split('T')[0],
+				end_date: defaultValues.end_date ?? null,
+				is_active: defaultValues.is_active,
+			});
+		}
+	}, [defaultValues, form]);
+
 	return (
-		<Card className="w-full max-w-2xl mx-auto motion-preset-slide-down-md">
+		<Card className="w-full mx-auto motion-preset-slide-down-md">
 			<CardHeader>
 				<div className="flex flex-col items-start gap-4">
 					<Link href={appRoutes.journeys}>
@@ -46,7 +59,7 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 							Back
 						</Button>
 					</Link>
-					<div>
+					<div className="flex flex-col gap-2">
 						<CardTitle>{title}</CardTitle>
 						<CardDescription>{description}</CardDescription>
 					</div>
