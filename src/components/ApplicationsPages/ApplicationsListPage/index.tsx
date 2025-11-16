@@ -71,7 +71,7 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 	};
 
 	return (
-		<div className="md:container">
+		<div className="md:container py-12">
 			<Breadcrumb className="mb-2">
 				<BreadcrumbList>
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>

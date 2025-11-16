@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { appRoutes } from '@/utils/constants';
+import { config } from '@/config/config';
 
 export async function GET(request: NextRequest) {
 	try {
@@ -23,7 +24,8 @@ export async function GET(request: NextRequest) {
 
 		// Get search parameters
 		const searchParams = request.nextUrl.searchParams;
-		const limit = Number.parseInt(searchParams.get('limit') || '20');
+		// const limit = Number.parseInt(searchParams.get('limit'));
+		const limit = config.dataFetchingLimitForAppwrite;
 		const search_query = searchParams.get('search_query');
 		const status_filter = searchParams.get('status_filter');
 		const work_mode_filter = searchParams.get('work_mode_filter');

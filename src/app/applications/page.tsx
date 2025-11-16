@@ -16,7 +16,7 @@ const ApplicationsPage = async () => {
 
 	return (
 		<Suspense fallback={<Loader />}>
-			<main className="flex min-h-screen flex-col gap-8 md:container mx-auto py-12">
+			<main className="flex min-h-screen flex-col gap-8 md:container mx-auto">
 				<Analytics />
 				<HydrationBoundary>
 					<ApplicationsListPage />
