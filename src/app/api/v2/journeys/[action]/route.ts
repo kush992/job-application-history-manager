@@ -193,9 +193,9 @@ export async function GET(request: NextRequest, { params }: { params: { action: 
 			.from('journeys')
 			.select(
 				`
-        *,
-        applications_count:job_applications(count)
-      `,
+					*,
+					applications_count:job_applications(count)
+				`,
 			)
 			.eq('user_id', user.id)
 			.order('created_at', { ascending: false });

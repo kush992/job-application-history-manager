@@ -110,7 +110,9 @@ h6 {
 
 		--status-default: 217 19% 27%;
 		--status-in-progress: 217 91% 60%;
-		--status-success: 142 71% 45%;
+		/* --status-success: 142 71% 45%; */
+		--status-success: 142deg 100% 23.83%;
+
 		--status-failure: 0 84% 60%;
 	}
 }

@@ -54,7 +54,7 @@ export const apiRoutes = {
 		getOne: '/api/v2/applications/getOne',
 		add: '/api/v2/applications/add',
 		addWithAi: '/api/v2/applications/add-with-ai',
-		update: '/api/v2/applications/update',
+		edit: '/api/v2/applications/edit',
 		delete: '/api/v2/applications/delete',
 	},
 	applicationDocuments: {

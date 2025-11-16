@@ -1,11 +1,8 @@
 import Loader from '@/components/ui/loader';
 import ApplicationView from '@/components/ApplicationsPages/ApplicationView';
-import { appRoutes, QueryKeys } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
-import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { applicationDataQueries } from '@/lib/server/application-queries';
+import { HydrationBoundary } from '@tanstack/react-query';
 import { getLoggedInUser } from '@/lib/supabase/user';
 
 type Params = {
@@ -15,17 +12,11 @@ type Params = {
 export default async function ViewApplication({ params }: { params: Params }) {
 	const user = await getLoggedInUser();
 
-	const queryClient = new QueryClient();
-	await queryClient.prefetchQuery({
-		queryKey: [QueryKeys.APPLICATION_BY_ID, params.applicationId, user?.id],
-		queryFn: () => applicationDataQueries.getOne(params.applicationId),
-	});
-
 	return (
 		<Suspense fallback={<Loader />}>
 			<main className="flex min-h-screen flex-col gap-8 mx-auto">
 				<Analytics />
-				<HydrationBoundary state={dehydrate(queryClient)}>
+				<HydrationBoundary>
 					<ApplicationView applicationId={params.applicationId} userId={String(user?.id)} />
 				</HydrationBoundary>
 			</main>

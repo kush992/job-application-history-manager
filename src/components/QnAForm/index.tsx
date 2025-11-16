@@ -45,6 +45,7 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			toast({
 				title: 'Success',
 				description: 'QnA added successfully',
+				variant: 'success',
 			});
 			router.push(appRoutes.application);
 		},
@@ -52,6 +53,7 @@ const QnAForm: React.FC<Props> = ({ documentId, isUpdateForm, userId }) => {
 			toast({
 				title: 'Error',
 				description: <ErrorDisplay error={error} />,
+				variant: 'destructive',
 			});
 			console.error(error);
 		},

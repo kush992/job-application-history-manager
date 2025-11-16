@@ -18,6 +18,7 @@ import {
 	JobSites,
 	SalaryCurrency,
 	SalaryType,
+	WorkMode,
 } from '@/types/schema';
 import { FILES_SEPARATOR } from '@/utils/constants';
 
@@ -88,7 +89,7 @@ const ApplicationDataForm: React.FC<Props> = ({ form, onSubmit }) => {
 												</SelectTrigger>
 											</FormControl>
 											<SelectContent>
-												{Object.values(ContractType).map((type) => (
+												{Object.values(WorkMode).map((type) => (
 													<SelectItem key={type} value={type}>
 														{type
 															.replace(/_/g, ' ')

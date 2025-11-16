@@ -15,7 +15,7 @@ import PageDescription from '@/components/ui/page-description';
 import { Card, CardContent } from '@/components/ui/card';
 import ErrorDisplay from '@/components/ui/error-display';
 import TinyEditor from '@/components/ui/tiny-editor';
-import { Button } from 'react-day-picker';
+import { Button } from '@/components/ui/button';
 
 type Props = {
 	documentId?: string;

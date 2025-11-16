@@ -155,7 +155,7 @@ export const useUploadFile = (): UseFileUploadReturn => {
 			toast({
 				title: 'Success',
 				description: `File ${fileName} has been successfully deleted.`,
-				variant: 'default',
+				variant: 'success',
 			});
 
 			return response;

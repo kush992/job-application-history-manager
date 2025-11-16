@@ -38,7 +38,7 @@ export const applicationDataQueries = {
 		}
 	},
 	getOne: async (documentId: string) => {
-		const url = new URL(`${origin}${apiRoutes.applications.getOne}?documentId=${documentId}`);
+		const url = new URL(`${origin}${apiRoutes.applications.getOne}?applicationId=${documentId}`);
 
 		try {
 			const response = await fetch(url);
@@ -73,7 +73,7 @@ export const applicationDataQueries = {
 	},
 	update: async (data: JobApplicationFormData, documentId: string) => {
 		try {
-			const response = await fetch(`${apiRoutes.applications.update}?documentId=${documentId}`, {
+			const response = await fetch(`${apiRoutes.applications.edit}?documentId=${documentId}`, {
 				method: 'PUT',
 				body: JSON.stringify(data),
 			});

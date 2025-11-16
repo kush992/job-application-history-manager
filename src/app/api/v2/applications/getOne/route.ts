@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
 		const applicationId = request.nextUrl.searchParams.get('applicationId');
 
 		if (!applicationId) {
-			return NextResponse.json({ error: 'Document ID is required' }, { status: 400 });
+			return NextResponse.json({ error: 'Application ID is required' }, { status: 400 });
 		}
 
 		// Fetch the job application with journey information

@@ -1,26 +1,26 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { JourneyForm } from '@/components/Journeys/JourneyForm';
 import { useJourneys } from '@/hooks/useJourneys';
 import { JourneyFormData } from '@/types/schema';
 import { appRoutes } from '@/utils/constants';
-import { FormMessage } from '@/components/ui/form-message';
+
+import { useToast } from '@/hooks/use-toast';
 
 export default function AddJourneyPage() {
-	const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 	const { createJourney, isLoading, error } = useJourneys();
+	const { toast } = useToast();
 	const router = useRouter();
 
 	const handleSubmit = async (data: JourneyFormData) => {
 		const result = await createJourney(data);
 		if (result) {
-			setMessage({ type: 'success', text: 'Journey created successfully!' });
+			toast({ title: 'Success', description: 'Journey created successfully!', variant: 'success' });
 
 			router.push(appRoutes.journeys);
 		} else if (error) {
-			setMessage({ type: 'error', text: error });
+			toast({ title: 'Error', description: error, variant: 'destructive' });
 		}
 	};
 
@@ -31,12 +31,6 @@ export default function AddJourneyPage() {
 					<h1 className="text-3xl font-bold text-primary">Create New Journey</h1>
 					<p className="mt-2 text-secondary-foreground">Start tracking your job search journey</p>
 				</div>
-
-				{message && (
-					<div className="mb-6">
-						<FormMessage type={message.type} message={message.text} />
-					</div>
-				)}
 
 				<JourneyForm
 					onSubmit={handleSubmit}

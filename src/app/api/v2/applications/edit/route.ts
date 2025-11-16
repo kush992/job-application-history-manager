@@ -21,11 +21,11 @@ export async function PUT(request: NextRequest) {
 			);
 		}
 
-		// Get document ID from search params
-		const documentId = request.nextUrl.searchParams.get('documentId');
+		// Get application ID from search params
+		const documentId = request.nextUrl.searchParams.get('applicationId');
 
 		if (!documentId) {
-			return NextResponse.json({ error: 'Document ID is required' }, { status: 400 });
+			return NextResponse.json({ error: 'Application ID is required' }, { status: 400 });
 		}
 
 		// Parse and validate request body

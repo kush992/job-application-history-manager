@@ -54,6 +54,7 @@ export default function ContactForm() {
 				toast({
 					title: 'Message sent successfully!',
 					description: result.message || "We'll get back to you as soon as possible.",
+					variant: 'success',
 				});
 				form.reset();
 			} else {

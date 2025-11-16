@@ -25,6 +25,7 @@ import { Card, CardContent } from '../../ui/card';
 import { JobApplicationFormData, WorkMode } from '@/types/schema';
 import { jobApplicationSchema } from '@/lib/supabase/schema';
 import ErrorDisplay from '../../ui/error-display';
+import { useApplications } from '@/hooks/useApplications';
 
 type Props = {
 	applicationId?: string;
@@ -37,67 +38,73 @@ const ApplicationForm: FC<Props> = ({ applicationId, isUpdateForm, userId }) => 
 	const router = useRouter();
 	const { toast } = useToast();
 
-	const { data: applicationData, isLoading } = useQuery({
-		queryKey: [QueryKeys.APPLICATION_BY_ID, applicationId, userId],
-		queryFn: () => applicationDataQueries.getOne(String(applicationId)),
-		enabled: !!applicationId,
+	// const { data: application, isLoading } = useQuery({
+	// 	queryKey: [QueryKeys.APPLICATION_BY_ID, applicationId, userId],
+	// 	queryFn: () => applicationDataQueries.getOne(String(applicationId)),
+	// 	enabled: !!applicationId,
+	// });
+
+	const { application, isLoadingApplication, addApplication, updateApplication } = useApplications({
+		applicationId,
+		enableSingle: true,
 	});
 
 	const addLinksMutation = useMutation({
-		mutationFn: (links: string) => addLinks(links, String(applicationData?.id)),
+		mutationFn: (links: string) => addLinks(links, String(application?.id)),
 		onSuccess: () => {
 			toast({
 				title: 'success',
 				description: 'File uploaded successfully',
+				variant: 'success',
 			});
 		},
 		onError: (error) => {
-			toast({ title: 'Error', description: <ErrorDisplay error={error} /> });
+			toast({ title: 'Error', description: <ErrorDisplay error={error} />, variant: 'destructive' });
 			console.error(error);
 		},
 	});
 
-	const createDocMutation = useMutation({
-		mutationFn: (data: JobApplicationFormData) => {
-			if (data.links) {
-				addLinksMutation.mutate(data.links);
-			}
-			return applicationDataQueries.add(data);
-		},
-		onSuccess: () => {
-			toast({
-				title: 'success',
-				description: 'Application added successfully',
-			});
-			router.back();
-		},
-		onError: (error) => {
-			toast({ title: 'Error', description: <ErrorDisplay error={error} /> });
-			console.error(error);
-		},
-	});
+	// const createDocMutation = useMutation({
+	// 	mutationFn: (data: JobApplicationFormData) => {
+	// 		if (data.links) {
+	// 			addLinksMutation.mutate(data.links);
+	// 		}
+	// 		return applicationDataQueries.add(data);
+	// 	},
+	// 	onSuccess: () => {
+	// 		toast({
+	// 			title: 'success',
+	// 			description: 'Application added successfully',
+	// 		});
+	// 		router.back();
+	// 	},
+	// 	onError: (error) => {
+	// 		toast({ title: 'Error', description: <ErrorDisplay error={error} /> });
+	// 		console.error(error);
+	// 	},
+	// });
 
-	const updateDocMutation = useMutation({
-		mutationFn: (data: JobApplicationFormData) => {
-			if (data.links) {
-				addLinksMutation.mutate(data.links);
-			}
+	// const updateDocMutation = useMutation({
+	// 	mutationFn: (data: JobApplicationFormData) => {
+	// 		if (data.links) {
+	// 			addLinksMutation.mutate(data.links);
+	// 		}
 
-			return applicationDataQueries.update(data, String(applicationId));
-		},
-		onSuccess: () => {
-			console.log('here');
-			toast({
-				title: 'success',
-				description: 'Application updated successfully',
-			});
-			router.back();
-		},
-		onError: (error) => {
-			toast({ title: 'Error', description: <ErrorDisplay error={error} /> });
-			console.error(error);
-		},
-	});
+	// 		return applicationDataQueries.update(data, String(applicationId));
+	// 	},
+	// 	onSuccess: () => {
+	// 		console.log('here');
+	// 		toast({
+	// 			title: 'success',
+	// 			description: 'Application updated successfully',
+	// 		});
+	// 		router.back();
+	// 	},
+	// 	onError: (error) => {
+	// 		toast({ title: 'Error', description: <ErrorDisplay error={error} /> });
+	// 		console.error(error);
+	// 	},
+	// });
 
 	const form = useForm<JobApplicationFormData>({
 		resolver: zodResolver(jobApplicationSchema),
@@ -122,29 +129,29 @@ const ApplicationForm: FC<Props> = ({ applicationId, isUpdateForm, userId }) => 
 	});
 
 	useEffect(() => {
-		if (isUpdateForm && applicationData) {
+		if (isUpdateForm && application) {
 			form.reset({
-				job_title: applicationData.job_title || '',
-				notes: applicationData.notes || '',
-				company_name: applicationData.company_name || '',
-				company_domain: applicationData.company_domain || undefined,
-				application_status: applicationData.application_status || undefined,
-				salary: applicationData.salary || undefined,
-				salary_currency: applicationData.salary_currency || undefined,
-				salary_type: applicationData.salary_type || undefined,
-				interview_date: applicationData.interview_date ? new Date(applicationData.interview_date) : undefined,
-				links: applicationData.links || undefined,
-				location: applicationData.location || undefined,
-				job_link: applicationData.job_link || undefined,
-				job_posted_on: applicationData.job_posted_on || undefined,
-				work_mode: applicationData.work_mode || undefined,
-				contract_type: applicationData.contract_type || undefined,
-				applied_at: applicationData.applied_at
-					? new Date(applicationData.applied_at).toISOString()
+				job_title: application.job_title || '',
+				notes: application.notes || '',
+				company_name: application.company_name || '',
+				company_domain: application.company_domain || undefined,
+				application_status: application.application_status || undefined,
+				salary: application.salary || undefined,
+				salary_currency: application.salary_currency || undefined,
+				salary_type: application.salary_type || undefined,
+				interview_date: application.interview_date ? new Date(application.interview_date) : undefined,
+				links: application.links || undefined,
+				location: application.location || undefined,
+				job_link: application.job_link || undefined,
+				job_posted_on: application.job_posted_on || undefined,
+				work_mode: application.work_mode || undefined,
+				contract_type: application.contract_type || undefined,
+				applied_at: application.applied_at
+					? new Date(application.applied_at).toISOString()
 					: new Date().toISOString(),
 			});
 		}
-	}, [isUpdateForm, applicationData, form]);
+	}, [isUpdateForm, application, form]);
 
 	async function onSubmit(data: JobApplicationFormData) {
 		if (!data.application_status) {
@@ -164,9 +171,9 @@ const ApplicationForm: FC<Props> = ({ applicationId, isUpdateForm, userId }) => 
 		}
 
 		if (!isUpdateForm) {
-			createDocMutation.mutate(data);
+			addApplication(data);
 		} else {
-			updateDocMutation.mutate(data);
+			updateApplication({ data, applicationId: String(applicationId) });
 		}
 	}
 
@@ -188,7 +195,7 @@ const ApplicationForm: FC<Props> = ({ applicationId, isUpdateForm, userId }) => 
 				<PageDescription description="Fill up all the details that are available" />
 			</div>
 
-			{isLoading ? (
+			{isLoadingApplication ? (
 				<Loader />
 			) : (
 				<Card className="bg-background rounded-none border-[0px] md:rounded-xl md:border mb-6">

@@ -86,12 +86,12 @@ const addApplication = async (data: JobApplicationFormData): Promise<number> => 
 
 const updateApplication = async ({
 	data,
-	documentId,
+	applicationId,
 }: {
 	data: JobApplicationFormData;
-	documentId: string;
+	applicationId: string;
 }): Promise<number> => {
-	const response = await fetch(`${apiRoutes.applications.update}?documentId=${documentId}`, {
+	const response = await fetch(`${apiRoutes.applications.edit}?applicationId=${applicationId}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 	});
@@ -146,6 +146,19 @@ export const useApplications = (options?: {
 		mutationFn: addApplication,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: applicationKeys.lists() });
+			toast({
+				title: 'Success',
+				description: 'Application added successfully',
+				variant: 'success',
+			});
+		},
+		onError: (error) => {
+			toast({
+				title: 'Error',
+				description: 'Failed to add new application',
+				variant: 'destructive',
+			});
+			console.error(error);
 		},
 	});
 
@@ -153,8 +166,21 @@ export const useApplications = (options?: {
 	const updateMutation = useMutation({
 		mutationFn: updateApplication,
 		onSuccess: (_, variables) => {
-			queryClient.invalidateQueries({ queryKey: applicationKeys.detail(variables.documentId) });
+			queryClient.invalidateQueries({ queryKey: applicationKeys.detail(variables.applicationId) });
 			queryClient.invalidateQueries({ queryKey: applicationKeys.lists() });
+			toast({
+				title: 'Success',
+				description: 'Application updated successfully',
+				variant: 'success',
+			});
+		},
+		onError: (error) => {
+			toast({
+				title: 'Error',
+				description: 'Failed to update application',
+				variant: 'destructive',
+			});
+			console.error(error);
 		},
 	});
 
@@ -166,12 +192,14 @@ export const useApplications = (options?: {
 			toast({
 				title: 'Success',
 				description: 'Application deleted successfully',
+				variant: 'success',
 			});
 		},
 		onError: (error) => {
 			toast({
 				title: 'Error',
 				description: 'Failed to delete application',
+				variant: 'destructive',
 			});
 			console.error(error);
 		},
