@@ -22,7 +22,7 @@ export const interviewQuestionsQueries = {
 		// 	throw new Error(`Error fetching Interview Questions data: ${error}`);
 		// }
 
-		throw new Error('Not implemented: Coming soon!');
+		throw new Error('New version coming soon!');
 	},
 	getOne: async (documentId: string): Promise<InterviewQuestionsData> => {
 		const url = new URL(`${origin}${apiRoutes.interviewQuestions.getOne}?documentId=${documentId}`);
