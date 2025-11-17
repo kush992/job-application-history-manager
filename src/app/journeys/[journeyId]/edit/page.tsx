@@ -14,7 +14,7 @@ export default function EditJourneyPage({ params }: { params: Params }) {
 		<Suspense fallback={<Loader />}>
 			<Analytics />
 			<HydrationBoundary>
-				<main className="min-h-screen bg-appBackground bg-gradient-to-r from-transparent to-primary-foreground py-12 px-4 sm:px-6 lg:px-8">
+				<main className="min-h-screen bg-appBackground bg-gradient-to-r from-transparent to-primary-foreground py-8 px-4 sm:px-6 lg:px-8">
 					<EditJourney journeyId={params.journeyId} />
 				</main>
 			</HydrationBoundary>

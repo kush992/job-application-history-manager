@@ -71,14 +71,14 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 	};
 
 	return (
-		<div className="md:container py-12">
+		<div className="md:container py-8">
 			<Breadcrumb className="mb-2">
 				<BreadcrumbList>
 					<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
 					<BreadcrumbSeparator />
-					{!isLoadingApplications && (
+					{!isLoadingApplications && applications?.journey?.id && (
 						<>
-							<BreadcrumbLink href={`${appRoutes.viewJourney}/${applications?.journey.id}`}>
+							<BreadcrumbLink href={appRoutes.viewJourney(applications?.journey.id)}>
 								{applications?.journey?.title}
 							</BreadcrumbLink>
 							<BreadcrumbSeparator />
@@ -108,7 +108,7 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 				</Link>
 			</div>
 
-			<div className="flex flex-col items-center gap-2 w-full sticky top-8">
+			<div className="flex flex-col items-center gap-2 w-full top-8">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
 					<Info className="w-4 h-4" />
 					<span>Total: {applications?.data?.length}</span>

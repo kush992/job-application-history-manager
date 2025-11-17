@@ -47,7 +47,7 @@ const AboutUsPage: React.FC = () => {
 				</div>
 			</section>
 
-			<main className="mx-auto py-12">
+			<main className="mx-auto py-8">
 				<section className="mb-16 container mx-auto motion-preset-slide-up delay-150 px-4">
 					<Card>
 						<CardHeader>
@@ -87,7 +87,7 @@ const AboutUsPage: React.FC = () => {
 					</Card>
 				</section>
 
-				<section className="mb-16 bg-muted py-12">
+				<section className="mb-16 bg-muted py-8">
 					<div className="container mx-auto px-4">
 						<h2 className="text-3xl font-bold mb-6 text-center">What We Offer</h2>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -183,7 +183,7 @@ const AboutUsPage: React.FC = () => {
 				</section> */}
 
 				<section className="mb-16 bg-accent px-4">
-					<div className="container mx-auto py-12">
+					<div className="container mx-auto py-8">
 						<h2 className="text-3xl font-bold mb-6 text-center">What Our Users Say</h2>
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 							{testimonials.map((testimonial, index) => (

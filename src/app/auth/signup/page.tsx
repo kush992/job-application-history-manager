@@ -4,7 +4,7 @@ import { Shield, Zap, CheckCircle } from 'lucide-react';
 
 export default function SignUpPage() {
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-gradient-to-br dark:from-background py-12 px-4 sm:px-6 lg:px-8">
+		<div className="min-h-screen flex items-center justify-center bg-gradient-to-br dark:from-background py-8 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-md w-full space-y-8">
 				{/* Header */}
 				<div className="text-center">

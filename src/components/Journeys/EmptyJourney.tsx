@@ -6,7 +6,7 @@ import { Button } from '../ui/button';
 
 const EmptyJourney = () => {
 	return (
-		<div className="min-h-screen bg-appBackground bg-gradient-to-r from-transparent to-primary-foreground py-12 px-4 sm:px-6 lg:px-8">
+		<div className="min-h-screen bg-appBackground bg-gradient-to-r from-transparent to-primary-foreground py-8 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-4xl mx-auto">
 				<div className="text-center">
 					<div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-blue-100">
