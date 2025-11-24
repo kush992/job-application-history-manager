@@ -46,6 +46,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
+import { appRoutes } from '@/utils/constants';
 
 export default function AuthCodeErrorPage() {
 	return (
@@ -68,13 +69,8 @@ export default function AuthCodeErrorPage() {
 						</Alert>
 
 						<div className="space-y-3">
-							<Link href="/signin" className="block">
+							<Link href={appRoutes.signUp} className="block">
 								<Button className="w-full">Try Signing In Again</Button>
-							</Link>
-							<Link href="/signup" className="block">
-								<Button variant="outline" className="w-full bg-transparent">
-									Create New Account
-								</Button>
 							</Link>
 						</div>
 

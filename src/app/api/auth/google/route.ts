@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
 		const { data, error } = await supabase.auth.signInWithOAuth({
 			provider: 'google',
 			options: {
-				redirectTo: 'http://localhost:3000/auth/callback',
+				redirectTo: callbackUrl,
 				queryParams: {
 					access_type: 'offline',
 					prompt: 'consent',

@@ -61,6 +61,7 @@ export async function GET(request: NextRequest) {
 			if (profileResult.error) {
 				console.error('Profile creation/fetch failed:', profileResult.error);
 				// Don't fail the auth flow, just log it
+				return NextResponse.redirect(`${origin}/auth/auth-code-error`);
 			} else {
 				console.info('Profile ensured for user:', data.user.email);
 			}
@@ -68,11 +69,15 @@ export async function GET(request: NextRequest) {
 			const forwardedHost = request.headers.get('x-forwarded-host');
 			const isLocalEnv = process.env.NODE_ENV === 'development';
 
+			console.debug('kb_logs: ',forwardedHost, isLocalEnv)
+
 			// const appUrl = baseUrl();
 
 			if (isLocalEnv) {
+				console.debug('kb_logs: redirecting to localhost')
 				return NextResponse.redirect(`${origin}${next}`);
 			} else if (forwardedHost) {
+				console.debug('kb_logs: redirecting to forwardedHost', forwardedHost)
 				return NextResponse.redirect(`https://${forwardedHost}${next}`);
 			} else {
 				return NextResponse.redirect(`${origin}${next}`);
@@ -80,6 +85,7 @@ export async function GET(request: NextRequest) {
 		}
 
 		console.error('Auth callback error:', error);
+		return NextResponse.redirect(`${origin}/auth/auth-code-error`);
 	}
 
 	// Return the user to an error page with instructions
