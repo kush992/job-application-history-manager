@@ -47,43 +47,46 @@ export enum QueryKeys {
 	INSIGHTS = 'INSIGHTS',
 }
 
-// API structure
+// API structure - RESTful endpoints
 export const apiRoutes = {
 	applications: {
 		getAll: '/api/v2/applications',
-		getOne: '/api/v2/applications/getOne',
-		add: '/api/v2/applications/add',
-		addWithAi: '/api/v2/applications/add-with-ai',
-		edit: '/api/v2/applications/edit',
-		delete: '/api/v2/applications/delete',
+		getOne: (id: string) => `/api/v2/applications/${id}`,
+		add: '/api/v2/applications',
+		addWithAi: '/api/v2/applications', // Same endpoint, but with { text: ... } in body
+		edit: (id: string) => `/api/v2/applications/${id}`,
+		delete: (id: string) => `/api/v2/applications/${id}`,
 	},
 	applicationDocuments: {
 		add: '/api/v1/application-documents/add',
 		update: '/api/v1/application-documents/update',
 	},
 	interviewQuestions: {
-		getAll: '/api/v1/interview-questions/getAll',
-		getOne: '/api/v1/interview-questions/getOne',
-		add: '/api/v1/interview-questions/add',
-		update: '/api/v1/interview-questions/update',
-		delete: '/api/v1/interview-questions/delete',
+		getAll: '/api/v1/interview-questions',
+		getOne: (id: string) => `/api/v1/interview-questions/${id}`,
+		add: '/api/v1/interview-questions',
+		update: (id: string) => `/api/v1/interview-questions/${id}`,
+		delete: (id: string) => `/api/v1/interview-questions/${id}`,
 	},
 	files: {
 		upload: '/api/v2/files/upload',
 		delete: '/api/v2/files/delete',
 	},
 	journeys: {
-		getAll: '/api/v2/journeys/getAll',
-		getOne: '/api/v2/journeys/getOne',
-		add: '/api/v2/journeys/add',
-		update: '/api/v2/journeys/update',
-		delete: '/api/v2/journeys/delete',
+		getAll: '/api/v2/journeys',
+		getOne: (id: string) => `/api/v2/journeys/${id}`,
+		add: '/api/v2/journeys',
+		update: (id: string) => `/api/v2/journeys/${id}`,
+		delete: (id: string) => `/api/v2/journeys/${id}`,
+		statistics: (id: string) => `/api/v2/journeys/${id}/statistics`,
+		insights: (id: string) => `/api/v2/journeys/${id}/insights`,
 	},
-	statistics: '/api/v2/statistics',
+	// Legacy routes for backward compatibility (deprecated)
+	statistics: (journeyId: string) => `/api/v2/journeys/${journeyId}/statistics`,
 	ai: {
-		generateJourneyInsight: '/api/v2/ai/generate-insight',
+		generateJourneyInsight: (journeyId: string) => `/api/v2/journeys/${journeyId}/insights`,
 	},
-	journeyInsights: '/api/v2/journey-insights',
+	journeyInsights: (journeyId: string) => `/api/v2/journeys/${journeyId}/insights`,
 };
 
 export const FILES_SEPARATOR = ',____,';

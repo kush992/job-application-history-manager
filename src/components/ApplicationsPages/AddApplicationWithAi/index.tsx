@@ -38,7 +38,7 @@ const AddApplicationWithAi: FC = () => {
 
 	const onSubmit = () => {
 		addMutation({
-			endpoint: apiRoutes.applications.addWithAi,
+			endpoint: `${window.origin}${apiRoutes.applications.add}`,
 			rawText:
 				form.getValues('job_application_data') +
 				'uploaded files during this application are linked here for "links" attribute: ' +

@@ -26,9 +26,9 @@ export const applicationKeys = {
 // Types
 export interface ApplicationFilters {
 	query?: string;
-	statusFilter?: ApplicationStatus;
-	workModeFilter?: WorkMode;
-	contractTypeFilter?: ContractType;
+	statusFilter?: ApplicationStatus | ApplicationStatus[];
+	workModeFilter?: WorkMode | WorkMode[];
+	contractTypeFilter?: ContractType | ContractType[];
 	journeyId?: string;
 }
 
@@ -38,9 +38,18 @@ const fetchApplications = async (filters: ApplicationFilters = {}): Promise<JobA
 	const url = new URL(`${window.origin}${apiRoutes.applications.getAll}`);
 
 	if (query) url.searchParams.append('search_query', query);
-	if (statusFilter) url.searchParams.append('statusFilter', statusFilter);
-	if (workModeFilter) url.searchParams.append('workModeFilter', workModeFilter);
-	if (contractTypeFilter) url.searchParams.append('contractTypeFilter', contractTypeFilter);
+	if (statusFilter) {
+		const statuses = Array.isArray(statusFilter) ? statusFilter.join(',') : statusFilter;
+		url.searchParams.append('status_filter', statuses);
+	}
+	if (workModeFilter) {
+		const workModes = Array.isArray(workModeFilter) ? workModeFilter.join(',') : workModeFilter;
+		url.searchParams.append('work_mode_filter', workModes);
+	}
+	if (contractTypeFilter) {
+		const contractTypes = Array.isArray(contractTypeFilter) ? contractTypeFilter.join(',') : contractTypeFilter;
+		url.searchParams.append('contract_type_filter', contractTypes);
+	}
 	if (journeyId) url.searchParams.append('journey_id', journeyId);
 
 	const response = await fetch(url.toString(), {
@@ -60,7 +69,7 @@ const fetchApplications = async (filters: ApplicationFilters = {}): Promise<JobA
 };
 
 const fetchApplication = async (applicationId: string): Promise<JobApplication> => {
-	const url = new URL(`${window.origin}${apiRoutes.applications.getOne}?applicationId=${applicationId}`);
+	const url = `${window.origin}${apiRoutes.applications.getOne(applicationId)}`;
 
 	const response = await fetch(url);
 
@@ -72,8 +81,9 @@ const fetchApplication = async (applicationId: string): Promise<JobApplication> 
 };
 
 const addApplication = async (data: JobApplicationFormData): Promise<number> => {
-	const response = await fetch(apiRoutes.applications.add, {
+	const response = await fetch(`${window.origin}${apiRoutes.applications.add}`, {
 		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data),
 	});
 
@@ -91,8 +101,9 @@ const updateApplication = async ({
 	data: JobApplicationFormData;
 	applicationId: string;
 }): Promise<number> => {
-	const response = await fetch(`${apiRoutes.applications.edit}?applicationId=${applicationId}`, {
+	const response = await fetch(`${window.origin}${apiRoutes.applications.edit(applicationId)}`, {
 		method: 'PUT',
+		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data),
 	});
 
@@ -104,7 +115,7 @@ const updateApplication = async ({
 };
 
 const deleteApplication = async (documentId: string): Promise<string> => {
-	const response = await fetch(`${window.origin}${apiRoutes.applications.delete}?documentId=${documentId}`, {
+	const response = await fetch(`${window.origin}${apiRoutes.applications.delete(documentId)}`, {
 		method: 'DELETE',
 	});
 

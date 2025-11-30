@@ -34,7 +34,7 @@ type Props = {
 export default function JobAnalyticsDashboard({ journeyId }: Props) {
 	const { statistics, isFetching, isLoading, error } = useStatistics(journeyId);
 	const { insights, error: insightsError, mutate } = usePostInsights();
-	const { insights: journeyInsights, error: journeyInsightsError } = useGetJourneyInsights(statistics?.id);
+	const { insights: journeyInsights, error: journeyInsightsError } = useGetJourneyInsights(journeyId);
 
 	if (isLoading || isFetching) {
 		return (

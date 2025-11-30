@@ -4,9 +4,10 @@ import { handleApiError } from '@/utils/utility';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 async function postJourneyInsights(statistics: Statistics): Promise<JourneyInsight> {
-	const response = await fetch(apiRoutes.ai.generateJourneyInsight, {
+	const response = await fetch(`${window.origin}${apiRoutes.journeys.insights(statistics.journey_id)}`, {
 		body: JSON.stringify(statistics),
 		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
 	});
 
 	if (!response.ok) {
@@ -16,8 +17,8 @@ async function postJourneyInsights(statistics: Statistics): Promise<JourneyInsig
 	return await response.json();
 }
 
-async function getJourneyInsights(statisticsId: string): Promise<JourneyInsight> {
-	const response = await fetch(`${apiRoutes.journeyInsights}?statistics_id=${statisticsId}`);
+async function getJourneyInsights(journeyId: string): Promise<JourneyInsight> {
+	const response = await fetch(`${window.origin}${apiRoutes.journeys.insights(journeyId)}`);
 
 	if (!response.ok) {
 		await handleApiError(response);
@@ -26,18 +27,18 @@ async function getJourneyInsights(statisticsId: string): Promise<JourneyInsight>
 	return await response.json();
 }
 
-export function useGetJourneyInsights(statisticsId: string | undefined) {
+export function useGetJourneyInsights(journeyId: string | undefined) {
 	const {
 		data: insights,
 		error,
 		isLoading,
 		isError,
 	} = useQuery({
-		queryKey: ['journey-insights'],
-		queryFn: () => getJourneyInsights(statisticsId as string),
+		queryKey: ['journey-insights', journeyId],
+		queryFn: () => getJourneyInsights(journeyId as string),
 		gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
 		retry: false,
-		enabled: !!statisticsId,
+		enabled: !!journeyId,
 	});
 
 	return {

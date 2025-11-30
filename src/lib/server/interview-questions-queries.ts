@@ -6,32 +6,33 @@ import { handleApiError } from '@/utils/utility';
 
 export const interviewQuestionsQueries = {
 	getAll: async (showType: QnAShowType): Promise<Response<InterviewQuestionsData>> => {
-		// const url = new URL(`${origin}${apiRoutes.interviewQuestions.getAll}?showType=${showType}`);
-		// try {
-		// 	const response = await fetch(url);
+		const url = new URL(`${window.origin}${apiRoutes.interviewQuestions.getAll}`);
+		url.searchParams.append('showType', showType);
+		try {
+			const response = await fetch(url.toString());
 
-		// 	if (response.ok) {
-		// 		return await response.json();
-		// 	} else {
-		// 		throw new Error(
-		// 			`Error fetching Interview Questions data | ${response.status} - ${response.statusText}`,
-		// 		);
-		// 	}
-		// } catch (error) {
-		// 	console.error(error);
-		// 	throw new Error(`Error fetching Interview Questions data: ${error}`);
-		// }
-
-		throw new Error('New version coming soon!');
+			if (response.ok) {
+				return await response.json();
+			} else {
+				await handleApiError(response);
+				throw new Error(
+					`Error fetching Interview Questions data | ${response.status} - ${response.statusText}`,
+				);
+			}
+		} catch (error) {
+			console.error(error);
+			throw new Error(`Error fetching Interview Questions data: ${error}`);
+		}
 	},
 	getOne: async (documentId: string): Promise<InterviewQuestionsData> => {
-		const url = new URL(`${origin}${apiRoutes.interviewQuestions.getOne}?documentId=${documentId}`);
+		const url = `${window.origin}${apiRoutes.interviewQuestions.getOne(documentId)}`;
 		try {
 			const response = await fetch(url);
 
 			if (response.ok) {
 				return await response.json();
 			} else {
+				await handleApiError(response);
 				throw new Error(
 					`Error fetching Interview Questions data | ${response.status} - ${response.statusText}`,
 				);
@@ -42,7 +43,7 @@ export const interviewQuestionsQueries = {
 		}
 	},
 	add: async (formData: QnAFormData) => {
-		const url = new URL(`${origin}${apiRoutes.interviewQuestions.add}`);
+		const url = `${window.origin}${apiRoutes.interviewQuestions.add}`;
 		try {
 			const response = await fetch(url, {
 				method: 'POST',
@@ -55,6 +56,7 @@ export const interviewQuestionsQueries = {
 			if (response.ok) {
 				return await response.json();
 			} else {
+				await handleApiError(response);
 				throw new Error(`Error adding Interview Questions data | ${response.status} - ${response.statusText}`);
 			}
 		} catch (error) {
@@ -63,7 +65,7 @@ export const interviewQuestionsQueries = {
 		}
 	},
 	update: async (formData: QnAFormData, documentId: string) => {
-		const url = new URL(`${origin}${apiRoutes.interviewQuestions.update}?documentId=${documentId}`);
+		const url = `${window.origin}${apiRoutes.interviewQuestions.update(documentId)}`;
 		try {
 			const response = await fetch(url, {
 				method: 'PUT',
@@ -76,11 +78,12 @@ export const interviewQuestionsQueries = {
 			if (response.ok) {
 				return await response.json();
 			} else {
-				throw new Error(`Error adding Interview Questions data | ${response.status} - ${response.statusText}`);
+				await handleApiError(response);
+				throw new Error(`Error updating Interview Questions data | ${response.status} - ${response.statusText}`);
 			}
 		} catch (error) {
 			console.error(error);
-			throw new Error(`Error adding Interview Questions data: ${error}`);
+			throw new Error(`Error updating Interview Questions data: ${error}`);
 		}
 	},
 };

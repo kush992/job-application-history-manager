@@ -1,7 +1,13 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
-export async function GET(request: NextRequest) {
+export const dynamic = 'force-dynamic';
+
+// GET /api/v2/journeys/[id]/statistics - Get statistics for a journey
+export async function GET(
+	request: NextRequest,
+	{ params }: { params: { id: string } },
+) {
 	try {
 		// Create Supabase client
 		const supabase = createClient();
@@ -19,14 +25,13 @@ export async function GET(request: NextRequest) {
 			);
 		}
 
-		// Get document ID from search params
-		const journeyId = request.nextUrl.searchParams.get('journeyId');
+		const journeyId = params.id;
 
 		if (!journeyId) {
 			return NextResponse.json({ error: 'Journey ID is required' }, { status: 400 });
 		}
 
-		// Fetch the job application with journey information
+		// Fetch the statistics
 		const { data: statistics, error } = await supabase
 			.from('statistics_demo')
 			.select()
@@ -38,12 +43,12 @@ export async function GET(request: NextRequest) {
 			console.error('Supabase error:', error);
 
 			if (error.code === 'PGRST116') {
-				return NextResponse.json({ error: 'Document not found' }, { status: 404 });
+				return NextResponse.json({ error: 'Statistics not found' }, { status: 404 });
 			}
 
 			return NextResponse.json(
 				{
-					error: 'Failed to fetch application',
+					error: 'Failed to fetch statistics',
 					details: JSON.stringify(error),
 				},
 				{ status: 500 },
@@ -51,12 +56,12 @@ export async function GET(request: NextRequest) {
 		}
 
 		if (!statistics) {
-			return NextResponse.json({ error: 'Document not found' }, { status: 404 });
+			return NextResponse.json({ error: 'Statistics not found' }, { status: 404 });
 		}
 
 		return NextResponse.json(statistics, { status: 200 });
 	} catch (error) {
-		console.error('Application fetch error:', error);
+		console.error('Statistics fetch error:', error);
 		return NextResponse.json(
 			{
 				error: 'An unexpected error occurred',
@@ -66,3 +71,4 @@ export async function GET(request: NextRequest) {
 		);
 	}
 }
+

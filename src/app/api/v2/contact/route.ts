@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server';
 import { rateLimiter } from '@/lib/ratelimit';
 import { contactFormSchema } from '@/components/StaticPages/ContactPage/utility';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
 	try {
 		// Get client IP for rate limiting

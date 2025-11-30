@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import ApplicationListItem from './ApplicationListItem';
-import ApplicationFilter from './ApplicationFilter';
+import ApplicationFilters from './ApplicationFilters';
 import { appRoutes } from '@/utils/constants';
 import {
 	Breadcrumb,
@@ -45,7 +45,10 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 		},
 	});
 
-	const { searchQuery, status, contractType, workMode } = filterForm.getValues();
+	const searchQuery = filterForm.watch('searchQuery');
+	const status = filterForm.watch('status') || [];
+	const contractType = filterForm.watch('contractType') || [];
+	const workMode = filterForm.watch('workMode') || [];
 
 	const {
 		applications,
@@ -57,17 +60,48 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 	} = useApplications({
 		filters: {
 			query: searchQuery,
-			statusFilter: status?.[0],
-			workModeFilter: workMode?.[0],
-			contractTypeFilter: contractType?.[0],
+			statusFilter: status.length > 0 ? status : undefined,
+			workModeFilter: workMode.length > 0 ? workMode : undefined,
+			contractTypeFilter: contractType.length > 0 ? contractType : undefined,
 			journeyId: journeyId,
 		},
 	});
 
-	const debouncedRefetch = debounce(refetchApplications, 900);
+	const debouncedRefetch = debounce(() => {
+		refetchApplications();
+	}, 500);
+
+	// Watch for filter changes and trigger refetch
+	React.useEffect(() => {
+		debouncedRefetch();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchQuery, status, contractType, workMode]);
 
 	const clearAllFilters = () => {
-		filterForm.reset();
+		filterForm.reset({
+			searchQuery: '',
+			status: [],
+			contractType: [],
+			workMode: [],
+		});
+	};
+
+	const handleFilterChange = () => {
+		debouncedRefetch();
+	};
+
+	const handleClearFilter = (type: 'status' | 'contractType' | 'workMode', value: string) => {
+		if (type === 'status') {
+			const currentValue = filterForm.getValues('status') || [];
+			filterForm.setValue('status', currentValue.filter((v) => v !== value));
+		} else if (type === 'contractType') {
+			const currentValue = filterForm.getValues('contractType') || [];
+			filterForm.setValue('contractType', currentValue.filter((v) => v !== value));
+		} else if (type === 'workMode') {
+			const currentValue = filterForm.getValues('workMode') || [];
+			filterForm.setValue('workMode', currentValue.filter((v) => v !== value));
+		}
+		debouncedRefetch();
 	};
 
 	return (
@@ -108,27 +142,32 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 				</Link>
 			</div>
 
-			<div className="flex flex-col items-center gap-2 w-full top-8">
+			<div className="flex flex-col items-center gap-3 w-full top-8">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
 					<Info className="w-4 h-4" />
 					<span>Total: {applications?.data?.length}</span>
 				</p>
 
-				<div className="flex justify-between items-center gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg mb-6">
+				{/* Search Bar */}
+				<div className="flex justify-between items-center gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
 					<form className="relative flex items-center w-full" onReset={clearAllFilters}>
-						<Search className="w-4 h-4 absolute left-3" />
+						<Search className="w-4 h-4 absolute left-3 text-muted-foreground" />
 						<Input
 							type="text"
 							placeholder="Search by company name or job title"
 							className="pl-10"
-							{...filterForm.register('searchQuery', {
-								onChange: () => {
-									debouncedRefetch();
-								},
-							})}
+							{...filterForm.register('searchQuery')}
 						/>
 					</form>
 				</div>
+
+				{/* Filters */}
+				<ApplicationFilters
+					filterForm={filterForm}
+					onFilterChange={handleFilterChange}
+					onClearFilter={handleClearFilter}
+					onClearAll={clearAllFilters}
+				/>
 			</div>
 
 			{!isLoadingApplications && !isErrorApplications && applications && applications?.data?.length < 1 && (

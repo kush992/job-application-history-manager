@@ -7,7 +7,7 @@ import { apiRoutes, QueryKeys } from '@/utils/constants';
 import { handleApiError } from '@/utils/utility';
 
 async function fetchJourneys(): Promise<Journey[]> {
-	const response = await fetch(apiRoutes.journeys.getAll);
+	const response = await fetch(`${window.origin}${apiRoutes.journeys.getAll}`);
 
 	if (!response.ok) {
 		await handleApiError(response);
@@ -17,7 +17,7 @@ async function fetchJourneys(): Promise<Journey[]> {
 }
 
 async function fetchJourney(id: string): Promise<Journey> {
-	const response = await fetch(`${apiRoutes.journeys.getOne}?journeyId=${id}`);
+	const response = await fetch(`${window.origin}${apiRoutes.journeys.getOne(id)}`);
 
 	if (!response.ok) {
 		await handleApiError(response);
@@ -27,7 +27,7 @@ async function fetchJourney(id: string): Promise<Journey> {
 }
 
 async function createJourneyApi(data: JourneyFormData): Promise<Journey> {
-	const response = await fetch(apiRoutes.journeys.add, {
+	const response = await fetch(`${window.origin}${apiRoutes.journeys.add}`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data),
@@ -41,10 +41,10 @@ async function createJourneyApi(data: JourneyFormData): Promise<Journey> {
 }
 
 async function updateJourneyApi(journeyId: string, data: JourneyFormData): Promise<Journey> {
-	const response = await fetch(apiRoutes.journeys.update, {
+	const response = await fetch(`${window.origin}${apiRoutes.journeys.update(journeyId)}`, {
 		method: 'PUT',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({ journeyId, ...data }),
+		body: JSON.stringify(data),
 	});
 
 	if (!response.ok) {
@@ -55,10 +55,8 @@ async function updateJourneyApi(journeyId: string, data: JourneyFormData): Promi
 }
 
 async function deleteJourneyApi(journeyId: string): Promise<void> {
-	const response = await fetch(apiRoutes.journeys.delete, {
+	const response = await fetch(`${window.origin}${apiRoutes.journeys.delete(journeyId)}`, {
 		method: 'DELETE',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({ journeyId }),
 	});
 
 	if (!response.ok) {

@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 async function fetchStatistics(journeyId: string): Promise<Statistics> {
-	const response = await fetch(`${apiRoutes.statistics}?journeyId=${journeyId}`);
+	const response = await fetch(`${window.origin}${apiRoutes.journeys.statistics(journeyId)}`);
 
 	if (!response.ok) {
 		await handleApiError(response);
