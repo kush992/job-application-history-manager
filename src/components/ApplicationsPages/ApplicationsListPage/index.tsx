@@ -93,13 +93,22 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 	const handleClearFilter = (type: 'status' | 'contractType' | 'workMode', value: string) => {
 		if (type === 'status') {
 			const currentValue = filterForm.getValues('status') || [];
-			filterForm.setValue('status', currentValue.filter((v) => v !== value));
+			filterForm.setValue(
+				'status',
+				currentValue.filter((v) => v !== value),
+			);
 		} else if (type === 'contractType') {
 			const currentValue = filterForm.getValues('contractType') || [];
-			filterForm.setValue('contractType', currentValue.filter((v) => v !== value));
+			filterForm.setValue(
+				'contractType',
+				currentValue.filter((v) => v !== value),
+			);
 		} else if (type === 'workMode') {
 			const currentValue = filterForm.getValues('workMode') || [];
-			filterForm.setValue('workMode', currentValue.filter((v) => v !== value));
+			filterForm.setValue(
+				'workMode',
+				currentValue.filter((v) => v !== value),
+			);
 		}
 		debouncedRefetch();
 	};
@@ -142,14 +151,14 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 				</Link>
 			</div>
 
-			<div className="flex flex-col items-center gap-3 w-full top-8">
+			<div className="flex flex-col items-center gap-3 w-full top-8 mb-3">
 				<p className="text-xs text-center flex items-center gap-1 text-muted-foreground">
 					<Info className="w-4 h-4" />
 					<span>Total: {applications?.data?.length}</span>
 				</p>
 
 				{/* Search Bar */}
-				<div className="flex justify-between items-center gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
+				<div className="flex flex-col justify-between items-center gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
 					<form className="relative flex items-center w-full" onReset={clearAllFilters}>
 						<Search className="w-4 h-4 absolute left-3 text-muted-foreground" />
 						<Input
@@ -159,15 +168,15 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 							{...filterForm.register('searchQuery')}
 						/>
 					</form>
+					<ApplicationFilters
+						filterForm={filterForm}
+						onFilterChange={handleFilterChange}
+						onClearFilter={handleClearFilter}
+						onClearAll={clearAllFilters}
+					/>
 				</div>
 
 				{/* Filters */}
-				<ApplicationFilters
-					filterForm={filterForm}
-					onFilterChange={handleFilterChange}
-					onClearFilter={handleClearFilter}
-					onClearAll={clearAllFilters}
-				/>
 			</div>
 
 			{!isLoadingApplications && !isErrorApplications && applications && applications?.data?.length < 1 && (

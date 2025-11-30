@@ -104,13 +104,13 @@ const ApplicationFilters: React.FC<Props> = ({ filterForm, onFilterChange, onCle
 			)}
 
 			{/* Filter Buttons - Flex Layout */}
-			<div className="flex flex-wrap items-center gap-2">
+			<div className="flex flex-wrap items-center gap-2 mb-3 w-full">
 				{/* Status Filter */}
 				<Popover>
 					<PopoverTrigger asChild>
 						<Button
 							variant={status.length > 0 ? 'default' : 'outline'}
-							size="sm"
+							// size="sm"
 							className="w-full sm:w-auto"
 						>
 							Status
@@ -121,7 +121,7 @@ const ApplicationFilters: React.FC<Props> = ({ filterForm, onFilterChange, onCle
 							)}
 						</Button>
 					</PopoverTrigger>
-					<PopoverContent className="w-[calc(100vw-2rem)] sm:w-64 p-0" align="start">
+					<PopoverContent className="sm:w-64 p-0" align="start">
 						<div className="p-4 space-y-3 max-h-[calc(100vh-8rem)] overflow-y-auto">
 							<h3 className="font-semibold text-sm">Filter by Status</h3>
 							<Form {...filterForm}>
@@ -164,7 +164,6 @@ const ApplicationFilters: React.FC<Props> = ({ filterForm, onFilterChange, onCle
 					<PopoverTrigger asChild>
 						<Button
 							variant={contractType.length > 0 ? 'default' : 'outline'}
-							size="sm"
 							className="w-full sm:w-auto"
 						>
 							Contract Type
@@ -218,7 +217,6 @@ const ApplicationFilters: React.FC<Props> = ({ filterForm, onFilterChange, onCle
 					<PopoverTrigger asChild>
 						<Button
 							variant={workMode.length > 0 ? 'default' : 'outline'}
-							size="sm"
 							className="w-full sm:w-auto"
 						>
 							Work Mode
