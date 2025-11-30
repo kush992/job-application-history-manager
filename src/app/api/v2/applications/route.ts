@@ -71,17 +71,23 @@ export async function GET(request: NextRequest) {
 		// Build the query
 		let query = supabase
 			.from('job_applications')
-			.select
-			// 	`
-			// 	*,
-			// 	journeys:journey_id (
-			// 	id,
-			// 	title,
-			// 	description,
-			// 	is_active
-			// 	)
-			// `,
-			()
+			.select(
+				// 	`
+				// 	*,
+				// 	journeys:journey_id (
+				// 	id,
+				// 	title,
+				// 	description,
+				// 	is_active
+				// 	)
+				// `,
+				`id,
+				job_title,
+				company_name,
+				application_status,
+				salary,
+				created_at`,
+			)
 			.eq('user_id', user.id)
 			.order('created_at', { ascending: false })
 			.limit(limit);
@@ -263,7 +269,10 @@ export async function POST(request: NextRequest) {
 				json = JSON.parse(output.replace(/```json|```/g, '').trim());
 			} catch (err) {
 				console.error('JSON parse error:', err, output);
-				return NextResponse.json({ error: 'Failed to parse response from Gemini', raw: output }, { status: 500 });
+				return NextResponse.json(
+					{ error: 'Failed to parse response from Gemini', raw: output },
+					{ status: 500 },
+				);
 			}
 
 			const validatedData = jobApplicationSchema.parse(json);
