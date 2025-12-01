@@ -1,9 +1,9 @@
 import { ChevronRightIcon, DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Slot } from '@radix-ui/react-slot';
+import Link from 'next/link';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
 
 const Breadcrumb = React.forwardRef<
 	HTMLElement,
