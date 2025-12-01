@@ -1,5 +1,6 @@
+import { Client, Databases } from 'node-appwrite';
+
 import { config } from '@/config/config';
-import { Account, Client, Databases } from 'node-appwrite';
 
 const appwriteClient = new Client();
 

@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
+import React from 'react';
+
 import { Button } from '@/components/ui/button';
 
 const Error = ({ error, reset }: { error: Error; reset: () => void }) => {

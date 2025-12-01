@@ -1,11 +1,13 @@
-import { appRoutes } from '@/utils/constants';
-import React from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card';
-import { Button } from '../ui/button';
-import { Journey } from '@/types/schema';
-import { Badge } from '../ui/badge';
 import { Briefcase, Calendar, Edit, Eye, Trash2 } from 'lucide-react';
 import Link from 'next/link';
+import React from 'react';
+
+import { Journey } from '@/types/schema';
+import { appRoutes } from '@/utils/constants';
+
+import { Badge } from '../ui/badge';
+import { Button } from '../ui/button';
+import { Card, CardContent,CardDescription, CardHeader, CardTitle } from '../ui/card';
 
 type Props = {
 	journey: Journey;

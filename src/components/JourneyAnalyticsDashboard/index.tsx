@@ -1,31 +1,30 @@
 'use client';
 
+import { Eye } from 'lucide-react';
+import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+
+import { useGetJourneyInsights, usePostInsights } from '@/hooks/useJourneyInsights';
 import { useStatistics } from '@/hooks/useStatistics';
+import { appRoutes } from '@/utils/constants';
+
+import {
+	Breadcrumb,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbSeparator,
+} from '../ui/breadcrumb';
+import { Button } from '../ui/button';
+import { Card, CardContent } from '../ui/card';
+import ErrorDisplay from '../ui/error-display';
 import ApplicationFunnelDataChart from './ApplicationFunnelDataChart';
-import WorkModeChart from './WorkArrangementDataChart';
-import SummaryInsights from './SummaryInsights';
-import JourneyAnaluticsDashboardLoader from './Loading';
 import ApplicationResponseBreakdownDataChart from './ApplicationResponseBreakdownDataChart';
 import EmploymentTypeDataChart from './EmploymentTypeDataChart';
 import KeyMetrics from './KeyMetrics';
-import SalaryDistributionChart from './SalaryDistributionChart';
+import JourneyAnaluticsDashboardLoader from './Loading';
 import SalaryCurrencyTypeChart from './SalaryCurrencyTypeChart';
-import ErrorDisplay from '../ui/error-display';
-import { Button } from '../ui/button';
-import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
-import { useGetJourneyInsights, usePostInsights } from '@/hooks/useJourneyInsights';
-import { Card, CardContent, CardDescription } from '../ui/card';
-import { appRoutes } from '@/utils/constants';
-import { Eye } from 'lucide-react';
-import {
-	Breadcrumb,
-	BreadcrumbList,
-	BreadcrumbLink,
-	BreadcrumbSeparator,
-	BreadcrumbItem,
-	BreadcrumbPage,
-} from '../ui/breadcrumb';
+import SalaryDistributionChart from './SalaryDistributionChart';
+import WorkModeChart from './WorkArrangementDataChart';
 
 type Props = {
 	journeyId: string;
@@ -45,7 +44,7 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 	}
 
 	const errors = error || insightsError || journeyInsightsError;
-	const insightsData = !!insights ? insights : journeyInsights;
+	const insightsData = insights ? insights : journeyInsights;
 
 	if (!statistics || typeof statistics !== 'object') {
 		return (

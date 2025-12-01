@@ -1,8 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createClient } from '@/lib/supabase/server';
-import { rateLimiter } from '@/lib/ratelimit';
+
 import { contactFormSchema } from '@/components/StaticPages/ContactPage/utility';
+import { rateLimiter } from '@/lib/ratelimit';
+import { createClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 

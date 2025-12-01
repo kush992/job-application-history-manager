@@ -1,5 +1,6 @@
-import { appwriteDbConfig, database } from '@/appwrite/config';
 import { NextRequest, NextResponse } from 'next/server';
+
+import { appwriteDbConfig, database } from '@/appwrite/config';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 
 export async function POST(req: NextRequest) {

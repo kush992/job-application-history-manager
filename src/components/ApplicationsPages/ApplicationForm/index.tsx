@@ -1,12 +1,16 @@
 'use client';
 
-import { FC, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import Loader from '../../ui/loader';
-import { appRoutes, QueryKeys } from '@/utils/constants';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useToast } from '@/hooks/use-toast';
+
+import PageDescription from '@/components/ui/page-description';
+import PageTitle from '@/components/ui/page-title';
+import { useApplications } from '@/hooks/useApplications';
+import { jobApplicationSchema } from '@/lib/supabase/schema';
+import { JobApplicationFormData } from '@/types/schema';
+import { appRoutes } from '@/utils/constants';
+
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -15,17 +19,10 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '../../ui/breadcrumb';
-import PageTitle from '@/components/ui/page-title';
-import PageDescription from '@/components/ui/page-description';
-import ApplicationDataForm from './Form';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { applicationDataQueries } from '@/lib/server/application-queries';
-import { addLinks } from '@/lib/server/application-docs-queries';
 import { Card, CardContent } from '../../ui/card';
-import { JobApplicationFormData, WorkMode } from '@/types/schema';
-import { jobApplicationSchema } from '@/lib/supabase/schema';
-import ErrorDisplay from '../../ui/error-display';
-import { useApplications } from '@/hooks/useApplications';
+// import ErrorDisplay from '../../ui/error-display';
+import Loader from '../../ui/loader';
+import ApplicationDataForm from './Form';
 
 type Props = {
 	applicationId?: string;
@@ -35,8 +32,7 @@ type Props = {
 };
 
 const ApplicationForm: FC<Props> = ({ applicationId, isUpdateForm, userId }) => {
-	const router = useRouter();
-	const { toast } = useToast();
+	// const { toast } = useToast();
 
 	// const { data: application, isLoading } = useQuery({
 	// 	queryKey: [QueryKeys.APPLICATION_BY_ID, applicationId, userId],
@@ -49,20 +45,20 @@ const ApplicationForm: FC<Props> = ({ applicationId, isUpdateForm, userId }) => 
 		enableSingle: true,
 	});
 
-	const addLinksMutation = useMutation({
-		mutationFn: (links: string) => addLinks(links, String(application?.id)),
-		onSuccess: () => {
-			toast({
-				title: 'success',
-				description: 'File uploaded successfully',
-				variant: 'success',
-			});
-		},
-		onError: (error) => {
-			toast({ title: 'Error', description: <ErrorDisplay error={error} />, variant: 'destructive' });
-			console.error(error);
-		},
-	});
+	// const addLinksMutation = useMutation({
+	// 	mutationFn: (links: string) => addLinks(links, String(application?.id)),
+	// 	onSuccess: () => {
+	// 		toast({
+	// 			title: 'success',
+	// 			description: 'File uploaded successfully',
+	// 			variant: 'success',
+	// 		});
+	// 	},
+	// 	onError: (error) => {
+	// 		toast({ title: 'Error', description: <ErrorDisplay error={error} />, variant: 'destructive' });
+	// 		console.error(error);
+	// 	},
+	// });
 
 	// const createDocMutation = useMutation({
 	// 	mutationFn: (data: JobApplicationFormData) => {

@@ -1,9 +1,9 @@
-import EditJourney from '@/components/Journeys/EditJourney';
 import { HydrationBoundary } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/next';
-
 import { Loader } from 'lucide-react';
 import { Suspense } from 'react';
+
+import EditJourney from '@/components/Journeys/EditJourney';
 
 type Params = {
 	journeyId: string;

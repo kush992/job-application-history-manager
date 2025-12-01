@@ -1,9 +1,10 @@
-import React from 'react';
 import cn from 'classnames';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../ui/card';
-import { Button } from '../../ui/button';
-import { Check, CheckIcon, MoveRightIcon } from 'lucide-react';
+import { CheckIcon, MoveRightIcon } from 'lucide-react';
+import React from 'react';
+
 import { appRoutes } from '@/utils/constants';
+
+import { Button } from '../../ui/button';
 
 const tiers = [
 	{

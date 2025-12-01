@@ -1,34 +1,33 @@
 'use client';
 
-import React from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import debounce from 'lodash/debounce';
+import { Info, Search } from 'lucide-react';
 import Link from 'next/link';
-import { useToast } from '@/hooks/use-toast';
-import { Button } from '@/components/ui/button';
-import ApplicationListItem from './ApplicationListItem';
-import ApplicationFilters from './ApplicationFilters';
-import { appRoutes } from '@/utils/constants';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
 import {
 	Breadcrumb,
-	BreadcrumbEllipsis,
 	BreadcrumbItem,
 	BreadcrumbLink,
 	BreadcrumbList,
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-
-import { Info, Search } from 'lucide-react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { FilterFormValues, filterSchema } from './ApplicationFilter/utility';
-import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
-import { useApplications } from '@/hooks/useApplications';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import ErrorDisplay from '@/components/ui/error-display';
+import { Input } from '@/components/ui/input';
 import PageDescription from '@/components/ui/page-description';
 import PageTitle from '@/components/ui/page-title';
 import { Separator } from '@/components/ui/separator';
+import { useApplications } from '@/hooks/useApplications';
+import { appRoutes } from '@/utils/constants';
+
+import { FilterFormValues, filterSchema } from './ApplicationFilter/utility';
+import ApplicationFilters from './ApplicationFilters';
+import ApplicationListItem from './ApplicationListItem';
+import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
 
 type Props = {
 	journeyId?: string;

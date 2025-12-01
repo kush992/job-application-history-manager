@@ -1,26 +1,27 @@
 'use client';
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { Plus, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/button';
 import { useJourneys } from '@/hooks/useJourneys';
 import { Journey } from '@/types/schema';
 import { appRoutes } from '@/utils/constants';
-import { DeleteJourneyDialog } from './DeleteJourneyDialog';
-import EmptyJourney from './EmptyJourney';
-import ErrorDisplay from '../ui/error-display';
-import JourneyCard from './JourneyCard';
-import JourneyViewSkeleton from './JourneyViewSkeleton';
+
 import {
 	Breadcrumb,
-	BreadcrumbList,
-	BreadcrumbLink,
-	BreadcrumbSeparator,
-	BreadcrumbEllipsis,
 	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
 	BreadcrumbPage,
+	BreadcrumbSeparator,
 } from '../ui/breadcrumb';
+import ErrorDisplay from '../ui/error-display';
+import { DeleteJourneyDialog } from './DeleteJourneyDialog';
+import EmptyJourney from './EmptyJourney';
+import JourneyCard from './JourneyCard';
+import JourneyViewSkeleton from './JourneyViewSkeleton';
 
 export function JourneysView() {
 	const { journeys, isFetching, isDeleting, deleteJourney, error, refreshJourneys } = useJourneys();

@@ -1,9 +1,11 @@
 import React from 'react';
+
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useUploadFile } from '@/hooks/useUploadFile';
 import { FILES_SEPARATOR } from '@/utils/constants';
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { getFileName } from '@/utils/utility';
+
 import DocumentInfoCard from '../DocumentInfoCard';
 
 type Props = {

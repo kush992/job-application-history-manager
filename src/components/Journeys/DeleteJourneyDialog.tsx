@@ -1,5 +1,7 @@
 'use client';
 
+import { Loader2 } from 'lucide-react';
+
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -11,7 +13,6 @@ import {
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Journey } from '@/types/schema';
-import { Loader2 } from 'lucide-react';
 
 interface DeleteJourneyDialogProps {
 	open: boolean;

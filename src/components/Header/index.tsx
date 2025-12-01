@@ -1,16 +1,16 @@
 'use client';
 
-import { appRoutes } from '@/utils/constants';
 import cn from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
-import { Models } from 'node-appwrite';
+import React from 'react';
+
 import { Button } from '@/components/ui/button';
-import { UserMenu } from '../UserMenu';
-import { Plus, X } from 'lucide-react';
-import { navBarLinks } from './utility';
 import { Profile } from '@/types/profiles';
+import { appRoutes } from '@/utils/constants';
+
+import { UserMenu } from '../UserMenu';
+import { navBarLinks } from './utility';
 
 type Props = {
 	user: Profile | null;

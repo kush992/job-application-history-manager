@@ -1,10 +1,11 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { handleApiError } from '@/utils/utility';
-import ErrorDisplay from '@/components/ui/error-display';
-import { useToast } from './use-toast';
+
 import { JobApplication } from '@/types/schema';
+import { handleApiError } from '@/utils/utility';
+
+import { useToast } from './use-toast';
 
 const postDataWithAi = async (endpoint: string, rawText: string) => {
 	const response = await fetch(endpoint, {

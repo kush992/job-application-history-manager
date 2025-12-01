@@ -1,11 +1,11 @@
-import { type NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
-import { appRoutes } from '@/utils/constants';
-import { config } from '@/config/config';
-import { z } from 'zod';
-import { jobApplicationSchema } from '@/lib/supabase/schema';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { type NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+
+import { config } from '@/config/config';
+import { jobApplicationSchema } from '@/lib/supabase/schema';
+import { createClient } from '@/lib/supabase/server';
+import { appRoutes } from '@/utils/constants';
 
 const genAI = new GoogleGenerativeAI(process.env.LLM_API_KEY!);
 

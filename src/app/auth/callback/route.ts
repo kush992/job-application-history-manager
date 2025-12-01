@@ -30,11 +30,11 @@
 // 	// return the user to an error page with instructions
 // 	return NextResponse.redirect(`${origin}/auth/auth-code-error`);
 // }
-import { createClient } from '@/lib/supabase/server';
-import { getOrCreateProfile } from '@/lib/supabase/profiles';
-import { appRoutes } from '@/utils/constants';
 import { type NextRequest, NextResponse } from 'next/server';
-import { baseUrl } from '@/utils/utility';
+
+import { getOrCreateProfile } from '@/lib/supabase/profiles';
+import { createClient } from '@/lib/supabase/server';
+import { appRoutes } from '@/utils/constants';
 
 export async function GET(request: NextRequest) {
 	const { searchParams, origin } = new URL(request.url);

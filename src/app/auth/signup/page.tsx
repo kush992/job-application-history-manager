@@ -1,6 +1,7 @@
+import { CheckCircle,Shield, Zap } from 'lucide-react';
+
 import { GoogleAuthButton } from '@/components/Auth/GoogleAuthButton';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Zap, CheckCircle } from 'lucide-react';
 
 export default function SignUpPage() {
 	return (

@@ -1,5 +1,6 @@
-import { ApplicationStatus, ContractType, WorkMode } from '@/types/schema';
 import { z } from 'zod';
+
+import { ApplicationStatus, ContractType, WorkMode } from '@/types/schema';
 
 export const filterSchema = z.object({
 	searchQuery: z.string().optional(),

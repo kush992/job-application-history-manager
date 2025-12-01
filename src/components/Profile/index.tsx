@@ -1,23 +1,25 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserIcon, Mail, Calendar, Shield, CheckCircle, Clock, Globe, LogOut, ChevronRight } from 'lucide-react';
+import type { User } from '@supabase/supabase-js';
+import { Calendar, CheckCircle, ChevronRight,Clock, Globe, LogOut, Mail, Shield, UserIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import type { User } from '@supabase/supabase-js';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { Profile } from '@/types/profiles';
 import { appRoutes } from '@/utils/constants';
+
 import {
 	Breadcrumb,
-	BreadcrumbList,
-	BreadcrumbLink,
-	BreadcrumbSeparator,
 	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
 	BreadcrumbPage,
+	BreadcrumbSeparator,
 } from '../ui/breadcrumb';
 
 interface ProfileViewProps {

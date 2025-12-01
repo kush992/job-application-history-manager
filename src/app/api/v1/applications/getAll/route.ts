@@ -1,8 +1,6 @@
-import { appwriteDbConfig, database } from '@/appwrite/config';
-import { getLoggedInUser } from '@/lib/server/appwrite';
-// import { Response, JobApplicationData } from '@/types/apiResponseTypes';
-import { AppwriteException, Models, Query } from 'node-appwrite';
 import { NextRequest, NextResponse } from 'next/server';
+
+// import { Response, JobApplicationData } from '@/types/apiResponseTypes';
 
 export async function GET(req: NextRequest) {
 	// try {

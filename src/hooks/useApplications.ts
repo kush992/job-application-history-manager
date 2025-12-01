@@ -1,6 +1,9 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+
+import { ApiError } from '@/types/apiError';
 import type {
 	ApplicationStatus,
 	ContractType,
@@ -11,7 +14,7 @@ import type {
 } from '@/types/schema';
 import { apiRoutes } from '@/utils/constants';
 import { handleApiError } from '@/utils/utility';
-import { ApiError } from '@/types/apiError';
+
 import { useToast } from './use-toast';
 
 // Query Keys
@@ -134,6 +137,7 @@ export const useApplications = (options?: {
 }) => {
 	const queryClient = useQueryClient();
 	const { toast } = useToast();
+	const router = useRouter();
 	const { filters = {}, applicationId, enableSingle = false } = options || {};
 
 	// Query for fetching all applications
@@ -162,6 +166,7 @@ export const useApplications = (options?: {
 				description: 'Application added successfully',
 				variant: 'success',
 			});
+			router.back();
 		},
 		onError: (error) => {
 			toast({
@@ -184,6 +189,7 @@ export const useApplications = (options?: {
 				description: 'Application updated successfully',
 				variant: 'success',
 			});
+			router.back();
 		},
 		onError: (error) => {
 			toast({

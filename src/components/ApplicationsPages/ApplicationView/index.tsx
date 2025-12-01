@@ -1,22 +1,16 @@
 'use client';
 
-import React from 'react';
+import DOMPurify from 'dompurify';
+import { CircleDollarSign, ExternalLink, ExternalLinkIcon, Pencil } from 'lucide-react';
 import Link from 'next/link';
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
+
+import { Separator } from '@/components/ui/separator';
+import { useApplications } from '@/hooks/useApplications';
+import { ApplicationStatus } from '@/types/schema';
 import { appRoutes, FILES_SEPARATOR } from '@/utils/constants';
 import { formatDate } from '@/utils/date';
-import Loader from '../../ui/loader';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '../../ui/button';
-import {
-	Breadcrumb,
-	BreadcrumbItem,
-	BreadcrumbLink,
-	BreadcrumbList,
-	BreadcrumbPage,
-	BreadcrumbSeparator,
-} from '../../ui/breadcrumb';
-import { Badge } from '../../ui/badge';
 import {
 	applicationStatusMapping,
 	contractTypeMapping,
@@ -25,11 +19,19 @@ import {
 	getWorkModeColor,
 	workModeMapping,
 } from '@/utils/utility';
-import { CircleDollarSign, ExternalLink, ExternalLinkIcon, Pencil } from 'lucide-react';
-import { ApplicationStatus } from '@/types/schema';
-import { useApplications } from '@/hooks/useApplications';
+
+import { Badge } from '../../ui/badge';
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '../../ui/breadcrumb';
+import { Button } from '../../ui/button';
 import ErrorDisplay from '../../ui/error-display';
-import DOMPurify from 'dompurify';
+import Loader from '../../ui/loader';
 
 type Props = {
 	applicationId: string;

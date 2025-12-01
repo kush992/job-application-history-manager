@@ -1,7 +1,8 @@
-import Loader from '@/components/ui/loader';
-import TermsOfServicePage from '@/components/StaticPages/TermsOfServicePage';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
+
+import TermsOfServicePage from '@/components/StaticPages/TermsOfServicePage';
+import Loader from '@/components/ui/loader';
 
 export default function TermsOfService() {
 	return (

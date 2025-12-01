@@ -1,7 +1,10 @@
 'use client';
 
-import { FC, useState } from 'react';
-import { apiRoutes, appRoutes } from '@/utils/constants';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { LoaderIcon } from 'lucide-react';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
+
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -10,20 +13,19 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import PageTitle from '@/components/ui/page-title';
-import PageDescription from '@/components/ui/page-description';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import ErrorDisplay from '@/components/ui/error-display';
-import TinyEditor from '@/components/ui/tiny-editor';
-import { Button } from '@/components/ui/button';
-import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { jobApplicationSchemaAddWithAi } from '@/lib/supabase/schema';
+import PageDescription from '@/components/ui/page-description';
+import PageTitle from '@/components/ui/page-title';
+import TinyEditor from '@/components/ui/tiny-editor';
 import { config } from '@/config/config';
-import FileUpload from '../FileUpload';
 import { useAddWithAi } from '@/hooks/useAddWithAi';
-import { LoaderIcon } from 'lucide-react';
+import { jobApplicationSchemaAddWithAi } from '@/lib/supabase/schema';
+import { apiRoutes, appRoutes } from '@/utils/constants';
+
+import FileUpload from '../FileUpload';
 
 const AddApplicationWithAi: FC = () => {
 	const form = useForm({

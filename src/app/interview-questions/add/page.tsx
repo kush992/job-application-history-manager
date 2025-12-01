@@ -1,10 +1,11 @@
 import { Analytics } from '@vercel/analytics/next';
+import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
+
+import QnAForm from '@/components/QnAForm';
 import Loader from '@/components/ui/loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
-import { redirect } from 'next/navigation';
 import { appRoutes } from '@/utils/constants';
-import QnAForm from '@/components/QnAForm';
 
 export default async function AddInterviewQuestions() {
 	const user = await getLoggedInUser();

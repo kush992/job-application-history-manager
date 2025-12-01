@@ -173,10 +173,12 @@
 // };
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useCallback,useState } from 'react';
+
 import { apiRoutes, FILES_SEPARATOR } from '@/utils/constants';
-import { useState, useCallback } from 'react';
-import { toast } from './use-toast';
 import { getFileName, handleApiError } from '@/utils/utility';
+
+import { toast } from './use-toast';
 
 type UploadFileStatus = {
 	file: File;

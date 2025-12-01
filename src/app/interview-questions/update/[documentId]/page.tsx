@@ -1,10 +1,11 @@
-import Loader from '@/components/ui/loader';
-import QnAForm from '@/components/QnAForm';
-import { getLoggedInUser } from '@/lib/server/appwrite';
-import { appRoutes } from '@/utils/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
+
+import QnAForm from '@/components/QnAForm';
+import Loader from '@/components/ui/loader';
+import { getLoggedInUser } from '@/lib/server/appwrite';
+import { appRoutes } from '@/utils/constants';
 
 type Params = {
 	documentId: string;

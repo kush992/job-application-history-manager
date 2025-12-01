@@ -1,8 +1,9 @@
-import React from 'react';
+import { Calendar, ChartCandlestick, FileUp, Map, Plus, Share2 } from 'lucide-react';
 import Image from 'next/image';
+import React from 'react';
+
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader } from '../ui/card';
-import { Calendar, ChartCandlestick, FileUp, Map, Plus, Share2 } from 'lucide-react';
 
 const HomePage = () => {
 	return (

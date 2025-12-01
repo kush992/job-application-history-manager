@@ -1,7 +1,8 @@
-import Loader from '@/components/ui/loader';
-import PrivacyPolicyPage from '@/components/StaticPages/PrivacyPolicyPage';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
+
+import PrivacyPolicyPage from '@/components/StaticPages/PrivacyPolicyPage';
+import Loader from '@/components/ui/loader';
 
 export default function PrivacyPolicy() {
 	return (

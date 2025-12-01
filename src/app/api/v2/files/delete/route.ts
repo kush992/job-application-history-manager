@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { Storage } from '@google-cloud/storage';
+import { NextRequest, NextResponse } from 'next/server';
 
 const storage = new Storage({
 	projectId: process.env.PROJECT_ID,

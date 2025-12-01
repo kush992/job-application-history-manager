@@ -1,7 +1,8 @@
-import Loader from '@/components/ui/loader';
-import PricingPage from '@/components/StaticPages/PricingPage';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
+
+import PricingPage from '@/components/StaticPages/PricingPage';
+import Loader from '@/components/ui/loader';
 
 export default function Pricing() {
 	return (

@@ -6,7 +6,12 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
+		"lint": "eslint . --ext .ts,.tsx --quiet",
+		"lint:fix": "eslint --ext .ts,.tsx --fix src",
+		"fix": "npm run cleanup:empty-imports && npm run lint:fix && npm run prettier",
+		"cleanup:empty-imports": "node ./scripts/remove-empty-imports.js",
+		"prepare": "husky install",
+		"lint-staged": "lint-staged",
 		"prettier:check": "prettier -c .",
 		"prettier": "prettier --write ."
 	},
@@ -75,6 +80,25 @@
 		"postcss": "^8",
 		"prettier": "^3.3.3",
 		"tailwindcss": "^3.4.1",
-		"typescript": "^5"
+		"typescript": "^5",
+		"@typescript-eslint/eslint-plugin": "^6.9.0",
+		"@typescript-eslint/parser": "^6.9.0",
+	"eslint-config-prettier": "^8.8.0",
+		"eslint-plugin-simple-import-sort": "^9.0.0",
+		"eslint-plugin-unused-imports": "^3.1.0",
+		"husky": "^8.0.0",
+	"lint-staged": "^13.2.3",
+		"eslint-plugin-import": "^2.28.1"
+	}
+,
+	"lint-staged": {
+		"*.{ts,tsx,js,jsx}": [
+			"npm run cleanup:empty-imports",
+			"npm run lint:fix",
+			"npm run prettier"
+		],
+		"*.{json,css,md}": [
+			"npm run prettier"
+		]
 	}
 }

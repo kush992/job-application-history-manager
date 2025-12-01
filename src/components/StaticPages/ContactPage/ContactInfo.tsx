@@ -1,6 +1,6 @@
-import type React from 'react';
-import { Facebook, Instagram, Github, Dribbble, Mail, Linkedin } from 'lucide-react';
+import { Dribbble, Github, Linkedin,Mail } from 'lucide-react';
 import Link from 'next/link';
+import type React from 'react';
 
 export default function ContactInfo() {
 	return (

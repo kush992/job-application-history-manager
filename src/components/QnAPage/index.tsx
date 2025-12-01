@@ -1,5 +1,8 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react';
+
 import { QnAAccordion } from '@/components/QnAAccordion';
 import {
 	Breadcrumb,
@@ -12,11 +15,10 @@ import {
 import PageDescription from '@/components/ui/page-description';
 import PageTitle from '@/components/ui/page-title';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { appRoutes, QueryKeys } from '@/utils/constants';
-import React, { useState } from 'react';
-import { QnAShowType } from './utility';
-import { useQuery } from '@tanstack/react-query';
 import { interviewQuestionsQueries } from '@/lib/server/interview-questions-queries';
+import { appRoutes, QueryKeys } from '@/utils/constants';
+
+import { QnAShowType } from './utility';
 
 type Props = {
 	userId: string;

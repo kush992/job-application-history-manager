@@ -1,7 +1,8 @@
-import AboutUsPage from '@/components/StaticPages/AboutUsPage';
-import Loader from '@/components/ui/loader';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
+
+import AboutUsPage from '@/components/StaticPages/AboutUsPage';
+import Loader from '@/components/ui/loader';
 
 export default function AboutUs() {
 	return (

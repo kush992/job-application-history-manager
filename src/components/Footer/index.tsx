@@ -1,8 +1,9 @@
 import { Github, Globe, Linkedin, Mail } from 'lucide-react';
+import Link from 'next/link';
 import React from 'react';
+
 import { Separator } from '../ui/separator';
 import { footerLinks } from './utility';
-import Link from 'next/link';
 
 const Footer = () => {
 	return (

@@ -1,13 +1,14 @@
-import React, { Suspense } from 'react';
-import Loader from '@/components/ui/loader';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/next';
 import { redirect } from 'next/navigation';
-import { appRoutes, QueryKeys } from '@/utils/constants';
+import React, { Suspense } from 'react';
+
 import QnAPage from '@/components/QnAPage';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { QnAShowType } from '@/components/QnAPage/utility';
+import Loader from '@/components/ui/loader';
 import { interviewQuestionsQueries } from '@/lib/server/interview-questions-queries';
 import { getLoggedInUser } from '@/lib/supabase/user';
+import { appRoutes, QueryKeys } from '@/utils/constants';
 
 const QuestionsAndAnswersPage = async () => {
 	const user = await getLoggedInUser();

@@ -1,7 +1,8 @@
+import type { Metadata } from 'next';
+
 import ContactForm from '@/components/StaticPages/ContactPage/ContactForm';
 import ContactInfo from '@/components/StaticPages/ContactPage/ContactInfo';
 import { Card, CardContent } from '@/components/ui/card';
-import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
 	title: 'Contact Us | JobJourney',

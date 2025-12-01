@@ -1,10 +1,11 @@
+import './globals.css';
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
+
 import Wrapper from '@/components/Wrapper';
-import { jsonParseString } from '@/utils/utility';
 import { getLoggedInUser } from '@/lib/supabase/user';
-import Loader from '@/components/ui/loader';
+import { jsonParseString } from '@/utils/utility';
 
 const inter = Inter({ subsets: ['latin'] });
 

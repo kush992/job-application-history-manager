@@ -1,9 +1,9 @@
-import AddJourney from '@/components/Journeys/AddJourney';
 import { HydrationBoundary } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/next';
-
 import { Loader } from 'lucide-react';
 import { Suspense } from 'react';
+
+import AddJourney from '@/components/Journeys/AddJourney';
 
 export default function AddJourneyPage() {
 	return (

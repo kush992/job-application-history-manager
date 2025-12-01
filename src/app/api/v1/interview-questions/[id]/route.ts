@@ -1,8 +1,9 @@
-import { appwriteDbConfig, database } from '@/appwrite/config';
-import { InterviewQuestionsData } from '@/types/apiResponseTypes';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+
+import { appwriteDbConfig, database } from '@/appwrite/config';
 import { denormaliseQuestionsAndAnswers, QnAFormData } from '@/components/QnAForm/utility';
+import { InterviewQuestionsData } from '@/types/apiResponseTypes';
 
 export const dynamic = 'force-dynamic';
 

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '../ui/card';
+
 import { Statistics } from '@/types/schema';
+
+import { Card, CardContent, CardDescription,CardHeader, CardTitle } from '../ui/card';
 
 type Props = {
 	statistics: Statistics;

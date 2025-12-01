@@ -1,6 +1,8 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
 import { CircleCheck, CircleX, Loader, Trash2Icon } from 'lucide-react';
+import React from 'react';
+
+import { Button } from '@/components/ui/button';
+
 import { Separator } from '../ui/separator';
 
 type Props = {

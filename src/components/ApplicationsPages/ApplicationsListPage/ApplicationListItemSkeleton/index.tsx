@@ -1,6 +1,7 @@
 import React from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
+
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const ApplicationListItemSkeleton: React.FC = () => {
 	return (

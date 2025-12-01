@@ -1,6 +1,5 @@
-import { appwriteDbConfig, database } from '@/appwrite/config';
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+
 
 export async function PUT(req: NextRequest) {
 	// try {

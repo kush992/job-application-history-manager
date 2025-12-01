@@ -1,7 +1,7 @@
-import { config } from '@/config/config';
-import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-import { cn } from '@/lib/utils';
+import React, { useRef } from 'react';
+
+import { config } from '@/config/config';
 
 type Props = {
 	initialData: string;

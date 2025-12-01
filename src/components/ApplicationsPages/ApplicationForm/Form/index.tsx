@@ -1,13 +1,14 @@
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Briefcase, Building2, CalendarIcon, Loader } from 'lucide-react';
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { Input } from '@/components/ui/input';
-import TinyEditor from '@/components/ui/tiny-editor';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
 import { Button } from '@/components/ui/button';
 import { DateTimePicker } from '@/components/ui/date-time-picker';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import TinyEditor from '@/components/ui/tiny-editor';
 import { config } from '@/config/config';
-import { Briefcase, Building2, CalendarIcon, Loader } from 'lucide-react';
 import {
 	ApplicationStatus,
 	ContractType,
@@ -17,6 +18,7 @@ import {
 	SalaryType,
 	WorkMode,
 } from '@/types/schema';
+
 import FileUpload from '../../FileUpload';
 
 type Props = {

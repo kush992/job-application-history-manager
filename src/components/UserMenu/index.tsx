@@ -1,3 +1,8 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTheme } from 'next-themes';
+import React from 'react';
+
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -11,14 +16,11 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback } from '../ui/avatar';
-import Link from 'next/link';
-import Image from 'next/image';
-import { appRoutes } from '@/utils/constants';
 import { signOut } from '@/lib/server/appwrite';
-import React from 'react';
-import { useTheme } from 'next-themes';
 import { Profile } from '@/types/profiles';
+import { appRoutes } from '@/utils/constants';
+
+import { Avatar, AvatarFallback } from '../ui/avatar';
 
 type Props = {
 	user: Profile | null;

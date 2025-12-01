@@ -1,7 +1,8 @@
 'use client';
 
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CheckCircle, XCircle } from 'lucide-react';
+
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface FormMessageProps {
 	type: 'success' | 'error';

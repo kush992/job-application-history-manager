@@ -1,23 +1,24 @@
 'use client';
 
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Separator } from '@/components/ui/separator';
 import { X } from 'lucide-react';
+import React from 'react';
 import type { UseFormReturn } from 'react-hook-form';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
-import { FilterFormValues } from '../ApplicationFilter/utility';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { ApplicationStatus, ContractType, WorkMode } from '@/types/schema';
 import {
 	applicationStatusMapping,
 	contractTypeMapping,
-	workModeMapping,
 	getApplicationStatusColor,
 	getWorkModeColor,
+	workModeMapping,
 } from '@/utils/utility';
-import { ApplicationStatus, ContractType, WorkMode } from '@/types/schema';
+
+import { FilterFormValues } from '../ApplicationFilter/utility';
 
 type Props = {
 	filterForm: UseFormReturn<FilterFormValues>;

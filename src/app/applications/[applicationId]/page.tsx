@@ -1,8 +1,9 @@
-import Loader from '@/components/ui/loader';
-import ApplicationView from '@/components/ApplicationsPages/ApplicationView';
+import { HydrationBoundary } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
-import { HydrationBoundary } from '@tanstack/react-query';
+
+import ApplicationView from '@/components/ApplicationsPages/ApplicationView';
+import Loader from '@/components/ui/loader';
 import { getLoggedInUser } from '@/lib/supabase/user';
 
 type Params = {

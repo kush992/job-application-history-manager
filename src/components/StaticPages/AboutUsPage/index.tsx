@@ -1,7 +1,8 @@
+import { Briefcase, FileText, MessageCircle, Star,Users } from 'lucide-react';
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
 import { Button } from '@/components/ui/button';
-import { Briefcase, FileText, MessageCircle, Users, Star } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const testimonials = [
 	{

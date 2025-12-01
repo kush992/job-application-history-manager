@@ -1,8 +1,9 @@
+import { useQuery } from '@tanstack/react-query';
+import { useCallback } from 'react';
+
 import { Statistics } from '@/types/schema';
 import { apiRoutes, QueryKeys } from '@/utils/constants';
 import { handleApiError } from '@/utils/utility';
-import { useQuery } from '@tanstack/react-query';
-import { useCallback } from 'react';
 
 async function fetchStatistics(journeyId: string): Promise<Statistics> {
 	const response = await fetch(`${window.origin}${apiRoutes.journeys.statistics(journeyId)}`);

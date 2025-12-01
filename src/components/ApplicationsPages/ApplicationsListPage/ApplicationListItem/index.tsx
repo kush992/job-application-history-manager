@@ -1,14 +1,15 @@
-import { appRoutes } from '@/utils/constants';
-import { transformDate } from '@/utils/date';
+import { CircleDollarSign, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { CircleDollarSign, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
+
 import { AlertDialogCustom } from '@/components/ui/alert-dialog-custom';
-import { applicationStatusMapping, getApplicationStatusColor } from '@/utils/utility';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { ApplicationStatus, JobApplication } from '@/types/schema';
+import { appRoutes } from '@/utils/constants';
+import { transformDate } from '@/utils/date';
+import { applicationStatusMapping, getApplicationStatusColor } from '@/utils/utility';
 
 type Props = {
 	data: JobApplication;

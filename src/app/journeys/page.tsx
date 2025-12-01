@@ -1,7 +1,8 @@
+import { redirect } from 'next/navigation';
+
 import { JourneysView } from '@/components/Journeys/JourneysView';
 import { createClient } from '@/lib/supabase/server';
 import { appRoutes } from '@/utils/constants';
-import { redirect } from 'next/navigation';
 
 export default async function JourneysPage() {
 	const supabase = await createClient();

@@ -1,8 +1,10 @@
-import { appRoutes } from '@/utils/constants';
-import { RocketIcon, Link, Plus } from 'lucide-react';
+import { Link, Plus,RocketIcon } from 'lucide-react';
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card';
+
+import { appRoutes } from '@/utils/constants';
+
 import { Button } from '../ui/button';
+import { Card, CardContent,CardDescription, CardHeader, CardTitle } from '../ui/card';
 
 const EmptyJourney = () => {
 	return (

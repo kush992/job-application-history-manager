@@ -1,6 +1,7 @@
-import { createClient } from '@/lib/supabase/server';
-import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { NextRequest, NextResponse } from 'next/server';
+
+import { createClient } from '@/lib/supabase/server';
 import { Statistics } from '@/types/schema';
 
 const genAI = new GoogleGenerativeAI(process.env.LLM_API_KEY!);

@@ -1,15 +1,17 @@
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Checkbox } from '@/components/ui/checkbox';
-import { applicationStatusMapping, contractTypeMapping, workModeMapping } from '@/utils/utility';
+import { DialogClose } from '@radix-ui/react-dialog';
 import { Filter, Trash2 } from 'lucide-react';
 import type { UseFormReturn } from 'react-hook-form';
+
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
-import { FilterFormValues } from './utility';
-import { DialogClose } from '@radix-ui/react-dialog';
+import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { ApplicationStatus, ContractType, WorkMode } from '@/types/schema';
+import { applicationStatusMapping, contractTypeMapping, workModeMapping } from '@/utils/utility';
+
+import { FilterFormValues } from './utility';
 
 type Props = {
 	onSubmit: (data: FilterFormValues) => void;

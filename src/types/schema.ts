@@ -1,5 +1,6 @@
-import { jobApplicationSchema, journeySchema } from '@/lib/supabase/schema';
 import { z } from 'zod';
+
+import { jobApplicationSchema, journeySchema } from '@/lib/supabase/schema';
 
 export enum SalaryType {
 	HOURLY = 'HOURLY',

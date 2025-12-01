@@ -1,7 +1,8 @@
+import { useMutation, useQuery } from '@tanstack/react-query';
+
 import { JourneyInsight, Statistics } from '@/types/schema';
 import { apiRoutes } from '@/utils/constants';
 import { handleApiError } from '@/utils/utility';
-import { useMutation, useQuery } from '@tanstack/react-query';
 
 async function postJourneyInsights(statistics: Statistics): Promise<JourneyInsight> {
 	const response = await fetch(`${window.origin}${apiRoutes.journeys.insights(statistics.journey_id)}`, {

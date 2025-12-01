@@ -1,19 +1,21 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ArrowLeft,Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
 import { journeySchema } from '@/lib/supabase/schema';
 import { JourneyFormData } from '@/types/schema';
 import { appRoutes } from '@/utils/constants';
+
 import { Switch } from '../ui/switch';
-import { useEffect } from 'react';
 
 interface JourneyFormProps {
 	onSubmit: (data: JourneyFormData) => Promise<void>;

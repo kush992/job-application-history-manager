@@ -1,6 +1,8 @@
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
+
 import { Statistics } from '@/types/schema';
+
+import { Card, CardContent,CardHeader, CardTitle } from '../ui/card';
 
 type Props = {
 	statistics: Pick<Statistics, 'applications_count' | 'success_count' | 'avg_salary'>;

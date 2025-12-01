@@ -1,8 +1,10 @@
 'use server';
-import { Client, Account, ID } from 'node-appwrite';
 import { cookies } from 'next/headers';
-import { config } from '@/config/config';
 import { redirect } from 'next/navigation';
+import { Account, Client, ID } from 'node-appwrite';
+
+import { config } from '@/config/config';
+
 import { createClient } from '../supabase/server';
 
 export async function createSessionClient() {

@@ -1,14 +1,14 @@
+import { Plus, X } from 'lucide-react';
 import React from 'react';
 import { useFieldArray, UseFormReturn } from 'react-hook-form';
-import { Form, FormDescription, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { QnAFormData } from '../utility';
-import { Card, CardContent } from '@/components/ui/card';
-import { Plus, X } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+
+import { QnAFormData } from '../utility';
 
 type Props = {
 	form: UseFormReturn<QnAFormData>;
