@@ -70,8 +70,17 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 		refetchApplications();
 	}, 500);
 
-	// Watch for filter changes and trigger refetch
+	// Avoid triggering refetch on initial mount. This prevents an extra request
+	// immediately after the initial query (which can compound with Strict Mode double-mount).
+	const isFirstRun = React.useRef(true);
+
+	// Watch for filter changes and trigger refetch (skipping the first run)
 	React.useEffect(() => {
+		if (isFirstRun.current) {
+			isFirstRun.current = false;
+			return;
+		}
+
 		debouncedRefetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchQuery, status, contractType, workMode]);

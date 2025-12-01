@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
 
 		// Fetch active journey to get all applications under it by default for applications list page.
 		// If journey_id is provided in search params, we need to use that instead as it can be a different page on UI.
-		let journeyQuery = supabase.from('journeys').select().eq('user_id', user.id);
+		let journeyQuery = supabase.from('journeys').select(`id, title, description`).eq('user_id', user.id);
 
 		if (journey_id) {
 			journeyQuery = journeyQuery.eq('id', journey_id);

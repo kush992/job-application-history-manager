@@ -34,7 +34,13 @@ export async function GET(request: NextRequest) {
 			.from('journeys')
 			.select(
 				`
-				*,
+				id,
+				title,
+				description,
+				created_at,
+				is_active,
+				start_date,
+				end_date,
 				applications_count:job_applications(count)
 			`,
 			)

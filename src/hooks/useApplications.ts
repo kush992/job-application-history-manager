@@ -141,9 +141,13 @@ export const useApplications = (options?: {
 	const { filters = {}, applicationId, enableSingle = false } = options || {};
 
 	// Query for fetching all applications
+	// Note: we set a short staleTime and disable automatic refetches on mount/focus/reconnect
+	// to avoid duplicate network calls (especially in React Strict Mode / during hydration).
 	const applicationsQuery = useQuery({
 		queryKey: applicationKeys.list(filters),
 		queryFn: () => fetchApplications(filters),
+		// Keep results fresh for a short period to prevent immediate duplicate refetches
+		staleTime: 1000 * 60 * 2, // 2 minutes
 		retry: false,
 		enabled: !enableSingle || !applicationId,
 	});
