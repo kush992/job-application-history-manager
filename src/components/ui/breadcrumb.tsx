@@ -3,6 +3,7 @@ import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 const Breadcrumb = React.forwardRef<
 	HTMLElement,
@@ -41,7 +42,14 @@ const BreadcrumbLink = React.forwardRef<
 >(({ asChild, className, ...props }, ref) => {
 	const Comp = asChild ? Slot : 'a';
 
-	return <Comp ref={ref} className={cn('transition-colors hover:text-foreground', className)} {...props} />;
+	return (
+		<Link
+			href={props.href as string}
+			ref={ref}
+			className={cn('transition-colors hover:text-foreground', className)}
+			{...props}
+		/>
+	);
 });
 BreadcrumbLink.displayName = 'BreadcrumbLink';
 
