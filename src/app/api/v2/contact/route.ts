@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 import { contactFormSchema } from '@/components/StaticPages/ContactPage/utility';
+import { logger } from '@/lib/logger';
 import { rateLimiter } from '@/lib/ratelimit';
 import { createClient } from '@/lib/supabase/server';
 
@@ -77,7 +78,7 @@ export async function POST(request: NextRequest) {
 			.single();
 
 		if (error) {
-			console.error('Supabase error:', error);
+			logger.error({ request, message: 'Supabase error inserting contact submission', error });
 			return NextResponse.json(
 				{
 					success: false,
@@ -89,8 +90,8 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-		// Log successful submission
-		console.info(`Contact form submitted successfully: ${insertData.id}`);
+	// Log successful submission
+	logger.info({ request, message: 'Contact form submitted successfully', meta: { id: insertData.id } });
 
 		return NextResponse.json(
 			{
@@ -114,7 +115,7 @@ export async function POST(request: NextRequest) {
 			},
 		);
 	} catch (error) {
-		console.error('Contact form submission error:', error);
+		logger.error({ request, message: 'Contact form submission error', error });
 
 		// Handle validation errors
 		if (error instanceof z.ZodError) {

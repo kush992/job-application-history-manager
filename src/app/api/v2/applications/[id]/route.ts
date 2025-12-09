@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
+import { logger } from '@/lib/logger';
 import { jobApplicationSchema } from '@/lib/supabase/schema';
 import { createClient } from '@/lib/supabase/server';
 
@@ -43,7 +44,7 @@ export async function GET(
 			.single();
 
 		if (error) {
-			console.error('Supabase error:', error);
+			logger.error({ request, userId: user.id, message: 'Supabase error fetching application', error });
 
 			if (error.code === 'PGRST116') {
 				return NextResponse.json(
@@ -67,7 +68,7 @@ export async function GET(
 
 		return NextResponse.json(application, { status: 200 });
 	} catch (error) {
-		console.error('Application fetch error:', error);
+		logger.error({ request, message: 'Application fetch error', error });
 		return NextResponse.json(
 			{
 				error: 'An unexpected error occurred',
@@ -140,7 +141,7 @@ export async function PUT(
 			.single();
 
 		if (error) {
-			console.error('Supabase update error:', error);
+			logger.error({ request, userId: user.id, message: 'Supabase update error for application', error });
 			return NextResponse.json(
 				{
 					error: 'Failed to update application',
@@ -158,7 +159,7 @@ export async function PUT(
 			{ status: 200 },
 		);
 	} catch (error) {
-		console.error('Application update error:', error);
+		logger.error({ request, message: 'Application update error', error });
 
 		// Handle validation errors
 		if (error instanceof z.ZodError) {
@@ -237,7 +238,7 @@ export async function DELETE(
 			.eq('user_id', user.id);
 
 		if (deleteError) {
-			console.error('Supabase delete error:', deleteError);
+			logger.error({ request, userId: user.id, message: 'Supabase delete error for application', error: deleteError });
 			return NextResponse.json(
 				{
 					error: 'Failed to delete application',
@@ -254,7 +255,7 @@ export async function DELETE(
 			{ status: 200 },
 		);
 	} catch (error) {
-		console.error('Application deletion error:', error);
+		logger.error({ request, message: 'Application deletion error', error });
 		return NextResponse.json(
 			{
 				error: 'An unexpected error occurred',

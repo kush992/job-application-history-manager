@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
+import { logger } from '@/lib/logger';
 import { journeySchema } from '@/lib/supabase/schema';
 import { createClient } from '@/lib/supabase/server';
 
@@ -22,7 +23,7 @@ async function withAuth(request: NextRequest, handler: (supabase: any, user: any
 
 		return await handler(supabase, user);
 	} catch (error) {
-		console.error('API error:', error);
+		logger.error({ message: 'API error in withAuth', error, meta: { function: 'withAuth' } });
 		return NextResponse.json({ error: 'Internal server error', details: JSON.stringify(error) }, { status: 500 });
 	}
 }
@@ -50,7 +51,7 @@ export async function GET(request: NextRequest) {
 		const { data: journeys, error } = await query;
 
 		if (error) {
-			console.error('Error fetching journeys:', error);
+			logger.error({ request, userId: user.id, message: 'Error fetching journeys', error });
 			return NextResponse.json(
 				{ error: 'Failed to fetch journeys', details: JSON.stringify(error) },
 				{ status: 500 },
@@ -90,7 +91,7 @@ export async function POST(request: NextRequest) {
 			.single();
 
 		if (activeJourneyError && activeJourneyError.code !== 'PGRST116') {
-			console.error('Error checking active journey:', activeJourneyError);
+			logger.error({ request, userId: user.id, message: 'Error checking active journey', error: activeJourneyError });
 			return NextResponse.json(
 				{ error: 'Failed to check active journey', details: JSON.stringify(activeJourneyError) },
 				{ status: 500 },

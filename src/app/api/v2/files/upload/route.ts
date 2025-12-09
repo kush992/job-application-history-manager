@@ -1,6 +1,8 @@
 import { Storage } from '@google-cloud/storage';
 import { NextRequest, NextResponse } from 'next/server';
 
+import { logger } from '@/lib/logger';
+
 const storage = new Storage({
 	projectId: process.env.PROJECT_ID,
 	credentials: {
@@ -34,7 +36,7 @@ export async function POST(request: NextRequest) {
 
 		return NextResponse.json({ url: signedUrl, publicUrl }, { status: 200 });
 	} catch (error) {
-		console.error('Error generating signed URL:', error);
+		logger.error({ request, message: 'Error generating signed URL', error });
 		return NextResponse.json(
 			{ error: 'Error generating signed URL', details: JSON.stringify(error) },
 			{ status: 500 },

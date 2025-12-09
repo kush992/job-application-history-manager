@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextRequest, NextResponse } from 'next/server';
 
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 import { Statistics } from '@/types/schema';
 
@@ -56,7 +57,7 @@ export async function GET(
 			if (error.code === 'PGRST116') {
 				return NextResponse.json({ error: 'Insights not found' }, { status: 404 });
 			}
-			console.error('Supabase error fetching journey insights:', error);
+			logger.error({ request, userId: user.data.user.id, message: 'Supabase error fetching journey insights', error });
 			return NextResponse.json(
 				{ error: 'Failed to fetch journey insights', details: JSON.stringify(error) },
 				{ status: 500 },
@@ -65,7 +66,7 @@ export async function GET(
 
 		return NextResponse.json(data, { status: 200 });
 	} catch (error) {
-		console.error('Unexpected error fetching journey insights:', error);
+		logger.error({ request, message: 'Unexpected error fetching journey insights', error });
 		return NextResponse.json(
 			{ error: 'Failed to fetch journey insights', details: JSON.stringify(error) },
 			{ status: 500 },
@@ -118,7 +119,7 @@ export async function POST(
 			.single();
 
 		if (existingInsightsError && existingInsightsError.code !== 'PGRST116') {
-			console.error('Supabase fetch error for existing insights:', existingInsightsError);
+			logger.error({ request, userId: user.data.user.id, message: 'Supabase fetch error for existing insights', error: existingInsightsError });
 			return NextResponse.json(
 				{ error: 'Supabase error', details: JSON.stringify(existingInsightsError) },
 				{ status: 400 },
@@ -159,7 +160,7 @@ export async function POST(
 				.single();
 
 			if (error) {
-				console.error('Supabase update error for journey_insights:', error);
+				logger.error({ request, userId: user.data.user.id, message: 'Supabase update error for journey_insights', error });
 				return NextResponse.json({ error: 'Supabase error', details: JSON.stringify(error) }, { status: 400 });
 			}
 
@@ -172,14 +173,14 @@ export async function POST(
 				.single();
 
 			if (error) {
-				console.error('Supabase insert error for journey_insights:', error);
+				logger.error({ request, userId: user.data.user.id, message: 'Supabase insert error for journey_insights', error });
 				return NextResponse.json({ error: 'Supabase error', details: JSON.stringify(error) }, { status: 400 });
 			}
 
 			return NextResponse.json(data, { status: 201 });
 		}
 	} catch (error) {
-		console.error('Error generating insights:', error);
+		logger.error({ request, message: 'Error generating insights', error });
 		return NextResponse.json({ error: 'Internal server error', details: JSON.stringify(error) }, { status: 500 });
 	}
 }

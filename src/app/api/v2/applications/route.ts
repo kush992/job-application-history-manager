@@ -3,6 +3,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 import { config } from '@/config/config';
+import { logger } from '@/lib/logger';
 import { jobApplicationSchema } from '@/lib/supabase/schema';
 import { createClient } from '@/lib/supabase/server';
 import { appRoutes } from '@/utils/constants';
@@ -52,10 +53,10 @@ export async function GET(request: NextRequest) {
 		const { data: journeyData, error: journeryFetchError } = await journeyQuery.single();
 
 		if (journeryFetchError) {
-			console.error('Supabase error:', journeryFetchError);
+			logger.error({ request, userId: user.id, message: 'Supabase error fetching active journey', error: journeryFetchError });
 
 			if (journeryFetchError.code === 'PGRST116') {
-				console.info('No active journey found, redirecting to create journey page.');
+				logger.info({ request, userId: user.id, message: 'No active journey found, redirecting to create journey page.' });
 				return NextResponse.redirect(`${request.nextUrl.origin}${appRoutes.journeys}`); // Redirect to create journey if no active journey found
 			}
 
@@ -118,7 +119,7 @@ export async function GET(request: NextRequest) {
 		const { data: applications, error } = await query;
 
 		if (error) {
-			console.error('Supabase error:', error);
+			logger.error({ request, userId: user.id, message: 'Supabase error fetching applications', error });
 			return NextResponse.json(
 				{
 					error: 'Failed to fetch applications',
@@ -130,7 +131,7 @@ export async function GET(request: NextRequest) {
 
 		return NextResponse.json({ data: applications || [], journey: journeyData }, { status: 200 });
 	} catch (error) {
-		console.error('Applications fetch error:', error);
+		logger.error({ message: 'Applications fetch error', error });
 		return NextResponse.json(
 			{
 				error: 'An unexpected error occurred',
@@ -166,7 +167,7 @@ export async function POST(request: NextRequest) {
 			.single();
 
 		if (journeryFetchError) {
-			console.error('Supabase error:', journeryFetchError);
+			logger.error({ request, userId: user.id, message: 'Supabase error fetching active journey', error: journeryFetchError });
 			return NextResponse.json(
 				{
 					error: 'Failed to fetch active journey',
@@ -268,7 +269,7 @@ export async function POST(request: NextRequest) {
 			try {
 				json = JSON.parse(output.replace(/```json|```/g, '').trim());
 			} catch (err) {
-				console.error('JSON parse error:', err, output);
+				logger.error({ request, userId: user.id, message: 'JSON parse error parsing GenAI output', error: err, meta: { output } });
 				return NextResponse.json(
 					{ error: 'Failed to parse response from Gemini', raw: output },
 					{ status: 500 },
@@ -294,7 +295,7 @@ export async function POST(request: NextRequest) {
 				.single();
 
 			if (error) {
-				console.error('Supabase error:', error);
+				logger.error({ request, userId: user.id, message: 'Supabase error inserting application (AI)', error });
 				return NextResponse.json(
 					{
 						error: 'Failed to create application',
@@ -332,7 +333,7 @@ export async function POST(request: NextRequest) {
 				.single();
 
 			if (error) {
-				console.error('Supabase error:', error);
+				logger.error({ request, userId: user.id, message: 'Supabase error inserting application', error });
 				return NextResponse.json(
 					{
 						error: 'Failed to create application',
@@ -351,7 +352,7 @@ export async function POST(request: NextRequest) {
 			);
 		}
 	} catch (error) {
-		console.error('Application creation error:', error);
+		logger.error({ message: 'Application creation error', error });
 
 		// Handle validation errors
 		if (error instanceof z.ZodError) {
@@ -367,6 +368,7 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
+		console.log('kb-logs',JSON.stringify(error));
 		return NextResponse.json(
 			{
 				error: error instanceof SyntaxError ? 'Invalid JSON format' : 'An unexpected error occurred',

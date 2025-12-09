@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
+import { logger } from '@/lib/logger';
 import { createClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
@@ -41,7 +42,7 @@ export async function GET(
 			.single();
 
 		if (error) {
-			console.error('Supabase error:', error);
+			logger.error({ request, userId: user.id, message: 'Supabase error fetching statistics', error });
 
 			if (error.code === 'PGRST116') {
 				return NextResponse.json({ error: 'Statistics not found' }, { status: 404 });
@@ -62,7 +63,7 @@ export async function GET(
 
 		return NextResponse.json(statistics, { status: 200 });
 	} catch (error) {
-		console.error('Statistics fetch error:', error);
+		logger.error({ request, message: 'Statistics fetch error', error });
 		return NextResponse.json(
 			{
 				error: 'An unexpected error occurred',

@@ -1,6 +1,8 @@
 import { Storage } from '@google-cloud/storage';
 import { NextRequest, NextResponse } from 'next/server';
 
+import { logger } from '@/lib/logger';
+
 const storage = new Storage({
 	projectId: process.env.PROJECT_ID,
 	credentials: {
@@ -26,7 +28,7 @@ export async function POST(request: NextRequest) {
 
 		return NextResponse.json({ status: 'success' }, { status: 200 });
 	} catch (error) {
-		console.error('Error deleting file:', error);
+		logger.error({ request, message: 'Error deleting file', error });
 		return NextResponse.json({ error: 'Error deleting file', details: JSON.stringify(error) }, { status: 500 });
 	}
 }

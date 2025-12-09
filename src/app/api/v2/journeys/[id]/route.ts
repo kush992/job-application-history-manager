@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
+import { logger } from '@/lib/logger';
 import { journeySchema } from '@/lib/supabase/schema';
 import { createClient } from '@/lib/supabase/server';
 
@@ -22,7 +23,7 @@ async function withAuth(request: NextRequest, handler: (supabase: any, user: any
 
 		return await handler(supabase, user);
 	} catch (error) {
-		console.error('API error:', error);
+		logger.error({ message: 'API error in withAuth', error, meta: { function: 'withAuth' } });
 		return NextResponse.json({ error: 'Internal server error', details: JSON.stringify(error) }, { status: 500 });
 	}
 }
@@ -52,7 +53,7 @@ export async function GET(
 			.single();
 
 		if (error) {
-			console.error('Error fetching journey:', error);
+			logger.error({ request, userId: user.id, message: 'Error fetching journey', error });
 			if (error.code === 'PGRST116') {
 				return NextResponse.json(
 					{ error: 'Journey not found', details: JSON.stringify(error) },
