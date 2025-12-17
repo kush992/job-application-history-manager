@@ -1,7 +1,7 @@
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 
-import AddApplicationWithAi from '@/components/ApplicationsPages/AddApplicationWithAi';
+import AddApplicationWithAi from '@/components/Applications/AddApplicationWithAi';
 import Loader from '@/components/ui/loader';
 import { getLoggedInUser } from '@/lib/supabase/user';
 

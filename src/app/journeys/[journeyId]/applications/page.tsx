@@ -2,7 +2,7 @@ import { HydrationBoundary } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/next';
 import React, { Suspense } from 'react';
 
-import ApplicationsListPage from '@/components/ApplicationsPages/ApplicationsListPage';
+import ApplicationsListPage from '@/components/Applications/ApplicationsL';
 import Loader from '@/components/ui/loader';
 import { getLoggedInUser } from '@/lib/supabase/user';
 

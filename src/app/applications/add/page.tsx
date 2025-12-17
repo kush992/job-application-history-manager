@@ -1,7 +1,7 @@
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 
-import ApplicationForm from '@/components/ApplicationsPages/ApplicationForm';
+import ApplicationForm from '@/components/Applications/ApplicationForm';
 import Loader from '@/components/ui/loader';
 import { getLoggedInUser } from '@/lib/supabase/user';
 

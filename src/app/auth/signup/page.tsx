@@ -62,16 +62,6 @@ export default function SignUpPage() {
 						</p>
 					</CardContent>
 				</Card>
-
-				{/* Footer */}
-				<div className="text-center">
-					<p className="text-sm text-secondary-foreground">
-						Already have an account?{' '}
-						<a href="/signin" className="font-medium text-primary hover:underline">
-							Sign in here
-						</a>
-					</p>
-				</div>
 			</div>
 		</div>
 	);
