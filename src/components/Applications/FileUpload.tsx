@@ -6,7 +6,8 @@ import { useUploadFile } from '@/hooks/useUploadFile';
 import { FILES_SEPARATOR } from '@/utils/constants';
 import { getFileName } from '@/utils/utility';
 
-import DocumentInfoCard from '../DocumentInfoCard';
+import DocumentInfoCard from '../ui/document-info-card';
+
 
 type Props = {
 	form: any;

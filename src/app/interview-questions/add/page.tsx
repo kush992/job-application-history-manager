@@ -2,7 +2,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
-import QnAForm from '@/components/QnAForm';
+import QnAForm from '@/components/InterviewQuestions/QnAForm';
 import Loader from '@/components/ui/loader';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { appRoutes } from '@/utils/constants';

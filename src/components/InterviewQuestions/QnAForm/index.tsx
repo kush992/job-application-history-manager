@@ -18,9 +18,9 @@ import {
 	BreadcrumbList,
 	BreadcrumbPage,
 	BreadcrumbSeparator,
-} from '../ui/breadcrumb';
-import ErrorDisplay from '../ui/error-display';
-import Loader from '../ui/loader';
+} from '../../ui/breadcrumb';
+import ErrorDisplay from '../../ui/error-display';
+import Loader from '../../ui/loader';
 import QuestionAndAnswerForm from './Form';
 import { formSchema, normaliseQuestionsAndAnswers,QnAFormData } from './utility';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion';
 
-const FAQPage = () => {
+const FaqView = () => {
 	const faqData = {
 		title: 'Frequently Asked Questions',
 		description: 'Find answers to common questions about JobJourney below',
@@ -48,4 +48,4 @@ const FAQPage = () => {
 	);
 };
 
-export default FAQPage;
+export default FaqView;

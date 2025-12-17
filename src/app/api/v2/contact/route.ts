@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
-import { contactFormSchema } from '@/components/StaticPages/ContactPage/utility';
+import { contactFormSchema } from '@/components/StaticPages/ContactView/utility';
 import { logger } from '@/lib/logger';
 import { rateLimiter } from '@/lib/ratelimit';
 import { createClient } from '@/lib/supabase/server';

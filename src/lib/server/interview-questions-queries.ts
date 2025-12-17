@@ -1,5 +1,5 @@
-import { QnAFormData } from '@/components/QnAForm/utility';
-import { QnAShowType } from '@/components/QnAPage/utility';
+import { QnAFormData } from '@/components/InterviewQuestions/QnAForm/utility';
+import { QnAShowType } from '@/components/InterviewQuestions/QnAPage/utility';
 import { InterviewQuestionsData, Response } from '@/types/apiResponseTypes';
 import { apiRoutes } from '@/utils/constants';
 import { handleApiError } from '@/utils/utility';

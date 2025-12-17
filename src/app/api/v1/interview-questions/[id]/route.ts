@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { appwriteDbConfig, database } from '@/appwrite/config';
-import { denormaliseQuestionsAndAnswers, QnAFormData } from '@/components/QnAForm/utility';
+import { denormaliseQuestionsAndAnswers, QnAFormData } from '@/components/InterviewQuestions/QnAForm/utility';
 import { InterviewQuestionsData } from '@/types/apiResponseTypes';
 
 export const dynamic = 'force-dynamic';

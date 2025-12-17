@@ -1,7 +1,7 @@
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 
-import HomePage from '@/components/Home';
+import HomeView from '@/components/StaticPages/HomeView';
 import Loader from '@/components/ui/loader';
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
 			</main> */}
 
 			<main className="">
-				<HomePage />
+				<HomeView />
 				<Analytics />
 			</main>
 		</Suspense>

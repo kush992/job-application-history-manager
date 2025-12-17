@@ -20,7 +20,7 @@ import { signOut } from '@/lib/server/appwrite';
 import { Profile } from '@/types/profiles';
 import { appRoutes } from '@/utils/constants';
 
-import { Avatar, AvatarFallback } from '../ui/avatar';
+import { Avatar, AvatarFallback } from '../../ui/avatar';
 
 type Props = {
 	user: Profile | null;

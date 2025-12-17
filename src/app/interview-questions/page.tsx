@@ -3,8 +3,8 @@ import { Analytics } from '@vercel/analytics/next';
 import { redirect } from 'next/navigation';
 import React, { Suspense } from 'react';
 
-import QnAPage from '@/components/QnAPage';
-import { QnAShowType } from '@/components/QnAPage/utility';
+import QnAPage from '@/components/InterviewQuestions/QnAPage';
+import { QnAShowType } from '@/components/InterviewQuestions/QnAPage/utility';
 import Loader from '@/components/ui/loader';
 import { interviewQuestionsQueries } from '@/lib/server/interview-questions-queries';
 import { getLoggedInUser } from '@/lib/supabase/user';

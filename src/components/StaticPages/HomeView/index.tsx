@@ -2,10 +2,10 @@ import { Calendar, ChartCandlestick, FileUp, Map, Plus, Share2 } from 'lucide-re
 import Image from 'next/image';
 import React from 'react';
 
-import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader } from '../ui/card';
+import { Button } from '../../ui/button';
+import { Card, CardContent, CardHeader } from '../../ui/card';
 
-const HomePage = () => {
+const HomeView = () => {
 	return (
 		<>
 			{/* Hero */}
@@ -166,4 +166,4 @@ const HomePage = () => {
 	);
 };
 
-export default HomePage;
+export default HomeView;

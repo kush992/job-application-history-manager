@@ -3,7 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import Wrapper from '@/components/Wrapper';
+import Wrapper from '@/components/Layout/Wrapper';
 import { getLoggedInUser } from '@/lib/supabase/user';
 import { jsonParseString } from '@/utils/utility';
 

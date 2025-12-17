@@ -4,8 +4,8 @@ import { Query } from 'node-appwrite';
 import { ID } from 'node-appwrite';
 
 import { appwriteDbConfig, database } from '@/appwrite/config';
-import { denormaliseQuestionsAndAnswers, QnAFormData } from '@/components/QnAForm/utility';
-import { QnAShowType } from '@/components/QnAPage/utility';
+import { denormaliseQuestionsAndAnswers, QnAFormData } from '@/components/InterviewQuestions/QnAForm/utility';
+import { QnAShowType } from '@/components/InterviewQuestions/QnAPage/utility';
 import { getLoggedInUser } from '@/lib/server/appwrite';
 import { InterviewQuestionsData,Response } from '@/types/apiResponseTypes';
 

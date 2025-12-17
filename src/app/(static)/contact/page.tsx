@@ -1,7 +1,7 @@
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 
-import ContactView from '@/components/StaticPages/ContactPage';
+import ContactView from '@/components/StaticPages/ContactView';
 import Loader from '@/components/ui/loader';
 
 export default function ContactPage() {

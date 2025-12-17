@@ -35,7 +35,7 @@ const tiers = [
 	},
 ];
 
-const PricingPage = () => {
+const PricingView = () => {
 	return (
 		<section>
 			<div className="relative isolate px-6 py-24 sm:py-32 lg:px-8">
@@ -154,4 +154,4 @@ const PricingPage = () => {
 	);
 };
 
-export default PricingPage;
+export default PricingView;

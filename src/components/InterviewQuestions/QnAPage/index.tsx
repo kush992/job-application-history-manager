@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 
-import { QnAAccordion } from '@/components/QnAAccordion';
+import { QnAAccordion } from '@/components/InterviewQuestions/QnAAccordion';
 import {
 	Breadcrumb,
 	BreadcrumbItem,

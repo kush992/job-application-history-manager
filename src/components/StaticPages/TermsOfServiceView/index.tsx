@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 
-export default function TermsOfServicePage() {
+export default function TermsOfServiceView() {
 	const lastUpdated = 'November 4, 2024';
 
 	return (

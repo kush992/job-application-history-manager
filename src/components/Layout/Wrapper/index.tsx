@@ -4,13 +4,13 @@ import { QueryClient,QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 
-import Header from '@/components/Header';
+import { Toaster } from '@/components/ui/toaster';
 import { Profile } from '@/types/profiles';
 import { jsonParseString } from '@/utils/utility';
 
 import Footer from '../Footer';
+import Header from '../Header';
 import { ThemeProvider } from '../ThemeProvider';
-import { Toaster } from '../ui/toaster';
 
 export default function Wrapper({
 	children,
