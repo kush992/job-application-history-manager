@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import debounce from 'lodash/debounce';
-import { Info, Search } from 'lucide-react';
+import { Info } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -16,8 +16,9 @@ import {
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import ErrorDisplay from '@/components/ui/error-display';
-import { Input } from '@/components/ui/input';
+// Search input is now rendered inside ApplicationFilters
 import PageDescription from '@/components/ui/page-description';
 import PageTitle from '@/components/ui/page-title';
 import { Separator } from '@/components/ui/separator';
@@ -33,7 +34,7 @@ type Props = {
 	journeyId?: string;
 };
 
-const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
+const ApplicationsView: React.FC<Props> = ({ journeyId }) => {
 	const filterForm = useForm<FilterFormValues>({
 		resolver: zodResolver(filterSchema),
 		defaultValues: {
@@ -149,61 +150,75 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 					<Info className="w-4 h-4" />
 					<span>Total: {applications?.data?.length}</span>
 				</p>
-
-				{/* Search Bar */}
-				<div className="flex flex-col justify-between items-center gap-2 w-full bg-background py-2 px-4 rounded-md shadow-lg">
-					<form className="relative flex items-center w-full" onReset={clearAllFilters}>
-						<Search className="w-4 h-4 absolute left-3 text-muted-foreground" />
-						<Input
-							type="text"
-							placeholder="Search by company name or job title"
-							className="pl-10"
-							{...filterForm.register('searchQuery')}
-						/>
-					</form>
-					<ApplicationFilters
-						filterForm={filterForm}
-						onFilterChange={handleFilterChange}
-						onClearFilter={handleClearFilter}
-						onClearAll={clearAllFilters}
-					/>
-				</div>
 			</div>
 
-			{!isLoadingApplications && !isErrorApplications && applications && applications?.data?.length < 1 && (
-				<div className="flex items-center justify-center w-full h-96">
-					<p className="text-lg text-muted-foreground">No applications found</p>
+			<div className="w-full">
+				{/* Mobile filters (drawer + search handled inside ApplicationFilters) */}
+				<div className="flex flex-col gap-4 mb-4">
+					<div className="w-full md:hidden">
+						<ApplicationFilters
+							filterForm={filterForm}
+							onFilterChange={handleFilterChange}
+							onClearFilter={handleClearFilter}
+							onClearAll={clearAllFilters}
+						/>
+					</div>
 				</div>
-			)}
 
-			{isErrorApplications && <ErrorDisplay error={errorApplications} />}
+				{/* Desktop: two-column layout (left filters, right list) */}
+				<div className="w-full flex flex-col md:flex-row gap-6">
+					<aside className="hidden md:block md:w-72 lg:w-80 sticky top-20 self-start">
+						<ApplicationFilters
+							filterForm={filterForm}
+							onFilterChange={handleFilterChange}
+							onClearFilter={handleClearFilter}
+							onClearAll={clearAllFilters}
+						/>
+					</aside>
 
-			{isLoadingApplications && (
-				<div className="flex flex-col border rounded-md overflow-hidden w-full">
-					{Array.from({ length: 10 }).map((_, index) => (
-						<React.Fragment key={index}>
-							<ApplicationListItemSkeleton />
-							<Separator />
-						</React.Fragment>
-					))}
+					<div className="flex-1 h-full">
+						{isErrorApplications && <ErrorDisplay error={errorApplications} />}
+
+						{!isLoadingApplications &&
+							!isErrorApplications &&
+							applications &&
+							applications?.data?.length < 1 && (
+								<Card>
+									<CardContent className='flex justify-center items-center min-h-screen'>
+									<p className="text-lg text-muted-foreground">No applications found</p>
+									</CardContent>
+								</Card>
+							)}
+
+						{isLoadingApplications && (
+							<div className="flex flex-col border rounded-md overflow-hidden w-full">
+								{Array.from({ length: 10 }).map((_, index) => (
+									<React.Fragment key={index}>
+										<ApplicationListItemSkeleton />
+										<Separator />
+									</React.Fragment>
+								))}
+							</div>
+						)}
+
+						{!isLoadingApplications && !errorApplications && applications && (
+							<div className="flex flex-col border rounded-md overflow-hidden w-full">
+								{applications?.data?.map((application) => (
+									<React.Fragment key={application.id}>
+										<ApplicationListItem
+											data={application}
+											onClickDelete={() => deleteApplication(application.id)}
+										/>
+										<Separator />
+									</React.Fragment>
+								))}
+							</div>
+						)}
+					</div>
 				</div>
-			)}
-
-			{!isLoadingApplications && !errorApplications && applications && (
-				<div className="flex flex-col border rounded-md overflow-hidden w-full">
-					{applications?.data?.map((application) => (
-						<React.Fragment key={application.id}>
-							<ApplicationListItem
-								data={application}
-								onClickDelete={() => deleteApplication(application.id)}
-							/>
-							<Separator />
-						</React.Fragment>
-					))}
-				</div>
-			)}
+			</div>
 		</div>
 	);
 };
 
-export default ApplicationsListPage;
+export default ApplicationsView;

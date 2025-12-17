@@ -27,7 +27,7 @@ import { apiRoutes, appRoutes } from '@/utils/constants';
 
 import FileUpload from '../FileUpload';
 
-const AddApplicationWithAi: FC = () => {
+const ApplicationFormAiView: FC = () => {
 	const form = useForm({
 		resolver: zodResolver(jobApplicationSchemaAddWithAi),
 		defaultValues: {
@@ -109,4 +109,4 @@ const AddApplicationWithAi: FC = () => {
 	);
 };
 
-export default AddApplicationWithAi;
+export default ApplicationFormAiView;

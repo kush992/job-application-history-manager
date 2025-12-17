@@ -57,10 +57,6 @@ export const apiRoutes = {
 		edit: (id: string) => `/api/v2/applications/${id}`,
 		delete: (id: string) => `/api/v2/applications/${id}`,
 	},
-	applicationDocuments: {
-		add: '/api/v1/application-documents/add',
-		update: '/api/v1/application-documents/update',
-	},
 	interviewQuestions: {
 		getAll: '/api/v1/interview-questions',
 		getOne: (id: string) => `/api/v1/interview-questions/${id}`,
@@ -81,12 +77,6 @@ export const apiRoutes = {
 		statistics: (id: string) => `/api/v2/journeys/${id}/statistics`,
 		insights: (id: string) => `/api/v2/journeys/${id}/insights`,
 	},
-	// Legacy routes for backward compatibility (deprecated)
-	statistics: (journeyId: string) => `/api/v2/journeys/${journeyId}/statistics`,
-	ai: {
-		generateJourneyInsight: (journeyId: string) => `/api/v2/journeys/${journeyId}/insights`,
-	},
-	journeyInsights: (journeyId: string) => `/api/v2/journeys/${journeyId}/insights`,
 };
 
 export const FILES_SEPARATOR = ',____,';

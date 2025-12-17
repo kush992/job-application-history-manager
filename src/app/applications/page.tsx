@@ -2,7 +2,7 @@ import { HydrationBoundary } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/next';
 import React, { Suspense } from 'react';
 
-import ApplicationsListPage from '@/components/Applications/ApplicationsL';
+import ApplicationsView from '@/components/Applications/ApplicationsView';
 import Loader from '@/components/ui/loader';
 import { getLoggedInUser } from '@/lib/supabase/user';
 
@@ -20,7 +20,7 @@ const ApplicationsPage = async () => {
 			<main className="flex min-h-screen flex-col gap-8 mx-auto px-4">
 				<Analytics />
 				<HydrationBoundary>
-					<ApplicationsListPage />
+					<ApplicationsView />
 				</HydrationBoundary>
 			</main>
 		</Suspense>

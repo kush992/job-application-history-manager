@@ -28,10 +28,9 @@ type Props = {
 	applicationId?: string;
 	isUpdateForm?: boolean;
 	isViewOnlyForm?: boolean;
-	userId: string;
 };
 
-const ApplicationForm: FC<Props> = ({ applicationId, isUpdateForm, userId }) => {
+const ApplicationFormView: FC<Props> = ({ applicationId, isUpdateForm }) => {
 	// const { toast } = useToast();
 
 	// const { data: application, isLoading } = useQuery({
@@ -204,4 +203,4 @@ const ApplicationForm: FC<Props> = ({ applicationId, isUpdateForm, userId }) => 
 	);
 };
 
-export default ApplicationForm;
+export default ApplicationFormView;

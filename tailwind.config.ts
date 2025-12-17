@@ -12,9 +12,9 @@ const config: Config = {
 			center: true,
 			padding: '1rem',
 			screens: {
-				lg: '1080px',
-				xl: '1080px',
-				'2xl': '1080px',
+				lg: '1480px',
+				xl: '1480px',
+				'2xl': '1480px',
 			},
 		},
 		extend: {
