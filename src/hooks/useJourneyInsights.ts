@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { JourneyInsight, Statistics } from '@/types/schema';
 import { apiRoutes } from '@/utils/constants';
@@ -37,9 +37,10 @@ export function useGetJourneyInsights(journeyId: string | undefined) {
 	} = useQuery({
 		queryKey: ['journey-insights', journeyId],
 		queryFn: () => getJourneyInsights(journeyId as string),
-		gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
+		gcTime: 10 * 60 * 1000, // 10 minutes
 		retry: false,
 		enabled: !!journeyId,
+		staleTime: 10 * 60 * 1000, // 10 minutes
 	});
 
 	return {
@@ -51,23 +52,29 @@ export function useGetJourneyInsights(journeyId: string | undefined) {
 }
 
 export function usePostInsights() {
+	const queryClient = useQueryClient();
+
 	// Fetch journeys with React Query
 	const {
 		data: insights,
 		error,
 		mutate,
+		isPending,
 	} = useMutation({
 		mutationFn: (statistics: Statistics) => postJourneyInsights(statistics),
 		gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
 		retry: false,
+		onSuccess: () => {
+			// Invalidate queries or perform any additional actions on success if needed
+			// For example, you might want to refetch the insights data
+			queryClient.invalidateQueries({ queryKey: ['journey-insights'] });
+		},
 	});
 
 	return {
 		insights,
-		// insightsLoading: isLoading,
 		error,
 		mutate,
-		// refreshInsights: refreshInsights,
-		// insightsFetching: isLoading,
+		isPending
 	};
 }

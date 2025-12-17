@@ -20,12 +20,12 @@ const ApplicationListItem: React.FC<Props> = ({ data, onClickDelete }) => {
 	return (
 		<div className="bg-background p-4 grid grid-cols-[1fr_auto] gap-2 motion-preset-slide-down-lg">
 			<Link href={appRoutes.viewApplication(data.id)}>
-				<div className="grid sm:grid-cols-3 sm:gap-4 w-full items-start">
+				<div className="grid lg:grid-cols-3 lg:gap-4 w-full items-start">
 					<div>
 						<h3 className="text-base font-[500] !pb-0 !my-0 text-secondary-foreground">{data.job_title}</h3>
 						<p className="!my-0 text-muted-foreground">{data.company_name}</p>
 					</div>
-					<p className="text-muted-foreground text-xs md:hidden">{transformDate(data.created_at)}</p>
+					<p className="text-muted-foreground text-xs lg:hidden">{transformDate(data.created_at)}</p>
 					<div className="flex items-center my-2 gap-2 md:my-0">
 						{data.application_status && (
 							<Badge
@@ -41,7 +41,7 @@ const ApplicationListItem: React.FC<Props> = ({ data, onClickDelete }) => {
 						)}
 						{data.salary && <CircleDollarSign className="!text-primary w-4 h-4" />}
 					</div>
-					<p className="hidden md:block md:!my-0 text-muted-foreground text-xs md:text-sm">
+					<p className="hidden lg:block lg:!my-0 text-muted-foreground text-xs md:text-sm">
 						{transformDate(data.created_at)}
 					</p>
 				</div>

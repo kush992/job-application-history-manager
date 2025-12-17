@@ -24,7 +24,7 @@ import JourneyCard from './JourneyCard';
 import JourneyViewSkeleton from './JourneyViewSkeleton';
 
 export function JourneysView() {
-	const { journeys, isFetching, isDeleting, deleteJourney, error, refreshJourneys } = useJourneys();
+	const { journeys, isFetching, isDeleting, deleteJourney, error, refreshJourneys, isRefetching } = useJourneys();
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 	const [journeyToDelete, setJourneyToDelete] = useState<Journey | null>(null);
 
@@ -43,13 +43,8 @@ export function JourneysView() {
 		}
 	};
 
-	// Show loading skeleton while fetching initial data
-	if (isFetching && journeys.length === 0) {
-		return <JourneyViewSkeleton />;
-	}
-
 	// Show empty state
-	if (journeys.length === 0 && !isFetching) {
+	if (journeys.length === 0 && !isFetching && !error && !isRefetching) {
 		return <EmptyJourney />;
 	}
 
@@ -84,6 +79,8 @@ export function JourneysView() {
 						</Link>
 					</div>
 				</div>
+
+				{(isFetching || isRefetching) && <JourneyViewSkeleton />}
 
 				{error && <ErrorDisplay error={error} />}
 

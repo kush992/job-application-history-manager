@@ -1,30 +1,21 @@
 'use client';
 
-import { Eye } from 'lucide-react';
+import { Cpu, Eye } from 'lucide-react';
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
+import React, { useState } from 'react';
 
 import { useGetJourneyInsights, usePostInsights } from '@/hooks/useJourneyInsights';
 import { useStatistics } from '@/hooks/useStatistics';
 import { appRoutes } from '@/utils/constants';
 
-import {
-	Breadcrumb,
-	BreadcrumbLink,
-	BreadcrumbList,
-	BreadcrumbSeparator,
-} from '../ui/breadcrumb';
+import { Breadcrumb, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '../ui/breadcrumb';
 import { Button } from '../ui/button';
-import { Card, CardContent } from '../ui/card';
 import ErrorDisplay from '../ui/error-display';
-import ApplicationFunnelDataChart from './ApplicationFunnelDataChart';
-import ApplicationResponseBreakdownDataChart from './ApplicationResponseBreakdownDataChart';
-import EmploymentTypeDataChart from './EmploymentTypeDataChart';
-import KeyMetrics from './KeyMetrics';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import InsightsTabContent from './InsightsTabContent';
 import JourneyAnaluticsDashboardLoader from './Loading';
-import SalaryCurrencyTypeChart from './SalaryCurrencyTypeChart';
-import SalaryDistributionChart from './SalaryDistributionChart';
-import WorkModeChart from './WorkArrangementDataChart';
+import MetricsTabContent from './MetricsTabContent';
+// Metrics and charts are rendered inside MetricsTabContent
 
 type Props = {
 	journeyId: string;
@@ -32,8 +23,18 @@ type Props = {
 
 export default function JobAnalyticsDashboard({ journeyId }: Props) {
 	const { statistics, isFetching, isLoading, error } = useStatistics(journeyId);
-	const { insights, error: insightsError, mutate } = usePostInsights();
-	const { insights: journeyInsights, error: journeyInsightsError } = useGetJourneyInsights(journeyId);
+
+	// Tabs state: metrics or insights
+	const [activeTab, setActiveTab] = useState<'metrics' | 'insights'>('metrics');
+
+	// Fetch insights only when insights tab is active
+	const {
+		insights: journeyInsights,
+		error: journeyInsightsError,
+		isLoading: isJourneyInsightsLoading,
+	} = useGetJourneyInsights(activeTab === 'insights' ? journeyId : undefined);
+
+	const { insights: postedInsights, error: postInsightsError, mutate, isPending } = usePostInsights();
 
 	if (isLoading || isFetching) {
 		return (
@@ -43,8 +44,8 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 		);
 	}
 
-	const errors = error || insightsError || journeyInsightsError;
-	const insightsData = insights ? insights : journeyInsights;
+	const errors = error || postInsightsError || journeyInsightsError;
+	const insightsData = postedInsights ? postedInsights : journeyInsights;
 
 	if (!statistics || typeof statistics !== 'object') {
 		return (
@@ -65,7 +66,7 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 
 	return (
 		<div className="min-h-screen bg-background p-3 sm:p-4 md:p-6">
-			<div className="max-w-5xl mx-auto space-y-4 sm:space-y-6">
+			<div className="md:container space-y-4 sm:space-y-6">
 				<Breadcrumb className="mb-2">
 					<BreadcrumbList>
 						<BreadcrumbLink href={appRoutes.home}>Home</BreadcrumbLink>
@@ -89,46 +90,42 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 								{statistics.applications_count} applications
 							</Button>
 						</Link>
-						<Button variant="outline" onClick={() => mutate(statistics)}>
-							Regenerate AI Insights
-						</Button>
 					</div>
 				</div>
+				{/* Tabs: Metrics & Insights */}
+				<Tabs
+					defaultValue={activeTab}
+					value={activeTab}
+					onValueChange={(v: string) => setActiveTab(v as 'metrics' | 'insights')}
+				>
+					<TabsList>
+						<TabsTrigger value="metrics">Metrics</TabsTrigger>
+						<TabsTrigger value="insights">
+							<div className="flex items-center gap-2">
+								<Cpu className="w-4 h-4" />
+								<span>AI Insights</span>
+							</div>
+						</TabsTrigger>
+					</TabsList>
 
-				{insightsData && !errors && (
-					<Card>
-						<CardContent className="!p-6">
-							<ReactMarkdown>{insightsData.insights}</ReactMarkdown>
-						</CardContent>
-					</Card>
-				)}
+					<TabsContent value="metrics">
+						<MetricsTabContent statistics={statistics} replyRate={replyRate} successRate={successRate} />
+					</TabsContent>
 
-				{errors && !insightsData && <ErrorDisplay error={errors} />}
+					<TabsContent value="insights">
+						<div className="space-y-4">
+							<InsightsTabContent
+								journeyId={journeyId}
+								statistics={statistics}
+								fetchedInsights={insightsData}
+								postInsightsMutate={mutate}
+								isLoading={isPending || isJourneyInsightsLoading}
+							/>
 
-				{/* Key Metrics */}
-				<KeyMetrics statistics={statistics} replyRate={replyRate} successRate={successRate} />
-
-				{/* Summary Insights */}
-				{/* <SummaryInsights statistics={statistics} replyRate={replyRate} successRate={successRate} /> */}
-
-				{/* Charts Grid */}
-				{/* Application Funnel */}
-				<ApplicationFunnelDataChart statistics={statistics} />
-				<div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
-					{/* Work Arrangement */}
-					<WorkModeChart statistics={statistics} />
-
-					{/* Salary Distribution */}
-					<SalaryDistributionChart statistics={statistics} />
-
-					{/* Salary Currency */}
-					<SalaryCurrencyTypeChart statistics={statistics} />
-
-					{/* Employment Types */}
-					<EmploymentTypeDataChart statistics={statistics} />
-				</div>
-				{/* Response Breakdown */}
-				<ApplicationResponseBreakdownDataChart statistics={statistics} />
+							{errors && !insightsData && <ErrorDisplay error={errors} />}
+						</div>
+					</TabsContent>
+				</Tabs>
 			</div>
 		</div>
 	);

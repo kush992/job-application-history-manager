@@ -55,7 +55,7 @@ export async function GET(
 
 		if (error) {
 			if (error.code === 'PGRST116') {
-				return NextResponse.json({ error: 'Insights not found' }, { status: 404 });
+				return NextResponse.json({ error: 'Insights not found', details: error }, { status: 404 });
 			}
 			logger.error({ request, userId: user.data.user.id, message: 'Supabase error fetching journey insights', error });
 			return NextResponse.json(

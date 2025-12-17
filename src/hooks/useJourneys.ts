@@ -75,6 +75,7 @@ export function useJourneys(id?: string) {
 		isLoading,
 		error: queryError,
 		refetch,
+		isRefetching
 	} = useQuery({
 		queryKey: [QueryKeys.JOURNEYS_PAGE],
 		queryFn: fetchJourneys,
@@ -88,7 +89,6 @@ export function useJourneys(id?: string) {
 		data: journey,
 		isLoading: isSingleFetchReqLoading,
 		error: singleFetchReqError,
-		refetch: refetchSingleJourney,
 	} = useQuery({
 		queryKey: [QueryKeys.JOURNEYS_PAGE, id],
 		queryFn: () => fetchJourney(id as string),
@@ -202,5 +202,6 @@ export function useJourneys(id?: string) {
 		isUpdating: updateMutation.isPending,
 		isDeleting: deleteMutation.isPending,
 		isFetching: isLoading,
+		isRefetching
 	};
 }

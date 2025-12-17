@@ -1,7 +1,7 @@
 import { Analytics } from '@vercel/analytics/next';
 import { Suspense } from 'react';
 
-import ApplicationFormAiView from '@/components/Applications/ApplicationFormAiView';
+import ApplicationFormAiView from '@/components/Applications/AddApplicationWithAiView';
 import Loader from '@/components/ui/loader';
 
 export default async function AddApplication() {
