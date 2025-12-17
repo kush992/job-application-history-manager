@@ -95,7 +95,7 @@ export async function GET(request: NextRequest) {
 
 		// Add filters
 		if (search_query) {
-			query = query.or(`company_name.ilike.%${search_query}%,job_title.ilike.%${search_query}%`);
+			query = query.or(`company_name.ilike.%${search_query}%,job_title.ilike.%${search_query}%,company_domain.ilike.%${search_query}%`);
 		}
 
 		if (status_filter) {
