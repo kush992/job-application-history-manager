@@ -18,7 +18,7 @@ import {
 	workModeMapping,
 } from '@/utils/utility';
 
-import { FilterFormValues } from '../ApplicationFilter/utility';
+import { FilterFormValues } from './utility';
 
 type Props = {
 	filterForm: UseFormReturn<FilterFormValues>;

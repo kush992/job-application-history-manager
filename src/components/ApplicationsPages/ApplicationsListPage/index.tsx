@@ -24,10 +24,10 @@ import { Separator } from '@/components/ui/separator';
 import { useApplications } from '@/hooks/useApplications';
 import { appRoutes } from '@/utils/constants';
 
-import { FilterFormValues, filterSchema } from './ApplicationFilter/utility';
 import ApplicationFilters from './ApplicationFilters';
 import ApplicationListItem from './ApplicationListItem';
 import ApplicationListItemSkeleton from './ApplicationListItemSkeleton';
+import { FilterFormValues, filterSchema } from './utility';
 
 type Props = {
 	journeyId?: string;
@@ -68,22 +68,7 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 
 	const debouncedRefetch = debounce(() => {
 		refetchApplications();
-	}, 500);
-
-	// Avoid triggering refetch on initial mount. This prevents an extra request
-	// immediately after the initial query (which can compound with Strict Mode double-mount).
-	const isFirstRun = React.useRef(true);
-
-	// Watch for filter changes and trigger refetch (skipping the first run)
-	React.useEffect(() => {
-		if (isFirstRun.current) {
-			isFirstRun.current = false;
-			return;
-		}
-
-		debouncedRefetch();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [searchQuery, status, contractType, workMode]);
+	}, 5000);
 
 	const clearAllFilters = () => {
 		filterForm.reset({
@@ -183,8 +168,6 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 						onClearAll={clearAllFilters}
 					/>
 				</div>
-
-				{/* Filters */}
 			</div>
 
 			{!isLoadingApplications && !isErrorApplications && applications && applications?.data?.length < 1 && (
@@ -219,25 +202,6 @@ const ApplicationsListPage: React.FC<Props> = ({ journeyId }) => {
 					))}
 				</div>
 			)}
-
-			{/* {hasNextPage && (
-				<Button
-					variant="outline"
-					onClick={() => fetchNextPage()}
-					disabled={isLoading || isFetchingNextPage}
-					className="w-full flex gap-1 items-center mt-2"
-					size="lg"
-				>
-					{isLoading || isFetchingNextPage ? (
-						<>
-							Fetching
-							<Loader className="animate-spin" />
-						</>
-					) : (
-						'Fetch More'
-					)}
-				</Button>
-			)} */}
 		</div>
 	);
 };
