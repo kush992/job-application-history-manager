@@ -27,6 +27,7 @@ const KeyMetrics = ({ statistics, successRate, replyRate }: Props) => {
 				</CardHeader>
 				<CardContent className="px-3 sm:px-6">
 					<div className="text-lg sm:text-2xl font-bold">{replyRate}%</div>
+					<p className="text-xs text-muted-foreground">Calculation based on No Reply application status</p>
 				</CardContent>
 			</Card>
 			<Card>
@@ -35,6 +36,7 @@ const KeyMetrics = ({ statistics, successRate, replyRate }: Props) => {
 				</CardHeader>
 				<CardContent className="px-3 sm:px-6">
 					<div className="text-lg sm:text-2xl font-bold">{successRate}%</div>
+					<p className="text-xs text-muted-foreground">Calculation based on Offer Accepted and Success application status</p>
 				</CardContent>
 			</Card>
 			{/* <Card>
