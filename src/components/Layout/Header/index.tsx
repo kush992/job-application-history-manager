@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Profile } from '@/types/profiles';
 import { appRoutes } from '@/utils/constants';
 
+import Logo from '../Logo';
 import { UserMenu } from '../UserMenu';
 import { navBarLinks } from './utility';
 
@@ -27,8 +28,16 @@ const Header: React.FC<Props> = ({ user }) => {
 		<header className="border-b border-muted z-50 sticky top-0 backdrop-blur duration-200 bg-background shadow-md">
 			<div className="container mx-auto flex justify-between items-center h-[65px]">
 				<div>
-					<Link href={appRoutes.home} className="flex flex-col">
-						<span className="text-lg font-bold text-secondary-foreground tracking-tighter">JobJourney</span>
+					<Link href={appRoutes.home} className="flex flex-col h-14 w-14 justify-center items-center">
+						{/* <Image
+							src="./logo.svg"
+							alt="JobJourney Logo"
+							width={32}
+							height={32}
+							className="object-contain"
+						/> */}
+						<Logo />
+						{/* <span className="text-lg font-bold text-secondary-foreground tracking-tighter">JobJourney</span> */}
 					</Link>
 				</div>
 				<nav className="hidden md:flex justify-center items-center gap-4">

@@ -4,6 +4,7 @@ import React from 'react';
 
 import { Separator } from '@/components/ui/separator';
 
+import Logo from '../Logo';
 import { footerLinks } from './utility';
 
 const Footer = () => {
@@ -11,11 +12,9 @@ const Footer = () => {
 		<footer className="p-4 sm:p-6 bg-background">
 			<div className="mx-auto max-w-5xl flex flex-col items-center gap-4">
 				<div>
-					<a href="https://career.kushbhalodi.com" className="flex items-center">
-						<span className="self-center text-2xl font-semibold whitespace-nowrap tracking-tighter">
-							JobJourney
-						</span>
-					</a>
+					<Link href="https://career.kushbhalodi.com" className="flex items-center h-32 w-32 justify-center">
+						<Logo />
+					</Link>
 				</div>
 				<ul className="flex flex-wrap justify-center items-center gap-4 mx-0">
 					{footerLinks.map((link) => (
