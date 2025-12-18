@@ -1,17 +1,67 @@
-import { Calendar, ChartCandlestick, FileUp, Map, Plus, Share2 } from 'lucide-react';
+import { MoveRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
+import BentoGrid from '@/components/ui/BentoGrid/BentoGrid';
+import { TestimonialCarousel } from '@/components/ui/TestimonialCarousel';
+import testimonials from '@/data/testimonials';
+import { appRoutes } from '@/utils/constants';
+
 import { Button } from '../../ui/button';
-import { Card, CardContent, CardHeader } from '../../ui/card';
+
+const bentoItems = [
+	{
+		id: 'easy',
+		title: 'Easy Application Entry',
+		desc: 'Quickly add job applications with company, position, location and status.',
+		image: 'https://storage.googleapis.com/job-application-manager/easy_add_applications.png',
+	},
+	{
+		id: 'community',
+		title: 'Community Sharing',
+		desc: 'Share interview questions and insights with the community to help others succeed.',
+		// image: 'https://storage.googleapis.com/job-application-manager/easy_add_application.png',
+	},
+	{
+		id: 'journey',
+		title: 'Journey Tracking',
+		desc: 'Create and manage application journeys to group related opportunities and track progress.',
+		image: 'https://storage.googleapis.com/job-application-manager/journey_tracking.png',
+	},
+	{
+		id: 'analytics',
+		title: 'Smart Analytics',
+		desc: 'Visualize your application data with charts and insights to optimize your job search strategy.',
+		image: 'https://storage.googleapis.com/job-application-manager/smart_analytics.png',
+	},
+
+	{
+		id: 'interview',
+		title: 'Interview Management',
+		desc: 'Schedule interviews, store questions, and track your preparation progress.',
+		// image: 'https://storage.googleapis.com/job-application-manager/easy_add_application.png',
+	},
+	{
+		id: 'docs',
+		title: 'Document Storage',
+		desc: 'Upload and organize resumes, cover letters, and other application materials.',
+		image: 'https://storage.googleapis.com/job-application-manager/document_storage.png',
+	},
+	{
+		id: 'ai',
+		title: 'Smart AI Insights',
+		desc: 'Get automated insights and recommendations from your application data using AI.',
+		image: 'https://storage.googleapis.com/job-application-manager/smart_ai_insights.png',
+	},
+];
 
 const HomeView = () => {
 	return (
 		<>
-			{/* Hero */}
-			<section className="bg-gradient-to-b from-primary to-secondary dark:to-black">
-				<div className="container mx-auto px-6 py-20 flex flex-col-reverse md:flex-row items-center gap-10">
-					<div className="flex-1 text-center md:text-left">
+			<div className="relative isolate px-6 pt-14 lg:px-8 bg-gradient-to-b from-primary to-secondary dark:to-black">
+				<div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+					<div className="text-center">
 						<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance md:text-6xl leading-tight text-white">
 							Track Every Job Application <br />
 							<span className="bg-gradient-to-r from-indigo-500 to-secondary-foreground bg-clip-text text-transparent">
@@ -22,26 +72,26 @@ const HomeView = () => {
 							JobJourney helps you organize, analyze, and improve your job search with visual insights —
 							so you can focus on what works and land faster.
 						</p>
-						<div className="mt-8 flex gap-4 justify-center md:justify-start">
-							<Button size="lg">Get Started Free</Button>
-							<Button size="lg" variant="outline">
-								View Demo
-							</Button>
+						<div className="mt-10 flex items-center justify-center gap-x-6">
+							<Link href={appRoutes.application}>
+								<Button size="lg">Get Started Free</Button>
+							</Link>
+							<Link href={appRoutes.aboutUs}>
+								<Button variant="ghost" className="flex gap-2 items-center font-semibold text-gray-900">
+									Learn more <MoveRight className="h-4 w-4" />
+								</Button>
+							</Link>
 						</div>
 					</div>
-					<div className="flex-1 flex justify-center">
-						<div className="relative w-full max-w-md">
-							<Image
-								src="https://storage.googleapis.com/job-application-manager/journey_analytics.png"
-								width={600}
-								height={400}
-								alt="JobJourney Dashboard"
-								className="rounded-xl shadow-lg border border-slate-200 hover:scale-105 transition-transform duration-300"
-							/>
-						</div>
-					</div>
+					<Image
+						src="https://storage.googleapis.com/job-application-manager/journey_analytics.png"
+						width={600}
+						height={400}
+						alt="JobJourney Dashboard"
+						className="mt-12 rounded-xl shadow-lg border border-slate-200 hover:scale-105 transition-transform duration-300 mx-auto"
+					/>
 				</div>
-			</section>
+			</div>
 
 			{/* Features */}
 			<section className="py-20">
@@ -52,77 +102,7 @@ const HomeView = () => {
 					<p className="leading-7 [&:not(:first-child)]:mt-6 text-secondary-foreground">
 						Comprehensive tools to manage your entire job search process
 					</p>
-					<div className="grid md:grid-cols-3 gap-8 pt-8">
-						<Card>
-							<CardHeader className="pb-2">
-								<Plus className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
-							</CardHeader>
-							<CardContent className="text-left">
-								<h3 className="text-lg font-semibold mb-2">Easy Application Entry</h3>
-								<p className="text-sm text-muted-foreground">
-									Quickly add job applications with all relevant details including company, position,
-									location, and status.
-								</p>
-							</CardContent>
-						</Card>
-						<Card>
-							<CardHeader className="pb-2">
-								<Map className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
-							</CardHeader>
-							<CardContent className="text-left">
-								<h3 className="text-lg font-semibold mb-2">Journey Tracking</h3>
-								<p className="text-sm text-muted-foreground">
-									Create and manage application journeys to group related opportunities and track
-									progress.
-								</p>
-							</CardContent>
-						</Card>
-						<Card>
-							<CardHeader className="pb-2">
-								<ChartCandlestick className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
-							</CardHeader>
-							<CardContent className="text-left">
-								<h3 className="text-lg font-semibold mb-2">Smart Analytics</h3>
-								<p className="text-sm text-muted-foreground">
-									Visualize your application data with charts and insights to optimize your job search
-									strategy.
-								</p>
-							</CardContent>
-						</Card>
-						<Card>
-							<CardHeader className="pb-2">
-								<Calendar className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
-							</CardHeader>
-							<CardContent className="text-left">
-								<h3 className="text-lg font-semibold mb-2">Interview Management</h3>
-								<p className="text-sm text-muted-foreground">
-									Schedule interviews, store questions, and track your preparation progress.
-								</p>
-							</CardContent>
-						</Card>
-						<Card>
-							<CardHeader className="pb-2">
-								<FileUp className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
-							</CardHeader>
-							<CardContent className="text-left">
-								<h3 className="text-lg font-semibold mb-2">Document Storage</h3>
-								<p className="text-sm text-muted-foreground">
-									Upload and organize resumes, cover letters, and other application materials.
-								</p>
-							</CardContent>
-						</Card>
-						<Card>
-							<CardHeader className="pb-2">
-								<Share2 className="p-2 h-10 w-10 text-primary-foreground bg-primary rounded-md" />
-							</CardHeader>
-							<CardContent className="text-left">
-								<h3 className="text-lg font-semibold mb-2">Community Sharing</h3>
-								<p className="text-sm text-muted-foreground">
-									Share interview questions and insights with the community to help others succeed.
-								</p>
-							</CardContent>
-						</Card>
-					</div>
+					<BentoGrid items={bentoItems} />
 				</div>
 			</section>
 
@@ -147,6 +127,13 @@ const HomeView = () => {
 							</div>
 						</dl>
 					</div>
+				</div>
+			</section>
+
+			{/* Testimonials carousel */}
+			<section className="py-16">
+				<div className="container w-full mx-auto px-6">
+					<TestimonialCarousel items={testimonials} />
 				</div>
 			</section>
 

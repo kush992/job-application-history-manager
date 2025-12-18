@@ -1,40 +1,10 @@
-import { Briefcase, FileText, MessageCircle, Star,Users } from 'lucide-react';
+import { Briefcase, FileText, MessageCircle, Users } from 'lucide-react';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
-const testimonials = [
-	{
-		name: 'Milan Sachani',
-		role: 'Senior Software Engineer',
-		content: 'JobJourney transformed my job search. I landed my dream role thanks to their organized approach!',
-		rating: 5,
-	},
-	{
-		name: 'Rushil Bhatt',
-		role: 'Senior Software Engineer',
-		content:
-			'JobJourney is a game-changer. I love how easy it is to track my applications, keep track of my applications and prepare for interviews.',
-		rating: 5,
-	},
-	{
-		name: 'Meet Parekh',
-		role: 'Insight Analyst',
-		content:
-			"I love how JobJourney keeps all my applications in one place. It's intuitive and saves me so much time!",
-		rating: 4,
-		link: 'https://www.linkedin.com/in/meetmee/',
-	},
-	{
-		name: 'Abhijit Sengupta',
-		role: 'Client Solution Consultant',
-		content:
-			'JobJourney is a must-have for anyone looking for a job to manage the application process. Saved my time and effort.',
-		rating: 4,
-		link: 'https://www.linkedin.com/in/aedwulf/',
-	},
-];
+import { TestimonialCarousel } from '@/components/ui/TestimonialCarousel';
+import testimonials from '@/data/testimonials';
 
 const AboutUsPage: React.FC = () => {
 	return (
@@ -183,32 +153,9 @@ const AboutUsPage: React.FC = () => {
 					</Card>
 				</section> */}
 
-				<section className="mb-16 bg-accent px-4">
+				<section className="mb-16 px-4">
 					<div className="container mx-auto py-8">
-						<h2 className="text-3xl font-bold mb-6 text-center">What Our Users Say</h2>
-						<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-							{testimonials.map((testimonial, index) => (
-								<Card key={index}>
-									<CardContent className="pt-6">
-										<p className="leading-7 [&:not(:first-child)]:mt-6">{testimonial.content}</p>
-										<div className="flex items-center justify-between">
-											<div>
-												<p>{testimonial.name}</p>
-												<p className="text-muted-foreground">{testimonial.role}</p>
-											</div>
-											<div className="flex">
-												{[...Array(5)].map((_, i) => (
-													<Star
-														key={i}
-														className={`w-4 h-4 ${i < testimonial.rating ? 'fill-primary text-primary' : 'fill-muted text-muted-foreground'}`}
-													/>
-												))}
-											</div>
-										</div>
-									</CardContent>
-								</Card>
-							))}
-						</div>
+						<TestimonialCarousel items={testimonials} />
 					</div>
 				</section>
 
