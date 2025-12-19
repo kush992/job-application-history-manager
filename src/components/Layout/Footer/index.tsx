@@ -27,10 +27,10 @@ const Footer = () => {
 				</ul>
 
 				<div className="flex items-center gap-2 w-full justify-center">
-					<a href="https://www.linkedin.com/in/kush-bhalodi-b11991184/" target="_blank" rel="noreferrer">
+					<a href="https://www.linkedin.com/company/jobjourney-2024" target="_blank" rel="noreferrer">
 						<Linkedin className="w-4 h-4" />
 					</a>
-					<a target="_blank" href="mailto:kushbhalodi.project@gmail.com" className="underline italic">
+					<a target="_blank" href="mailto:info@jobjourney.site" className="underline italic">
 						<Mail className="w-4 h-4" />
 					</a>
 					<a target="_blank" href="https://github.com/kush992" rel="noreferrer">
@@ -46,7 +46,7 @@ const Footer = () => {
 
 			<div className="flex items-center w-full mt-4">
 				<span className="text-sm text-muted-foreground text-center w-full">
-					© 2022{' '}
+					© 2025{' '}
 					<a href="https://kushbhalodi.com" target="_blank" className="hover:underline">
 						KushBhalodi™
 					</a>

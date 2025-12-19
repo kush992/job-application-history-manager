@@ -92,8 +92,8 @@ export default function PrivacyPolicyView() {
 								<p>
 									You have the right to access, modify, and delete your data at any time. Contact us
 									at{' '}
-									<a href="mailto:contact@jobjourney.com" className="text-primary hover:underline">
-										contact@jobjourney.com
+									<a href="mailto:info@jobjourney.site" className="text-primary hover:underline">
+										info@jobjourney.site
 									</a>{' '}
 									for any data-related requests.
 								</p>
@@ -111,8 +111,8 @@ export default function PrivacyPolicyView() {
 					</Accordion>
 					<p className="text-sm text-muted-foreground text-center pt-6">
 						If you have any questions about this Privacy Policy, please contact us at{' '}
-						<a href="mailto:contact@jobjourney.com" className="text-primary hover:underline">
-							contact@jobjourney.com
+						<a href="mailto:info@jobjourney.site" className="text-primary hover:underline">
+							info@jobjourney.site
 						</a>
 						.
 					</p>

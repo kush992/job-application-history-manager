@@ -89,8 +89,8 @@ export default function TermsOfServiceView() {
 
 					<p>
 						For further inquiries or support, please contact{' '}
-						<a href="mailto:contact@jobjourney.com" className="text-primary hover:underline">
-							contact@jobjourney.com
+						<a href="mailto:info@jobjourney.site" className="text-primary hover:underline">
+							info@jobjourney.site
 						</a>
 						.
 					</p>

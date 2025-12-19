@@ -16,6 +16,17 @@ export default function ContactInfo() {
 				<div className="flex flex-col gap-4">
 					<Link
 						className="flex items-start gap-3 hover:underline"
+						href="mailto:info@jobjourney.site"
+					>
+						<div className="pt-0.5">
+							<Mail />
+						</div>
+						<span className="text-card-foreground text-base leading-6 font-medium">
+							info@jobjourney.site
+						</span>
+					</Link>
+					<Link
+						className="flex items-start gap-3 hover:underline"
 						href="mailto:kushbhalodi.project@gmail.com"
 					>
 						<div className="pt-0.5">
@@ -34,7 +45,7 @@ export default function ContactInfo() {
 
 				<div className="flex space-x-4">
 					<SocialLink
-						href="https://www.linkedin.com/in/kush-bhalodi-b11991184/"
+						href="https://www.linkedin.com/company/jobjourney-2024"
 						icon={<Linkedin className="h-6 w-6" />}
 						label="Linkedin"
 					/>
