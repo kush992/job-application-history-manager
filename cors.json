@@ -1,6 +1,6 @@
 [
 	{
-		"origin": ["http://localhost:3000", "https://career.kushbhalodi.com"],
+		"origin": ["http://localhost:3000", "https://jobjourney.site"],
 		"responseHeader": ["Content-Type", "Authorization"],
 		"method": ["GET", "HEAD", "PUT", "POST", "OPTIONS"],
 		"maxAgeSeconds": 3600

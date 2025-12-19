@@ -12,7 +12,7 @@ const Footer = () => {
 		<footer className="p-4 sm:p-6 bg-background">
 			<div className="mx-auto max-w-5xl flex flex-col items-center gap-4">
 				<div>
-					<Link href="https://career.kushbhalodi.com" className="flex items-center h-32 w-32 justify-center">
+					<Link href="https://jobjourney.site" className="flex items-center h-32 w-32 justify-center">
 						<Logo />
 					</Link>
 				</div>

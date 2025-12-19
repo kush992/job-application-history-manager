@@ -29,15 +29,7 @@ const Header: React.FC<Props> = ({ user }) => {
 			<div className="container mx-auto flex justify-between items-center h-[65px]">
 				<div>
 					<Link href={appRoutes.home} className="flex flex-col h-14 w-14 justify-center items-center">
-						{/* <Image
-							src="./logo.svg"
-							alt="JobJourney Logo"
-							width={32}
-							height={32}
-							className="object-contain"
-						/> */}
 						<Logo />
-						{/* <span className="text-lg font-bold text-secondary-foreground tracking-tighter">JobJourney</span> */}
 					</Link>
 				</div>
 				<nav className="hidden md:flex justify-center items-center gap-4">

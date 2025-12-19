@@ -12,23 +12,23 @@ export async function POST(request: NextRequest) {
 		// Get the origin from the request
 		const origin = request.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
-		// Construct the callback URL
-		const callbackUrl = `${origin}/auth/callback`;
+		// Create the callback URL
+		const callbackUrl = new URL(`${origin}/auth/callback`);
 
-		console.info('Initiating Google OAuth with callback:', callbackUrl);
+		const nextPath = redirectTo || '/';
+		callbackUrl.searchParams.set('next', nextPath);
 
 		// Sign in with Google OAuth
 		const { data, error } = await supabase.auth.signInWithOAuth({
 			provider: 'google',
 			options: {
-				redirectTo: callbackUrl,
+				redirectTo: callbackUrl.toString(),
 				queryParams: {
 					access_type: 'offline',
 					prompt: 'consent',
 				},
 			},
 		});
-
 		if (error) {
 			console.error('Google OAuth error:', error);
 			return NextResponse.json({ error: error.message, details: JSON.stringify(error) }, { status: 400 });
