@@ -35,7 +35,7 @@ export async function GET(
 
 		// Fetch the statistics
 		const { data: statistics, error } = await supabase
-			.from('statistics_demo')
+			.from('statistics')
 			.select()
 			.eq('user_id', user.id)
 			.eq('journey_id', journeyId)
