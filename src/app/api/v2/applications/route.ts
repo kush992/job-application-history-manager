@@ -8,7 +8,7 @@ import { jobApplicationSchema } from '@/lib/supabase/schema';
 import { createClient } from '@/lib/supabase/server';
 import { appRoutes } from '@/utils/constants';
 
-const genAI = new GoogleGenerativeAI('process.env.LLM_API_KEY!');
+const genAI = new GoogleGenerativeAI(process.env.LLM_API_KEY!);
 
 export const dynamic = 'force-dynamic';
 
