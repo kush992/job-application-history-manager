@@ -1,13 +1,9 @@
-import type { Metadata } from 'next';
 
 import ContactForm from '@/components/StaticPages/ContactView/ContactForm';
 import ContactInfo from '@/components/StaticPages/ContactView/ContactInfo';
 import { Card, CardContent } from '@/components/ui/card';
 
-export const metadata: Metadata = {
-	title: 'Contact Us | JobJourney',
-	description: "Get in touch with the JobJourney team. We're here to help you navigate your career path.",
-};
+// Metadata is handled in the page.tsx file
 
 export default function ContactView() {
 	return (

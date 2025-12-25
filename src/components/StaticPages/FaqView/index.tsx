@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { StructuredData } from '@/components/SEO/StructuredData';
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion';
 
 const FaqView = () => {
@@ -17,7 +19,7 @@ const FaqView = () => {
 			},
 			{
 				question: 'How do I use the interview questions feature?',
-				answer: 'After each interview, you can add questions, answers, and notes to the application’s interview section. Choose to keep these notes private or share them with the community on the public interview questions page.',
+				answer: 'After each interview, you can add questions, answers, and notes to the application\'s interview section. Choose to keep these notes private or share them with the community on the public interview questions page.',
 			},
 			{
 				question: 'What are the file upload limits?',
@@ -31,20 +33,30 @@ const FaqView = () => {
 	};
 
 	return (
-		<section className="flex flex-col items-center gap-10 w-full motion-preset-slide-down">
-			<div className="pt-4 text-center">
-				<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{faqData.title}</h1>
-				<p className="leading-7 [&:not(:first-child)]:mt-6">{faqData.description}</p>
-			</div>
-			<Accordion type="single" collapsible className="max-w-3xl w-full mx-auto">
-				{faqData.questionsAndAnswers.map((qa, index) => (
-					<AccordionItem key={index} value={`item-${index}`} className="bg-background rounded-md p-2">
-						<AccordionTrigger className="text-left">{qa.question}</AccordionTrigger>
-						<AccordionContent>{qa.answer}</AccordionContent>
-					</AccordionItem>
-				))}
-			</Accordion>
-		</section>
+		<>
+			<StructuredData
+				type="faq"
+				data={{
+					faq: faqData.questionsAndAnswers,
+				}}
+			/>
+			<section className="flex flex-col items-center gap-10 w-full motion-preset-slide-down" aria-labelledby="faq-heading">
+				<div className="pt-4 text-center">
+					<h1 id="faq-heading" className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+						{faqData.title}
+					</h1>
+					<p className="leading-7 [&:not(:first-child)]:mt-6">{faqData.description}</p>
+				</div>
+				<Accordion type="single" collapsible className="max-w-3xl w-full mx-auto" aria-label="FAQ Questions">
+					{faqData.questionsAndAnswers.map((qa, index) => (
+						<AccordionItem key={index} value={`item-${index}`} className="bg-background rounded-md p-2">
+							<AccordionTrigger className="text-left">{qa.question}</AccordionTrigger>
+							<AccordionContent>{qa.answer}</AccordionContent>
+						</AccordionItem>
+					))}
+				</Accordion>
+			</section>
+		</>
 	);
 };
 
