@@ -128,7 +128,7 @@ export const useInterviewExperiences = (options?: UseInterviewExperiencesOptions
 	} = useQuery<InterviewExperience[]>({
 		queryKey: [QueryKeys.INTERVIEW_EXPERIENCES, applicationId, publicOnly],
 		queryFn: () => fetchInterviewExperiences(applicationId, publicOnly),
-		enabled: !id && (!!applicationId || publicOnly === true),
+		enabled: publicOnly !== undefined || !!applicationId,
 		retry: false,
 	});
 

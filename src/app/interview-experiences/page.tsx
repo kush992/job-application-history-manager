@@ -15,10 +15,8 @@ const InterviewExperiencesPage = () => {
 	const searchParams = useSearchParams();
 	const tab = searchParams.get('tab') || 'public';
 
-	const { experiences: publicExperiences, experiencesLoading: publicLoading, experiencesError: publicError } =
-		useInterviewExperiences({ publicOnly: true });
-	const { experiences: privateExperiences, experiencesLoading: privateLoading, experiencesError: privateError } =
-		useInterviewExperiences({ publicOnly: false });
+	const { experiences, experiencesLoading, experiencesError } =
+		useInterviewExperiences({ publicOnly: tab === 'public' });
 
 	const handleTabChange = (value: string) => {
 		const params = new URLSearchParams(searchParams.toString());
@@ -48,19 +46,19 @@ const InterviewExperiencesPage = () => {
 				</TabsList>
 
 				<TabsContent value="public" className="mt-6">
-					{publicLoading ? (
+					{experiencesLoading ? (
 						<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 							{Array.from({ length: 6 }).map((_, i) => (
 								<InterviewExperienceCardSkeleton key={i} />
 							))}
 						</div>
-					) : publicError ? (
+					) : experiencesError ? (
 						<div className="p-4">
-							<ErrorDisplay error={publicError} />
+							<ErrorDisplay error={experiencesError} />
 						</div>
-					) : publicExperiences && publicExperiences.length > 0 ? (
+					) : experiences && experiences.length > 0 ? (
 						<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-							{publicExperiences.map((experience: InterviewExperience) => (
+							{experiences.map((experience: InterviewExperience) => (
 								<InterviewExperienceCardMinimal
 									key={experience.id}
 									interviewExperience={experience}
@@ -76,19 +74,19 @@ const InterviewExperiencesPage = () => {
 				</TabsContent>
 
 				<TabsContent value="private" className="mt-6">
-					{privateLoading ? (
+					{experiencesLoading ? (
 						<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 							{Array.from({ length: 6 }).map((_, i) => (
 								<InterviewExperienceCardSkeleton key={i} />
 							))}
 						</div>
-					) : privateError ? (
+					) : experiencesError ? (
 						<div className="p-4">
-							<ErrorDisplay error={privateError} />
+							<ErrorDisplay error={experiencesError} />
 						</div>
-					) : privateExperiences && privateExperiences.length > 0 ? (
+					) : experiences && experiences.length > 0 ? (
 						<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-							{privateExperiences.map((experience: InterviewExperience) => (
+							{experiences.map((experience: InterviewExperience) => (
 								<InterviewExperienceCardMinimal
 									key={experience.id}
 									interviewExperience={experience}

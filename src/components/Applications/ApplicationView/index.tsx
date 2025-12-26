@@ -6,7 +6,7 @@ import Link from 'next/link';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-import InterviewExperienceCard from '@/components/InterviewExperiences/InterviewExperienceCard';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import { useApplications } from '@/hooks/useApplications';
 import { useInterviewExperiences } from '@/hooks/useInterviewExperiences';
@@ -46,26 +46,26 @@ const ApplicationView: React.FC<Props> = ({ applicationId }) => {
 		enableSingle: true,
 	});
 
-	const { experiences: interviewExperiences, experiencesLoading: interviewExperiencesLoading, experiencesError: interviewExperiencesError } =
-		useInterviewExperiences({
-			applicationId: application?.id,
-		});
+	const {
+		experiences: interviewExperiences,
+		experiencesLoading: interviewExperiencesLoading,
+		experiencesError: interviewExperiencesError,
+	} = useInterviewExperiences({
+		applicationId: application?.id,
+	});
 
 	// Group experiences by interview stage
 	const groupedExperiences = React.useMemo(() => {
 		if (!interviewExperiences || interviewExperiences.length === 0) return {};
 
-		return interviewExperiences.reduce(
-			(acc: Record<string, InterviewExperience[]>, exp: InterviewExperience) => {
-				const stage = exp.interview_stage || 'OTHER';
-				if (!acc[stage]) {
-					acc[stage] = [];
-				}
-				acc[stage].push(exp);
-				return acc;
-			},
-			{},
-		);
+		return interviewExperiences.reduce((acc: Record<string, InterviewExperience[]>, exp: InterviewExperience) => {
+			const stage = exp.interview_stage || 'OTHER';
+			if (!acc[stage]) {
+				acc[stage] = [];
+			}
+			acc[stage].push(exp);
+			return acc;
+		}, {});
 	}, [interviewExperiences]);
 
 	const salaryDetail =
@@ -201,17 +201,25 @@ const ApplicationView: React.FC<Props> = ({ applicationId }) => {
 						)}
 
 						<div id="applicationData">
-							<h2 className="text-lg font-semibold !m-0">Application Data</h2>
-							{isHtmlContent(application?.notes || '') ? (
-								<div
-									className="rounded-md text-wrap break-words prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
-									dangerouslySetInnerHTML={{
-										__html: DOMPurify.sanitize(application?.notes || ''),
-									}}
-								/>
-							) : (
-								<ReactMarkdown>{application?.notes}</ReactMarkdown>
-							)}
+							<Accordion type="single" collapsible>
+								<AccordionItem value="applicationData" className="border-none">
+									<AccordionTrigger>
+										<h2 className="text-lg font-semibold !m-0">Application Data</h2>
+									</AccordionTrigger>
+									<AccordionContent>
+										{isHtmlContent(application?.notes || '') ? (
+											<div
+												className="rounded-md text-wrap break-words prose prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-sm prose-img:rounded-xl max-w-none"
+												dangerouslySetInnerHTML={{
+													__html: DOMPurify.sanitize(application?.notes || ''),
+												}}
+											/>
+										) : (
+											<ReactMarkdown>{application?.notes}</ReactMarkdown>
+										)}
+									</AccordionContent>
+								</AccordionItem>
+							</Accordion>
 						</div>
 					</div>
 
@@ -223,43 +231,50 @@ const ApplicationView: React.FC<Props> = ({ applicationId }) => {
 						</div>
 					)}
 
-					{!interviewExperiencesLoading && !interviewExperiencesError && interviewExperiences && interviewExperiences.length > 0 && (
-						<div className="md:border p-4 md:rounded-md bg-background motion-preset-focus-sm" id="interviewExperiences">
-							<h2 className="text-lg font-semibold !m-0 mb-4">Interview Experiences</h2>
-							<div className="space-y-6">
-								{Object.entries(groupedExperiences).map(([stage, experiences]) => (
-									<div key={stage} className="space-y-4">
-										<h3 className="text-base font-medium text-muted-foreground">
-											{applicationStatusMapping[stage as ApplicationStatus] || stage}
-										</h3>
-										<div className="space-y-4">
-											{experiences.map((experience) => (
-												<InterviewExperienceCard
-													key={experience.id}
-													interviewExperience={{
-														...experience,
-														company_name:
-															experience.company_name ||
-															experience.application?.company_name ||
-															application?.company_name ||
-															'',
-														job_title:
-															experience.job_title ||
-															experience.application?.job_title ||
-															application?.job_title ||
-															'',
-													}}
-												/>
-											))}
-										</div>
-										{Object.keys(groupedExperiences).indexOf(stage) < Object.keys(groupedExperiences).length - 1 && (
-											<Separator className="my-4" />
-										)}
-									</div>
-								))}
+					{!interviewExperiencesLoading &&
+						!interviewExperiencesError &&
+						interviewExperiences &&
+						interviewExperiences.length > 0 && (
+							<div
+								className="md:border p-4 md:rounded-md bg-background motion-preset-focus-sm"
+								id="interviewExperiences"
+							>
+								<Accordion type="single" collapsible>
+									<AccordionItem value="interviewExperiences" className="border-none">
+										<AccordionTrigger>
+											<h2 className="text-lg font-semibold !m-0 mb-4">Interview Experiences</h2>
+										</AccordionTrigger>
+										<AccordionContent>
+											<div className="space-y-6">
+												{Object.entries(groupedExperiences).map(([stage, experiences]) => (
+													<Accordion key={stage} type="single" collapsible>
+														<AccordionItem value={stage} className="border-none">
+															<AccordionTrigger>
+																{applicationStatusMapping[stage as ApplicationStatus] ||
+																	stage}
+															</AccordionTrigger>
+															<AccordionContent>
+																{experiences.map((experience) => (
+																	<div
+																		key={experience.id}
+																		className="prose prose-sm max-w-none prose-code:!text-accent-foreground prose-pre:!bg-accent prose-pre:!rounded-md prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-img:rounded-xl"
+																		dangerouslySetInnerHTML={{
+																			__html: DOMPurify.sanitize(
+																				experience.content || '',
+																			),
+																		}}
+																	/>
+																))}
+															</AccordionContent>
+														</AccordionItem>
+													</Accordion>
+												))}
+											</div>
+										</AccordionContent>
+									</AccordionItem>
+								</Accordion>
 							</div>
-						</div>
-					)}
+						)}
 				</>
 			)}
 		</div>

@@ -1,4 +1,4 @@
-import { Cpu } from 'lucide-react';
+import { Cpu, LogOut } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
@@ -86,9 +86,9 @@ export function UserMenu({ user }: Props) {
 						<DropdownMenuItem>Add application</DropdownMenuItem>
 					</Link>
 					<Link href={appRoutes.addWithAiApplication}>
-						<DropdownMenuItem className="flex gap-2 items-center justify-between  bg-gradient-to-br from-purple-600 to-primary text-white hover:!text-white">
+						<DropdownMenuItem className="flex gap-2 items-center justify-between">
 							Add application with AI
-							<Cpu className="w-4 h-4" />
+							<Cpu className="w-4 h-4 stroke-darkVioletAccent fill-lightVioletAccent dark:stroke-lightVioletAccent dark:fill-darkVioletAccent" />
 						</DropdownMenuItem>
 					</Link>
 
@@ -147,8 +147,9 @@ export function UserMenu({ user }: Props) {
 
 				<form action={signOut}>
 					<button type="submit" className="w-full text-left">
-						<DropdownMenuItem className="bg-destructive text-destructive-foreground w-full">
+						<DropdownMenuItem className="text-destructive w-full">
 							Log out
+							<LogOut className="w-4 h-4 ml-auto" />
 						</DropdownMenuItem>
 					</button>
 				</form>

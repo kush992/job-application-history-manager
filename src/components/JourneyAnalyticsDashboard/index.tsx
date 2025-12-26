@@ -102,7 +102,7 @@ export default function JobAnalyticsDashboard({ journeyId }: Props) {
 						<TabsTrigger value="metrics">Metrics</TabsTrigger>
 						<TabsTrigger value="insights">
 							<div className="flex items-center gap-2">
-								<Cpu className="w-4 h-4" />
+								<Cpu className="w-4 h-4 stroke-darkVioletAccent fill-lightVioletAccent dark:stroke-lightVioletAccent dark:fill-darkVioletAccent" />
 								<span>AI Insights</span>
 							</div>
 						</TabsTrigger>

@@ -170,7 +170,7 @@ const InterviewExperienceDetailView: React.FC<Props> = ({ experienceId }) => {
 					</div>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					<div className="flex items-center gap-4 text-sm text-muted-foreground">
+					<div className="flex items-center gap-4 text-sm">
 						{interviewExperience.rating !== undefined && (
 							<div>
 								Experience Rating: <strong>{getRating(interviewExperience.rating)}</strong>
@@ -180,7 +180,7 @@ const InterviewExperienceDetailView: React.FC<Props> = ({ experienceId }) => {
 					</div>
 
 					<div
-						className="prose prose-sm max-w-none"
+						className="prose prose-sm max-w-none prose-code:!text-accent-foreground prose-pre:!bg-accent prose-pre:!rounded-md prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-img:rounded-xl"
 						dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(interviewExperience.content || '') }}
 					/>
 
