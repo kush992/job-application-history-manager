@@ -242,34 +242,32 @@ const ApplicationView: React.FC<Props> = ({ applicationId }) => {
 								<Accordion type="single" collapsible>
 									<AccordionItem value="interviewExperiences" className="border-none">
 										<AccordionTrigger>
-											<h2 className="text-lg font-semibold !m-0 mb-4">Interview Experiences</h2>
+											<h2 className="text-lg font-semibold !m-0">Interview Experiences</h2>
 										</AccordionTrigger>
 										<AccordionContent>
-											<div className="space-y-6">
-												{Object.entries(groupedExperiences).map(([stage, experiences]) => (
-													<Accordion key={stage} type="single" collapsible>
-														<AccordionItem value={stage} className="border-none">
-															<AccordionTrigger>
-																{applicationStatusMapping[stage as ApplicationStatus] ||
-																	stage}
-															</AccordionTrigger>
-															<AccordionContent>
-																{experiences.map((experience) => (
-																	<div
-																		key={experience.id}
-																		className="prose prose-sm max-w-none prose-code:!text-accent-foreground prose-pre:!bg-accent prose-pre:!rounded-md prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-img:rounded-xl"
-																		dangerouslySetInnerHTML={{
-																			__html: DOMPurify.sanitize(
-																				experience.content || '',
-																			),
-																		}}
-																	/>
-																))}
-															</AccordionContent>
-														</AccordionItem>
-													</Accordion>
-												))}
-											</div>
+											{Object.entries(groupedExperiences).map(([stage, experiences]) => (
+												<Accordion key={stage} type="single" collapsible>
+													<AccordionItem value={stage} className="border-none pl-4 md:pl-8">
+														<AccordionTrigger>
+															{applicationStatusMapping[stage as ApplicationStatus] ||
+																stage}
+														</AccordionTrigger>
+														<AccordionContent>
+															{experiences.map((experience) => (
+																<div
+																	key={experience.id}
+																	className="prose prose-sm max-w-none prose-code:!text-accent-foreground prose-pre:!bg-accent prose-pre:!rounded-md prose-blockquote:!text-muted-foreground !text-muted-foreground prose-headings:!text-muted-foreground prose:!text-muted-foreground prose-p:!text-muted-foreground prose-strong:!text-muted-foreground prose-ul:!text-muted-foreground prose-ol:!text-muted-foreground prose-a:!text-muted-foreground prose-a:!underline prose-h1:!text-lg prose-h2:!text-md prose-h3:!text-md prose-h4:!text-md prose-h5:!text-md prose-h6:!text-md prose-img:rounded-xl"
+																	dangerouslySetInnerHTML={{
+																		__html: DOMPurify.sanitize(
+																			experience.content || '',
+																		),
+																	}}
+																/>
+															))}
+														</AccordionContent>
+													</AccordionItem>
+												</Accordion>
+											))}
 										</AccordionContent>
 									</AccordionItem>
 								</Accordion>
