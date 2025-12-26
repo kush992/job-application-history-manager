@@ -17,6 +17,7 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Separator } from '@/components/ui/separator';
 import { signOut } from '@/lib/server/appwrite';
 import { Profile } from '@/types/profiles';
 import { appRoutes } from '@/utils/constants';
@@ -33,7 +34,7 @@ export function UserMenu({ user }: Props) {
 		.map((name) => name[0])
 		.join('');
 
-	const { setTheme } = useTheme();
+	const { setTheme, theme } = useTheme();
 
 	return (
 		<DropdownMenu>
@@ -75,21 +76,30 @@ export function UserMenu({ user }: Props) {
 					<Link href={appRoutes.journeys}>
 						<DropdownMenuItem>Journeys</DropdownMenuItem>
 					</Link>
+
+					<Separator className="my-1" />
+
+					<Link href={appRoutes.application}>
+						<DropdownMenuItem>Applications</DropdownMenuItem>
+					</Link>
 					<Link href={appRoutes.addApplication}>
 						<DropdownMenuItem>Add application</DropdownMenuItem>
 					</Link>
 					<Link href={appRoutes.addWithAiApplication}>
-						<DropdownMenuItem className="flex gap-2 items-center justify-between">
+						<DropdownMenuItem className="flex gap-2 items-center justify-between  bg-gradient-to-br from-purple-600 to-primary text-white hover:!text-white">
 							Add application with AI
 							<Cpu className="w-4 h-4" />
 						</DropdownMenuItem>
 					</Link>
-					<Link href={appRoutes.application}>
-						<DropdownMenuItem>Applications</DropdownMenuItem>
+
+					<Separator className="my-1" />
+
+					<Link href={appRoutes.interviewExperiences}>
+						<DropdownMenuItem>Interview Experiences</DropdownMenuItem>
 					</Link>
-					{/* <Link href={appRoutes.interviewQuestions}>
-						<DropdownMenuItem>Interview Questions</DropdownMenuItem>
-					</Link> */}
+					<Link href={appRoutes.addInterviewExperiences}>
+						<DropdownMenuItem>Add Interview Experiences</DropdownMenuItem>
+					</Link>
 				</DropdownMenuGroup>
 
 				<DropdownMenuSeparator />
@@ -112,11 +122,34 @@ export function UserMenu({ user }: Props) {
 					</DropdownMenuSub>
 				</DropdownMenuGroup>
 
+				{/* <DropdownMenuGroup className="flex gap-4 items-center justify-between bg-accent rounded-md mt-1 px-2">
+					<DropdownMenuItem
+						onClick={() => setTheme('light')}
+						className={cn({ 'bg-primary': theme === 'light' })}
+					>
+						<Sun className="w-5 h-5" />
+					</DropdownMenuItem>
+					<DropdownMenuItem
+						onClick={() => setTheme('dark')}
+						className={cn({ 'bg-primary': theme === 'dark' })}
+					>
+						<Moon className="w-5 h-5" />
+					</DropdownMenuItem>
+					<DropdownMenuItem
+						onClick={() => setTheme('system')}
+						className={cn({ 'bg-primary': theme === 'system' })}
+					>
+						<ComputerIcon className="w-5 h-5" />
+					</DropdownMenuItem>
+				</DropdownMenuGroup> */}
+
 				<DropdownMenuSeparator />
 
-				<form action={signOut} className="w-full">
+				<form action={signOut}>
 					<button type="submit" className="w-full text-left">
-						<DropdownMenuItem>Log out</DropdownMenuItem>
+						<DropdownMenuItem className="bg-destructive text-destructive-foreground w-full">
+							Log out
+						</DropdownMenuItem>
 					</button>
 				</form>
 			</DropdownMenuContent>

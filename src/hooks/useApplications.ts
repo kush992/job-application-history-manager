@@ -129,6 +129,26 @@ const deleteApplication = async (documentId: string): Promise<string> => {
 	return 'Deleted Successfully';
 };
 
+const searchApplications = async (query: string): Promise<Array<{ id: string; company_name: string; job_title: string }>> => {
+	if (!query || query.trim().length === 0) {
+		return [];
+	}
+
+	const response = await fetch(`${window.origin}${apiRoutes.applications.search}?q=${encodeURIComponent(query)}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+
+	if (!response.ok) {
+		await handleApiError(response);
+	}
+
+	const data = await response.json();
+	return data.applications || [];
+};
+
 // Custom Hooks
 export const useApplications = (options?: {
 	filters?: ApplicationFilters;
@@ -272,5 +292,8 @@ export const useApplications = (options?: {
 
 		// Utility
 		invalidateAll: () => queryClient.invalidateQueries({ queryKey: applicationKeys.all }),
+
+		// Search function
+		searchApplications,
 	};
 };

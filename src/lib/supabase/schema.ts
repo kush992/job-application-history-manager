@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { ApplicationStatus, ContractType,JobSites, SalaryCurrency, SalaryType, WorkMode } from '@/types/schema';
+import { ApplicationStatus, ContractType, InterviewExperienceCategory, JobSites, SalaryCurrency, SalaryType, WorkMode } from '@/types/schema';
 
 export const journeySchema = z.object({
 	title: z.string().nonempty('Journey title is required'),
@@ -38,3 +38,43 @@ export const profileSchema = z.object({
 	full_name: z.string().optional().nullable(),
 	avatar_url: z.string().url().optional().nullable(),
 });
+
+export const interviewExperienceFormSchema = z
+	.object({
+		job_application_id: z.string().optional().nullable(),
+		company_name: z.string().optional().nullable(),
+		job_title: z.string().optional().nullable(),
+		interview_stage: z.nativeEnum(ApplicationStatus).optional().nullable(),
+		rating: z.number().min(0).max(2, 'Invalid rating'),
+		category: z.nativeEnum(InterviewExperienceCategory).default(InterviewExperienceCategory.INTERVIEW),
+		content: z.string().optional(),
+		is_public: z.boolean().default(true),
+	})
+	.refine(
+		(data) => {
+			// If linked to application, company_name and job_title are optional
+			if (data.job_application_id) {
+				return true;
+			}
+			// If not linked, both company_name and job_title are required
+			return !!(data.company_name && data.job_title);
+		},
+		{
+			message: 'Company name and job title are required when not linked to an application',
+			path: ['company_name'],
+		},
+	)
+	.refine(
+		(data) => {
+			// If linked to application, company_name and job_title are optional
+			if (data.job_application_id) {
+				return true;
+			}
+			// If not linked, both company_name and job_title are required
+			return !!(data.company_name && data.job_title);
+		},
+		{
+			message: 'Company name and job title are required when not linked to an application',
+			path: ['job_title'],
+		},
+	);

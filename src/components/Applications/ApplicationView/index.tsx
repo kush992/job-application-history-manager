@@ -6,9 +6,11 @@ import Link from 'next/link';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+import InterviewExperienceCard from '@/components/InterviewExperiences/InterviewExperienceCard';
 import { Separator } from '@/components/ui/separator';
 import { useApplications } from '@/hooks/useApplications';
-import { ApplicationStatus } from '@/types/schema';
+import { useInterviewExperiences } from '@/hooks/useInterviewExperiences';
+import { ApplicationStatus, InterviewExperience } from '@/types/schema';
 import { appRoutes, FILES_SEPARATOR } from '@/utils/constants';
 import { formatDate } from '@/utils/date';
 import {
@@ -44,6 +46,28 @@ const ApplicationView: React.FC<Props> = ({ applicationId }) => {
 		enableSingle: true,
 	});
 
+	const { experiences: interviewExperiences, experiencesLoading: interviewExperiencesLoading, experiencesError: interviewExperiencesError } =
+		useInterviewExperiences({
+			applicationId: application?.id,
+		});
+
+	// Group experiences by interview stage
+	const groupedExperiences = React.useMemo(() => {
+		if (!interviewExperiences || interviewExperiences.length === 0) return {};
+
+		return interviewExperiences.reduce(
+			(acc: Record<string, InterviewExperience[]>, exp: InterviewExperience) => {
+				const stage = exp.interview_stage || 'OTHER';
+				if (!acc[stage]) {
+					acc[stage] = [];
+				}
+				acc[stage].push(exp);
+				return acc;
+			},
+			{},
+		);
+	}, [interviewExperiences]);
+
 	const salaryDetail =
 		application?.salary &&
 		`${application?.salary} ${application?.salary_currency?.toLowerCase()} / ${application?.salary_type?.toLowerCase()}`;
@@ -74,6 +98,7 @@ const ApplicationView: React.FC<Props> = ({ applicationId }) => {
 				</div>
 			)}
 			{(isFetchingApplication || isLoadingApplication) && <Loader />}
+
 			{!isFetchingApplication && !isLoadingApplication && application?.id && (
 				<>
 					<div className="flex flex-col gap-4 md:rounded-md md:border p-4 bg-background motion-preset-focus">
@@ -190,12 +215,51 @@ const ApplicationView: React.FC<Props> = ({ applicationId }) => {
 						</div>
 					</div>
 
-					{/* {data?.interview_questions && (
-						<div className="border p-4 rounded-md bg-background" id="interviewQuestions">
-							<h2 className="text-lg font-semibold !m-0">Interview Questions Data</h2>
-							<QnAAccordion questionsAndAnswers={data?.interview_questions?.questionsAndAnswers} />
+					{interviewExperiencesLoading && <Loader />}
+
+					{interviewExperiencesError && (
+						<div className="p-4">
+							<ErrorDisplay error={interviewExperiencesError} />
 						</div>
-					)} */}
+					)}
+
+					{!interviewExperiencesLoading && !interviewExperiencesError && interviewExperiences && interviewExperiences.length > 0 && (
+						<div className="md:border p-4 md:rounded-md bg-background motion-preset-focus-sm" id="interviewExperiences">
+							<h2 className="text-lg font-semibold !m-0 mb-4">Interview Experiences</h2>
+							<div className="space-y-6">
+								{Object.entries(groupedExperiences).map(([stage, experiences]) => (
+									<div key={stage} className="space-y-4">
+										<h3 className="text-base font-medium text-muted-foreground">
+											{applicationStatusMapping[stage as ApplicationStatus] || stage}
+										</h3>
+										<div className="space-y-4">
+											{experiences.map((experience) => (
+												<InterviewExperienceCard
+													key={experience.id}
+													interviewExperience={{
+														...experience,
+														company_name:
+															experience.company_name ||
+															experience.application?.company_name ||
+															application?.company_name ||
+															'',
+														job_title:
+															experience.job_title ||
+															experience.application?.job_title ||
+															application?.job_title ||
+															'',
+													}}
+												/>
+											))}
+										</div>
+										{Object.keys(groupedExperiences).indexOf(stage) < Object.keys(groupedExperiences).length - 1 && (
+											<Separator className="my-4" />
+										)}
+									</div>
+								))}
+							</div>
+						</div>
+					)}
 				</>
 			)}
 		</div>

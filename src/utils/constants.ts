@@ -34,6 +34,12 @@ export const appRoutes = {
 	viewJourney: (journeyId: string) => `/journeys/${journeyId}`,
 	profileView: '/profile',
 	journeyApplications: (journeyId: string) => `/journeys/${journeyId}/applications`,
+
+	// interview-experiences
+	interviewExperiences: '/interview-experiences',
+	addInterviewExperiences: '/interview-experiences/add',
+	viewInterviewExperience: (id: string) => `/interview-experiences/${id}`,
+	editInterviewExperience: (id: string) => `/interview-experiences/${id}/edit`,
 };
 
 // For react-query
@@ -45,6 +51,7 @@ export enum QueryKeys {
 	QUESTIONS_AND_ANSWERS_PAGE = 'QUESTIONS_AND_ANSWERS_PAGE',
 	STATISTICS = 'STATISTICS',
 	INSIGHTS = 'INSIGHTS',
+	INTERVIEW_EXPERIENCES = 'INTERVIEW_EXPERIENCES',
 }
 
 // API structure - RESTful endpoints
@@ -56,6 +63,7 @@ export const apiRoutes = {
 		addWithAi: '/api/v2/applications', // Same endpoint, but with { text: ... } in body
 		edit: (id: string) => `/api/v2/applications/${id}`,
 		delete: (id: string) => `/api/v2/applications/${id}`,
+		search: '/api/v2/applications/search',
 	},
 	interviewQuestions: {
 		getAll: '/api/v1/interview-questions',
@@ -76,6 +84,14 @@ export const apiRoutes = {
 		delete: (id: string) => `/api/v2/journeys/${id}`,
 		statistics: (id: string) => `/api/v2/journeys/${id}/statistics`,
 		insights: (id: string) => `/api/v2/journeys/${id}/insights`,
+	},
+	interviewExperiences: {
+		getAll: '/api/v2/interview-experiences',
+		getOne: (id: string) => `/api/v2/interview-experiences/${id}`,
+		add: '/api/v2/interview-experiences',
+		update: (id: string) => `/api/v2/interview-experiences/${id}`,
+		delete: (id: string) => `/api/v2/interview-experiences/${id}`,
+		upvote: (id: string) => `/api/v2/interview-experiences/${id}/upvote`,
 	},
 };
 

@@ -14,7 +14,7 @@ export const navBarLinks = [
 		href: appRoutes.application,
 	},
 	{
-		page: 'Interview Questions',
-		href: appRoutes.interviewQuestions,
+		page: 'Interview Experiences',
+		href: appRoutes.interviewExperiences,
 	},
 ];

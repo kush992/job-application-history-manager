@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { jobApplicationSchema, journeySchema } from '@/lib/supabase/schema';
+import { interviewExperienceFormSchema, jobApplicationSchema, journeySchema } from '@/lib/supabase/schema';
 
 export enum SalaryType {
 	HOURLY = 'HOURLY',
@@ -62,6 +62,13 @@ export enum ContractType {
 	FREELANCE = 'FREELANCE',
 	INTERNSHIP = 'INTERNSHIP',
 	B2B = 'B2B',
+}
+
+export enum InterviewExperienceCategory {
+	COMPANY_REVIEW = 'COMPANY_REVIEW',
+	SALARY = 'SALARY',
+	INTERVIEW = 'INTERVIEW',
+	BENEFITS = 'BENEFITS',
 }
 
 export interface Journey {
@@ -196,3 +203,33 @@ export interface JourneyInsight {
 	updated_at: string;
 	user_id: string;
 }
+
+export interface InterviewExperience {
+	id: string;
+	user_id: string;
+	job_application_id: string | null;
+	company_name: string | null;
+	job_title: string | null;
+	interview_stage: ApplicationStatus | null;
+	category: InterviewExperienceCategory;
+	content: string;
+	rating: number;
+	is_public: boolean;
+	likes_count?: number;
+	created_at: string;
+	updated_at: string;
+	// Joined fields from job_applications
+	application?: {
+		id: string;
+		company_name: string;
+		job_title: string;
+	};
+	// User info for public experiences (anonymized)
+	user?: {
+		id: string;
+		full_name: string | null;
+		avatar_url: string | null;
+	};
+}
+
+export type InterviewExperienceFormData = z.infer<typeof interviewExperienceFormSchema>;
