@@ -77,7 +77,7 @@ const HomeView = () => {
 								<Button size="lg">Get Started Free</Button>
 							</Link>
 							<Link href={appRoutes.aboutUs} aria-label="Learn more about JobJourney">
-								<Button variant="ghost" className="flex gap-2 items-center font-semibold text-gray-900">
+								<Button variant="ghost" className="flex gap-2 items-center font-semibold">
 									Learn more <MoveRight className="h-4 w-4" aria-hidden="true" />
 								</Button>
 							</Link>
@@ -88,7 +88,7 @@ const HomeView = () => {
 						width={600}
 						height={400}
 						alt="JobJourney application dashboard showing analytics, application tracking, and job search insights with visual charts and graphs"
-						className="mt-12 rounded-xl shadow-lg border border-slate-200 hover:scale-105 transition-transform duration-300 mx-auto"
+						className="hidden md:block mt-12 rounded-xl shadow-lg border border-slate-200 hover:scale-105 transition-transform duration-300 mx-auto"
 						priority
 						loading="eager"
 					/>
