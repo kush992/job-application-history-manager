@@ -1,3 +1,4 @@
+import { X } from 'lucide-react';
 import React from 'react';
 import type { UseFormReturn } from 'react-hook-form';
 
@@ -7,6 +8,7 @@ import {
 	Drawer,
 	DrawerClose,
 	DrawerContent,
+	DrawerDescription,
 	DrawerFooter,
 	DrawerHeader,
 	DrawerTitle,
@@ -70,11 +72,16 @@ const MobileFiltersDrawer: React.FC<Props> = ({
 						</div>
 						<div>
 							<DrawerClose asChild>
-								<Button variant="ghost">Close</Button>
+								<Button variant="ghost">
+									<X className="h-4 w-4" />
+								</Button>
 							</DrawerClose>
 						</div>
 					</div>
-					<div className="mt-2">
+				</DrawerHeader>
+
+				<DrawerDescription>
+					<div className="mt-2 px-4">
 						<ActiveFilters
 							status={status}
 							contractType={contractType}
@@ -88,7 +95,7 @@ const MobileFiltersDrawer: React.FC<Props> = ({
 							onClearAll={onClearAll}
 						/>
 					</div>
-				</DrawerHeader>
+				</DrawerDescription>
 
 				<div className="p-4 space-y-4 max-h-[60vh] overflow-y-auto">
 					<FilterList

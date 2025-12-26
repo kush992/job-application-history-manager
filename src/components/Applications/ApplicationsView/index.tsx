@@ -1,10 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash.debounce';
 import { Info } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 import {
@@ -67,9 +67,7 @@ const ApplicationsView: React.FC<Props> = ({ journeyId }) => {
 		},
 	});
 
-	const debouncedRefetch = debounce(() => {
-		refetchApplications();
-	}, 5000);
+	const debouncedRefetch = useMemo(() => debounce(refetchApplications, 300), [refetchApplications])
 
 	const clearAllFilters = () => {
 		filterForm.reset({
@@ -78,10 +76,6 @@ const ApplicationsView: React.FC<Props> = ({ journeyId }) => {
 			contractType: [],
 			workMode: [],
 		});
-	};
-
-	const handleFilterChange = () => {
-		debouncedRefetch();
 	};
 
 	const handleClearFilter = (type: 'status' | 'contractType' | 'workMode', value: string) => {
@@ -158,7 +152,7 @@ const ApplicationsView: React.FC<Props> = ({ journeyId }) => {
 					<div className="w-full md:hidden">
 						<ApplicationFilters
 							filterForm={filterForm}
-							onFilterChange={handleFilterChange}
+							onFilterChange={debouncedRefetch}
 							onClearFilter={handleClearFilter}
 							onClearAll={clearAllFilters}
 						/>
@@ -170,7 +164,7 @@ const ApplicationsView: React.FC<Props> = ({ journeyId }) => {
 					<aside className="hidden md:block md:w-72 lg:w-80 sticky top-20 self-start">
 						<ApplicationFilters
 							filterForm={filterForm}
-							onFilterChange={handleFilterChange}
+							onFilterChange={debouncedRefetch}
 							onClearFilter={handleClearFilter}
 							onClearAll={clearAllFilters}
 						/>

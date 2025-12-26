@@ -34,7 +34,7 @@ const ActiveFilters: React.FC<Props> = ({
 	if (!hasActive) return null;
 
 	return (
-		<div className="flex flex-wrap items-center gap-2">
+		<div className="flex flex-wrap items-center gap-2 mb-2">
 			{status.map((s) => (
 				<Badge
 					key={s}
