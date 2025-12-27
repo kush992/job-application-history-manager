@@ -50,7 +50,7 @@ export async function GET(
 		const { data, error } = await supabase
 			.from('journey_insights')
 			.select('*')
-			.eq('statistics_demo_id', statistics.id)
+			.eq('statistics_id', statistics.id)
 			.single();
 
 		if (error) {
@@ -94,7 +94,7 @@ export async function POST(
 
 		// Get statistics for this journey
 		const { data: statistics, error: statsError } = await supabase
-			.from('statistics_demo')
+			.from('statistics')
 			.select('*')
 			.eq('journey_id', journeyId)
 			.eq('user_id', user.data.user.id)
@@ -115,7 +115,7 @@ export async function POST(
 			.select()
 			.eq('journey_id', journeyId)
 			.eq('user_id', user.data.user.id)
-			.eq('statistics_demo_id', stats.id)
+			.eq('statistics_id', stats.id)
 			.single();
 
 		if (existingInsightsError && existingInsightsError.code !== 'PGRST116') {
