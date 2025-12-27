@@ -60,14 +60,7 @@ export default function EditJourney({ journeyId }: Props) {
 				title="Edit Journey"
 				description="Set up a new job search campaign to track your applications"
 				submitText="Update Journey"
-				defaultValues={
-					journey
-						? {
-								...journey,
-								end_date: journey.end_date ? new Date(journey.end_date) : undefined,
-							}
-						: undefined
-				}
+				defaultValues={journey}
 			/>
 		</div>
 	);

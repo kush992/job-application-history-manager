@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowLeft,Loader2 } from 'lucide-react';
+import { ArrowLeft, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -31,10 +31,10 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 		resolver: zodResolver(journeySchema),
 		defaultValues: {
 			title: defaultValues?.title || '',
-			description: '',
-			start_date: new Date().toISOString().split('T')[0],
-			end_date: null,
-			is_active: true,
+			description: defaultValues?.description || '',
+			start_date: defaultValues?.start_date ?? new Date().toISOString().split('T')[0],
+			end_date: defaultValues?.end_date ?? null,
+			is_active: defaultValues?.is_active ?? true,
 			...defaultValues,
 		},
 	});
@@ -44,7 +44,7 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 			form.reset({
 				title: defaultValues?.title,
 				description: defaultValues.description,
-				start_date: new Date().toISOString().split('T')[0],
+				start_date: defaultValues?.start_date ?? new Date().toISOString().split('T')[0],
 				end_date: defaultValues.end_date ?? null,
 				is_active: defaultValues.is_active,
 			});
@@ -137,9 +137,7 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 												type="date"
 												{...field}
 												value={
-													field.value instanceof Date
-														? field.value.toISOString().split('T')[0]
-														: field.value || ''
+													field.value ? new Date(field.value).toISOString().split('T')[0] : undefined
 												}
 											/>
 										</FormControl>

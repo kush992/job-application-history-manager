@@ -91,11 +91,6 @@ export async function PUT(
 		const updateSchema = journeySchema.partial();
 		const validatedFields = updateSchema.safeParse(body);
 
-		const updateFields = {
-			...validatedFields.data,
-			end_date: validatedFields?.data?.end_date ? validatedFields.data.end_date.toISOString() : null,
-		};
-
 		if (!validatedFields.success) {
 			return NextResponse.json(
 				{
@@ -108,7 +103,7 @@ export async function PUT(
 
 		const { data: journey, error } = await supabase
 			.from('journeys')
-			.update(updateFields)
+			.update(validatedFields.data)
 			.eq('id', journeyId)
 			.eq('user_id', user.id)
 			.select()
