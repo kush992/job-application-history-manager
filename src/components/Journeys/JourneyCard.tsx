@@ -7,7 +7,7 @@ import { appRoutes } from '@/utils/constants';
 
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
-import { Card, CardContent,CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 
 type Props = {
 	journey: Journey;

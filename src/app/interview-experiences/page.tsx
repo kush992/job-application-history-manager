@@ -15,8 +15,9 @@ const InterviewExperiencesPage = () => {
 	const searchParams = useSearchParams();
 	const tab = searchParams.get('tab') || 'public';
 
-	const { experiences, experiencesLoading, experiencesError } =
-		useInterviewExperiences({ publicOnly: tab === 'public' });
+	const { experiences, experiencesLoading, experiencesError } = useInterviewExperiences({
+		publicOnly: tab === 'public',
+	});
 
 	const handleTabChange = (value: string) => {
 		const params = new URLSearchParams(searchParams.toString());

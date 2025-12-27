@@ -1,8 +1,8 @@
-import { Cell, Legend,Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer } from 'recharts';
 
 import type { Statistics } from '@/types/schema';
 
-import { Card, CardContent,CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
 
 type Props = {

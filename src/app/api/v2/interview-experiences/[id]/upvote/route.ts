@@ -22,7 +22,12 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 				.single();
 
 			if (fetchError) {
-				logger.error({ request, userId: user.id, message: 'Error fetching interview experience', error: fetchError });
+				logger.error({
+					request,
+					userId: user.id,
+					message: 'Error fetching interview experience',
+					error: fetchError,
+				});
 				return NextResponse.json(
 					{ error: 'Failed to fetch interview experience', details: JSON.stringify(fetchError) },
 					{ status: 500 },
@@ -37,7 +42,12 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 				.single();
 
 			if (updateError) {
-				logger.error({ request, userId: user.id, message: 'Error upvoting interview experience', error: updateError });
+				logger.error({
+					request,
+					userId: user.id,
+					message: 'Error upvoting interview experience',
+					error: updateError,
+				});
 				return NextResponse.json(
 					{ error: 'Failed to upvote interview experience', details: JSON.stringify(updateError) },
 					{ status: 500 },
@@ -58,4 +68,3 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 		return NextResponse.json({ success: true }, { status: 200 });
 	});
 }
-

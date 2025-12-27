@@ -32,4 +32,3 @@ const InterviewExperienceCardSkeleton = () => {
 };
 
 export default InterviewExperienceCardSkeleton;
-

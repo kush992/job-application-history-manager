@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Statistics } from '@/types/schema';
 
-import { Card, CardContent,CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
 type Props = {
 	statistics: Pick<Statistics, 'applications_count' | 'success_count' | 'avg_salary'>;
@@ -36,7 +36,9 @@ const KeyMetrics = ({ statistics, successRate, replyRate }: Props) => {
 				</CardHeader>
 				<CardContent className="px-3 sm:px-6">
 					<div className="text-lg sm:text-2xl font-bold">{successRate}%</div>
-					<p className="text-xs text-muted-foreground">Calculation based on Offer Accepted and Success application status</p>
+					<p className="text-xs text-muted-foreground">
+						Calculation based on Offer Accepted and Success application status
+					</p>
 				</CardContent>
 			</Card>
 			{/* <Card>

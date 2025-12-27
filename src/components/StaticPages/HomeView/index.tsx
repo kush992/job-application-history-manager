@@ -98,7 +98,10 @@ const HomeView = () => {
 			{/* Features */}
 			<section className="py-20" aria-labelledby="features-heading">
 				<div className="container mx-auto px-6 text-center">
-					<h2 id="features-heading" className="scroll-m-20 text-center pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+					<h2
+						id="features-heading"
+						className="scroll-m-20 text-center pb-2 text-3xl font-semibold tracking-tight first:mt-0"
+					>
 						Everything You Need to Win the Job
 					</h2>
 					<p className="leading-7 [&:not(:first-child)]:mt-6 text-secondary-foreground">
@@ -111,21 +114,39 @@ const HomeView = () => {
 			<section aria-labelledby="stats-heading">
 				<div className="bg-background py-24 sm:py-32">
 					<div className="mx-auto max-w-7xl px-6 lg:px-8">
-						<h2 id="stats-heading" className="scroll-m-20 text-center pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+						<h2
+							id="stats-heading"
+							className="scroll-m-20 text-center pb-2 text-3xl font-semibold tracking-tight first:mt-0"
+						>
 							Trusted by applicants worldwide
 						</h2>
 						<dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
 							<div className="mx-auto flex max-w-xs flex-col gap-y-4">
 								<dt className="text-base/7 text-secondary-foreground">New users annually</dt>
-								<dd className="order-first text-3xl font-semibold tracking-tight sm:text-5xl" aria-label="Approximately 70 new users annually">≈70</dd>
+								<dd
+									className="order-first text-3xl font-semibold tracking-tight sm:text-5xl"
+									aria-label="Approximately 70 new users annually"
+								>
+									≈70
+								</dd>
 							</div>
 							<div className="mx-auto flex max-w-xs flex-col gap-y-4">
 								<dt className="text-base/7 text-secondary-foreground">Applications added</dt>
-								<dd className="order-first text-3xl font-semibold tracking-tight sm:text-5xl" aria-label="Over 400 applications added">400+</dd>
+								<dd
+									className="order-first text-3xl font-semibold tracking-tight sm:text-5xl"
+									aria-label="Over 400 applications added"
+								>
+									400+
+								</dd>
 							</div>
 							<div className="mx-auto flex max-w-xs flex-col gap-y-4">
 								<dt className="text-base/7 text-secondary-foreground">Journeys created</dt>
-								<dd className="order-first text-3xl font-semibold tracking-tight sm:text-5xl" aria-label="Over 20 journeys created">20+</dd>
+								<dd
+									className="order-first text-3xl font-semibold tracking-tight sm:text-5xl"
+									aria-label="Over 20 journeys created"
+								>
+									20+
+								</dd>
 							</div>
 						</dl>
 					</div>
@@ -135,20 +156,32 @@ const HomeView = () => {
 			{/* Testimonials carousel */}
 			<section className="py-16" aria-labelledby="testimonials-heading">
 				<div className="container w-full mx-auto px-6">
-					<h2 id="testimonials-heading" className="sr-only">User Testimonials</h2>
+					<h2 id="testimonials-heading" className="sr-only">
+						User Testimonials
+					</h2>
 					<TestimonialCarousel items={testimonials} />
 				</div>
 			</section>
 
 			{/* Final CTA */}
-			<section className="py-16 bg-gradient-to-t from-primary to-secondary dark:to-black text-center" aria-labelledby="cta-heading">
+			<section
+				className="py-16 bg-gradient-to-t from-primary to-secondary dark:to-black text-center"
+				aria-labelledby="cta-heading"
+			>
 				<div className="container">
-					<h2 id="cta-heading" className="text-3xl font-bold">Start Tracking Smarter Today</h2>
+					<h2 id="cta-heading" className="text-3xl font-bold">
+						Start Tracking Smarter Today
+					</h2>
 					<p className="mt-4 text-secondary-foreground">
 						Join candidates who already use JobJourney to get better results in less time.
 					</p>
 					<Link href={appRoutes.application}>
-						<Button size="lg" variant="secondary" className="mt-6" aria-label="Get started with JobJourney for free">
+						<Button
+							size="lg"
+							variant="secondary"
+							className="mt-6"
+							aria-label="Get started with JobJourney for free"
+						>
 							Get Started Free
 						</Button>
 					</Link>

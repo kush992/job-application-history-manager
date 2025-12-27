@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Statistics } from '@/types/schema';
 
-import { Card, CardContent, CardDescription,CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 
 type Props = {
 	statistics: Statistics;

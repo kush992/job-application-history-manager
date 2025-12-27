@@ -129,7 +129,9 @@ const deleteApplication = async (documentId: string): Promise<string> => {
 	return 'Deleted Successfully';
 };
 
-const searchApplications = async (query: string): Promise<Array<{ id: string; company_name: string; job_title: string }>> => {
+const searchApplications = async (
+	query: string,
+): Promise<Array<{ id: string; company_name: string; job_title: string }>> => {
 	if (!query || query.trim().length === 0) {
 		return [];
 	}

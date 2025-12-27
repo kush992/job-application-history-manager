@@ -150,7 +150,9 @@ const InterviewExperienceDetailView: React.FC<Props> = ({ experienceId }) => {
 							<div className="flex items-center gap-2">
 								<Avatar className="h-8 w-8">
 									{user.avatar_url && !isAnonymous && <AvatarImage src={user.avatar_url} />}
-									<AvatarFallback>{isAnonymous ? 'A' : user.full_name?.charAt(0) || 'U'}</AvatarFallback>
+									<AvatarFallback>
+										{isAnonymous ? 'A' : user.full_name?.charAt(0) || 'U'}
+									</AvatarFallback>
 								</Avatar>
 								<span className="text-sm">
 									{isAnonymous ? 'Anonymous User' : user.full_name || 'User'}
@@ -207,7 +209,8 @@ const InterviewExperienceDetailView: React.FC<Props> = ({ experienceId }) => {
 									<AlertDialogHeader>
 										<AlertDialogTitle>Are you sure?</AlertDialogTitle>
 										<AlertDialogDescription>
-											This action cannot be undone. This will permanently delete your interview experience.
+											This action cannot be undone. This will permanently delete your interview
+											experience.
 										</AlertDialogDescription>
 									</AlertDialogHeader>
 									<AlertDialogFooter>
@@ -225,4 +228,3 @@ const InterviewExperienceDetailView: React.FC<Props> = ({ experienceId }) => {
 };
 
 export default InterviewExperienceDetailView;
-

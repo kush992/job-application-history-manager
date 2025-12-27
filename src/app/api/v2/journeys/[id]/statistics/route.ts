@@ -6,10 +6,7 @@ import { createClient } from '@/lib/supabase/server';
 export const dynamic = 'force-dynamic';
 
 // GET /api/v2/journeys/[id]/statistics - Get statistics for a journey
-export async function GET(
-	request: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
 	try {
 		// Create Supabase client
 		const supabase = createClient();
@@ -73,4 +70,3 @@ export async function GET(
 		);
 	}
 }
-

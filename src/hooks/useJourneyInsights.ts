@@ -75,6 +75,6 @@ export function usePostInsights() {
 		insights,
 		error,
 		mutate,
-		isPending
+		isPending,
 	};
 }

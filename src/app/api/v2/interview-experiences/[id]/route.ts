@@ -54,11 +54,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 	return withAuth(request, async (supabase, user) => {
 		const { id } = params;
 
-		const { error } = await supabase
-			.from('interview_experiences')
-			.delete()
-			.eq('id', id)
-			.eq('user_id', user.id);
+		const { error } = await supabase.from('interview_experiences').delete().eq('id', id).eq('user_id', user.id);
 
 		if (error) {
 			logger.error({ request, userId: user.id, message: 'Error deleting interview experience', error });

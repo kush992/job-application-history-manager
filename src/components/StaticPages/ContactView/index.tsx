@@ -1,4 +1,3 @@
-
 import ContactForm from '@/components/StaticPages/ContactView/ContactForm';
 import ContactInfo from '@/components/StaticPages/ContactView/ContactInfo';
 import { Card, CardContent } from '@/components/ui/card';

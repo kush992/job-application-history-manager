@@ -8,7 +8,6 @@ import { getFileName } from '@/utils/utility';
 
 import DocumentInfoCard from '../ui/document-info-card';
 
-
 type Props = {
 	form: any;
 };

@@ -91,7 +91,12 @@ export async function POST(request: NextRequest) {
 			.single();
 
 		if (activeJourneyError && activeJourneyError.code !== 'PGRST116') {
-			logger.error({ request, userId: user.id, message: 'Error checking active journey', error: activeJourneyError });
+			logger.error({
+				request,
+				userId: user.id,
+				message: 'Error checking active journey',
+				error: activeJourneyError,
+			});
 			return NextResponse.json(
 				{ error: 'Failed to check active journey', details: JSON.stringify(activeJourneyError) },
 				{ status: 500 },
@@ -123,4 +128,3 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json({ success: 'Journey created successfully', journey }, { status: 201 });
 	});
 }
-

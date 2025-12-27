@@ -17,8 +17,13 @@ type Props = {
 };
 
 const EditInterviewExperienceView: React.FC<Props> = ({ experienceId }) => {
-	const { interviewExperience, interviewExperienceLoading, interviewExperienceError, updateExperience, isMutationPending } =
-		useInterviewExperiences({ id: experienceId });
+	const {
+		interviewExperience,
+		interviewExperienceLoading,
+		interviewExperienceError,
+		updateExperience,
+		isMutationPending,
+	} = useInterviewExperiences({ id: experienceId });
 	const { toast } = useToast();
 	const router = useRouter();
 
@@ -108,4 +113,3 @@ const EditInterviewExperienceView: React.FC<Props> = ({ experienceId }) => {
 };
 
 export default EditInterviewExperienceView;
-

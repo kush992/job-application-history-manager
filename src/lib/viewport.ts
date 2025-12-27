@@ -11,4 +11,3 @@ export const viewport: Viewport = {
 	],
 	colorScheme: 'light dark',
 };
-

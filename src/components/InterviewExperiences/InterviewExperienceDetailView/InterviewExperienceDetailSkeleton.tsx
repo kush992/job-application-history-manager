@@ -49,4 +49,3 @@ const InterviewExperienceDetailSkeleton = () => {
 };
 
 export default InterviewExperienceDetailSkeleton;
-

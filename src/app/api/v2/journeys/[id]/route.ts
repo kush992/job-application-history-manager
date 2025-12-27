@@ -29,10 +29,7 @@ async function withAuth(request: NextRequest, handler: (supabase: any, user: any
 }
 
 // GET /api/v2/journeys/[id] - Get a single journey
-export async function GET(
-	request: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
 	return withAuth(request, async (supabase, user) => {
 		const journeyId = params.id;
 
@@ -76,10 +73,7 @@ export async function GET(
 }
 
 // PUT /api/v2/journeys/[id] - Update a journey
-export async function PUT(
-	request: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
 	return withAuth(request, async (supabase, user) => {
 		const journeyId = params.id;
 
@@ -127,10 +121,7 @@ export async function PUT(
 }
 
 // DELETE /api/v2/journeys/[id] - Delete a journey
-export async function DELETE(
-	request: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
 	return withAuth(request, async (supabase, user) => {
 		const journeyId = params.id;
 
@@ -174,4 +165,3 @@ export async function DELETE(
 		return NextResponse.json({ success: 'Journey and all associated applications deleted successfully' });
 	});
 }
-

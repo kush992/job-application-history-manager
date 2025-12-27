@@ -1,35 +1,35 @@
-"use client";
+'use client';
 
-import React from "react";
-import type { UseFormReturn } from "react-hook-form";
+import React from 'react';
+import type { UseFormReturn } from 'react-hook-form';
 
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import {
 	applicationStatusMapping,
 	contractTypeMapping,
 	getApplicationStatusColor,
 	getWorkModeColor,
 	workModeMapping,
-} from "@/utils/utility";
+} from '@/utils/utility';
 
-import ActiveFilters from "./ActiveFilters";
-import FilterList from "./FilterList";
-import MobileFiltersDrawer from "./MobileFiltersDrawer";
-import SearchBar from "./SearchBar";
-import { FilterFormValues } from "./utility";
+import ActiveFilters from './ActiveFilters';
+import FilterList from './FilterList';
+import MobileFiltersDrawer from './MobileFiltersDrawer';
+import SearchBar from './SearchBar';
+import { FilterFormValues } from './utility';
 
 type Props = {
 	filterForm: UseFormReturn<FilterFormValues>;
 	onFilterChange: () => void;
-	onClearFilter: (type: "status" | "contractType" | "workMode", value: string) => void;
+	onClearFilter: (type: 'status' | 'contractType' | 'workMode', value: string) => void;
 	onClearAll: () => void;
 };
 
 const ApplicationFilters: React.FC<Props> = ({ filterForm, onFilterChange, onClearFilter, onClearAll }) => {
-	const status = filterForm.watch("status") || [];
-	const contractType = filterForm.watch("contractType") || [];
-	const workMode = filterForm.watch("workMode") || [];
+	const status = filterForm.watch('status') || [];
+	const contractType = filterForm.watch('contractType') || [];
+	const workMode = filterForm.watch('workMode') || [];
 
 	const hasActiveFilters = status.length > 0 || contractType.length > 0 || workMode.length > 0;
 
@@ -112,11 +112,29 @@ const ApplicationFilters: React.FC<Props> = ({ filterForm, onFilterChange, onCle
 					)}
 
 					<div className="space-y-4">
-						<FilterList title="Status" entries={Object.entries(applicationStatusMapping)} name="status" filterForm={filterForm} onFilterChange={onFilterChange} />
+						<FilterList
+							title="Status"
+							entries={Object.entries(applicationStatusMapping)}
+							name="status"
+							filterForm={filterForm}
+							onFilterChange={onFilterChange}
+						/>
 						<Separator />
-						<FilterList title="Contract Type" entries={Object.entries(contractTypeMapping)} name="contractType" filterForm={filterForm} onFilterChange={onFilterChange} />
+						<FilterList
+							title="Contract Type"
+							entries={Object.entries(contractTypeMapping)}
+							name="contractType"
+							filterForm={filterForm}
+							onFilterChange={onFilterChange}
+						/>
 						<Separator />
-						<FilterList title="Work Mode" entries={Object.entries(workModeMapping)} name="workMode" filterForm={filterForm} onFilterChange={onFilterChange} />
+						<FilterList
+							title="Work Mode"
+							entries={Object.entries(workModeMapping)}
+							name="workMode"
+							filterForm={filterForm}
+							onFilterChange={onFilterChange}
+						/>
 					</div>
 				</div>
 			</div>
@@ -125,4 +143,3 @@ const ApplicationFilters: React.FC<Props> = ({ filterForm, onFilterChange, onCle
 };
 
 export default ApplicationFilters;
-

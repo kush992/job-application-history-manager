@@ -1,4 +1,4 @@
-import { Dribbble, Github, Linkedin,Mail } from 'lucide-react';
+import { Dribbble, Github, Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
 import type React from 'react';
 
@@ -14,10 +14,7 @@ export default function ContactInfo() {
 				</p>
 
 				<div className="flex flex-col gap-4">
-					<Link
-						className="flex items-start gap-3 hover:underline"
-						href="mailto:info@jobjourney.site"
-					>
+					<Link className="flex items-start gap-3 hover:underline" href="mailto:info@jobjourney.site">
 						<div className="pt-0.5">
 							<Mail />
 						</div>

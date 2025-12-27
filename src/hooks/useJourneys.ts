@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useCallback,useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { Journey, JourneyFormData } from '@/types/schema';
 import { apiRoutes, QueryKeys } from '@/utils/constants';
@@ -75,7 +75,7 @@ export function useJourneys(id?: string) {
 		isLoading,
 		error: queryError,
 		refetch,
-		isRefetching
+		isRefetching,
 	} = useQuery({
 		queryKey: [QueryKeys.JOURNEYS_PAGE],
 		queryFn: fetchJourneys,
@@ -202,6 +202,6 @@ export function useJourneys(id?: string) {
 		isUpdating: updateMutation.isPending,
 		isDeleting: deleteMutation.isPending,
 		isFetching: isLoading,
-		isRefetching
+		isRefetching,
 	};
 }

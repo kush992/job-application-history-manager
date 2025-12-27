@@ -1,4 +1,4 @@
-import { CheckCircle,Shield, Zap } from 'lucide-react';
+import { CheckCircle, Shield, Zap } from 'lucide-react';
 
 import { GoogleAuthButton } from '@/components/Auth/GoogleAuthButton';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';

@@ -1,6 +1,14 @@
 import { z } from 'zod';
 
-import { ApplicationStatus, ContractType, InterviewExperienceCategory, JobSites, SalaryCurrency, SalaryType, WorkMode } from '@/types/schema';
+import {
+	ApplicationStatus,
+	ContractType,
+	InterviewExperienceCategory,
+	JobSites,
+	SalaryCurrency,
+	SalaryType,
+	WorkMode,
+} from '@/types/schema';
 
 export const journeySchema = z.object({
 	title: z.string().nonempty('Journey title is required'),

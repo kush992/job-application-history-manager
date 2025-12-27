@@ -1,7 +1,7 @@
 'use client';
 
 import type { User } from '@supabase/supabase-js';
-import { Calendar, CheckCircle, ChevronRight,Clock, Globe, LogOut, Mail, Shield, UserIcon } from 'lucide-react';
+import { Calendar, CheckCircle, ChevronRight, Clock, Globe, LogOut, Mail, Shield, UserIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 

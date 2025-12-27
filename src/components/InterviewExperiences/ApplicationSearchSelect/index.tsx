@@ -159,4 +159,3 @@ const ApplicationSearchSelect: React.FC<Props> = ({
 };
 
 export default ApplicationSearchSelect;
-

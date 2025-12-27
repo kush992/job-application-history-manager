@@ -30,7 +30,15 @@ type Props = {
 	isEditMode?: boolean;
 };
 
-const InterviewExperienceForm = ({ title, description, submitText, isLoading, defaultValues, onSubmit, isEditMode = false }: Props) => {
+const InterviewExperienceForm = ({
+	title,
+	description,
+	submitText,
+	isLoading,
+	defaultValues,
+	onSubmit,
+	isEditMode = false,
+}: Props) => {
 	const [searchQuery, setSearchQuery] = useState('');
 	const [selectedApplication, setSelectedApplication] = useState<{
 		id: string;
@@ -95,8 +103,8 @@ const InterviewExperienceForm = ({ title, description, submitText, isLoading, de
 								<FormItem>
 									<FormLabel>Link to Application (Optional)</FormLabel>
 									<FormDescription>
-										Search and link this experience to an existing application. If linked, company name and
-										job title will be auto-filled.
+										Search and link this experience to an existing application. If linked, company
+										name and job title will be auto-filled.
 									</FormDescription>
 									<FormControl>
 										<ApplicationSearchSelect
@@ -124,9 +132,9 @@ const InterviewExperienceForm = ({ title, description, submitText, isLoading, de
 						{hasNoApplicationResults && (
 							<Alert>
 								<AlertDescription className="text-xs">
-									No matching application found. You can still add an experience for a past interview. The
-									search query will be used as company name and/or job title. Both fields will be required in
-									this case.
+									No matching application found. You can still add an experience for a past interview.
+									The search query will be used as company name and/or job title. Both fields will be
+									required in this case.
 								</AlertDescription>
 							</Alert>
 						)}
@@ -139,8 +147,8 @@ const InterviewExperienceForm = ({ title, description, submitText, isLoading, de
 									<FormItem>
 										<FormLabel>Interview Stage</FormLabel>
 										<FormDescription>
-											Select the interview stage/round for this experience. A single application can have
-											multiple interview experiences.
+											Select the interview stage/round for this experience. A single application
+											can have multiple interview experiences.
 										</FormDescription>
 										<Select
 											value={field.value || undefined}
@@ -173,7 +181,8 @@ const InterviewExperienceForm = ({ title, description, submitText, isLoading, de
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>
-												Company name {!jobApplicationId && <span className="text-destructive">*</span>}
+												Company name{' '}
+												{!jobApplicationId && <span className="text-destructive">*</span>}
 											</FormLabel>
 											<FormControl>
 												<Input
@@ -193,7 +202,8 @@ const InterviewExperienceForm = ({ title, description, submitText, isLoading, de
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>
-												Job title {!jobApplicationId && <span className="text-destructive">*</span>}
+												Job title{' '}
+												{!jobApplicationId && <span className="text-destructive">*</span>}
 											</FormLabel>
 											<FormControl>
 												<Input

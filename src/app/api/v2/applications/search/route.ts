@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
 			return NextResponse.json({ applications: [] }, { status: 200 });
 		}
 
-
 		// Search applications by company name or job title
 		const { data: applications, error } = await supabase
 			.from('job_applications')
@@ -34,4 +33,3 @@ export async function GET(request: NextRequest) {
 		return NextResponse.json({ applications: applications || [] }, { status: 200 });
 	});
 }
-

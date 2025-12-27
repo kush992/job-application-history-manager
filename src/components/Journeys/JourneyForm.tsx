@@ -137,7 +137,9 @@ export function JourneyForm({ onSubmit, defaultValues, isLoading, title, descrip
 												type="date"
 												{...field}
 												value={
-													field.value ? new Date(field.value).toISOString().split('T')[0] : undefined
+													field.value
+														? new Date(field.value).toISOString().split('T')[0]
+														: undefined
 												}
 											/>
 										</FormControl>

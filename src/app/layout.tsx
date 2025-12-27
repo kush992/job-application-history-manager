@@ -32,10 +32,7 @@ export default async function RootLayout({
 		logo: `${siteUrl}/favicon.ico`,
 		description:
 			'Track, organize, and analyze your job applications with JobJourney. Manage applications, store documents, track interviews, and gain insights.',
-		sameAs: [
-			'https://twitter.com/jobjourney',
-			'https://github.com/jobjourney',
-		],
+		sameAs: ['https://twitter.com/jobjourney', 'https://github.com/jobjourney'],
 		contactPoint: {
 			'@type': 'ContactPoint',
 			contactType: 'Customer Support',

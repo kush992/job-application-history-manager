@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-import AddInterviewExperienceView from '@/components/InterviewExperiences/AddInterviewExperienceView'
+import AddInterviewExperienceView from '@/components/InterviewExperiences/AddInterviewExperienceView';
 
 const AddInterviewExperiencesPage = () => {
-  return (
-	<AddInterviewExperienceView />
-  )
-}
+	return <AddInterviewExperienceView />;
+};
 
-export default AddInterviewExperiencesPage
+export default AddInterviewExperiencesPage;

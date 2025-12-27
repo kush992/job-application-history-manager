@@ -79,7 +79,9 @@ export const interviewQuestionsQueries = {
 				return await response.json();
 			} else {
 				await handleApiError(response);
-				throw new Error(`Error updating Interview Questions data | ${response.status} - ${response.statusText}`);
+				throw new Error(
+					`Error updating Interview Questions data | ${response.status} - ${response.statusText}`,
+				);
 			}
 		} catch (error) {
 			console.error(error);

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Area, AreaChart,CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 import { Statistics } from '@/types/schema';
 
-import { Card, CardContent,CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
 
 type Props = {

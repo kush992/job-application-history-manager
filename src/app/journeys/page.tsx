@@ -10,12 +10,7 @@ export const metadata: Metadata = generateSEOMetadata({
 	title: 'My Journeys',
 	description:
 		'Create and manage application journeys to group related job opportunities. Track progress, organize applications by campaign or goal, and analyze journey performance.',
-	keywords: [
-		'application journeys',
-		'job search journey',
-		'group applications',
-		'application campaigns',
-	],
+	keywords: ['application journeys', 'job search journey', 'group applications', 'application campaigns'],
 	url: '/journeys',
 	noIndex: true, // User-specific content, don't index
 });

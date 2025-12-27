@@ -16,7 +16,7 @@ export default function TermsOfServiceView() {
 
 					<section>
 						<h2 className="text-xl font-semibold mb-2">1. Acceptance of Terms</h2>
-						<p className='text-muted-foreground'>
+						<p className="text-muted-foreground">
 							By creating an account on JobJourney, you acknowledge and accept our Terms of Service and
 							Privacy Policy. If you do not agree, please discontinue use of our services.
 						</p>
@@ -47,7 +47,7 @@ export default function TermsOfServiceView() {
 
 					<section>
 						<h2 className="text-xl font-semibold mb-2">3. Intellectual Property</h2>
-						<p className='text-muted-foreground'>
+						<p className="text-muted-foreground">
 							JobJourney owns all intellectual property rights to the {"platform's"} design,
 							functionality, and content (excluding user-uploaded content). Users are granted a limited
 							license to use the platform for personal job application management.
@@ -58,7 +58,7 @@ export default function TermsOfServiceView() {
 
 					<section>
 						<h2 className="text-xl font-semibold mb-2">4. Limitation of Liability</h2>
-						<p className='text-muted-foreground'>JobJourney is not liable for:</p>
+						<p className="text-muted-foreground">JobJourney is not liable for:</p>
 						<ul className="list-disc pl-6 mt-2 space-y-2 text-muted-foreground">
 							<li>Any damages resulting from the use or inability to use our platform</li>
 							<li>Data loss due to technical issues or user error</li>
@@ -69,7 +69,7 @@ export default function TermsOfServiceView() {
 
 					<section>
 						<h2 className="text-xl font-semibold mb-2">5. Modification of Services</h2>
-						<p className='text-muted-foreground'>
+						<p className="text-muted-foreground">
 							JobJourney may modify or discontinue features at any time without notice. We are not liable
 							for any changes to the availability or functionality of the platform.
 						</p>
@@ -79,7 +79,7 @@ export default function TermsOfServiceView() {
 
 					<section>
 						<h2 className="text-xl font-semibold mb-2">6. Changes to Terms</h2>
-						<p className='text-muted-foreground'>
+						<p className="text-muted-foreground">
 							We may revise these Terms of Service from time to time. Continued use of the platform after
 							changes indicates acceptance of the new terms.
 						</p>
@@ -87,7 +87,7 @@ export default function TermsOfServiceView() {
 
 					<Separator />
 
-					<p className='!mt-4'>
+					<p className="!mt-4">
 						For further inquiries or support, please contact{' '}
 						<a href="mailto:info@jobjourney.site" className="text-primary hover:underline">
 							info@jobjourney.site

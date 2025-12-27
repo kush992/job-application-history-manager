@@ -10,8 +10,6 @@ type Params = {
 };
 
 const JourneyApplicationsPage = async ({ params }: { params: Params }) => {
-
-
 	return (
 		<Suspense fallback={<Loader />}>
 			<main className="flex min-h-screen flex-col gap-8 md:container mx-auto p-4 ">

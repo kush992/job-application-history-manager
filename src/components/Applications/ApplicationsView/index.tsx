@@ -67,7 +67,7 @@ const ApplicationsView: React.FC<Props> = ({ journeyId }) => {
 		},
 	});
 
-	const debouncedRefetch = useMemo(() => debounce(refetchApplications, 300), [refetchApplications])
+	const debouncedRefetch = useMemo(() => debounce(refetchApplications, 300), [refetchApplications]);
 
 	const clearAllFilters = () => {
 		filterForm.reset({
@@ -178,8 +178,8 @@ const ApplicationsView: React.FC<Props> = ({ journeyId }) => {
 							applications &&
 							applications?.data?.length < 1 && (
 								<Card>
-									<CardContent className='flex justify-center items-center min-h-screen'>
-									<p className="text-lg text-muted-foreground">No applications found</p>
+									<CardContent className="flex justify-center items-center min-h-screen">
+										<p className="text-lg text-muted-foreground">No applications found</p>
 									</CardContent>
 								</Card>
 							)}

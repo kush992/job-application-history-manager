@@ -10,10 +10,7 @@ const genAI = new GoogleGenerativeAI(process.env.LLM_API_KEY!);
 export const dynamic = 'force-dynamic';
 
 // GET /api/v2/journeys/[id]/insights - Get insights for a journey
-export async function GET(
-	request: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
 	try {
 		const supabase = await createClient();
 
@@ -57,7 +54,12 @@ export async function GET(
 			if (error.code === 'PGRST116') {
 				return NextResponse.json({ error: 'Insights not found', details: error }, { status: 404 });
 			}
-			logger.error({ request, userId: user.data.user.id, message: 'Supabase error fetching journey insights', error });
+			logger.error({
+				request,
+				userId: user.data.user.id,
+				message: 'Supabase error fetching journey insights',
+				error,
+			});
 			return NextResponse.json(
 				{ error: 'Failed to fetch journey insights', details: JSON.stringify(error) },
 				{ status: 500 },
@@ -75,10 +77,7 @@ export async function GET(
 }
 
 // POST /api/v2/journeys/[id]/insights - Generate insights for a journey
-export async function POST(
-	request: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
 	try {
 		const journeyId = params.id;
 
@@ -119,7 +118,12 @@ export async function POST(
 			.single();
 
 		if (existingInsightsError && existingInsightsError.code !== 'PGRST116') {
-			logger.error({ request, userId: user.data.user.id, message: 'Supabase fetch error for existing insights', error: existingInsightsError });
+			logger.error({
+				request,
+				userId: user.data.user.id,
+				message: 'Supabase fetch error for existing insights',
+				error: existingInsightsError,
+			});
 			return NextResponse.json(
 				{ error: 'Supabase error', details: JSON.stringify(existingInsightsError) },
 				{ status: 400 },
@@ -160,7 +164,12 @@ export async function POST(
 				.single();
 
 			if (error) {
-				logger.error({ request, userId: user.data.user.id, message: 'Supabase update error for journey_insights', error });
+				logger.error({
+					request,
+					userId: user.data.user.id,
+					message: 'Supabase update error for journey_insights',
+					error,
+				});
 				return NextResponse.json({ error: 'Supabase error', details: JSON.stringify(error) }, { status: 400 });
 			}
 
@@ -173,7 +182,12 @@ export async function POST(
 				.single();
 
 			if (error) {
-				logger.error({ request, userId: user.data.user.id, message: 'Supabase insert error for journey_insights', error });
+				logger.error({
+					request,
+					userId: user.data.user.id,
+					message: 'Supabase insert error for journey_insights',
+					error,
+				});
 				return NextResponse.json({ error: 'Supabase error', details: JSON.stringify(error) }, { status: 400 });
 			}
 
@@ -184,4 +198,3 @@ export async function POST(
 		return NextResponse.json({ error: 'Internal server error', details: JSON.stringify(error) }, { status: 500 });
 	}
 }
-

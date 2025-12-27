@@ -8,10 +8,7 @@ import { InterviewQuestionsData } from '@/types/apiResponseTypes';
 export const dynamic = 'force-dynamic';
 
 // GET /api/v1/interview-questions/[id] - Get a single interview question
-export async function GET(
-	req: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
 	try {
 		if (!cookies().get('session')) {
 			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -41,10 +38,7 @@ export async function GET(
 }
 
 // PUT /api/v1/interview-questions/[id] - Update an interview question
-export async function PUT(
-	req: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
 	try {
 		if (!cookies().get('session')) {
 			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -80,10 +74,7 @@ export async function PUT(
 }
 
 // DELETE /api/v1/interview-questions/[id] - Delete an interview question
-export async function DELETE(
-	req: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
 	try {
 		if (!cookies().get('session')) {
 			return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -107,4 +98,3 @@ export async function DELETE(
 		return NextResponse.json({ error: 'Error deleting data', reason: error }, { status: 500 });
 	}
 }
-

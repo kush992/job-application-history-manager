@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-
 export async function DELETE(req: NextRequest) {
 	// try {
 	// 	if (!cookies().get('session')) {

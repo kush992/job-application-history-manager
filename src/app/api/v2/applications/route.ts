@@ -53,10 +53,19 @@ export async function GET(request: NextRequest) {
 		const { data: journeyData, error: journeryFetchError } = await journeyQuery.single();
 
 		if (journeryFetchError) {
-			logger.error({ request, userId: user.id, message: 'Supabase error fetching active journey', error: journeryFetchError });
+			logger.error({
+				request,
+				userId: user.id,
+				message: 'Supabase error fetching active journey',
+				error: journeryFetchError,
+			});
 
 			if (journeryFetchError.code === 'PGRST116') {
-				logger.info({ request, userId: user.id, message: 'No active journey found, redirecting to create journey page.' });
+				logger.info({
+					request,
+					userId: user.id,
+					message: 'No active journey found, redirecting to create journey page.',
+				});
 				return NextResponse.redirect(`${request.nextUrl.origin}${appRoutes.journeys}`); // Redirect to create journey if no active journey found
 			}
 
@@ -95,7 +104,9 @@ export async function GET(request: NextRequest) {
 
 		// Add filters
 		if (search_query) {
-			query = query.or(`company_name.ilike.%${search_query}%,job_title.ilike.%${search_query}%,company_domain.ilike.%${search_query}%`);
+			query = query.or(
+				`company_name.ilike.%${search_query}%,job_title.ilike.%${search_query}%,company_domain.ilike.%${search_query}%`,
+			);
 		}
 
 		if (status_filter) {
@@ -167,7 +178,12 @@ export async function POST(request: NextRequest) {
 			.single();
 
 		if (journeryFetchError) {
-			logger.error({ request, userId: user.id, message: 'Supabase error fetching active journey', error: journeryFetchError });
+			logger.error({
+				request,
+				userId: user.id,
+				message: 'Supabase error fetching active journey',
+				error: journeryFetchError,
+			});
 			return NextResponse.json(
 				{
 					error: 'Failed to fetch active journey',
@@ -269,7 +285,13 @@ export async function POST(request: NextRequest) {
 			try {
 				json = JSON.parse(output.replace(/```json|```/g, '').trim());
 			} catch (err) {
-				logger.error({ request, userId: user.id, message: 'JSON parse error parsing GenAI output', error: err, meta: { output } });
+				logger.error({
+					request,
+					userId: user.id,
+					message: 'JSON parse error parsing GenAI output',
+					error: err,
+					meta: { output },
+				});
 				return NextResponse.json(
 					{ error: 'Failed to parse response from Gemini', raw: output },
 					{ status: 500 },
@@ -368,7 +390,7 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-		console.log('kb-logs',JSON.stringify(error));
+		console.log('kb-logs', JSON.stringify(error));
 		return NextResponse.json(
 			{
 				error: error instanceof SyntaxError ? 'Invalid JSON format' : 'An unexpected error occurred',

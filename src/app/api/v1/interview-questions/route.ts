@@ -7,7 +7,7 @@ import { appwriteDbConfig, database } from '@/appwrite/config';
 import { denormaliseQuestionsAndAnswers, QnAFormData } from '@/components/InterviewQuestions/QnAForm/utility';
 import { QnAShowType } from '@/components/InterviewQuestions/QnAPage/utility';
 import { getLoggedInUser } from '@/lib/server/appwrite';
-import { InterviewQuestionsData,Response } from '@/types/apiResponseTypes';
+import { InterviewQuestionsData, Response } from '@/types/apiResponseTypes';
 
 export const dynamic = 'force-dynamic';
 
@@ -84,4 +84,3 @@ export async function POST(req: NextRequest) {
 		return NextResponse.json({ error }, { status: 500 });
 	}
 }
-

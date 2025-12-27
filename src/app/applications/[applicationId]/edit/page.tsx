@@ -10,13 +10,12 @@ type Params = {
 };
 
 export default async function UpdateApplication({ params }: { params: Params }) {
-
 	return (
 		<Suspense fallback={<Loader />}>
 			<main className="flex min-h-screen flex-col gap-8 mx-auto py-8">
 				<Analytics />
 				<HydrationBoundary>
-					<ApplicationFormView applicationId={params.applicationId} isUpdateForm  />
+					<ApplicationFormView applicationId={params.applicationId} isUpdateForm />
 				</HydrationBoundary>
 			</main>
 		</Suspense>

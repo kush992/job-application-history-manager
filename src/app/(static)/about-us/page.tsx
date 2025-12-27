@@ -10,12 +10,7 @@ export const metadata: Metadata = generateSEOMetadata({
 	title: 'About Us',
 	description:
 		'Learn about JobJourney - the comprehensive job application tracker designed to help job seekers organize, analyze, and improve their job search process with smart analytics and intuitive tools.',
-	keywords: [
-		'about jobjourney',
-		'job application tracker company',
-		'job search tool',
-		'career management platform',
-	],
+	keywords: ['about jobjourney', 'job application tracker company', 'job search tool', 'career management platform'],
 	url: '/about-us',
 });
 

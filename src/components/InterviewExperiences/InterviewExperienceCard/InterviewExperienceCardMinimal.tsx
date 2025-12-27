@@ -94,4 +94,3 @@ const InterviewExperienceCardMinimal = ({ interviewExperience, showUpvote = fals
 };
 
 export default InterviewExperienceCardMinimal;
-

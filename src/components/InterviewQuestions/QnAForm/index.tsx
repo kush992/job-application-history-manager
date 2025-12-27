@@ -22,7 +22,7 @@ import {
 import ErrorDisplay from '../../ui/error-display';
 import Loader from '../../ui/loader';
 import QuestionAndAnswerForm from './Form';
-import { formSchema, normaliseQuestionsAndAnswers,QnAFormData } from './utility';
+import { formSchema, normaliseQuestionsAndAnswers, QnAFormData } from './utility';
 
 type Props = {
 	documentId?: string;

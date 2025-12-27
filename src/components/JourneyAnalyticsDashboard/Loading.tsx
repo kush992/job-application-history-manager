@@ -1,7 +1,7 @@
 import { Loader } from 'lucide-react';
 import React from 'react';
 
-import { Card, CardContent,CardHeader } from '../ui/card';
+import { Card, CardContent, CardHeader } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
 
 const JourneyAnaluticsDashboardLoader = () => {

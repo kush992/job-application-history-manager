@@ -1,7 +1,6 @@
 // import { JobApplicationData } from '@/types/apiResponseTypes';
 import { NextRequest, NextResponse } from 'next/server';
 
-
 export async function GET(req: NextRequest) {
 	// try {
 	// 	if (!cookies().get('session')) {

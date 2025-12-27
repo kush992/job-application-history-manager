@@ -8,10 +8,7 @@ import { createClient } from '@/lib/supabase/server';
 export const dynamic = 'force-dynamic';
 
 // GET /api/v2/applications/[id] - Get a single application
-export async function GET(
-	request: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
 	try {
 		// Create Supabase client
 		const supabase = createClient();
@@ -79,10 +76,7 @@ export async function GET(
 }
 
 // PUT /api/v2/applications/[id] - Update an application
-export async function PUT(
-	request: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
 	try {
 		// Create Supabase client
 		const supabase = createClient();
@@ -186,10 +180,7 @@ export async function PUT(
 }
 
 // DELETE /api/v2/applications/[id] - Delete an application
-export async function DELETE(
-	request: NextRequest,
-	{ params }: { params: { id: string } },
-) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
 	try {
 		// Create Supabase client
 		const supabase = createClient();
@@ -224,10 +215,7 @@ export async function DELETE(
 		// We can treat this as a successful deletion if the application does not exist,
 		// meaning it has already been deleted or never existed.
 		if (fetchError || !existingApplication) {
-			return NextResponse.json(
-				{ message: 'Application deleted successfully' },
-				{ status: 200 },
-			);
+			return NextResponse.json({ message: 'Application deleted successfully' }, { status: 200 });
 		}
 
 		// Delete the record
@@ -238,7 +226,12 @@ export async function DELETE(
 			.eq('user_id', user.id);
 
 		if (deleteError) {
-			logger.error({ request, userId: user.id, message: 'Supabase delete error for application', error: deleteError });
+			logger.error({
+				request,
+				userId: user.id,
+				message: 'Supabase delete error for application',
+				error: deleteError,
+			});
 			return NextResponse.json(
 				{
 					error: 'Failed to delete application',
@@ -265,4 +258,3 @@ export async function DELETE(
 		);
 	}
 }
-

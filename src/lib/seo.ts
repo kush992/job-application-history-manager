@@ -119,7 +119,6 @@ export const siteConfig = {
 	keywords: defaultKeywords,
 	ogImage: `${siteUrl}/og-image.png`,
 	links: {
-		linkedin: 'https://www.linkedin.com/company/jobjourney-2024'
+		linkedin: 'https://www.linkedin.com/company/jobjourney-2024',
 	},
 };
-

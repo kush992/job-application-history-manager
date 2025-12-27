@@ -90,8 +90,8 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-	// Log successful submission
-	logger.info({ request, message: 'Contact form submitted successfully', meta: { id: insertData.id } });
+		// Log successful submission
+		logger.info({ request, message: 'Contact form submitted successfully', meta: { id: insertData.id } });
 
 		return NextResponse.json(
 			{

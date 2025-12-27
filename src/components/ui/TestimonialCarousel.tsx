@@ -59,8 +59,8 @@ export function TestimonialCarousel({ items, autoplay, interval }: Props) {
 					</CarouselItem>
 				))}
 			</CarouselContent>
-			<CarouselPrevious className='hidden md:flex' />
-			<CarouselNext className='hidden md:flex' />
+			<CarouselPrevious className="hidden md:flex" />
+			<CarouselNext className="hidden md:flex" />
 		</Carousel>
 	);
 }

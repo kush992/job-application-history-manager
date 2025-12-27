@@ -8,13 +8,7 @@ import { useJourneys } from '@/hooks/useJourneys';
 import { JourneyFormData } from '@/types/schema';
 import { appRoutes } from '@/utils/constants';
 
-import {
-	Breadcrumb,
-	BreadcrumbLink,
-	BreadcrumbList,
-	BreadcrumbPage,
-	BreadcrumbSeparator,
-} from '../ui/breadcrumb';
+import { Breadcrumb, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
 
 export default function AddJourney() {
 	const { createJourney, isLoading, error } = useJourneys();

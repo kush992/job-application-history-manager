@@ -41,12 +41,7 @@ export function Sidebar({ className }: SidebarProps) {
 			</Button>
 
 			{/* Mobile Overlay */}
-			{isOpen && (
-				<div
-					className="fixed inset-0 bg-black/50 z-40 md:hidden"
-					onClick={() => setIsOpen(false)}
-				/>
-			)}
+			{isOpen && <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setIsOpen(false)} />}
 
 			{/* Sidebar */}
 			<aside
@@ -84,4 +79,3 @@ export function Sidebar({ className }: SidebarProps) {
 		</>
 	);
 }
-
