@@ -16,18 +16,18 @@ export default function PrivacyPolicyView() {
 						At JobJourney, we prioritize your privacy and are committed to protecting your personal
 						information. This Privacy Policy describes how we collect, use, and secure your data.
 					</p>
-					<Accordion type="single" collapsible className="w-full">
+					<Accordion type="multiple" className="w-full">
 						<AccordionItem value="item-1">
 							<AccordionTrigger>1. Information Collection</AccordionTrigger>
 							<AccordionContent>
 								<p className="mb-2">We collect information that you provide when you:</p>
-								<ul className="list-disc list-inside mb-4">
+								<ul className="list-disc list-inside mb-4 text-muted-foreground">
 									<li>Register and create an account</li>
 									<li>Add job application details, files, and notes</li>
 									<li>Use the interview questions feature</li>
 								</ul>
 								<p className="mb-2">Types of information include:</p>
-								<ul className="list-disc list-inside">
+								<ul className="list-disc list-inside text-muted-foreground">
 									<li>
 										<strong>Personal Information:</strong> Name, email address, and login details
 										used for authentication
@@ -47,7 +47,7 @@ export default function PrivacyPolicyView() {
 							<AccordionTrigger>2. Information Use</AccordionTrigger>
 							<AccordionContent>
 								<p className="mb-2">We use your data for:</p>
-								<ul className="list-disc list-inside">
+								<ul className="list-disc list-inside text-muted-foreground">
 									<li>
 										<strong>Account Management:</strong> To set up and manage your account,
 										including authentication and access to features
@@ -67,7 +67,7 @@ export default function PrivacyPolicyView() {
 							<AccordionTrigger>3. Data Sharing and Disclosure</AccordionTrigger>
 							<AccordionContent>
 								<p>Your personal data is not shared with third parties without your consent, except:</p>
-								<ul className="list-disc list-inside">
+								<ul className="list-disc list-inside text-muted-foreground">
 									<li>If required by law or to protect our rights</li>
 									<li>For analytics purposes (anonymized data only)</li>
 								</ul>
@@ -79,7 +79,7 @@ export default function PrivacyPolicyView() {
 								<p>
 									We implement industry-standard security practices to protect your data, including:
 								</p>
-								<ul className="list-disc list-inside">
+								<ul className="list-disc list-inside text-muted-foreground">
 									<li>Secure storage of files and application data</li>
 									<li>Encryption of sensitive data during transmission</li>
 									<li>Limited access by authorized personnel only</li>
