@@ -172,6 +172,22 @@ export interface Statistics {
 	aud_salary_count: number;
 }
 
+export interface StatisticsTimeEntry {
+	id: string;
+	user_id: string;
+	journey_id: string;
+	year: number;
+	month: number;
+	applications_count: number;
+	created_at: string;
+	updated_at: string;
+}
+
+// Enhanced statistics payload returned by the API: main statistics plus time-series rows
+export interface StatisticsWithTime extends Statistics {
+	applications_time?: StatisticsTimeEntry[];
+}
+
 export interface JourneyStatistics {
 	journey_id: string;
 	user_id: string;

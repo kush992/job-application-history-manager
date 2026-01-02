@@ -38,6 +38,15 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 			.eq('journey_id', journeyId)
 			.single();
 
+		// Fetch time-series data from statistics_applications_time (if present)
+		const { data: applications_time, error: timeError } = await supabase
+			.from('statistics_applications_time')
+			.select()
+			.eq('user_id', user.id)
+			.eq('journey_id', journeyId)
+			.order('year', { ascending: true })
+			.order('month', { ascending: true });
+
 		if (error) {
 			logger.error({ request, userId: user.id, message: 'Supabase error fetching statistics', error });
 
@@ -54,11 +63,22 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 			);
 		}
 
+		if (timeError) {
+			logger.warn({ request, userId: user.id, message: 'Supabase warning fetching statistics_applications_time', timeError });
+			// We don't fail the whole request if time-series isn't available; just omit it
+		}
+
 		if (!statistics) {
 			return NextResponse.json({ error: 'Statistics not found' }, { status: 404 });
 		}
 
-		return NextResponse.json(statistics, { status: 200 });
+		// Combine the main statistics with optional time-series data
+		const payload = {
+			...statistics,
+			applications_time: applications_time ?? [],
+		};
+
+		return NextResponse.json(payload, { status: 200 });
 	} catch (error) {
 		logger.error({ request, message: 'Statistics fetch error', error });
 		return NextResponse.json(
