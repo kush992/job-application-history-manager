@@ -13,15 +13,16 @@ import { Button } from '@/components/ui/button';
 
 type Props = {
 	buttonName: string;
+	buttonVariant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
 	icon?: React.ReactNode;
 	onClickContinue: (params?: unknown) => void;
 };
 
-export function AlertDialogCustom({ buttonName, icon, onClickContinue }: Props) {
+export function AlertDialogCustom({ buttonName, buttonVariant, icon, onClickContinue }: Props) {
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<Button variant="ghost" className="w-full justify-start gap-1">
+				<Button variant={buttonVariant ?? 'ghost'} className="w-full justify-start gap-1">
 					{icon} {buttonName}
 				</Button>
 			</AlertDialogTrigger>

@@ -1,22 +1,12 @@
 'use client';
 
 import DOMPurify from 'dompurify';
-import { Pencil, ThumbsUp, Trash2 } from 'lucide-react';
+import { Pencil, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import { AlertDialogCustom } from '@/components/ui/alert-dialog-custom';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -187,39 +177,32 @@ const InterviewExperienceDetailView: React.FC<Props> = ({ experienceId }) => {
 					/>
 
 					<div className="flex items-center justify-between pt-4 border-t">
-						<Button variant="outline" size="sm" onClick={handleUpvote} className="flex items-center gap-2">
-							<ThumbsUp className="h-4 w-4" />
-							<span>{likesCount}</span>
-						</Button>
-						<div className="flex items-center gap-2">
-							<Link href={appRoutes.editInterviewExperience(experienceId)}>
-								<Button variant="outline" size="sm" className="flex items-center gap-2">
-									<Pencil className="h-4 w-4" />
-									Edit
-								</Button>
-							</Link>
-							<AlertDialog>
-								<AlertDialogTrigger asChild>
-									<Button variant="destructive" size="sm" className="flex items-center gap-2">
-										<Trash2 className="h-4 w-4" />
-										Delete
+						{user?.id !== interviewExperience.user_id && (
+							<Button
+								variant="outline"
+								size="sm"
+								onClick={handleUpvote}
+								className="flex items-center gap-2"
+							>
+								<ThumbsUp className="h-4 w-4" />
+								<span>{likesCount}</span>
+							</Button>
+						)}
+						{user?.id === interviewExperience.user_id && (
+							<div className="flex items-center gap-2">
+								<Link href={appRoutes.editInterviewExperience(experienceId)}>
+									<Button variant="outline" size="sm" className="flex items-center gap-2">
+										<Pencil className="h-4 w-4" />
+										Edit
 									</Button>
-								</AlertDialogTrigger>
-								<AlertDialogContent>
-									<AlertDialogHeader>
-										<AlertDialogTitle>Are you sure?</AlertDialogTitle>
-										<AlertDialogDescription>
-											This action cannot be undone. This will permanently delete your interview
-											experience.
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel>Cancel</AlertDialogCancel>
-										<AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
-									</AlertDialogFooter>
-								</AlertDialogContent>
-							</AlertDialog>
-						</div>
+								</Link>
+								<AlertDialogCustom
+									buttonName="Delete"
+									buttonVariant="destructive"
+									onClickContinue={handleDelete}
+								/>
+							</div>
+						)}
 					</div>
 				</CardContent>
 			</Card>
