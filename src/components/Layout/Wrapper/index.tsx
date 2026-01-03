@@ -34,7 +34,6 @@ export default function Wrapper({
 				<Toaster />
 				<Header user={jsonParseString(user)} />
 				<div className="md:min-h-screen h-full">
-					<div className="bg-gradient-to-b from-secondary to-transparent dark:from-background w-full h-full absolute top-0 left-0 -z-10"></div>
 					{children}
 				</div>
 				<Footer />
