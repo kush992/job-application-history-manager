@@ -57,6 +57,36 @@ const bentoItems = [
 	},
 ];
 
+const timeline = [
+	{
+		icon: Lightbulb,
+		year: 'The Beginning',
+		title: 'A Vision Takes Shape',
+		description:
+			'Founded by Kush Bhalodi with a singular mission: to transform how job seekers track their application journey.',
+	},
+	{
+		icon: Rocket,
+		year: 'The Launch',
+		title: 'JobJourney Goes Live',
+		description:
+			'We launched our platform to eliminate clunky spreadsheets and provide a centralized, user-friendly portal.',
+	},
+	{
+		icon: Heart,
+		year: 'Growing Community',
+		title: 'Building Connections',
+		description: 'Thousands of job seekers joined our community, sharing insights and helping each other succeed.',
+	},
+	{
+		icon: Target,
+		year: 'Today',
+		title: 'Empowering Careers',
+		description:
+			'We continue to innovate, adding AI features and expanding our tools to help you land your dream job.',
+	},
+];
+
 // const HomeView = () => {
 // 	return (
 // 		<>
@@ -195,7 +225,7 @@ const bentoItems = [
 // export default HomeView;
 
 import { motion } from 'framer-motion';
-import { MoveRight } from 'lucide-react';
+import { Heart, Lightbulb, MoveRight, Rocket, Target } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -204,8 +234,9 @@ import BentoGrid from '@/components/ui/BentoGrid/BentoGrid';
 import { Button } from '@/components/ui/button';
 import { FramerAnimatedCounter } from '@/components/ui/framer-animated-counter';
 import { TestimonialCarousel } from '@/components/ui/TestimonialCarousel';
+import { TimelineItem } from '@/components/ui/timeline-item';
 import testimonials from '@/data/testimonials';
-import { fadeUp, stagger } from '@/lib/motion';
+import { fadeUp, sectionStagger, stagger } from '@/lib/motion';
 import { appRoutes } from '@/utils/constants';
 
 const MotionSection = motion.section;
@@ -306,11 +337,11 @@ const HomeView = () => {
 								key={stat.label}
 								variants={fadeUp}
 							>
-								<div className='flex justify-center items-center'>
+								<div className="flex justify-center items-center">
 									<span className="mt-2 text-xl text-muted-foreground">{stat.prefix}</span>
 									<FramerAnimatedCounter to={Number(stat.value)} />
 								</div>
-									<div className="mt-2 text-sm text-muted-foreground">{stat.label}</div>
+								<div className="mt-2 text-sm text-muted-foreground">{stat.label}</div>
 							</motion.div>
 						))}
 					</div>
@@ -321,6 +352,45 @@ const HomeView = () => {
 			<section className="py-16">
 				<div className="container mx-auto px-6">
 					<TestimonialCarousel items={testimonials} />
+				</div>
+			</section>
+
+			<section className="section-padding">
+				<div className="container mx-auto px-4">
+					{/* Header */}
+					<motion.div
+						initial="hidden"
+						whileInView="show"
+						viewport={{ once: true, margin: '-100px' }}
+						variants={sectionStagger}
+						className="text-center mb-16"
+					>
+						<motion.span
+							variants={fadeUp}
+							className="inline-flex items-center px-4 py-1.5 rounded-full bg-accent text-primary text-sm font-medium mb-4"
+						>
+							Our Story
+						</motion.span>
+
+						<motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-foreground">
+							The JobJourney Timeline
+						</motion.h2>
+					</motion.div>
+
+					{/* Timeline */}
+					<motion.div
+						initial="hidden"
+						whileInView="show"
+						viewport={{ once: true, margin: '-80px' }}
+						variants={sectionStagger}
+						className="max-w-2xl mx-auto"
+					>
+						{timeline.map((item, index) => (
+							<motion.div key={item.title} variants={fadeUp}>
+								<TimelineItem {...item} index={index} isLast={index === timeline.length - 1} />
+							</motion.div>
+						))}
+					</motion.div>
 				</div>
 			</section>
 
