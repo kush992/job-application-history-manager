@@ -1,13 +1,16 @@
-import React from 'react';
+'use client';
+
+import { motion } from 'framer-motion';
+
+import { fadeUp } from '@/lib/motion';
 
 import BentoTile, { BentoItem } from './BentoTile';
 
 type Props = {
-	items: BentoItem[]; // expect 7 items in order
+	items: BentoItem[];
 };
 
 export default function BentoGrid({ items }: Props) {
-	// Fallback: pad items to at least 7 with empty placeholders
 	const padded = [...items];
 	//   while (padded.length < 7) padded.push({ id: `empty-${padded.length}`, title: '', desc: '', image: '' });
 	// Split into three sequential chunks
@@ -19,13 +22,31 @@ export default function BentoGrid({ items }: Props) {
 	];
 
 	return (
-		<div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+		<div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 			{cols.map((col, i) => (
-				<div key={i} className="flex flex-col gap-6 h-full">
+				<motion.div
+					variants={{
+						hidden: { opacity: 0, y: 50, transition: { delay: i * 0.2 } },
+						show: { opacity: 1, y: 0, transition: { delay: i * 0.2 } },
+					}}
+					initial="hidden"
+					whileInView="show"
+					viewport={{ once: true }}
+					key={i}
+					className="flex flex-col gap-6 h-full"
+				>
 					{col.map((it) => (
-						<BentoTile key={it.id} item={it} />
+						<motion.div
+							key={it.id}
+							variants={fadeUp}
+							initial="hidden"
+							whileInView="show"
+							viewport={{ once: true }}
+						>
+							<BentoTile item={it} />
+						</motion.div>
 					))}
-				</div>
+				</motion.div>
 			))}
 		</div>
 	);
