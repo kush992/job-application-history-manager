@@ -44,13 +44,16 @@ const Footer = () => {
 
 			<Separator className="my-4" />
 
-			<div className="flex items-center w-full mt-4">
+			<div className="flex flex-col gap-2 items-center w-full mt-4">
 				<span className="text-sm text-muted-foreground text-center w-full">
-					© 2025{' '}
+					© {new Date().getFullYear()} JobJourney. All Rights Reserved.
+				</span>
+
+				<span className="text-xs text-muted-foreground text-center w-full">
+					Developed by{' '}
 					<a href="https://kushbhalodi.com" target="_blank" className="hover:underline">
 						KushBhalodi™
 					</a>
-					. All Rights Reserved.
 				</span>
 			</div>
 		</footer>
