@@ -87,6 +87,25 @@ const timeline = [
 	},
 ];
 
+const howItWorks = [
+	{
+		title: 'Create Your Journey',
+		description: 'Sign up and set up your job application journey with personalized goals and milestones.',
+		tip: 'Tip: Define clear objectives to stay focused and motivated throughout your job search.',
+	},
+	{
+		title: 'Track Applications',
+		description: 'Add job applications, update statuses, and log interview experiences all in one place.',
+		tip: 'Tip: Add documents to the application to keep all relevant information organized. Regularly update your application statuses to keep your journey organized and on track.',
+	},
+	{
+		title: 'Analyze & Optimize',
+		description:
+			'Leverage data insights to refine your job search strategy and improve your application success rate.',
+		tip: 'Tip: Regularly review your application data to identify trends and areas for improvement.',
+	},
+];
+
 // const HomeView = () => {
 // 	return (
 // 		<>
@@ -230,6 +249,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import BentoGrid from '@/components/ui/BentoGrid/BentoGrid';
 import { Button } from '@/components/ui/button';
 import { CardContent, CardHeader } from '@/components/ui/card';
@@ -321,6 +341,54 @@ const HomeView = () => {
 				</div>
 			</MotionSection>
 
+			{/* How it works */}
+			<MotionSection
+				initial="hidden"
+				whileInView="show"
+				viewport={{ once: true, margin: '-100px' }}
+				variants={stagger}
+				className="py-24 bg-background"
+			>
+				<div className="container mx-auto px-6 text-center">
+					<motion.span
+						variants={fadeUp}
+						className="inline-flex items-center px-4 py-1.5 rounded-full bg-accent text-primary text-sm font-medium mb-4"
+					>
+						How It Works
+					</motion.span>
+					<motion.h2
+						variants={fadeUp}
+						className="scroll-m-20 text-3xl md:text-4xl font-extrabold tracking-tight text-foreground"
+					>
+						Simple steps to take control of your job application journey
+					</motion.h2>
+
+					<div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3">
+						{howItWorks.map((step, index) => (
+							<motion.div
+								className="flex flex-col gap-4 text-center"
+								initial="hidden"
+								whileInView="show"
+								viewport={{ once: true }}
+								transition={{ delay: index * 0.2, ease: 'easeOut', duration: 0.6 }}
+								key={step.title}
+								variants={fadeUp}
+							>
+								<Badge className="mx-auto rounded-full py-1 w-8 h-8 flex items-center justify-center">
+									{index + 1}
+								</Badge>
+								<h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
+								<p className="text-muted-foreground">{step.description}</p>
+								{step.tip && (
+									<p className="mt-4 text-sm italic text-secondary-foreground">{step.tip}</p>
+								)}
+							</motion.div>
+						))}
+					</div>
+					<motion.div className="mt-12"></motion.div>
+				</div>
+			</MotionSection>
+
 			{/* Stats */}
 			<MotionSection
 				initial="hidden"
@@ -370,7 +438,7 @@ const HomeView = () => {
 			</MotionSection>
 
 			{/* Testimonials */}
-			<section className="py-24">
+			<MotionSection className="py-24">
 				<div className="container mx-auto px-6">
 					<div className="flex flex-col items-center mb-12 text-center">
 						<motion.span
@@ -388,9 +456,9 @@ const HomeView = () => {
 					</div>
 					<TestimonialCarousel items={testimonials} />
 				</div>
-			</section>
+			</MotionSection>
 
-			<section className="bg-background py-24">
+			<MotionSection className="bg-background py-24">
 				<div className="container mx-auto px-4">
 					{/* Header */}
 					<motion.div
@@ -430,7 +498,7 @@ const HomeView = () => {
 						))}
 					</motion.div>
 				</div>
-			</section>
+			</MotionSection>
 
 			{/* CTA */}
 			<MotionSection
