@@ -15,7 +15,7 @@ interface TimelineItemProps {
 export const TimelineItem = ({ icon: Icon, year, title, description, index, isLast = false }: TimelineItemProps) => {
 	return (
 		<motion.div
-			initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+			initial={{ opacity: 0, x: -30 }}
 			whileInView={{ opacity: 1, x: 0 }}
 			viewport={{ once: true, margin: '-50px' }}
 			transition={{ duration: 0.6, delay: index * 0.15 }}

@@ -76,7 +76,7 @@ const timeline = [
 		icon: Heart,
 		year: 'Growing Community',
 		title: 'Building Connections',
-		description: 'Thousands of job seekers joined our community, sharing insights and helping each other succeed.',
+		description: 'Job seekers joined our community, sharing insights and helping each other succeed.',
 	},
 	{
 		icon: Target,
@@ -232,6 +232,7 @@ import React from 'react';
 
 import BentoGrid from '@/components/ui/BentoGrid/BentoGrid';
 import { Button } from '@/components/ui/button';
+import { CardContent, CardHeader } from '@/components/ui/card';
 import { FramerAnimatedCounter } from '@/components/ui/framer-animated-counter';
 import { TestimonialCarousel } from '@/components/ui/TestimonialCarousel';
 import { TimelineItem } from '@/components/ui/timeline-item';
@@ -246,17 +247,22 @@ const HomeView = () => {
 		<>
 			{/* Hero */}
 			<header className="px-6 pt-14 lg:px-8 bg-background">
-				<div className="mx-auto max-w-2xl py-32 sm:py-40">
-					<motion.div initial="hidden" animate="show" variants={stagger} className="text-center">
+				<div className="mx-auto max-w-3xl py-44 sm:py-40">
+					<motion.div
+						initial="hidden"
+						animate="show"
+						variants={stagger}
+						className="flex flex-col justify-center items-center text-center gap-8"
+					>
 						<motion.h1
 							variants={fadeUp}
-							className="scroll-m-20 text-4xl font-extrabold tracking-tight md:text-6xl text-foreground"
+							className="scroll-m-20 text-5xl font-extrabold tracking-tight md:text-7xl text-foreground"
 						>
 							Track Every Job Application <br />
 							<span className="text-muted-foreground">Level Up Your Career</span>
 						</motion.h1>
 
-						<motion.p variants={fadeUp} className="mt-6 leading-7 text-muted-foreground">
+						<motion.p variants={fadeUp} className="text-lg leading-7 text-muted-foreground">
 							JobJourney helps you organize, analyze, and improve your job search with visual insights —
 							so you can focus on what works and land faster.
 						</motion.p>
@@ -273,16 +279,17 @@ const HomeView = () => {
 							</Link>
 						</motion.nav>
 					</motion.div>
-
 					<motion.div
-						initial={{ opacity: 0, y: 40 }}
-						animate={{ opacity: 1, y: 0 }}
+						initial={{ opacity: 0, y: 40, scale: 0.95 }}
+						animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
 						transition={{ delay: 0.4, duration: 0.6 }}
+						whileInView="show"
+						viewport={{ once: true }}
 					>
 						<Image
 							src="https://storage.googleapis.com/job-application-manager/journey_analytics.png"
-							width={600}
-							height={400}
+							width={1000}
+							height={1000}
 							alt="JobJourney dashboard preview"
 							className="hidden md:block mt-12 rounded-xl border shadow-lg mx-auto"
 							priority
@@ -297,10 +304,13 @@ const HomeView = () => {
 				whileInView="show"
 				viewport={{ once: true, margin: '-100px' }}
 				variants={stagger}
-				className="py-20"
+				className="py-24"
 			>
 				<div className="container mx-auto px-6 text-center">
-					<motion.h2 variants={fadeUp} className="text-3xl font-semibold">
+					<motion.h2
+						variants={fadeUp}
+						className="scroll-m-20 text-4xl font-extrabold tracking-tight text-foreground"
+					>
 						Everything You Need to Win the Job
 					</motion.h2>
 					<motion.p variants={fadeUp} className="mt-4 text-muted-foreground">
@@ -317,12 +327,23 @@ const HomeView = () => {
 				whileInView="show"
 				viewport={{ once: true }}
 				variants={stagger}
-				className="py-24"
+				className="py-24 bg-background"
 			>
 				<div className="mx-auto max-w-7xl px-6">
-					<motion.h2 variants={fadeUp} className="text-center text-3xl font-semibold">
-						Trusted by applicants worldwide
-					</motion.h2>
+					<div className="flex flex-col items-center">
+						<motion.span
+							variants={fadeUp}
+							className="inline-flex items-center px-4 py-1.5 rounded-full bg-accent text-primary text-sm font-medium mb-4"
+						>
+							Statistics
+						</motion.span>
+						<motion.h2
+							variants={fadeUp}
+							className="scroll-m-20 text-4xl font-extrabold tracking-tight text-foreground"
+						>
+							Trusted by applicants worldwide
+						</motion.h2>
+					</div>
 
 					<div className="mt-16 grid grid-cols-1 gap-12 text-center lg:grid-cols-3">
 						{[
@@ -349,13 +370,27 @@ const HomeView = () => {
 			</MotionSection>
 
 			{/* Testimonials */}
-			<section className="py-16">
+			<section className="py-24">
 				<div className="container mx-auto px-6">
+					<div className="flex flex-col items-center mb-12 text-center">
+						<motion.span
+							variants={fadeUp}
+							className="inline-flex items-center px-4 py-1.5 rounded-full bg-accent text-primary text-sm font-medium mb-4"
+						>
+							Testimonials
+						</motion.span>
+						<motion.h2
+							variants={fadeUp}
+							className="scroll-m-20 text-4xl font-extrabold tracking-tight text-foreground"
+						>
+							Applicants Love JobJourney
+						</motion.h2>
+					</div>
 					<TestimonialCarousel items={testimonials} />
 				</div>
 			</section>
 
-			<section className="section-padding">
+			<section className="bg-background py-24">
 				<div className="container mx-auto px-4">
 					{/* Header */}
 					<motion.div
@@ -372,7 +407,10 @@ const HomeView = () => {
 							Our Story
 						</motion.span>
 
-						<motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-foreground">
+						<motion.h2
+							variants={fadeUp}
+							className="scroll-m-20 text-4xl font-extrabold tracking-tight text-foreground"
+						>
 							The JobJourney Timeline
 						</motion.h2>
 					</motion.div>
@@ -400,18 +438,25 @@ const HomeView = () => {
 				whileInView={{ opacity: 1, y: 0 }}
 				viewport={{ once: true }}
 				className="py-16 text-center"
+				transition={{ duration: 0.6, delay: 0.15 }}
 			>
 				<div className="container">
-					<h2 className="text-3xl font-bold">Start Tracking Smarter Today</h2>
-					<p className="mt-4 text-muted-foreground">
-						Join candidates who already use JobJourney to get better results in less time.
-					</p>
+					<CardHeader>
+						<h2 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-foreground">
+							Start Tracking Smarter Today
+						</h2>
+						<p className="mt-4 text-muted-foreground">
+							Join candidates who already use JobJourney to get better results in less time.
+						</p>
+					</CardHeader>
 
-					<Link href={appRoutes.application}>
-						<Button size="lg" className="mt-6">
-							Get Started Free
-						</Button>
-					</Link>
+					<CardContent>
+						<Link href={appRoutes.application}>
+							<Button size="lg" className="mt-6">
+								Get Started Free
+							</Button>
+						</Link>
+					</CardContent>
 				</div>
 			</MotionSection>
 		</>

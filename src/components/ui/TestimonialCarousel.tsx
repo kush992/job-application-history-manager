@@ -6,7 +6,7 @@ import * as React from 'react';
 import { useRef } from 'react';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Testimonial } from '@/data/testimonials';
 
 type Props = {
@@ -59,8 +59,8 @@ export function TestimonialCarousel({ items, autoplay, interval }: Props) {
 					</CarouselItem>
 				))}
 			</CarouselContent>
-			<CarouselPrevious className="hidden md:flex" />
-			<CarouselNext className="hidden md:flex" />
+			{/* <CarouselPrevious className="hidden md:flex" /> */}
+			{/* <CarouselNext className="hidden md:flex" /> */}
 		</Carousel>
 	);
 }

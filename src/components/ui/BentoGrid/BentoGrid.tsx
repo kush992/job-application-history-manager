@@ -26,22 +26,24 @@ export default function BentoGrid({ items }: Props) {
 			{cols.map((col, i) => (
 				<motion.div
 					variants={{
-						hidden: { opacity: 0, y: 50, transition: { delay: i * 0.2 } },
-						show: { opacity: 1, y: 0, transition: { delay: i * 0.2 } },
+						hidden: { opacity: 0, y: 50 },
+						show: { opacity: 1, y: 0 },
 					}}
 					initial="hidden"
 					whileInView="show"
 					viewport={{ once: true }}
 					key={i}
 					className="flex flex-col gap-6 h-full"
+					transition={{ duration: 0.6, delay: i * 0.15 }}
 				>
-					{col.map((it) => (
+					{col.map((it, _) => (
 						<motion.div
 							key={it.id}
 							variants={fadeUp}
 							initial="hidden"
 							whileInView="show"
 							viewport={{ once: true }}
+							transition={{ duration: 0.6, delay: _ * 0.15 }}
 						>
 							<BentoTile item={it} />
 						</motion.div>
