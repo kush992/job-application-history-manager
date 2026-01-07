@@ -309,7 +309,7 @@ const HomeView = () => {
 				<div className="container mx-auto px-6 text-center">
 					<motion.h2
 						variants={fadeUp}
-						className="scroll-m-20 text-4xl font-extrabold tracking-tight text-foreground"
+						className="scroll-m-20 text-3xl md:text-4xl font-extrabold tracking-tight text-foreground"
 					>
 						Everything You Need to Win the Job
 					</motion.h2>
@@ -339,7 +339,7 @@ const HomeView = () => {
 						</motion.span>
 						<motion.h2
 							variants={fadeUp}
-							className="scroll-m-20 text-4xl font-extrabold tracking-tight text-foreground"
+							className="scroll-m-20 text-3xl md:text-4xl font-extrabold tracking-tight text-foreground text-center"
 						>
 							Trusted by applicants worldwide
 						</motion.h2>
@@ -381,7 +381,7 @@ const HomeView = () => {
 						</motion.span>
 						<motion.h2
 							variants={fadeUp}
-							className="scroll-m-20 text-4xl font-extrabold tracking-tight text-foreground"
+							className="scroll-m-20 text-3xl md:text-4xl font-extrabold tracking-tight text-foreground"
 						>
 							Applicants Love JobJourney
 						</motion.h2>
@@ -409,7 +409,7 @@ const HomeView = () => {
 
 						<motion.h2
 							variants={fadeUp}
-							className="scroll-m-20 text-4xl font-extrabold tracking-tight text-foreground"
+							className="scroll-m-20 text-3xl md:text-4xl font-extrabold tracking-tight text-foreground"
 						>
 							The JobJourney Timeline
 						</motion.h2>
@@ -442,7 +442,7 @@ const HomeView = () => {
 			>
 				<div className="container">
 					<CardHeader>
-						<h2 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-foreground">
+						<h2 className="scroll-m-20 text-3xl md:text-4xl font-extrabold tracking-tight text-foreground">
 							Start Tracking Smarter Today
 						</h2>
 						<p className="mt-4 text-muted-foreground">
