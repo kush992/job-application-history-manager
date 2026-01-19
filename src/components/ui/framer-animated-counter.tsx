@@ -77,7 +77,7 @@ export function FramerAnimatedCounter({
 				fontVariantNumeric: 'tabular-nums',
 			}}
 		>
-			<motion.span className='text-5xl'>{formatted}</motion.span>
+			<motion.span className="text-5xl">{formatted}</motion.span>
 		</span>
 	);
 }

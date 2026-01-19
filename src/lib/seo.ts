@@ -21,6 +21,13 @@ const defaultKeywords = [
 	'resume tracker',
 	'job search insights',
 	'application dashboard',
+	'job application tracker',
+	'career management',
+	'job search documentation',
+	'interview preparation',
+	'application analytics',
+	'career planning',
+	'job journey',
 ];
 
 interface GenerateMetadataOptions {

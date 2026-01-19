@@ -5,6 +5,10 @@ export const footerLinks = [
 		title: 'About Us',
 		href: appRoutes.aboutUs,
 	},
+	{
+		title: 'How it Works',
+		href: appRoutes.howItWorks,
+	},
 	{ title: 'Pricing', href: appRoutes.pricing },
 	{
 		title: 'Terms of Service',

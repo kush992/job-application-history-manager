@@ -64,7 +64,12 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 		}
 
 		if (timeError) {
-			logger.warn({ request, userId: user.id, message: 'Supabase warning fetching statistics_applications_time', timeError });
+			logger.warn({
+				request,
+				userId: user.id,
+				message: 'Supabase warning fetching statistics_applications_time',
+				timeError,
+			});
 			// We don't fail the whole request if time-series isn't available; just omit it
 		}
 

@@ -33,7 +33,9 @@ export const TimelineItem = ({ icon: Icon, year, title, description, index, isLa
 
 			{/* Content */}
 			<div className="flex-1 pb-12">
-				<Badge variant='secondary' className='text-muted-foreground'>{title}</Badge>
+				<Badge variant="secondary" className="text-muted-foreground">
+					{title}
+				</Badge>
 				<h3 className="text-xl font-display font-semibold text-foreground mb-2">{title}</h3>
 				<p className="text-muted-foreground leading-relaxed">{description}</p>
 			</div>

@@ -20,6 +20,7 @@ export const appRoutes = {
 	contactUs: '/contact',
 	privacyPolicy: '/privacy-policy',
 	termsOfService: '/terms-of-service',
+	howItWorks: '/how-it-works',
 
 	// Auth routes
 	signUp: '/auth/signup',

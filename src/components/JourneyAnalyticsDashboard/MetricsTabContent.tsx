@@ -1,7 +1,7 @@
-import { ArrowDown,ArrowUp, Trophy } from 'lucide-react';
+import { ArrowDown, ArrowUp, Trophy } from 'lucide-react';
 import React, { useMemo } from 'react';
 
-import type { StatisticsTimeEntry,StatisticsWithTime } from '@/types/schema';
+import type { StatisticsTimeEntry, StatisticsWithTime } from '@/types/schema';
 
 import ApplicationFunnelDataChart from './ApplicationFunnelDataChart';
 import ApplicationResponseBreakdownDataChart from './ApplicationResponseBreakdownDataChart';
@@ -25,7 +25,10 @@ const MetricsTabContent: React.FC<Props> = ({ statistics, replyRate, successRate
 
 		// build chart data
 		const chartData = rows.map((r) => ({
-			label: new Date(Date.UTC(r.year, Math.max(0, r.month - 1), 1)).toLocaleString(undefined, { month: 'short', year: 'numeric' }),
+			label: new Date(Date.UTC(r.year, Math.max(0, r.month - 1), 1)).toLocaleString(undefined, {
+				month: 'short',
+				year: 'numeric',
+			}),
 			applications: r.applications_count,
 			_year: r.year,
 			_month: r.month,
@@ -48,11 +51,26 @@ const MetricsTabContent: React.FC<Props> = ({ statistics, replyRate, successRate
 		if (rows.length) {
 			const maxRow = rows.reduce((a, b) => (a.applications_count >= b.applications_count ? a : b));
 			const minRow = rows.reduce((a, b) => (a.applications_count <= b.applications_count ? a : b));
-			mostProductive = { label: new Date(Date.UTC(maxRow.year, Math.max(0, maxRow.month - 1), 1)).toLocaleString(undefined, { month: 'short', year: 'numeric' }), count: maxRow.applications_count };
-			leastProductive = { label: new Date(Date.UTC(minRow.year, Math.max(0, minRow.month - 1), 1)).toLocaleString(undefined, { month: 'short', year: 'numeric' }), count: minRow.applications_count };
+			mostProductive = {
+				label: new Date(Date.UTC(maxRow.year, Math.max(0, maxRow.month - 1), 1)).toLocaleString(undefined, {
+					month: 'short',
+					year: 'numeric',
+				}),
+				count: maxRow.applications_count,
+			};
+			leastProductive = {
+				label: new Date(Date.UTC(minRow.year, Math.max(0, minRow.month - 1), 1)).toLocaleString(undefined, {
+					month: 'short',
+					year: 'numeric',
+				}),
+				count: minRow.applications_count,
+			};
 		}
 
-		return { chartData, summary: { latestYear, prevYear, currentYearTotal, previousYearTotal, mostProductive, leastProductive } };
+		return {
+			chartData,
+			summary: { latestYear, prevYear, currentYearTotal, previousYearTotal, mostProductive, leastProductive },
+		};
 	}, [statistics]);
 
 	return (
@@ -71,7 +89,9 @@ const MetricsTabContent: React.FC<Props> = ({ statistics, replyRate, successRate
 							</div>
 							<div className="text-muted-foreground text-sm">Prev</div>
 						</div>
-						<div className="mt-2 text-xs text-secondary-foreground">Total applications in previous year</div>
+						<div className="mt-2 text-xs text-secondary-foreground">
+							Total applications in previous year
+						</div>
 					</div>
 				</div>
 
@@ -91,8 +111,14 @@ const MetricsTabContent: React.FC<Props> = ({ statistics, replyRate, successRate
 										const pct = Math.round((diff / summary.previousYearTotal) * 100);
 										const isUp = pct >= 0;
 										return (
-											<div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-sm ${isUp ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
-												{isUp ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
+											<div
+												className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-sm ${isUp ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}
+											>
+												{isUp ? (
+													<ArrowUp className="w-4 h-4" />
+												) : (
+													<ArrowDown className="w-4 h-4" />
+												)}
 												<span className="font-medium">{Math.abs(pct)}%</span>
 											</div>
 										);
@@ -116,8 +142,12 @@ const MetricsTabContent: React.FC<Props> = ({ statistics, replyRate, successRate
 									<Trophy className="w-6 h-6 text-emerald-600" />
 								</div>
 								<div>
-									<div className="text-sm font-medium">{summary.mostProductive ? summary.mostProductive.label : 'N/A'}</div>
-									<div className="text-xl font-bold text-emerald-600">{summary.mostProductive ? summary.mostProductive.count : '-'}</div>
+									<div className="text-sm font-medium">
+										{summary.mostProductive ? summary.mostProductive.label : 'N/A'}
+									</div>
+									<div className="text-xl font-bold text-emerald-600">
+										{summary.mostProductive ? summary.mostProductive.count : '-'}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -129,8 +159,12 @@ const MetricsTabContent: React.FC<Props> = ({ statistics, replyRate, successRate
 									<ArrowDown className="w-6 h-6 text-red-600" />
 								</div>
 								<div>
-									<div className="text-sm font-medium">{summary.leastProductive ? summary.leastProductive.label : 'N/A'}</div>
-									<div className="text-xl font-bold text-red-600">{summary.leastProductive ? summary.leastProductive.count : '-'}</div>
+									<div className="text-sm font-medium">
+										{summary.leastProductive ? summary.leastProductive.label : 'N/A'}
+									</div>
+									<div className="text-xl font-bold text-red-600">
+										{summary.leastProductive ? summary.leastProductive.count : '-'}
+									</div>
 								</div>
 							</div>
 						</div>

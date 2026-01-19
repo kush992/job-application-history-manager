@@ -19,31 +19,33 @@ export default function SignUpPage() {
 				<Card className="w-full motion-preset-slide-down-md">
 					<CardHeader className="text-center space-y-1">
 						<CardTitle className="text-2xl font-semibold">Create Account</CardTitle>
-						<CardDescription>Quick and easy signup with your Google account</CardDescription>
+						<CardDescription className="text-sm">
+							Quick and easy signup with your Google account
+						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-6">
 						<GoogleAuthButton mode="signup" />
 
 						{/* Benefits */}
 						<div className="pt-4 space-y-6">
-							<div className="flex items-start gap-3 text-sm">
+							<div className="flex items-center gap-3 text-sm">
 								<Zap className="h-5 w-5 text-blue-600 flex-shrink-0 mt-1" />
-								<div>
-									<p className="font-medium text-foreground">Get Started in Seconds</p>
+								<div className="w-full">
+									<p className="font-semibold text-lg text-foreground">Get Started in Seconds</p>
 									<p className="text-muted-foreground">No forms to fill, no passwords to remember</p>
 								</div>
 							</div>
-							<div className="flex items-start gap-3 text-sm">
+							<div className="flex items-center gap-3 text-sm">
 								<Shield className="h-5 w-5 text-green-600 flex-shrink-0 mt-1" />
-								<div>
-									<p className="font-medium text-foreground">Secure Authentication</p>
+								<div className="w-full">
+									<p className="font-semibold text-lg text-foreground">Secure Authentication</p>
 									<p className="text-muted-foreground">Powered by {"Google's"} security</p>
 								</div>
 							</div>
-							<div className="flex items-start gap-3 text-sm">
+							<div className="flex items-center gap-3 text-sm">
 								<CheckCircle className="h-5 w-5 text-purple-600 flex-shrink-0 mt-1" />
-								<div>
-									<p className="font-medium text-foreground">Verified Email</p>
+								<div className="w-full">
+									<p className="font-semibold text-lg text-foreground">Verified Email</p>
 									<p className="text-muted-foreground">Your email is automatically verified</p>
 								</div>
 							</div>

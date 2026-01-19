@@ -33,9 +33,7 @@ export default function Wrapper({
 				<ReactQueryDevtools initialIsOpen={false} />
 				<Toaster />
 				<Header user={jsonParseString(user)} />
-				<div className="md:min-h-screen h-full">
-					{children}
-				</div>
+				<div className="md:min-h-screen h-full">{children}</div>
 				<Footer />
 			</QueryClientProvider>
 		</ThemeProvider>
